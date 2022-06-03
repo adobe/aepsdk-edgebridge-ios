@@ -1,6 +1,7 @@
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+.DS_Store
 
 ## User settings
 xcuserdata/
@@ -9,8 +10,16 @@ xcuserdata/
 *.xcscmblueprint
 *.xccheckout
 
-## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
-build/
+## Build generated
+DerivedData/
+bin/*
+build/*.xcarchive
+build/*.xcframework
+build/*
+TestApps/*/build
+ci/*
+out/*
+
 DerivedData/
 *.moved-aside
 *.pbxuser
@@ -44,7 +53,7 @@ playground.xcworkspace
 #
 # Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
 # hence it is not needed unless you have added a package configuration file to your project
-# .swiftpm
+.swiftpm
 
 .build/
 
@@ -82,9 +91,10 @@ fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
 
-# Code Injection
-#
-# After new code Injection tools there's a generated folder /iOSInjectionProject
-# https://github.com/johnno1962/injectionforxcode
+## Cocoapods
+Pods/
 
-iOSInjectionProject/
+## Bundler
+.bundle/
+vendor/
+
