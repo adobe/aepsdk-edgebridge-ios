@@ -160,6 +160,9 @@ You can run all the test suites from command line:
 make test
 ~~~
 
+## Documentation
+Find futher documentation in the [Documentation](./Documentation/) folder.
+
 ## Related Projects
 
 | Project                                                      | Description                                                  |
@@ -176,5 +179,4 @@ Contributions are welcomed! Read the [Contributing Guide](./.github/CONTRIBUTING
 
 This project is licensed under the Apache V2 License. See [LICENSE](LICENSE) for more information.
 
-## Continued reading
-Find futher documentation in the [Documentation](./Documentation/) folder.
+
