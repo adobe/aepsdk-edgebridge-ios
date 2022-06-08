@@ -14,11 +14,12 @@ The AEP Edge Bridge mobile extension enables forwarding of Analytics track event
 - Xcode 11.0 (or newer)
 - Swift 5.1 (or newer)
 
-## Installation
+## Add Edge Bridge extension to an application
 
+### Install extension
 These are currently the supported installation options:
 
-### [CocoaPods](https://guides.cocoapods.org/using/using-cocoapods.html)
+#### [CocoaPods](https://guides.cocoapods.org/using/using-cocoapods.html)
 
 ```ruby
 # Podfile
@@ -36,7 +37,7 @@ Replace `YOUR_TARGET_NAME` and then, in the `Podfile` directory, type:
 $ pod install
 ```
 
-### [Swift Package Manager](https://github.com/apple/swift-package-manager)
+#### [Swift Package Manager](https://github.com/apple/swift-package-manager)
 
 To add the AEPEdgeBridge Package to your application, from the Xcode menu select:
 
@@ -59,7 +60,7 @@ targets: [
 ]
 ```
 
-### Binaries
+#### Binaries
 
 To generate an `AEPEdgeBridge.xcframework`, run the following command:
 
@@ -68,6 +69,53 @@ $ make archive
 ```
 
 This generates the xcframework under the `build` folder. Drag and drop all the `.xcframeworks` to your app target in Xcode.
+
+### Import and register extension
+
+#### Swift
+
+```swift
+// AppDelegate.swift
+
+import AEPCore
+import AEPEdge
+import AEPEdgeBridge
+import AEPEdgeIdentity
+
+...
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    MobileCore.registerExtensions([Identity.self, 
+                                   Edge.self, 
+                                   EdgeBridge.self], {
+    MobileCore.configureWith(appId: "yourEnvironmentFileID")
+  })
+  ...
+}
+```
+
+#### Objective-C
+
+```objectivec
+// AppDelegate.h
+@import AEPCore;
+@import AEPEdge;
+@import AEPEdgeBridge;
+@import AEPEdgeIdentity;
+```
+
+```objectivec
+// AppDelegate.m
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [AEPMobileCore registerExtensions:@[AEPMobileEdgeIdentity.class,
+                                        AEPMobileEdge.class,
+                                        AEPMobileEdgeBridge.class] 
+                   completion:^{
+    ...
+  }];
+  [AEPMobileCore configureWithAppId: @"yourEnvironmentFileID"];
+  ...
+}
+```
 
 ## Development
 
