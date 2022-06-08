@@ -27,7 +27,10 @@ use_frameworks!
 
 # for app development, include the following pod
 target 'YOUR_TARGET_NAME' do
+  pod 'AEPCore'
+  pod 'AEPEdge'
 	pod 'AEPEdgeBridge'
+	pod 'AEPEdgeIdentity'
 end
 ```
 
@@ -51,11 +54,17 @@ Alternatively, if your project has a `Package.swift` file, you can add AEPEdgeBr
 
 ```
 dependencies: [
-	.package(url: "https://github.com/adobe/aepsdk-edgebridge-ios.git", .upToNextMajor(from: "1.0.0"))
+	.package(url: "https://github.com/adobe/aepsdk-core-ios.git", .upToNextMajor(from: "3.0.0")),
+	.package(url: "https://github.com/adobe/aepsdk-edge-ios.git", .upToNextMajor(from: "1.0.0")),
+	.package(url: "https://github.com/adobe/aepsdk-edgebridge-ios.git", .upToNextMajor(from: "1.0.0")),
+	.package(url: "https://github.com/adobe/aepsdk-edgeidentity-ios.git", .upToNextMajor(from: "1.0.0")),
 ],
 targets: [
    	.target(name: "YourTarget",
-    		dependencies: ["AEPEdgeBridge"],
+    		dependencies: ["AEPCore", 
+                       "AEPEdge", 
+                       "AEPEdgeBridge",
+                       "AEPEdgeIdentity"],
           	path: "your/path")
 ]
 ```
@@ -69,6 +78,11 @@ $ make archive
 ```
 
 This generates the xcframework under the `build` folder. Drag and drop all the `.xcframeworks` to your app target in Xcode.
+
+Repeat these steps for each of the required depdendencies:
+- [AEPCore](https://github.com/adobe/aepsdk-core-ios#binaries)
+- [AEPEdge](https://github.com/adobe/aepsdk-edge-ios#binaries)
+- [AEPEdgeIdentity](https://github.com/adobe/aepsdk-edgeidentity-ios#binaries)
 
 ### Import and register extension
 
@@ -161,3 +175,6 @@ Contributions are welcomed! Read the [Contributing Guide](./.github/CONTRIBUTING
 ## Licensing
 
 This project is licensed under the Apache V2 License. See [LICENSE](LICENSE) for more information.
+
+## Continued reading
+Find futher documentation in the [Documentation](./Documentation/) folder.
