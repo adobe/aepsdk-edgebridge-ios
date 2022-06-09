@@ -159,7 +159,7 @@ The mapping process may be repeated for additional source data if needed by sele
 > **Note**
 > XDM source fields are automatically mapped if the same field appears in the target schema. For example, the fields _xdm.\_id_ and _xdm.timestamp_ are required fields in a time-series XDM schema and are automatically mapped from the source data to the target schema and do not require a mapping entry.
 
-> **Tip**
+> **Note**
 > The Edge Bridge extension automatically sets an _xdm.eventType_ value of _analytics.track_. However, the value may be changed by adding a new mapping row in Data Prep by setting the **Target Field** to "eventType".
 > ![map eventType](./assets/map-eventtype.png)
 
