@@ -119,7 +119,7 @@ MobileCore.track(state: "hats/sunhat/wide_brim_sunhat_id12345", data: ["product.
     }
   ]
 }
-```json
+```
 
 </p></details>
 
