@@ -125,40 +125,41 @@ MobileCore.track(state: "hats/sunhat/wide_brim_sunhat_id12345", data: ["product.
 
 To capture properties from experience events, extract the JSON object under the **events** array object, as Data Prep requres that the **data** and **xdm** objects are top-level objects in the provided JSON source. If the JSON is valid, a preview schema is displayed in the right-hand panel. Select **Next** to continue.
 
-// TODO insert screenshot of pasted JSON in Select Data page (track state data)
+![select data](./assets/select-data-trackstate.png)
 
 ## Mapping
 From the **Mapping** step, fields from the source data are mapped to the target fields of the XDM schema in Platform.
 
 Select **Add new mapping** to create a new mapping row.
 
-// TODO insert screenshost of adding new mapping
+![add new mapping](./assets/add-new-mapping.png)
 
-Select the source icon (TODO insert source icon), and select the source field from the dialog that appears. Use the **Select** button to continue.
+Select the source icon (![source icon](./assets/source-icon.png)), and select the source field from the dialog that appears. Use the **Select** button to continue.
 
-// TODO insert screenshot of selecting source field
+![source mapping](./assets/source-mapping.png)
 
-Now select the schema icon (TODO insert schema icon), and select the target schema field from the dialog that appears. Use the **Select** button to continue.
+Now select the schema icon (![schema icon](./assets/schema-icon.png)), and select the target schema field from the dialog that appears. Use the **Select** button to continue.
 
-// TODO insert screenshot of selecting target field
+![target mapping](./assets/target-mapping.png)
 
 The mapping page now displays the source to target field mapping. The **Mapping progress** section displays the progress of the total number of source fields mapped.
+> **Warning**
+> Source fields which contain periods need the periods escaped, otherwise the mapping service will interpret the field as nested objects. The source field may be manually edited to escape the periods, as in `data.contextdata.product\.name`.
 
-// TODO insert screenshost of mapping page with progress
+![field mapped](./assets/field-mapped.png)
 
 Continue the above steps to map additional fields to the target schema. It is not required to map all the source fields to the target schema, however any required source fields must be mapped. The **Required fields** counter displays the number of required source fields which are yet to be mapped. Once all the required source fields are mapped, select **Save** to complete the mapping. 
 
-// TODO insert screenshot of completed mapping with 0 required fields
+![mapping complete](./assets/mapping-complete.png)
 
-The mapping process may be repeated for additional source data if needed by selecting the "Add JSON" button.
+The mapping process may be repeated for additional source data if needed by selecting the **Add JSON** button.
 
-// TODO insert screenshot of add json button
-
-// TODO insert screenshot of select data page with track action data
+![select data](./assets/select-data-trackaction.png)
 
 > **Note**
 > XDM source fields are automatically mapped if the same field appears in the target schema. For example, the fields _xdm.\_id_ and _xdm.timestamp_ are required fields in a time-series XDM schema and are automatically mapped from the source data to the target schema and do not require a mapping entry.
-> Additionally, automatically mapped XDM fields cannot be overwritten by a mapping entry. Attempting to map a source field to either _xdm.\_id_ or _xmd.timestamp_ will not change their values.
-> 
 
+> **Tip**
+> The Edge Bridge extension automatically sets an _xdm.eventType_ value of _analytics.track_. However, the value may be changed by adding a new mapping row in Data Prep by setting the **Target Field** to "eventType".
+> ![map eventType](./assets/map-eventtype.png)
 
