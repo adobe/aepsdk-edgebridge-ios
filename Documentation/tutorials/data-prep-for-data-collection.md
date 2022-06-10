@@ -2,17 +2,17 @@
 Data Prep is an Adobe Platform service which maps and transform data to the [Experience Data Model (XDM)](https://experienceleague.adobe.com/docs/experience-platform/xdm/home.html).  Data Prep is configured from a Platform enabled [datastream](https://experienceleague.adobe.com/docs/experience-platform/edge/datastreams/overview.html) to map source data from the Edge Bridge mobile extension to the Platform Edge Network.
 
 > **Note**
-> The following documentation provides a comprehesive overview of the Data Prep capabilities:
+> The following documentation provides a comprehensive overview of the Data Prep capabilities:
 > - [Data Prep overview](https://experienceleague.adobe.com/docs/experience-platform/data-prep/home.html)
 > - [Data Prep mapping functions](https://experienceleague.adobe.com/docs/experience-platform/data-prep/functions.html)
 > - [Handling data formats with Data Prep](https://experienceleague.adobe.com/docs/experience-platform/data-prep/data-handling.html)
-> 
+>
 
-This guide covers how to map data sent from the Edge Bridge within the Data Collection UI. 
+This guide covers how to map data sent from the Edge Bridge within the Data Collection UI.
 
 For a quck overview of the capabilities of Data Prep, watch the following [video](https://experienceleague.adobe.com/docs/platform-learn/data-collection/edge-network/data-prep.html).
 
-## Prerequisits
+## Prerequisites
 Before continuing, create an XDM schema and configure a datastream using the following tutorials. In order to send data to the Edge Network, the datastream must be configured with the Adobe Experience Platform service.
 - [Create a schema](https://experienceleague.adobe.com/docs/platform-learn/implement-mobile-sdk/initial-configuration/create-schema.html)
 - [Createa  datastream](https://experienceleague.adobe.com/docs/platform-learn/implement-mobile-sdk/initial-configuration/create-datastream.html)
@@ -123,43 +123,42 @@ MobileCore.track(state: "hats/sunhat/wide_brim_sunhat_id12345", data: ["product.
 
 </p></details>
 
-To capture properties from experience events, extract the JSON object under the **events** array object, as Data Prep requres that the **data** and **xdm** objects are top-level objects in the provided JSON source. If the JSON is valid, a preview schema is displayed in the right-hand panel. Select **Next** to continue.
+To capture properties from experience events, extract the JSON object under the **events** array object, as Data Prep requires that the **data** and **xdm** objects are top-level objects in the provided JSON source. If the JSON is valid, a preview schema is displayed in the right-hand panel. Select **Next** to continue.
 
-![select data](./assets/select-data-trackstate.png)
+![select data](../assets/select-data-trackstate.png)
 
 ## Mapping
 From the **Mapping** step, fields from the source data are mapped to the target fields of the XDM schema in Platform.
 
 Select **Add new mapping** to create a new mapping row.
 
-![add new mapping](./assets/add-new-mapping.png)
+![add new mapping](../assets/add-new-mapping.png)
 
-Select the source icon (![source icon](./assets/source-icon.png)), and select the source field from the dialog that appears. Use the **Select** button to continue.
+Select the source icon (![source icon](../assets/source-icon.png)), and select the source field from the dialog that appears. Use the **Select** button to continue.
 
-![source mapping](./assets/source-mapping.png)
+![source mapping](../assets/source-mapping.png)
 
-Now select the schema icon (![schema icon](./assets/schema-icon.png)), and select the target schema field from the dialog that appears. Use the **Select** button to continue.
+Now select the schema icon (![schema icon](../assets/schema-icon.png)), and select the target schema field from the dialog that appears. Use the **Select** button to continue.
 
-![target mapping](./assets/target-mapping.png)
+![target mapping](../assets/target-mapping.png)
 
 The mapping page now displays the source to target field mapping. The **Mapping progress** section displays the progress of the total number of source fields mapped.
 > **Warning**
 > Source fields which contain periods need the periods escaped, otherwise the mapping service will interpret the field as nested objects. The source field may be manually edited to escape the periods, as in `data.contextdata.product\.name`.
 
-![field mapped](./assets/field-mapped.png)
+![field mapped](../assets/field-mapped.png)
 
-Continue the above steps to map additional fields to the target schema. It is not required to map all the source fields to the target schema, however any required source fields must be mapped. The **Required fields** counter displays the number of required source fields which are yet to be mapped. Once all the required source fields are mapped, select **Save** to complete the mapping. 
+Continue the above steps to map additional fields to the target schema. It is not required to map all the source fields to the target schema, however any required source fields must be mapped. The **Required fields** counter displays the number of required source fields which are yet to be mapped. Once all the required source fields are mapped, select **Save** to complete the mapping.
 
-![mapping complete](./assets/mapping-complete.png)
+![mapping complete](../assets/mapping-complete.png)
 
 The mapping process may be repeated for additional source data if needed by selecting the **Add JSON** button.
 
-![select data](./assets/select-data-trackaction.png)
+![select data](../assets/select-data-trackaction.png)
 
 > **Note**
 > XDM source fields are automatically mapped if the same field appears in the target schema. For example, the fields _xdm.\_id_ and _xdm.timestamp_ are required fields in a time-series XDM schema and are automatically mapped from the source data to the target schema and do not require a mapping entry.
 
 > **Note**
 > The Edge Bridge extension automatically sets an _xdm.eventType_ value of _analytics.track_. However, the value may be changed by adding a new mapping row in Data Prep by setting the **Target Field** to "eventType".
-> ![map eventType](./assets/map-eventtype.png)
-
+> ![map eventType](../assets/map-eventtype.png)
