@@ -1,5 +1,9 @@
 # Map trackState and trackAction data using Data Prep for Data Collection
-Data Prep is an Adobe Experience Platform service which maps and transform data to the [Experience Data Model (XDM)](https://experienceleague.adobe.com/docs/experience-platform/xdm/home.html).  Data Prep is configured from a Platform enabled [datastream](https://experienceleague.adobe.com/docs/experience-platform/edge/datastreams/overview.html) to map source data from the Edge Bridge mobile extension to the Platform Edge Network.
+Data Prep is an Adobe Experience Platform service which maps and transforms data to the [Experience Data Model (XDM)](https://experienceleague.adobe.com/docs/experience-platform/xdm/home.html).  Data Prep is configured from a Platform enabled [datastream](https://experienceleague.adobe.com/docs/experience-platform/edge/datastreams/overview.html) to map source data from the Edge Bridge mobile extension to the Platform Edge Network.
+
+This guide covers how to map data sent from the Edge Bridge within the Data Collection UI.
+
+For a quick overview of the capabilities of Data Prep, watch the following [video](https://experienceleague.adobe.com/docs/platform-learn/data-collection/edge-network/data-prep.html).
 
 > **Note**
 > The following documentation provides a comprehensive overview of the Data Prep capabilities:
@@ -7,10 +11,6 @@ Data Prep is an Adobe Experience Platform service which maps and transform data 
 > - [Data Prep mapping functions](https://experienceleague.adobe.com/docs/experience-platform/data-prep/functions.html)
 > - [Handling data formats with Data Prep](https://experienceleague.adobe.com/docs/experience-platform/data-prep/data-handling.html)
 >
-
-This guide covers how to map data sent from the Edge Bridge within the Data Collection UI.
-
-For a quck overview of the capabilities of Data Prep, watch the following [video](https://experienceleague.adobe.com/docs/platform-learn/data-collection/edge-network/data-prep.html).
 
 ## Prerequisites
 Before continuing, create an XDM schema and configure a datastream using the following tutorials. In order to send data to the Edge Network, the datastream must be configured with the Adobe Experience Platform service.

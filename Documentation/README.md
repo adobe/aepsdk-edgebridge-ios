@@ -1,4 +1,4 @@
-# AEPEdgeBridge Documentation
+# AEPEdgeBridge documentation
 
 ## Contents
 
