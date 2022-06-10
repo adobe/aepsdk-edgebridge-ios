@@ -61,8 +61,8 @@ dependencies: [
 ],
 targets: [
    	.target(name: "YourTarget",
-    		dependencies: ["AEPCore", 
-                       "AEPEdge", 
+    		dependencies: ["AEPCore",
+                       "AEPEdge",
                        "AEPEdgeBridge",
                        "AEPEdgeIdentity"],
           	path: "your/path")
@@ -98,8 +98,8 @@ import AEPEdgeIdentity
 
 ...
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    MobileCore.registerExtensions([Identity.self, 
-                                   Edge.self, 
+    MobileCore.registerExtensions([Identity.self,
+                                   Edge.self,
                                    EdgeBridge.self], {
     MobileCore.configureWith(appId: "yourEnvironmentFileID")
   })
@@ -122,7 +122,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [AEPMobileCore registerExtensions:@[AEPMobileEdgeIdentity.class,
                                         AEPMobileEdge.class,
-                                        AEPMobileEdgeBridge.class] 
+                                        AEPMobileEdgeBridge.class]
                    completion:^{
     ...
   }];
@@ -161,7 +161,7 @@ make test
 ~~~
 
 ## Documentation
-Find futher documentation in the [Documentation](./Documentation/) folder.
+Find further documentation in the [Documentation](./Documentation/) folder.
 
 ## Related Projects
 
@@ -178,5 +178,3 @@ Contributions are welcomed! Read the [Contributing Guide](./.github/CONTRIBUTING
 ## Licensing
 
 This project is licensed under the Apache V2 License. See [LICENSE](LICENSE) for more information.
-
-
