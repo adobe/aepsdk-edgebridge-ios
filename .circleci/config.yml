@@ -3,6 +3,9 @@
 
 version: 2.1
 
+orbs: 
+  codecov: codecov/codecov@3.2.3
+
 # Workflows orchestrate a set of jobs to be run;
 workflows:
   version: 2
@@ -68,6 +71,9 @@ jobs:
           name: Run Tests
           command: make test
 
+      - codecov/upload:
+          file: ./build/out
+          xtra_args: -v
       # code coverage
       - run:
           name: Upload Code Coverage Report
@@ -82,7 +88,7 @@ jobs:
               shasum -a $i -c --ignore-missing <(curl -s "https://raw.githubusercontent.com/codecov/codecov-bash/${VERSION}/SHA${i}SUM") ||
               shasum -a $i -c <(curl -s "https://raw.githubusercontent.com/codecov/codecov-bash/${VERSION}/SHA${i}SUM" | head -n 1)
             done
-            bash ./codecov -v -X s3 -c --dir "./build/out" -J "AEPEdgeBridge"
+            bash ./codecov -v -X s3 -c -dir "./build/out" -J "AEPEdgeBridge"
 
       # verify XCFramework archive builds
       # ci-archive updates Pods so run this step last
