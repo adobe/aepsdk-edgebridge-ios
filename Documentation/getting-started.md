@@ -2,10 +2,10 @@
 The AEP Edge Bridge mobile extension provides seamless routing of data to the Adobe Experience Platform Edge Network for existing SDK implementations. For applications which already make use of the [MobileCore.trackAction](https://aep-sdks.gitbook.io/docs/foundation-extensions/mobile-core/mobile-core-api-reference#trackaction) and/or [MobileCore.trackState](https://aep-sdks.gitbook.io/docs/foundation-extensions/mobile-core/mobile-core-api-reference#trackstate) APIs to send data to Adobe Analytics, this extension will automatically route those API calls to the Edge Network, making the data available for mapping to a user's XDM schema using the [Data Prep for Data Collection](https://experienceleague.adobe.com/docs/experience-platform/data-prep/home.html).
 
 > **Note**
-> It is recommended to send well formatted XDM data directly from an application using the [Edge.sendEvent](https://aep-sdks.gitbook.io/docs/foundation-extensions/experience-platform-extension/edge-network-api-reference#sendevent) API instead of using the `trackState` and `trackAction` APIs with the Edge Bridge extension. However, in cases where it is not feasable to refactor the application, the Edge Bridge extension is available as a drop-in solution to send `trackState` and `trackAction` data to the Edge Network. 
-> 
->  For new implemetations of the SDK, it it highly recommeneded to send XDM data directly using the [Edge.sendEvent](https://aep-sdks.gitbook.io/docs/foundation-extensions/experience-platform-extension/edge-network-api-reference#sendevent) API.
-> 
+> It is recommended to send well formatted XDM data directly from an application using the [Edge.sendEvent](https://aep-sdks.gitbook.io/docs/foundation-extensions/experience-platform-extension/edge-network-api-reference#sendevent) API instead of using the `trackState` and `trackAction` APIs with the Edge Bridge extension. However, in cases where it is not feasible to refactor the application, the Edge Bridge extension is available as a drop-in solution to send `trackState` and `trackAction` data to the Edge Network.
+>
+>  For new implementations of the SDK, it it highly recommended to send XDM data directly using the [Edge.sendEvent](https://aep-sdks.gitbook.io/docs/foundation-extensions/experience-platform-extension/edge-network-api-reference#sendevent) API.
+>
 
 ## Before starting
 
@@ -18,7 +18,7 @@ The Adobe Experience Platform Edge Bridge extension requires the Adobe Experienc
 ### Download and import the Edge Bridge extension
 
 > **Note**
-> The AEP Edge Bridge extension does not have a corresponding extension in the Data Collection UI. No changes to a Data Collection mobile property is required to use the AEP Edge Bridge extension.
+> The AEP Edge Bridge extension does not have a corresponding extension in the Data Collection UI. No changes to a Data Collection mobile property are required to use the AEP Edge Bridge extension.
 
 ### Install extension
 These are currently the supported installation options:
@@ -33,8 +33,8 @@ use_frameworks!
 target 'YOUR_TARGET_NAME' do
   pod 'AEPCore'
   pod 'AEPEdge'
-	pod 'AEPEdgeBridge'
-	pod 'AEPEdgeIdentity'
+  pod 'AEPEdgeBridge'
+  pod 'AEPEdgeIdentity'
 end
 ```
 
@@ -65,8 +65,8 @@ dependencies: [
 ],
 targets: [
    	.target(name: "YourTarget",
-    		dependencies: ["AEPCore", 
-                       "AEPEdge", 
+    		dependencies: ["AEPCore",
+                       "AEPEdge",
                        "AEPEdgeBridge",
                        "AEPEdgeIdentity"],
           	path: "your/path")
@@ -102,8 +102,8 @@ import AEPEdgeIdentity
 
 ...
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    MobileCore.registerExtensions([Identity.self, 
-                                   Edge.self, 
+    MobileCore.registerExtensions([Identity.self,
+                                   Edge.self,
                                    EdgeBridge.self], {
     MobileCore.configureWith(appId: "yourEnvironmentFileID")
   })
@@ -126,7 +126,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [AEPMobileCore registerExtensions:@[AEPMobileEdgeIdentity.class,
                                         AEPMobileEdge.class,
-                                        AEPMobileEdgeBridge.class] 
+                                        AEPMobileEdgeBridge.class]
                    completion:^{
     ...
   }];

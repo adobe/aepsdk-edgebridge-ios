@@ -1,5 +1,5 @@
 # Data Prep for Data Collection
-Data Prep is an Adobe Platform service which maps and transform data to the [Experience Data Model (XDM)](https://experienceleague.adobe.com/docs/experience-platform/xdm/home.html).  Data Prep is configured from a Platform enabled [datastream](https://experienceleague.adobe.com/docs/experience-platform/edge/datastreams/overview.html) to map source data from the Edge Bridge mobile extension to the Platform Edge Network.
+Data Prep is an Adobe Experience Platform service which maps and transform data to the [Experience Data Model (XDM)](https://experienceleague.adobe.com/docs/experience-platform/xdm/home.html).  Data Prep is configured from a Platform enabled [datastream](https://experienceleague.adobe.com/docs/experience-platform/edge/datastreams/overview.html) to map source data from the Edge Bridge mobile extension to the Platform Edge Network.
 
 > **Note**
 > The following documentation provides a comprehensive overview of the Data Prep capabilities:
@@ -25,15 +25,15 @@ In the following steps, the examples assume the schema configured with the datas
 ## Select data
 While creating a new datastream, select **Save and Add Mapping** to go to the **Select data** step directly.  Alternately, if using an already saved datastream, select **Edit Mapping**. From here, provide a sample JSON object that represents the data layer used in the application as sent from the Edge Bridge mobile extension.
 
-The following are examples of the JSON objects sent from the Edge Bridge mobile extension. The experience event sent from the Edge Bridge extension contains both **xdm** and **data** JSON objects. The **data** object contains the context data passed to the _MobileCore.trackAction()_ and _MobileCore.trackState()_ APIs.
+The following are examples of the JSON objects sent from the Edge Bridge mobile extension. The Experience event sent from the Edge Bridge extension contains both **xdm** and **data** JSON objects. The **data** object contains the context data passed to the _MobileCore.trackAction()_ and _MobileCore.trackState()_ APIs.
 
-The following is an example of an _MobileCore.trackAction_ API call and the resulting JSON experience event sent to the Edge Network. Note the JSON is truncated to show just the relevant data.
+The following is an example of an _MobileCore.trackAction_ API call and the resulting JSON Experience event sent to the Edge Network. Note the JSON is truncated to show just the relevant data.
 ```swift
 MobileCore.track(action: "add_to_cart", data: ["product.id": "12345", "product.add.event": "1", "product.name": "wide_brim_sunhat", "product.units": "1"])
 ```
 
 <details>
-  <summary> Track action experience event  JSON</summary><p>
+  <summary> Track action Experience event JSON</summary><p>
 
 ```json
 {
@@ -76,13 +76,13 @@ MobileCore.track(action: "add_to_cart", data: ["product.id": "12345", "product.a
 </p></details>
 
 
-The following is an example of a _MobileCore.trackState_ API call and the resulting  JSON experience event sent to the Edge Network. Note the JSON is truncated to show just the relevant data.
+The following is an example of a _MobileCore.trackState_ API call and the resulting JSON Experience event sent to the Edge Network. Note the JSON is truncated to show just the relevant data.
 ```swift
 MobileCore.track(state: "hats/sunhat/wide_brim_sunhat_id12345", data: ["product.name": "wide_brim_sunhat", "product.id": "12345", "product.view.event": "1"])
 ```
 
 <details>
-  <summary>Track state experience event JSON</summary><p>
+  <summary>Track state Experience event JSON</summary><p>
 
 ```json
 {
@@ -123,12 +123,12 @@ MobileCore.track(state: "hats/sunhat/wide_brim_sunhat_id12345", data: ["product.
 
 </p></details>
 
-To capture properties from experience events, extract the JSON object under the **events** array object, as Data Prep requires that the **data** and **xdm** objects are top-level objects in the provided JSON source. If the JSON is valid, a preview schema is displayed in the right-hand panel. Select **Next** to continue.
+To capture properties from Experience events, extract the JSON object under the **events** array object, as Data Prep requires that the **data** and **xdm** objects are top-level objects in the provided JSON source. If the JSON is valid, a preview schema is displayed in the right-hand panel. Select **Next** to continue.
 
 ![select data](../assets/select-data-trackstate.png)
 
 ## Mapping
-From the **Mapping** step, fields from the source data are mapped to the target fields of the XDM schema in Platform.
+From the **Mapping** step, fields from the source data are mapped to the target fields of the XDM schema in Experience Platform.
 
 Select **Add new mapping** to create a new mapping row.
 
@@ -157,7 +157,7 @@ The mapping process may be repeated for additional source data if needed by sele
 ![select data](../assets/select-data-trackaction.png)
 
 > **Note**
-> XDM source fields are automatically mapped if the same field appears in the target schema. For example, the fields _xdm.\_id_ and _xdm.timestamp_ are required fields in a time-series XDM schema and are automatically mapped from the source data to the target schema and do not require a mapping entry.
+> XDM source fields are automatically mapped if the same field appears in the target schema. For example, the fields _xdm.\_id_ and _xdm.timestamp_ are required fields in a time-series XDM schema so you will notice they are automatically mapped from the source data to the target schema and do not require a mapping entry.
 
 > **Note**
 > The Edge Bridge extension automatically sets an _xdm.eventType_ value of _analytics.track_. However, the value may be changed by adding a new mapping row in Data Prep by setting the **Target Field** to "eventType".
