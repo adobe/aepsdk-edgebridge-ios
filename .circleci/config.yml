@@ -71,9 +71,13 @@ jobs:
           name: Run Tests
           command: make test
 
+      - run:
+          name: Check test file directory
+          command: ls -al ./build/out
+
       - codecov/upload:
           file: ./build/out
-          xtra_args: -v
+          xtra_args: -v -X s3 -J "AEPEdgeBridge"
       # code coverage
       - run:
           name: Upload Code Coverage Report
