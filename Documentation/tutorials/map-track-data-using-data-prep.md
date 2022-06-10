@@ -1,4 +1,4 @@
-# Data Prep for Data Collection
+# Map trackState and trackAction data using Data Prep for Data Collection
 Data Prep is an Adobe Experience Platform service which maps and transform data to the [Experience Data Model (XDM)](https://experienceleague.adobe.com/docs/experience-platform/xdm/home.html).  Data Prep is configured from a Platform enabled [datastream](https://experienceleague.adobe.com/docs/experience-platform/edge/datastreams/overview.html) to map source data from the Edge Bridge mobile extension to the Platform Edge Network.
 
 > **Note**
