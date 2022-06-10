@@ -82,7 +82,7 @@ jobs:
               shasum -a $i -c --ignore-missing <(curl -s "https://raw.githubusercontent.com/codecov/codecov-bash/${VERSION}/SHA${i}SUM") ||
               shasum -a $i -c <(curl -s "https://raw.githubusercontent.com/codecov/codecov-bash/${VERSION}/SHA${i}SUM" | head -n 1)
             done
-            bash ./codecov -v -X s3 -c --dir "./build/out" -J "AEPEdgeBridge"
+            bash ./codecov -v -X s3 -c -s "./build/out" -J "AEPEdgeBridge"
 
       # verify XCFramework archive builds
       # ci-archive updates Pods so run this step last
