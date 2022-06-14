@@ -39,16 +39,16 @@ struct TrackView: View {
                 // Dispatch an Analytics track action event which is handled by the
                 // Edge Bridge extension which forwards it to the Edge Network.
 
-                let data: [String: Any] = ["btn_click": true, "btn_name": "Track Action"]
-                MobileCore.track(action: "UI Action", data: data)
+                let data: [String: Any] = ["product.id": "12345", "product.add.event": "1", "product.name": "wide_brim_sunhat", "product.units": "1"]
+                MobileCore.track(action: "add_to_cart", data: data)
             }).padding()
 
             Button("Track State", action: {
                 // Dispatch an Analytics track state event which is handled by the
                 // Edge Bridge extension which forwards it to the Edge Network.
 
-                let data: [String: Any] = ["page_name": "State Page"]
-                MobileCore.track(state: "Page View", data: data)
+                let data: [String: Any] = ["product.name": "wide_brim_sunhat", "product.id": "12345", "product.view.event": "1"]
+                MobileCore.track(state: "hats/sunhat/wide_brim_sunhat_id12345", data: data)
             }).padding()
 
             Button("Trigger Consequence", action: {
