@@ -76,7 +76,7 @@ jobs:
           command: ls -al ./build/out
 
       - codecov/upload:
-          file: ./build/out
+          file: ./build/out/Logs/Test/*.xcresult
           xtra_args: -v -X s3 -J "AEPEdgeBridge"
       # code coverage
       - run:
