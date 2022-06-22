@@ -73,26 +73,30 @@ jobs:
 
       - run:
           name: Check test file directory
-          command: ls -al ./build/out
+          command: |
+            ls -al ./build/out;
+            cd build/out/Logs/Test;
+            ls | grep '.xcresult' | head -1 | xargs xcrun xccov view --report --json > test.json;
+
 
       - codecov/upload:
-          file: ./build/out/Logs/Test/*.xcresult
+          file: ./build/out/Logs/Test/*.json
           xtra_args: -v -X s3 -J "AEPEdgeBridge"
       # code coverage
-      - run:
-          name: Upload Code Coverage Report
-          command: |
-            curl -s https://codecov.io/bash > codecov;
-            VERSION=$(grep 'VERSION=\".*\"' codecov | cut -d'"' -f2);
-            SHAVERSION=$(shasum -v);
-            echo "Using CodeCov version '$VERSION'"
-            echo "Using shasum '$SHAVERSION'"
-            for i in 1 256 512
-            do
-              shasum -a $i -c --ignore-missing <(curl -s "https://raw.githubusercontent.com/codecov/codecov-bash/${VERSION}/SHA${i}SUM") ||
-              shasum -a $i -c <(curl -s "https://raw.githubusercontent.com/codecov/codecov-bash/${VERSION}/SHA${i}SUM" | head -n 1)
-            done
-            bash ./codecov -v -X s3 -c -dir "./build/out" -J "AEPEdgeBridge"
+      # - run:
+      #     name: Upload Code Coverage Report
+      #     command: |
+      #       curl -s https://codecov.io/bash > codecov;
+      #       VERSION=$(grep 'VERSION=\".*\"' codecov | cut -d'"' -f2);
+      #       SHAVERSION=$(shasum -v);
+      #       echo "Using CodeCov version '$VERSION'"
+      #       echo "Using shasum '$SHAVERSION'"
+      #       for i in 1 256 512
+      #       do
+      #         shasum -a $i -c --ignore-missing <(curl -s "https://raw.githubusercontent.com/codecov/codecov-bash/${VERSION}/SHA${i}SUM") ||
+      #         shasum -a $i -c <(curl -s "https://raw.githubusercontent.com/codecov/codecov-bash/${VERSION}/SHA${i}SUM" | head -n 1)
+      #       done
+      #       bash ./codecov -v -X s3 -c -dir "./build/out" -J "AEPEdgeBridge"
 
       # verify XCFramework archive builds
       # ci-archive updates Pods so run this step last
