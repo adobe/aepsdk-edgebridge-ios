@@ -74,14 +74,15 @@ jobs:
       - run:
           name: Check test file directory
           command: |
-            ls -al ./build/out;
-            cd build/out/Logs/Test;
-            ls | grep '.xcresult' | head -1 | xargs xcrun xccov view --report --json > test.json;
+            ls -al ./build/out/Logs/Test;
 
-
+      # -v: verbose mode
+      # -X disable something, not sure what s3 is
+      # -J xcode specific, specify packages to build coverage; uploader will only build these packages
+      #
       - codecov/upload:
-          file: ./build/out/Logs/Test/*.json
-          xtra_args: -v -X s3 -J "AEPEdgeBridge"
+          file: ./build/out/Logs/Test/*.xcresult
+          xtra_args: -c -v --xc --xp "./build/out/Logs/Test" -J "AEPEdgeBridge"
       # code coverage
       # - run:
       #     name: Upload Code Coverage Report
