@@ -79,10 +79,10 @@ jobs:
       # -v: verbose mode
       # -X disable something, not sure what s3 is
       # -J xcode specific, specify packages to build coverage; uploader will only build these packages
-      #
+      # try without the exact file specified, and try using the xp flag's location of deriveddata
+      # file: ./build/out/Logs/Test/*.xcresult
       - codecov/upload:
-          file: ./build/out/Logs/Test/*.xcresult
-          xtra_args: -c -v --xc --xp "./build/out/Logs/Test" -J "AEPEdgeBridge"
+          xtra_args: -c -v --xc --xp "./build/out" -J "AEPEdgeBridge"
       # code coverage
       # - run:
       #     name: Upload Code Coverage Report
