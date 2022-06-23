@@ -71,10 +71,10 @@ jobs:
           name: Run Tests
           command: make test
 
-      - run:
-          name: Check test file directory
-          command: |
-            ls -al ./build/out/Logs/Test;
+      # - run:
+      #     name: Check test file directory
+      #     command: |
+      #       ls -al ./build/out/Logs/Test;
 
       # -v: verbose mode
       # -X disable something, not sure what s3 is
