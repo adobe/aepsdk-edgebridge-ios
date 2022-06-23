@@ -82,7 +82,7 @@ jobs:
       # try without the exact file specified, and try using the xp flag's location of deriveddata
       # file: ./build/out/Logs/Test/*.xcresult
       - codecov/upload:
-          xtra_args: -c -v --xc --xp results.xcresult -J "AEPEdgeBridge"
+          xtra_args: -c -v --xc --xp results.xcresult
       # code coverage
       # - run:
       #     name: Upload Code Coverage Report
