@@ -57,6 +57,26 @@ jobs:
           paths:
             - ./Pods
             - ~/.cocoapods
+      
+      # Restore cached Homebrew dependencies
+      - restore_cache:
+          name: Restoring Homebrew cache
+          paths:
+            - /Users/distiller/Library/Caches/Homebrew
+            - /usr/local/Homebrew
+          keys:
+            - v1-homebrew-cache-{{ arch }}
+      
+      - run:
+          name: Homebrew install codecov dependencies
+          command: brew install gpg
+      
+      # Save Homebrew dependencies to cache
+      - save_cache:
+          key: v1-homebrew-cache-{{ arch }}
+          paths:
+            - /Users/distiller/Library/Caches/Homebrew
+            - /usr/local/Homebrew
 
       - run:
           name: Lint Source Code
@@ -79,6 +99,7 @@ jobs:
       # -v: verbose mode
       # -X disable something, not sure what s3 is
       # -J xcode specific, specify packages to build coverage; uploader will only build these packages
+      #  -J "AEPEdgeBridge"
       # try without the exact file specified, and try using the xp flag's location of deriveddata
       # file: ./build/out/Logs/Test/*.xcresult
       - codecov/upload:
