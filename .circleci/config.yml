@@ -64,7 +64,7 @@ jobs:
           paths:
             - /usr/local/Homebrew
           keys:
-            - v2-homebrew-cache-{{ arch }}
+            - v3-homebrew-cache-{{checksum "Brewfile"}}
       
       - run:
           name: Homebrew install codecov dependencies
@@ -72,7 +72,7 @@ jobs:
       
       # Save Homebrew dependencies to cache
       - save_cache:
-          key: v2-homebrew-cache-{{ arch }}
+          key: v3-homebrew-cache-{{checksum "Brewfile"}}
           paths:
             - /usr/local/Homebrew
 
