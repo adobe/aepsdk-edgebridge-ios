@@ -71,7 +71,7 @@ jobs:
           name: Homebrew install codecov dependencies
           command: brew install gpg
       
-      # Save Homebrew dependencies to cache
+      # Save Homebrew dependencies to cache 2
       - save_cache:
           key: v1-homebrew-cache-{{ arch }}
           paths:
