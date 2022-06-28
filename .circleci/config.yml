@@ -62,10 +62,9 @@ jobs:
       - restore_cache:
           name: Restoring Homebrew cache
           paths:
-            - /Users/distiller/Library/Caches/Homebrew
             - /usr/local/Homebrew
           keys:
-            - v1-homebrew-cache-{{ arch }}
+            - v2-homebrew-cache-{{ arch }}
       
       - run:
           name: Homebrew install codecov dependencies
@@ -73,9 +72,8 @@ jobs:
       
       # Save Homebrew dependencies to cache 2
       - save_cache:
-          key: v1-homebrew-cache-{{ arch }}
+          key: v2-homebrew-cache-{{ arch }}
           paths:
-            - /Users/distiller/Library/Caches/Homebrew
             - /usr/local/Homebrew
 
       - run:
