@@ -10,6 +10,8 @@ executors:
   macos-executor:
     macos:
       xcode: 13.0.0 # Specify the Xcode version to use
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
 
 # Workflows orchestrate a set of jobs to be run;
 workflows:
@@ -28,6 +30,8 @@ jobs:
     executor: macos-executor
     steps: 
       - checkout
+      - attach_workspace:
+          at: /usr/local
       - codecov/upload:
           xtra_args: -c -v --xc --xp results.xcresult
 
@@ -38,6 +42,10 @@ jobs:
       - run:
           name: Homebrew install codecov dependencies
           command: brew install gpg
+      - persist_to_workspace:
+          root: /usr/local
+          paths:
+            - Homebrew
 
   build-and-test:
     executor: macos-executor
