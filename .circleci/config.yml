@@ -33,7 +33,7 @@ jobs:
       - attach_workspace:
           at: /usr/local
       - attach_workspace:
-          at: /Users/distiller
+          at: /Users
       - codecov/upload:
           xtra_args: -c -v --xc --xp results.xcresult
 
