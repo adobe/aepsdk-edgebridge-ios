@@ -32,6 +32,8 @@ jobs:
       - checkout
       - attach_workspace:
           at: /usr/local
+      - attach_workspace:
+          at: /Users/distiller
       - codecov/upload:
           xtra_args: -c -v --xc --xp results.xcresult
 
@@ -46,6 +48,10 @@ jobs:
           root: /usr/local
           paths:
             - Homebrew
+      - persist_to_workspace:
+          root: /Users
+          paths:
+            - distiller/Library/Caches/Homebrew
 
   build-and-test:
     executor: macos-executor
