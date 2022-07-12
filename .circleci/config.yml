@@ -19,9 +19,9 @@ workflows:
       - build-and-test
       - setup-codecov-env
       - upload-code-coverage:
-        requires:
-          - build-and-test
-          - setup-codecov-env
+          requires:
+            - build-and-test
+            - setup-codecov-env
 
 jobs:
   upload-code-coverage:
