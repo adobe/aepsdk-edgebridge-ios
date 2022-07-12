@@ -107,4 +107,12 @@ public class EdgeBridge: NSObject, Extension {
         runtime.dispatch(event: xdmEvent)
     }
 
+    // method that starts context data tracking
+        // intercept context data from trackAction/State
+        // store in some in-memory datastore
+    // method that stops context data tracking
+        // also calls output method after tracking finished
+    // method that outputs current context data tracked
+        // arg that performs best guess/effort combination of dictionaries
+        // format is the json that is expected in the edge bridge web ui
 }
