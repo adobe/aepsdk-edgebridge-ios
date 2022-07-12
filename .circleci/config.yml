@@ -6,18 +6,41 @@ version: 2.1
 orbs: 
   codecov: codecov/codecov@3.2.3
 
+executors:
+  macos-executor:
+    macos:
+      xcode: 13.0.0 # Specify the Xcode version to use
+
 # Workflows orchestrate a set of jobs to be run;
 workflows:
   # version: 2
   build-test-deploy:
     jobs:
       - build-and-test
+      - setup-codecov-env
+      - upload-code-coverage:
+        requires:
+          - build-and-test
+          - setup-codecov-env
 
 jobs:
+  upload-code-coverage:
+    executor: macos-executor
+    steps: 
+      - checkout
+      - codecov/upload:
+          xtra_args: -c -v --xc --xp results.xcresult
+
+  setup-codecov-env:
+    executor: macos-executor
+    steps:
+      - checkout
+      - run:
+          name: Homebrew install codecov dependencies
+          command: brew install gpg
 
   build-and-test:
-    macos:
-      xcode: 13.0.0 # Specify the Xcode version to use
+    executor: macos-executor
 
     steps:
       - checkout
@@ -57,24 +80,6 @@ jobs:
           paths:
             - ./Pods
             - ~/.cocoapods
-      
-      # Restore cached Homebrew dependencies
-      - restore_cache:
-          name: Restoring Homebrew cache
-          paths:
-            - /usr/local/Homebrew
-          keys:
-            - v3-homebrew-cache-{{checksum "Brewfile"}}
-      
-      - run:
-          name: Homebrew install codecov dependencies
-          command: brew install gpg
-      
-      # Save Homebrew dependencies to cache
-      - save_cache:
-          key: v3-homebrew-cache-{{checksum "Brewfile"}}
-          paths:
-            - /usr/local/Homebrew
 
       - run:
           name: Lint Source Code
@@ -100,8 +105,10 @@ jobs:
       #  -J "AEPEdgeBridge"
       # try without the exact file specified, and try using the xp flag's location of deriveddata
       # file: ./build/out/Logs/Test/*.xcresult
-      - codecov/upload:
-          xtra_args: -c -v --xc --xp results.xcresult
+
+      # - codecov/upload:
+      #     xtra_args: -c -v --xc --xp results.xcresult
+
       # code coverage
       # - run:
       #     name: Upload Code Coverage Report
