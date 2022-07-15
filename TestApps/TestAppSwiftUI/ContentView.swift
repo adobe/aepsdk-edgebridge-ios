@@ -12,6 +12,7 @@
 
 import AEPCore
 import SwiftUI
+import AEPEdgeBridge
 
 struct ContentView: View {
     var body: some View {
@@ -56,6 +57,18 @@ struct TrackView: View {
                 // an Analytics event when a PII event is dispatched in the SDK.
                 // Without the rule, this button will not forward a track call to the Edge Network.
                 MobileCore.collectPii(["key": "trigger"])
+            }).padding()
+            
+            Button("Start Context Data Capture", action: {
+                EdgeBridge.startContextDataCaptureSession()
+            }).padding()
+            
+            Button("Output Context Data Capture", action: {
+                EdgeBridge.outputCapturedContextData(withMerge: false)
+            }).padding()
+            
+            Button("Stop Context Data Capture", action: {
+                EdgeBridge.stopContextDataCaptureSession()
             }).padding()
         }
     }

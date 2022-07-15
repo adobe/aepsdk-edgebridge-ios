@@ -14,6 +14,24 @@ import AEPCore
 import AEPServices
 import Foundation
 
+
+
+struct TypeResult: CustomStringConvertible, Equatable {
+    static func == (lhs: TypeResult, rhs: TypeResult) -> Bool {
+        if lhs.unwrappedType == rhs.unwrappedType && lhs.isOptional == rhs.isOptional {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    var isOptional: Bool
+    var unwrappedType: Any.Type
+    
+    public var description: String { return "\(unwrappedType)" }
+}
+
 @objc(AEPMobileEdgeBridge)
 public class EdgeBridge: NSObject, Extension {
 
@@ -23,8 +41,8 @@ public class EdgeBridge: NSObject, Extension {
     public let metadata: [String: String]? = nil
     public let runtime: ExtensionRuntime
 
-    private var contextDataStore: [[String:Any]] = []
-    private var isCapturingContextData: Bool = false
+    static private var contextDataStore: [[String:Any]] = []
+    static private var shouldCaptureContextData: Bool = false
     
     public required init?(runtime: ExtensionRuntime) {
         self.runtime = runtime
@@ -54,24 +72,37 @@ public class EdgeBridge: NSObject, Extension {
         // intercept context data from trackAction/State
         // store in some in-memory datastore
     // probably hook into the existing track handling flow, copying the data into a local data store
-    public func startContextDataCaptureSession() {
+    public static func startContextDataCaptureSession() {
+        shouldCaptureContextData = true
         // clear existing data store
         contextDataStore = []
         
     }
     // method that stops context data tracking
         // also calls output method after tracking finished
-    public func stopContextDataCaptureSession() {
-        
+    public static func stopContextDataCaptureSession() {
+        shouldCaptureContextData = false
+        EdgeBridge.outputCapturedContextData(withMerge: false)
     }
     // method that outputs current context data tracked
         // arg that performs best guess/effort combination of dictionaries
         // format is the json that is expected in the edge bridge web ui
-    public func outputCapturedContextData(withMerge: Bool) {
+    public static func outputCapturedContextData(withMerge: Bool) {
         if withMerge {
-            for
+            
+        }
+        for dictionary in EdgeBridge.contextDataStore {
+            for (key, value) in dictionary {
+                print("Key: \(key)")
+                EdgeBridge.checkTypes(valueA: value, valueB: nil)
+            }
         }
         // its not that you have to flatten existing structures, its that you have to apply the same merger alg to nested hierarchies
+        if let jsonData = try? JSONSerialization.data(withJSONObject: EdgeBridge.contextDataStore, options: .prettyPrinted) {
+            print(String(decoding: jsonData, as: UTF8.self))
+        } else {
+            print("json data malformed")
+        }
     }
     
     private func getClassName(value: Any) -> String {
@@ -95,9 +126,70 @@ public class EdgeBridge: NSObject, Extension {
         }
     }
     
+    private static func getClassName(value: Any) -> String {
+        return "\(type(of: value))"
+    }
+    
+    private static func checkTypes(valueA: Any?, valueB: Any?) -> (isValueTypeSame: Bool, typeResultA: TypeResult, typeResultB: TypeResult) {
+        // Reliance on the string conversion of a given type?
+        // for some reason passing the value to a function re-anonymizes the type
+        var typeResultA = TypeResult(isOptional: false, unwrappedType: Any.Type.self)
+        var typeResultB = TypeResult(isOptional: false, unwrappedType: Any.Type.self)
+        
+        // Value A
+        print(getClassName(value: valueA))
+        if let valueA = valueA {
+            // Optional type unwrapping
+            if let optional = valueA as? OptionalProtocol {
+                print(optional.wrappedType())
+                typeResultA.unwrappedType = optional.wrappedType()
+                typeResultA.isOptional = true
+            }
+            // Non-optional type
+            else {
+                typeResultA.unwrappedType = type(of: valueA)
+            }
+        }
+        else {
+            if let optional = valueA as? OptionalProtocol {
+                print(optional.wrappedType())
+                typeResultA.unwrappedType = optional.wrappedType()
+                typeResultA.isOptional = true
+            }
+        }
+        
+        
+        // Value B
+        print(getClassName(value: valueB))
+        if let valueB = valueB {
+            if let optional = valueB as? OptionalProtocol {
+                print(optional.wrappedType())
+                typeResultB.unwrappedType = optional.wrappedType()
+                typeResultB.isOptional = true
+            }
+            else {
+                typeResultB.unwrappedType = type(of: valueB)
+            }
+        }
+        else {
+            if let optional = valueB as? OptionalProtocol {
+                print(optional.wrappedType())
+                typeResultB.unwrappedType = optional.wrappedType()
+                typeResultB.isOptional = true
+            }
+        }
+        
+        print("typeA: \(typeResultA)")
+        print("typeB: \(typeResultB)")
+        print("typeA == typeB: \(typeResultA == typeResultB)")
+        // what were the keys, what value were they tied to
+        // keys value types mismatched or optional vs nonoptional
+        return (isValueTypeSame: typeResultA == typeResultB, typeResultA: typeResultA, typeResultB: typeResultB)
+    }
+    
     private func handleCaptureContextData(data: [String:Any]) {
         // add to existing list
-        contextDataStore.append(data)
+        EdgeBridge.contextDataStore.append(data)
     }
     
     /// Handles generic Analytics track events coming from the public APIs.
@@ -158,6 +250,18 @@ public class EdgeBridge: NSObject, Extension {
                              data: xdmEventData)
 
         runtime.dispatch(event: xdmEvent)
-        handleCaptureContextData(data: data)
+        if EdgeBridge.shouldCaptureContextData {
+            handleCaptureContextData(data: data)
+        }
+    }
+}
+
+fileprivate protocol OptionalProtocol {
+    func wrappedType() -> Any.Type
+}
+
+extension Optional : OptionalProtocol {
+    func wrappedType() -> Any.Type {
+        return Wrapped.self
     }
 }
