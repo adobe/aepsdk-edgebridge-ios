@@ -6,7 +6,7 @@ version: 2.1
 orbs: 
   codecov: codecov/codecov@3.2.3
 
-# Workflows orchestrate a set of jobs to be run;
+# Workflows orchestrate a set of jobs to be run
 workflows:
   version: 2
   build-test-deploy:
