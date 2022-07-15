@@ -6,16 +6,8 @@ version: 2.1
 orbs: 
   codecov: codecov/codecov@3.2.3
 
-executors:
-  macos-executor:
-    macos:
-      xcode: 13.0.0 # Specify the Xcode version to use
-    environment:
-      HOMEBREW_NO_AUTO_UPDATE: 1
-
 # Workflows orchestrate a set of jobs to be run;
 workflows:
-  # version: 2
   build-test-deploy:
     jobs:
       - build-and-test
@@ -26,41 +18,9 @@ workflows:
             - setup-codecov-env
 
 jobs:
-  upload-code-coverage:
-    executor: macos-executor
-    steps: 
-      - checkout
-      - restore_cache:
-          keys:
-            - brew-v1-{{ checksum "Brewfile" }}
-      - codecov/upload:
-          xtra_args: -c -v --xc --xp results.xcresult
-
-  setup-codecov-env:
-    executor: macos-executor
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - brew-v1-{{ checksum "Brewfile" }}
-            
-      - run:
-          name: Homebrew prune cached files older than 30 days
-          command: brew cleanup --prune 30
-          
-      - run:
-          name: Homebrew install codecov dependencies
-          command: brew bundle
-      
-      - save_cache:
-          key: brew-v1-{{ checksum "Brewfile" }}
-          paths:
-            - /Users/distiller/Library/Caches/Homebrew
-            - /usr/local/Homebrew
-            - /usr/local/Cellar
-
   build-and-test:
-    executor: macos-executor
+    macos:
+      xcode: 13.0.0 # Specify the Xcode version to use
 
     steps:
       - checkout
@@ -114,36 +74,10 @@ jobs:
           name: Run Tests
           command: make test
 
-      # - run:
-      #     name: Check test file directory
-      #     command: |
-      #       ls -al ./build/out/Logs/Test;
-
-      # -v: verbose mode
-      # -X disable something, not sure what s3 is
-      # -J xcode specific, specify packages to build coverage; uploader will only build these packages
-      #  -J "AEPEdgeBridge"
-      # try without the exact file specified, and try using the xp flag's location of deriveddata
-      # file: ./build/out/Logs/Test/*.xcresult
-
-      # - codecov/upload:
-      #     xtra_args: -c -v --xc --xp results.xcresult
-
-      # code coverage
-      # - run:
-      #     name: Upload Code Coverage Report
-      #     command: |
-      #       curl -s https://codecov.io/bash > codecov;
-      #       VERSION=$(grep 'VERSION=\".*\"' codecov | cut -d'"' -f2);
-      #       SHAVERSION=$(shasum -v);
-      #       echo "Using CodeCov version '$VERSION'"
-      #       echo "Using shasum '$SHAVERSION'"
-      #       for i in 1 256 512
-      #       do
-      #         shasum -a $i -c --ignore-missing <(curl -s "https://raw.githubusercontent.com/codecov/codecov-bash/${VERSION}/SHA${i}SUM") ||
-      #         shasum -a $i -c <(curl -s "https://raw.githubusercontent.com/codecov/codecov-bash/${VERSION}/SHA${i}SUM" | head -n 1)
-      #       done
-      #       bash ./codecov -v -X s3 -c -dir "./build/out" -J "AEPEdgeBridge"
+      # Code coverage upload using Codecov
+      # See options explanation here: https://docs.codecov.com/docs/codecov-uploader
+      - codecov/upload:
+          xtra_args: -c -v --xc --xp results.xcresult
 
       # verify XCFramework archive builds
       # ci-archive updates Pods so run this step last
