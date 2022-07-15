@@ -30,28 +30,26 @@ jobs:
     executor: macos-executor
     steps: 
       - checkout
-      - attach_workspace:
-          at: /usr/local
-      - attach_workspace:
-          at: /Users
+      - restore_cache:
+          keys:
+            - brew-{{ checksum "Brewfile" }}
       - codecov/upload:
           xtra_args: -c -v --xc --xp results.xcresult
 
   setup-codecov-env:
     executor: macos-executor
     steps:
-      - checkout
+      - restore_cache:
+          keys:
+            - brew-{{ checksum "Brewfile" }}
       - run:
           name: Homebrew install codecov dependencies
           command: brew install gpg
-      - persist_to_workspace:
-          root: /usr/local
+      - save_cache:
+          key: brew-{{ checksum "Brewfile" }}
           paths:
-            - Homebrew
-      - persist_to_workspace:
-          root: /Users
-          paths:
-            - distiller/Library/Caches/Homebrew
+            - /Users/distiller/Library/Caches/Homebrew
+            - /usr/local/Homebrew
 
   build-and-test:
     executor: macos-executor
