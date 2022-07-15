@@ -51,6 +51,7 @@ jobs:
           paths:
             - /Users/distiller/Library/Caches/Homebrew
             - /usr/local/Homebrew
+            - /usr/local/Cellar
 
   build-and-test:
     executor: macos-executor
