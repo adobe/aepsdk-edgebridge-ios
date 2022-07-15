@@ -39,6 +39,7 @@ jobs:
   setup-codecov-env:
     executor: macos-executor
     steps:
+      - checkout
       - restore_cache:
           keys:
             - brew-{{ checksum "Brewfile" }}
