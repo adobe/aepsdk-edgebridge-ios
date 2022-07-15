@@ -1,2 +1,0 @@
-# codecov dependencies
-brew "gpg"
