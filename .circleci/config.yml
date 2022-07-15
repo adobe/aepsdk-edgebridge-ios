@@ -32,7 +32,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - brew-{{ checksum "Brewfile" }}
+            - brew-v1-{{ checksum "Brewfile" }}
       - codecov/upload:
           xtra_args: -c -v --xc --xp results.xcresult
 
@@ -42,12 +42,18 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - brew-{{ checksum "Brewfile" }}
+            - brew-v1-{{ checksum "Brewfile" }}
+            
+      - run:
+          name: Homebrew prune cached files older than 30 days
+          command: brew cleanup --prune 30
+          
       - run:
           name: Homebrew install codecov dependencies
           command: brew bundle
+      
       - save_cache:
-          key: brew-{{ checksum "Brewfile" }}
+          key: brew-v1-{{ checksum "Brewfile" }}
           paths:
             - /Users/distiller/Library/Caches/Homebrew
             - /usr/local/Homebrew
