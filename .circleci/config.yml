@@ -45,7 +45,7 @@ jobs:
             - brew-{{ checksum "Brewfile" }}
       - run:
           name: Homebrew install codecov dependencies
-          command: brew install gpg
+          command: brew bundle
       - save_cache:
           key: brew-{{ checksum "Brewfile" }}
           paths:
