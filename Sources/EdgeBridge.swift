@@ -23,6 +23,9 @@ public class EdgeBridge: NSObject, Extension {
     public let metadata: [String: String]? = nil
     public let runtime: ExtensionRuntime
 
+    private var contextDataStore: [[String:Any]] = []
+    private var isCapturingContextData: Bool = false
+    
     public required init?(runtime: ExtensionRuntime) {
         self.runtime = runtime
         super.init()
@@ -46,7 +49,57 @@ public class EdgeBridge: NSObject, Extension {
     public func readyForEvent(_ event: Event) -> Bool {
         return true
     }
-
+    
+    // method that starts context data tracking
+        // intercept context data from trackAction/State
+        // store in some in-memory datastore
+    // probably hook into the existing track handling flow, copying the data into a local data store
+    public func startContextDataCaptureSession() {
+        // clear existing data store
+        contextDataStore = []
+        
+    }
+    // method that stops context data tracking
+        // also calls output method after tracking finished
+    public func stopContextDataCaptureSession() {
+        
+    }
+    // method that outputs current context data tracked
+        // arg that performs best guess/effort combination of dictionaries
+        // format is the json that is expected in the edge bridge web ui
+    public func outputCapturedContextData(withMerge: Bool) {
+        if withMerge {
+            for
+        }
+        // its not that you have to flatten existing structures, its that you have to apply the same merger alg to nested hierarchies
+    }
+    
+    private func getClassName(value: Any) -> String {
+        return "\(type(of: value))"
+    }
+    private func mergeDictionaries(dictionaryA: [String:Any], dictionaryB: [String:Any]) {
+        // for any two dictionaries, apply the merge algorithm
+        // toggles for merge options:
+        // - case sensitivity
+        // - value type conflicts
+        // keyname : value type class names
+        var valueTypeConflicts: [String:Set<String>] = [:]
+        var keysA = dictionaryA.keys
+        for (key,value) in dictionaryB {
+            keysA.contains(key)
+            
+            if let keyCaseInsensitive = dictionaryA.keys.first(where: { $0.caseInsensitiveCompare(key) == .orderedSame }) {
+                
+            }
+            //
+        }
+    }
+    
+    private func handleCaptureContextData(data: [String:Any]) {
+        // add to existing list
+        contextDataStore.append(data)
+    }
+    
     /// Handles generic Analytics track events coming from the public APIs.
     /// - Parameter event: the generic track request event
     private func handleTrackRequest(_ event: Event) {
@@ -105,14 +158,6 @@ public class EdgeBridge: NSObject, Extension {
                              data: xdmEventData)
 
         runtime.dispatch(event: xdmEvent)
+        handleCaptureContextData(data: data)
     }
-
-    // method that starts context data tracking
-        // intercept context data from trackAction/State
-        // store in some in-memory datastore
-    // method that stops context data tracking
-        // also calls output method after tracking finished
-    // method that outputs current context data tracked
-        // arg that performs best guess/effort combination of dictionaries
-        // format is the json that is expected in the edge bridge web ui
 }
