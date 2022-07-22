@@ -60,11 +60,51 @@ struct TrackView: View {
             }).padding()
             
             Button("Start Context Data Capture", action: {
-                EdgeBridge.startContextDataCaptureSession()
+                EdgeBridge.startContextDataCaptureSession(isKeyMatchCaseInsensitive: false)
+                let optionalBool: Bool? = true
+                let optionalString: String? = "hello"
+                let optionalInt: Int? = 123
+                let data: [String: Any] = [
+                    "product.id": optionalInt,
+                    "PRODUCT.add.event": optionalString,
+                    "key1": "val1",
+                    "key2": "val1",
+                    "key3": "val1",
+                    "pRODuct.name": [
+                        "key1": "value1",
+                        "key2": 2.1
+                    ],
+                    "product.units": "1"]
+                MobileCore.track(action: "custom_test_action1", data: data)
+                
+                let data2: [String: Any] = [
+                    "product.id": 12345,
+                    "product.add.event": 1,
+                    "product.name": [
+                        "key1": "value1",
+                        "key2": 2.1
+                    ],
+                    "product.units": "1"]
+                MobileCore.track(action: "custom_test_action2", data: data2)
             }).padding()
             
             Button("Output Context Data Capture", action: {
-                EdgeBridge.outputCapturedContextData(withMerge: false)
+                let data: [String: Any] = [
+                    "Product.id": 12345,
+                    "PRODUCT.add.event": 1,
+                    "pRODuct.name": [
+                        "key1": "value1",
+                        "key2": 2.1
+                    ],
+                    "product.units": "1"]
+                MobileCore.track(action: "custom_test_action1", data: data)
+                
+                
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    EdgeBridge.outputCapturedContextData(withMerge: true)
+                }
+                
             }).padding()
             
             Button("Stop Context Data Capture", action: {
