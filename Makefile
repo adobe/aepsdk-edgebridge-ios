@@ -53,7 +53,7 @@ test:
 	@echo "######################################################################"
 	@echo "### Testing iOS"
 	@echo "######################################################################"
-	xcodebuild test -workspace $(PROJECT_NAME).xcworkspace -scheme $(PROJECT_NAME) -destination 'platform=iOS Simulator,name=iPhone 8' -derivedDataPath build/out -enableCodeCoverage YES ADB_SKIP_LINT=YES
+	xcodebuild test -workspace $(PROJECT_NAME).xcworkspace -scheme $(PROJECT_NAME) -destination 'platform=iOS Simulator,name=iPhone 8' -derivedDataPath build/outn -resultBundlePath results.xcresult -enableCodeCoverage YES ADB_SKIP_LINT=YES
 
 install-githook:
 	git config core.hooksPath .githooks
