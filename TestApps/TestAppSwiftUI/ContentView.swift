@@ -82,7 +82,8 @@ struct TrackView: View {
                     "product.add.event": 1,
                     "product.name": [
                         "key1": "value1",
-                        "key2": 2.1
+                        "key2": 2.1,
+                        "keyunique": "something"
                     ],
                     "product.units": "1"]
                 MobileCore.track(action: "custom_test_action2", data: data2)

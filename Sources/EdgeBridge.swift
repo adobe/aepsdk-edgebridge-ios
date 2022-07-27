@@ -246,16 +246,56 @@ public class EdgeBridge: NSObject, Extension {
             result.append(contentsOf: rhs)
             return result
         })
-        for (key,value) in dictionaryToMerge {
-            // just replace the value with the one, all value type collisions will be caught by the keysets
-            if !mergeResult.isCaseSensitive {
-                if let foundKey = mergeResult.dictionary.keys.first(where: { $0.caseInsensitiveCompare(key) == .orderedSame }) {
-                    mergeResult.dictionary[foundKey] = nil
-                }
-            }
-            mergeResult.dictionary[key] = value
-        }
+        
+        mergeResult.dictionary = deepMerge(mergeResult.dictionary, dictionaryToMerge, isCaseSensitive: mergeResult.isCaseSensitive)
+//        for (key,value) in dictionaryToMerge {
+//            // just replace the value with the one, all value type collisions will be caught by the keysets
+//            // check for dictionary type first, then merge inner keys
+//            if !mergeResult.isCaseSensitive {
+//                if let foundKey = mergeResult.dictionary.keys.first(where: { $0.caseInsensitiveCompare(key) == .orderedSame }) {
+//                    mergeResult.dictionary[foundKey] = nil
+//                }
+//            }
+//            mergeResult.dictionary[key] = value
+//        }
         return mergeResult
+    }
+    
+    private static func deepMerge(_ d1: [String: Any], _ d2: [String: Any], isCaseSensitive: Bool) -> [String: Any] {
+        var result = d1
+        for (k2, v2) in d2 {
+            var searchKey = k2
+            if !isCaseSensitive {
+                // merge all keys into one entry?
+                // sort into alphabetical order, then flatten?
+                // this should be a very rare case, only simple replacement applied, no deep merge
+                var foundPairs = result.filter({ $0.key.caseInsensitiveCompare(k2) == .orderedSame }).map({ (key: $0.key, value: $0.value) })
+                guard foundPairs.count > 0 else {
+                    result[k2] = v2
+                    continue
+                }
+                foundPairs = foundPairs.sorted(by: { $0.key < $1.key })
+                let lastPair = foundPairs.removeLast()
+                for key in foundPairs.map({ $0.key }) {
+                    result.removeValue(forKey: key)
+                }
+                
+                searchKey = lastPair.key
+            }
+            // Remove d1's case insensitive key first, then replace the value with d2's actual key
+            
+            // Check the value for the key in both dictionaries
+            
+            if let v1 = result[searchKey] as? [String: Any], let v2 = v2 as? [String: Any] {
+                result[k2] = deepMerge(v1, v2, isCaseSensitive: isCaseSensitive)
+            } else {
+                result[k2] = v2
+            }
+            if !isCaseSensitive && searchKey.compare(k2) != .orderedSame {
+                result[searchKey] = nil
+            }
+        }
+        return result
     }
     
     private static func getClassName(value: Any) -> String {
