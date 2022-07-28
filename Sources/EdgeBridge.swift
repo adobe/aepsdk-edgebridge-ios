@@ -15,7 +15,8 @@ import AEPServices
 import Foundation
 
 
-
+/// Type metadata container that keeps track of type information
+/// Supports equality operations, which checks for both `unwrappedType` and `isOptional` equivalence
 fileprivate struct TypeResult: CustomStringConvertible, Equatable {
     static func == (lhs: TypeResult, rhs: TypeResult) -> Bool {
         if lhs.unwrappedType == rhs.unwrappedType && lhs.isOptional == rhs.isOptional {
@@ -25,37 +26,47 @@ fileprivate struct TypeResult: CustomStringConvertible, Equatable {
             return false
         }
     }
+    /// Specifies if value type is Optional or not
     var isOptional: Bool
+    /// The concrete type extracted from the value (can be compared with other TypeResult's `unwrappedType`)
     var unwrappedType: Any.Type
     
     public var description: String { return "\(isOptional ? "Optional " : "")\(unwrappedType)" }
 }
 
+/// Value type metadata container which keeps track of type and merge metadata
 fileprivate struct KeySet {
+    /// The original `Event` which owns this data
     var eventID: UUID
+    /// The unmodified key value which was paired with this value (key values may be modified when using case insensitive merge)
     var originalKeyValue: String
+    /// The TypeResult extracted for the value
     var typeResult: TypeResult
+    /// The hierarchy of keys taken to reach this key value pair within the JSON (helps trace nested JSON objects)
     var keypath: [String]
 }
 
+/// The primary data store for event data merge operations. Keeps track of actual `Event` data body merge result along with
+/// metadata from merge process and merge settings.
+/// Initialized with an `Event` which will become the base of the overall merge
 fileprivate struct MergeResult {
-    
+    /// The merge setting for whether or not key comparisons should be performed using case sensitivity or not
     let isCaseSensitive: Bool
-    // the ids of the dictionaries that were merged to arrive at this result, appended in the order they were merged
+    /// The array of `Event` IDs appended in merge order that were used to arrive at the final merge result
     var ids: [UUID]
-    // the dictionary that stores the result of the merge
+    /// The result of the merge process for the given `Event`s
     var dictionary: [String:Any]
-    // Mapping of key to KeySet (hierarhcy doesnt matter since it is covered by grouping by keypath)
+    /// The flat mapping of keys to the KeySet value type metadata
+    /// Keys are set in case sensitive or insensitive format depending on merge setting (original key value can be obtained from KeySet struct)
     var keySet: [String:[KeySet]]
     
+    /// Initializes the MergeResult using an `Event`
     init(event: Event, isCaseSensitive: Bool) {
         self.isCaseSensitive = isCaseSensitive
         self.ids = [event.id]
         self.dictionary = event.data ?? [:]
         self.keySet = EdgeBridge.extractKeySet(dictionary: self.dictionary, eventID: event.id, isCaseSensitive: isCaseSensitive, keypath: [])
     }
-    
-    
 }
 
 @objc(AEPMobileEdgeBridge)
@@ -95,10 +106,7 @@ public class EdgeBridge: NSObject, Extension {
         return true
     }
     
-    // method that starts context data tracking
-        // intercept context data from trackAction/State
-        // store in some in-memory datastore
-    // probably hook into the existing track handling flow, copying the data into a local data store
+    /// Starts context data capture session, hooking into Edge Bridge's dispatch of events
     public static func startContextDataCaptureSession(isKeyMatchCaseInsensitive: Bool) {
         shouldCaptureContextData = true
         self.isKeyMatchCaseInsensitive = isKeyMatchCaseInsensitive
@@ -108,6 +116,7 @@ public class EdgeBridge: NSObject, Extension {
     }
     // method that stops context data tracking
         // also calls output method after tracking finished
+    /// Stops context data capture session, outputting 
     public static func stopContextDataCaptureSession() {
         shouldCaptureContextData = false
         EdgeBridge.outputCapturedContextData(withMerge: false)
@@ -206,14 +215,12 @@ public class EdgeBridge: NSObject, Extension {
         }
         return result
     }
-
+    
+    /// Merges the data body from an event into a `MergeResult`
     private static func mergeEvents(mergeResult: MergeResult, eventToMerge: Event) -> MergeResult {
-        // for any two dictionaries, apply the merge algorithm
-        // toggles for merge options:
-        // - case sensitivity
-        // - value type conflicts
-        // keyname : value type class names
         var mergeResult = mergeResult
+        mergeResult.ids.append(eventToMerge.id)
+        
         let dictionaryToMerge = eventToMerge.data ?? [:]
         
         // Extract type information
@@ -231,11 +238,16 @@ public class EdgeBridge: NSObject, Extension {
     }
     
     /// Merges two dictionaries using case insensitive compare
+    /// - Parameters:
+    ///     - d1: The base dictionary that new records are merged into; that is, matching keys on this side of the merge are replaced
+    ///     - d2: The incoming dictionary that records are sourced from; that is, matching keys on this side of the merge are used
+    ///     - isCaseSensitive: Controls whether or not a case sensitive compare is used in the key matching logic
+    /// - Returns: Dictionary with deep merge applied, using `isCaseSensitive` setting uniformly across merge process
     private static func deepMerge(_ d1: [String: Any], _ d2: [String: Any], isCaseSensitive: Bool) -> [String: Any] {
         var result = d1
         for (k2, v2) in d2 {
             var searchKey = k2
-            // Removes all keys in the result dictionary that match the case insensitive pattern
+            // Removes all keys in the result dictionary that match the case insensitive pattern,
             // except for the last one when ordered alphabetically
             if !isCaseSensitive {
                 // This should be a very rare case, only simple replacement applied, no deep merge
