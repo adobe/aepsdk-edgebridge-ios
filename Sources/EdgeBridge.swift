@@ -80,7 +80,6 @@ public class EdgeBridge: NSObject, Extension {
 
     static var contextDataStore: [Event] = []
     static private var shouldCaptureContextData: Bool = false
-    static private var isKeyMatchCaseInsensitive: Bool = false
     
     public required init?(runtime: ExtensionRuntime) {
         self.runtime = runtime
@@ -106,43 +105,43 @@ public class EdgeBridge: NSObject, Extension {
         return true
     }
     
-    /// Starts context data capture session, hooking into Edge Bridge's dispatch of events
-    public static func startContextDataCaptureSession(isKeyMatchCaseInsensitive: Bool) {
+    /// Starts context data capture session, hooking into Edge Bridge's dispatch of events.
+    public static func startContextDataCaptureSession() {
         shouldCaptureContextData = true
-        self.isKeyMatchCaseInsensitive = isKeyMatchCaseInsensitive
-        // clear existing data store
-        contextDataStore = []
-        
     }
-    // method that stops context data tracking
-        // also calls output method after tracking finished
-    /// Stops context data capture session, outputting 
-    public static func stopContextDataCaptureSession() {
+    
+    /// Stops context data capture session, outputting the merge result using the case sentivity setting applied, and removing captured events from memory.
+    /// - Parameters:
+    ///     - withMerge: Controls if merge logic is applied to captured `Event`s
+    ///     - isMergeCaseSensitive: Controls if merge logic for matching keys uses case sensitive compare or not
+    public static func stopContextDataCaptureSession(withMerge: Bool, isMergeCaseSensitive: Bool) {
         shouldCaptureContextData = false
-        EdgeBridge.outputCapturedContextData(withMerge: false)
+        EdgeBridge.outputCapturedContextData(withMerge: withMerge, isMergeCaseSensitive: isMergeCaseSensitive)
+        contextDataStore.removeAll()
     }
-    // method that outputs current context data tracked
-        // arg that performs best guess/effort combination of dictionaries
-        // format is the json that is expected in the edge bridge web ui
-    public static func outputCapturedContextData(withMerge: Bool) {
+
+    /// Outputs context data that has been captured up to the point the method is called; does not affect capture status.
+    /// - Parameters:
+    ///     - withMerge: Controls if merge logic is applied to captured `Event`s
+    ///     - isMergeCaseSensitive: Controls if merge logic for matching keys uses case sensitive compare or not
+    public static func outputCapturedContextData(withMerge: Bool, isMergeCaseSensitive: Bool) {
         if withMerge {
-            // initialize merge result
-                // nested dictionaries should be sent into same function but with keypath (that is the keymatchset is a flat record)
-                // arrays?? and if things should be compared??
-            // start merging next events into result
             guard let firstEvent = EdgeBridge.contextDataStore.first else {
-                print("No events to merge!")
+                Log.debug(label: EdgeBridgeConstants.LOG_TAG, "No events to merge.")
                 return
             }
-            var mergeResult = MergeResult(event: firstEvent, isCaseSensitive: false)
+            // Initialize merge result using first valid event
+            var mergeResult = MergeResult(event: firstEvent, isCaseSensitive: isMergeCaseSensitive)
+            // Start merging next events into result
             if EdgeBridge.contextDataStore.count > 1 {
                 for i in 1..<EdgeBridge.contextDataStore.count {
                     mergeResult = mergeEvents(mergeResult: mergeResult, eventToMerge: EdgeBridge.contextDataStore[i])
                 }
             }
             print("============== Merge Result =================")
+            print("-------------- Value type merge conflicts --------------")
             for (key, value) in mergeResult.keySet {
-                // for each key, group by keypath
+                // For each key, group by keypath to find actual key conflicts
                 var keysets = value
                 
                 while !keysets.isEmpty {
@@ -150,12 +149,12 @@ public class EdgeBridge: NSObject, Extension {
                     let matchingKeysets = keysets.filter({ $0.keypath == keypath })
                     keysets.removeAll(where: { $0.keypath == keypath })
                     if matchingKeysets.count <= 1 { continue }
-                    // Check matching:
-                    // Original key value
+                    // Check for conflicts in:
+                    // 1. Original key value
                     if !matchingKeysets.allSatisfy({ $0.originalKeyValue == matchingKeysets.first!.originalKeyValue }) {
                         print("Key string mismatch (keypath: \(keypath)): \(matchingKeysets.map({($0.eventID, $0.originalKeyValue)}))")
                     }
-                    // Types and optional status
+                    // 2. Types and Optional status
                     if !matchingKeysets.allSatisfy({ $0.typeResult == matchingKeysets.first!.typeResult }) {
                         print("Value type mismatch (keypath: \(keypath)): \(matchingKeysets.map({($0.eventID, $0.originalKeyValue, $0.typeResult)}))")
                     }
@@ -169,10 +168,9 @@ public class EdgeBridge: NSObject, Extension {
                 print("json data malformed")
             }
         }
-
-        // its not that you have to flatten existing structures, its that you have to apply the same merger alg to nested hierarchies
+        
         print("Number of events captured: \(EdgeBridge.contextDataStore.count)")
-        print("Event IDs: \(EdgeBridge.contextDataStore.map({$0.id}))")
+        print("Event IDs in merged order: \(EdgeBridge.contextDataStore.map({"\($0.id)\n"}))")
         for event in EdgeBridge.contextDataStore {
             print(event.id)
             if let jsonData = try? JSONSerialization.data(withJSONObject: event.data, options: .prettyPrinted) {

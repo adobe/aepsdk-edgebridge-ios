@@ -33,7 +33,8 @@ struct ContentView: View {
 
 struct TrackView: View {
     @State private var pushToken: Data?
-
+    @State private var withMerge: Bool = true
+    @State private var isCaseSensitive: Bool = true
     var body: some View {
         VStack {
             Button("Track Action", action: {
@@ -60,7 +61,7 @@ struct TrackView: View {
             }).padding()
             
             Button("Start Context Data Capture", action: {
-                EdgeBridge.startContextDataCaptureSession(isKeyMatchCaseInsensitive: false)
+                EdgeBridge.startContextDataCaptureSession()
                 let optionalBool: Bool? = true
                 let optionalString: String? = "hello"
                 let optionalInt: Int? = 123
@@ -100,17 +101,18 @@ struct TrackView: View {
                     "product.units": "1"]
                 MobileCore.track(action: "custom_test_action1", data: data)
                 
-                
-                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    EdgeBridge.outputCapturedContextData(withMerge: true)
+                    EdgeBridge.outputCapturedContextData(withMerge: withMerge, isMergeCaseSensitive: isCaseSensitive)
                 }
                 
             }).padding()
             
             Button("Stop Context Data Capture", action: {
-                EdgeBridge.stopContextDataCaptureSession()
+                EdgeBridge.stopContextDataCaptureSession(withMerge: withMerge, isMergeCaseSensitive: isCaseSensitive)
             }).padding()
+            
+            Toggle("With merge", isOn: $withMerge)
+            Toggle("Case sensitive merge", isOn: $isCaseSensitive)
         }
     }
 }
