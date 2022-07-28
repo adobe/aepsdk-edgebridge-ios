@@ -133,13 +133,6 @@ public class EdgeBridge: NSObject, Extension {
             }
             print("============== Merge Result =================")
             for (key, value) in mergeResult.keySet {
-                // TEST: debug output for key and all keysets
-//                print("- - Key: \(key) - -")
-//                for record in value {
-//                    print(record)
-//                }
-                // END TEST: debug output
-                
                 // for each key, group by keypath
                 var keysets = value
                 
@@ -149,24 +142,15 @@ public class EdgeBridge: NSObject, Extension {
                     keysets.removeAll(where: { $0.keypath == keypath })
                     if matchingKeysets.count <= 1 { continue }
                     // Check matching:
-                    // original key value
-                    
+                    // Original key value
                     if !matchingKeysets.allSatisfy({ $0.originalKeyValue == matchingKeysets.first!.originalKeyValue }) {
                         print("Key string mismatch (keypath: \(keypath)): \(matchingKeysets.map({($0.eventID, $0.originalKeyValue)}))")
                     }
-//                    else {
-//                        print("All key values match: \(matchingKeysets.map({($0.eventID, $0.originalKeyValue)}))")
-//                    }
-                    // types and optional status
+                    // Types and optional status
                     if !matchingKeysets.allSatisfy({ $0.typeResult == matchingKeysets.first!.typeResult }) {
                         print("Value type mismatch (keypath: \(keypath)): \(matchingKeysets.map({($0.eventID, $0.originalKeyValue, $0.typeResult)}))")
                     }
-//                    else {
-//                        print("All key value types match: \(matchingKeysets.map({($0.eventID, $0.typeResult)}))")
-//                    }
-                    
                 }
-
             }
             
             print("------------- Merge Dictionary ----------------")
@@ -176,21 +160,12 @@ public class EdgeBridge: NSObject, Extension {
                 print("json data malformed")
             }
         }
-        for event in EdgeBridge.contextDataStore {
-            guard let eventData = event.data else {
-                continue
-            }
-            for (key, value) in eventData {
-//                print("Key: \(key)")
-                EdgeBridge.checkTypes(valueA: value, valueB: nil)
-            }
-        }
+
         // its not that you have to flatten existing structures, its that you have to apply the same merger alg to nested hierarchies
         print("Number of events captured: \(EdgeBridge.contextDataStore.count)")
         print("Event IDs: \(EdgeBridge.contextDataStore.map({$0.id}))")
         for event in EdgeBridge.contextDataStore {
             print(event.id)
-            
             if let jsonData = try? JSONSerialization.data(withJSONObject: event.data, options: .prettyPrinted) {
                 print(String(decoding: jsonData, as: UTF8.self))
             } else {
@@ -200,11 +175,15 @@ public class EdgeBridge: NSObject, Extension {
         
     }
     
+    // Extracts value types from dictionary, keeping track of the hierarchy of keys in the case of nested dictionaries
     // the key in the dictionary is what matching system will be used; that is case sensitivity transform is applied if required; original value is stored in keyset
     fileprivate static func extractKeySet(dictionary: [String:Any], eventID: UUID, isCaseSensitive: Bool, keypath: [String]) -> [String:[KeySet]] {
         var result: [String:[KeySet]] = [:]
         
         for (key, value) in dictionary {
+            // Determine the search key to use based on case sensitive setting
+            // The logic for value type collision here and the dictionary merge being consistent depend on the `.lowercased()` and `.caseInsensitiveCompare()`
+            // returning the same results
             let finalKey = isCaseSensitive ? key : key.lowercased()
             let typeResult = checkType(value: value)
             let keySet = KeySet(eventID: eventID, originalKeyValue: key, typeResult: typeResult, keypath: keypath)
@@ -227,11 +206,7 @@ public class EdgeBridge: NSObject, Extension {
         }
         return result
     }
-    
-    private func getClassName(value: Any) -> String {
-        return "\(type(of: value))"
-    }
-    
+
     private static func mergeEvents(mergeResult: MergeResult, eventToMerge: Event) -> MergeResult {
         // for any two dictionaries, apply the merge algorithm
         // toggles for merge options:
@@ -240,6 +215,8 @@ public class EdgeBridge: NSObject, Extension {
         // keyname : value type class names
         var mergeResult = mergeResult
         let dictionaryToMerge = eventToMerge.data ?? [:]
+        
+        // Extract type information
         let keySetToMerge = extractKeySet(dictionary: dictionaryToMerge, eventID: eventToMerge.id, isCaseSensitive: mergeResult.isCaseSensitive, keypath: [])
         mergeResult.keySet.merge(keySetToMerge, uniquingKeysWith: { lhs, rhs in
             var result = lhs
@@ -247,28 +224,21 @@ public class EdgeBridge: NSObject, Extension {
             return result
         })
         
+        // Merge event data into result
         mergeResult.dictionary = deepMerge(mergeResult.dictionary, dictionaryToMerge, isCaseSensitive: mergeResult.isCaseSensitive)
-//        for (key,value) in dictionaryToMerge {
-//            // just replace the value with the one, all value type collisions will be caught by the keysets
-//            // check for dictionary type first, then merge inner keys
-//            if !mergeResult.isCaseSensitive {
-//                if let foundKey = mergeResult.dictionary.keys.first(where: { $0.caseInsensitiveCompare(key) == .orderedSame }) {
-//                    mergeResult.dictionary[foundKey] = nil
-//                }
-//            }
-//            mergeResult.dictionary[key] = value
-//        }
+
         return mergeResult
     }
     
+    /// Merges two dictionaries using case insensitive compare
     private static func deepMerge(_ d1: [String: Any], _ d2: [String: Any], isCaseSensitive: Bool) -> [String: Any] {
         var result = d1
         for (k2, v2) in d2 {
             var searchKey = k2
+            // Removes all keys in the result dictionary that match the case insensitive pattern
+            // except for the last one when ordered alphabetically
             if !isCaseSensitive {
-                // merge all keys into one entry?
-                // sort into alphabetical order, then flatten?
-                // this should be a very rare case, only simple replacement applied, no deep merge
+                // This should be a very rare case, only simple replacement applied, no deep merge
                 var foundPairs = result.filter({ $0.key.caseInsensitiveCompare(k2) == .orderedSame }).map({ (key: $0.key, value: $0.value) })
                 guard foundPairs.count > 0 else {
                     result[k2] = v2
@@ -282,34 +252,31 @@ public class EdgeBridge: NSObject, Extension {
                 
                 searchKey = lastPair.key
             }
-            // Remove d1's case insensitive key first, then replace the value with d2's actual key
-            
             // Check the value for the key in both dictionaries
-            
             if let v1 = result[searchKey] as? [String: Any], let v2 = v2 as? [String: Any] {
                 result[k2] = deepMerge(v1, v2, isCaseSensitive: isCaseSensitive)
             } else {
                 result[k2] = v2
             }
+            // Remove the original case insensitive search key from the result dictionary, only if it does not match
+            // the incoming key (to avoid duplicates in the result)
             if !isCaseSensitive && searchKey.compare(k2) != .orderedSame {
                 result[searchKey] = nil
             }
         }
         return result
     }
-    
-    private static func getClassName(value: Any) -> String {
-        return "\(type(of: value))"
-    }
-    
+
+    /// Checks single value type, unwrapping anonymous `Any` type; only unwraps one level down
+    /// - Parameters:
+    ///     - value: The value whose type is to be determined
+    /// - Returns: TypeResult - result that holds unwrapped type and if type is optional or not
     private static func checkType(value: Any?) -> TypeResult {
         var typeResult = TypeResult(isOptional: false, unwrappedType: Any.Type.self)
         
-//        print(getClassName(value: value))
         if let value = value {
             // Optional type unwrapping
             if let optional = value as? OptionalProtocol {
-//                print(optional.wrappedType())
                 typeResult.unwrappedType = optional.wrappedType()
                 typeResult.isOptional = true
             }
@@ -321,70 +288,11 @@ public class EdgeBridge: NSObject, Extension {
         // No valid value found; must be optional since value is nil
         else {
             if let optional = value as? OptionalProtocol {
-//                print(optional.wrappedType())
                 typeResult.unwrappedType = optional.wrappedType()
                 typeResult.isOptional = true
             }
         }
         return typeResult
-    }
-    
-    private static func checkTypes(valueA: Any?, valueB: Any?) -> (isValueTypeSame: Bool, typeResultA: TypeResult, typeResultB: TypeResult) {
-        // Reliance on the string conversion of a given type?
-        // for some reason passing the value to a function re-anonymizes the type
-        var typeResultA = TypeResult(isOptional: false, unwrappedType: Any.Type.self)
-        var typeResultB = TypeResult(isOptional: false, unwrappedType: Any.Type.self)
-        
-        // Value A
-//        print(getClassName(value: valueA))
-        if let valueA = valueA {
-            // Optional type unwrapping
-            if let optional = valueA as? OptionalProtocol {
-//                print(optional.wrappedType())
-                typeResultA.unwrappedType = optional.wrappedType()
-                typeResultA.isOptional = true
-            }
-            // Non-optional type
-            else {
-                typeResultA.unwrappedType = type(of: valueA)
-            }
-        }
-        // No valid value found; must be optional since value is nil
-        else {
-            if let optional = valueA as? OptionalProtocol {
-//                print(optional.wrappedType())
-                typeResultA.unwrappedType = optional.wrappedType()
-                typeResultA.isOptional = true
-            }
-        }
-        
-        
-        // Value B
-//        print(getClassName(value: valueB))
-        if let valueB = valueB {
-            if let optional = valueB as? OptionalProtocol {
-//                print(optional.wrappedType())
-                typeResultB.unwrappedType = optional.wrappedType()
-                typeResultB.isOptional = true
-            }
-            else {
-                typeResultB.unwrappedType = type(of: valueB)
-            }
-        }
-        else {
-            if let optional = valueB as? OptionalProtocol {
-//                print(optional.wrappedType())
-                typeResultB.unwrappedType = optional.wrappedType()
-                typeResultB.isOptional = true
-            }
-        }
-        
-//        print("typeA: \(typeResultA)")
-//        print("typeB: \(typeResultB)")
-//        print("typeA == typeB: \(typeResultA == typeResultB)")
-        // what were the keys, what value were they tied to
-        // keys value types mismatched or optional vs nonoptional
-        return (isValueTypeSame: typeResultA == typeResultB, typeResultA: typeResultA, typeResultB: typeResultB)
     }
     
     private func handleCaptureContextData(event: Event) {
