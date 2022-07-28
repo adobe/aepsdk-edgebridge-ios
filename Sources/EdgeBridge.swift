@@ -165,32 +165,33 @@ public class EdgeBridge: NSObject, Extension {
             if let jsonData = try? JSONSerialization.data(withJSONObject: mergeResult.dictionary, options: .prettyPrinted) {
                 print(String(decoding: jsonData, as: UTF8.self))
             } else {
-                print("json data malformed")
+                Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Invalid JSON data format; unable to print merged data.")
             }
         }
         
         print("Number of events captured: \(EdgeBridge.contextDataStore.count)")
-        print("Event IDs in merged order: \(EdgeBridge.contextDataStore.map({"\($0.id)\n"}))")
+        print("Event IDs in merged order: \(EdgeBridge.contextDataStore.map({ $0.id }))")
         for event in EdgeBridge.contextDataStore {
-            print(event.id)
+            print("Event: \(event.id) - data:")
             if let jsonData = try? JSONSerialization.data(withJSONObject: event.data, options: .prettyPrinted) {
                 print(String(decoding: jsonData, as: UTF8.self))
             } else {
-                print("json data malformed")
+                Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Invalid JSON data format; unable to print event data.")
             }
         }
         
     }
     
-    // Extracts value types from dictionary, keeping track of the hierarchy of keys in the case of nested dictionaries
-    // the key in the dictionary is what matching system will be used; that is case sensitivity transform is applied if required; original value is stored in keyset
+    /// Extracts value types from dictionary, keeping track of the hierarchy of keys in the case of nested dictionaries
+    /// the key in the returned dictionary is based on what matching system will be used; that is, when using case insensitive compare,
+    /// a `.lowercase()` transform is applied. Original key value is stored in keyset
     fileprivate static func extractKeySet(dictionary: [String:Any], eventID: UUID, isCaseSensitive: Bool, keypath: [String]) -> [String:[KeySet]] {
         var result: [String:[KeySet]] = [:]
         
         for (key, value) in dictionary {
             // Determine the search key to use based on case sensitive setting
-            // The logic for value type collision here and the dictionary merge being consistent depend on the `.lowercased()` and `.caseInsensitiveCompare()`
-            // returning the same results
+            // The logic for value type collision here and the dictionary merge being consistent
+            // depends on the `.lowercased()` and `.caseInsensitiveCompare()` being equivalent operations
             let finalKey = isCaseSensitive ? key : key.lowercased()
             let typeResult = checkType(value: value)
             let keySet = KeySet(eventID: eventID, originalKeyValue: key, typeResult: typeResult, keypath: keypath)
