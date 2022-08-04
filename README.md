@@ -162,7 +162,6 @@ make test
 
 ## Documentation
 Find further documentation in the [Documentation](./Documentation/) folder.
-Testing code coverage report generation
 
 ## Related Projects
 
