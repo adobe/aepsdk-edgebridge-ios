@@ -11,8 +11,8 @@
 //
 
 import AEPCore
-import SwiftUI
 import AEPEdgeBridge
+import SwiftUI
 
 struct ContentView: View {
     var body: some View {
@@ -59,7 +59,7 @@ struct TrackView: View {
                 // Without the rule, this button will not forward a track call to the Edge Network.
                 MobileCore.collectPii(["key": "trigger"])
             }).padding()
-            
+
             Button("Start Context Data Capture", action: {
                 EdgeBridge.startContextDataCaptureSession()
                 let optionalBool: Bool? = true
@@ -77,7 +77,7 @@ struct TrackView: View {
                     ],
                     "product.units": "1"]
                 MobileCore.track(action: "custom_test_action1", data: data)
-                
+
                 let data2: [String: Any] = [
                     "product.id": 12345,
                     "product.add.event": 1,
@@ -89,7 +89,7 @@ struct TrackView: View {
                     "product.units": "1"]
                 MobileCore.track(action: "custom_test_action2", data: data2)
             }).padding()
-            
+
             Button("Output Context Data Capture", action: {
                 let data: [String: Any] = [
                     "Product.id": 12345,
@@ -100,17 +100,17 @@ struct TrackView: View {
                     ],
                     "product.units": "1"]
                 MobileCore.track(action: "custom_test_action1", data: data)
-                
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     EdgeBridge.outputCapturedContextData(withMerge: withMerge, isMergeCaseSensitive: isCaseSensitive)
                 }
-                
+
             }).padding()
-            
+
             Button("Stop Context Data Capture", action: {
                 EdgeBridge.stopContextDataCaptureSession(withMerge: withMerge, isMergeCaseSensitive: isCaseSensitive)
             }).padding()
-            
+
             Toggle("With merge", isOn: $withMerge)
             Toggle("Case sensitive merge", isOn: $isCaseSensitive)
         }

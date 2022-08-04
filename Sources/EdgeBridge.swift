@@ -25,7 +25,7 @@ public class EdgeBridge: NSObject, Extension {
 
     private var contextDataCaptureIsActive: Bool = false
     lazy var contextDataCapturer = ContextDataCapturer()
-    
+
     public required init?(runtime: ExtensionRuntime) {
         self.runtime = runtime
         super.init()
@@ -39,11 +39,11 @@ public class EdgeBridge: NSObject, Extension {
         registerListener(type: EventType.rulesEngine,
                          source: EventSource.responseContent,
                          listener: handleRuleEngineResponse)
-        
+
         registerListener(type: EventType.edgeBridge,
                          source: EventSource.startCapture,
                          listener: handleCaptureRequest)
-        
+
         registerListener(type: EventType.edgeBridge,
                          source: EventSource.stopCapture,
                          listener: handleCaptureRequest)
@@ -57,12 +57,12 @@ public class EdgeBridge: NSObject, Extension {
     public func readyForEvent(_ event: Event) -> Bool {
         return true
     }
-    
+
     private func handleCaptureContextData(event: Event) {
         // add to existing list
         contextDataCapturer.addEvent(event: event)
     }
-    
+
     private func handleCaptureRequest(_ event: Event) {
         switch event.source {
         case EventSource.startCapture:
@@ -78,7 +78,7 @@ public class EdgeBridge: NSObject, Extension {
             contextDataCapturer.removeAllEvents()
         }
     }
-    
+
     /// Handles generic Analytics track events coming from the public APIs.
     /// - Parameter event: the generic track request event
     private func handleTrackRequest(_ event: Event) {
@@ -101,7 +101,7 @@ public class EdgeBridge: NSObject, Extension {
             Log.trace(label: EdgeBridgeConstants.LOG_TAG, "Ignoring Rule Engine response event with id '\(event.id.uuidString)': consequence data is missing.")
             return
         }
-        
+
         guard let consequenceType = consequence["type"] as? String, consequenceType == "an" else {
             return
         }

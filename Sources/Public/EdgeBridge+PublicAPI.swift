@@ -26,18 +26,18 @@ public extension EdgeBridge {
 
         MobileCore.dispatch(event: event)
     }
-    
+
     /// Stops context data capture session, outputting the merge result using the case sentivity setting applied, and removing captured events from memory.
     /// - Parameters:
     ///     - withMerge: Controls if merge logic is applied to captured `Event`s
     ///     - isMergeCaseSensitive: Controls if merge logic for matching keys uses case sensitive compare or not
     public static func stopContextDataCaptureSession(withMerge: Bool, isMergeCaseSensitive: Bool) {
         // Dispatch event to edgebridge to signal stop capture of context data
-        let outputOptions: [String:Any] = [
+        let outputOptions: [String: Any] = [
             EdgeBridgeConstants.EventDataKeys.CONTEXT_DATA_OUTPUT_WITH_MERGE: withMerge,
             EdgeBridgeConstants.EventDataKeys.CONTEXT_DATA_MERGE_IS_CASE_SENSITIVE: isMergeCaseSensitive
         ]
-        
+
         let event = Event(name: EdgeBridgeConstants.EventNames.EDGE_BRDIGE_START_CONTEXT_DATA_CAPTURE,
                           type: EventType.edgeBridge,
                           source: EventSource.stopCapture,

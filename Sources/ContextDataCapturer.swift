@@ -16,12 +16,11 @@ import Foundation
 
 /// Type metadata container that keeps track of type information
 /// Supports equality operations, which checks for both `unwrappedType` and `isOptional` equivalence
-fileprivate struct TypeResult: CustomStringConvertible, Equatable {
+private struct TypeResult: CustomStringConvertible, Equatable {
     static func == (lhs: TypeResult, rhs: TypeResult) -> Bool {
         if lhs.unwrappedType == rhs.unwrappedType && lhs.isOptional == rhs.isOptional {
             return true
-        }
-        else {
+        } else {
             return false
         }
     }
@@ -29,12 +28,12 @@ fileprivate struct TypeResult: CustomStringConvertible, Equatable {
     var isOptional: Bool
     /// The concrete type extracted from the value (can be compared with other TypeResult's `unwrappedType`)
     var unwrappedType: Any.Type
-    
+
     public var description: String { return "\(isOptional ? "Optional " : "")\(unwrappedType)" }
 }
 
 /// Value type metadata container which keeps track of type and merge metadata
-fileprivate struct KeySet {
+private struct KeySet {
     /// The original `Event` which owns this data
     var eventID: UUID
     /// The unmodified key value which was paired with this value (key values may be modified when using case insensitive merge)
@@ -48,19 +47,19 @@ fileprivate struct KeySet {
 /// The primary data store for event data merge operations. Keeps track of actual `Event` data body merge result along with
 /// metadata from merge process and merge settings.
 /// Initialized with an `Event` which will become the base of the overall merge
-fileprivate struct MergeResult {
+private struct MergeResult {
     /// The merge setting for whether or not key comparisons should be performed using case sensitivity or not
     let isCaseSensitive: Bool
     /// The array of `Event` IDs appended in merge order that were used to arrive at the final merge result
     var ids: [UUID]
     /// The result of the merge process for the given `Event`s
-    var dictionary: [String:Any]
+    var dictionary: [String: Any]
     /// The flat mapping of keys to the KeySet value type metadata
     /// Keys are set in case sensitive or insensitive format depending on merge setting (original key value can be obtained from KeySet struct)
-    var keySet: [String:[KeySet]]
-    
+    var keySet: [String: [KeySet]]
+
     /// Initializes the MergeResult using an `Event`
-    init(event: Event, isCaseSensitive: Bool, keySetResult: [String:[KeySet]]) {
+    init(event: Event, isCaseSensitive: Bool, keySetResult: [String: [KeySet]]) {
         self.isCaseSensitive = isCaseSensitive
         self.ids = [event.id]
         self.dictionary = event.data ?? [:]
@@ -69,15 +68,15 @@ fileprivate struct MergeResult {
 }
 
 class ContextDataCapturer {
-    
+
     var contextDataStore: [Event] = []
-    
+
     // in this context, as the child object that is sent events, it doesnt really need to know that event capture has started or stopped, only that it is fed events; thus it should have controls to add and remove events from its storage, since it is not the main handler of incoming events
     /// Starts context data capture session, hooking into Edge Bridge's dispatch of events.
     public func addEvent(event: Event) {
         contextDataStore.append(event)
     }
-    
+
     /// Stops context data capture session, outputting the merge result using the case sentivity setting applied, and removing captured events from memory.
     /// - Parameters:
     ///     - withMerge: Controls if merge logic is applied to captured `Event`s
@@ -109,7 +108,7 @@ class ContextDataCapturer {
             for (key, value) in mergeResult.keySet {
                 // For each key, group by keypath to find actual key conflicts
                 var keysets = value
-                
+
                 while !keysets.isEmpty {
                     guard let keypath = keysets.first?.keypath else { break }
                     let matchingKeysets = keysets.filter({ $0.keypath == keypath })
@@ -136,7 +135,7 @@ class ContextDataCapturer {
             prettyPrintJson(json: event.data)
         }
     }
-    
+
     /// Pretty prints JSON objects, checking for any `nil` values
     /// - Parameters:
     ///     - json: The valid JSON object to print
@@ -152,20 +151,20 @@ class ContextDataCapturer {
             Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Invalid JSON data format; unable to print data.")
         }
     }
-    
+
     /// Extracts value types from Event dictionary, keeping track of the hierarchy of keys in the case of nested dictionaries
     /// the key in the returned dictionary is based on what matching system will be used; that is, when using case insensitive compare,
     /// a `.lowercase()` transform is applied. Original key value is stored in keyset
-    private func extractKeySet(event: Event, isCaseSensitive: Bool) -> [String:[KeySet]] {
+    private func extractKeySet(event: Event, isCaseSensitive: Bool) -> [String: [KeySet]] {
         return extractKeySet(dictionary: event.data ?? [:], eventID: event.id, isCaseSensitive: isCaseSensitive, keypath: [])
     }
-    
+
     /// Extracts value types from dictionary, keeping track of the hierarchy of keys in the case of nested dictionaries
     /// the key in the returned dictionary is based on what matching system will be used; that is, when using case insensitive compare,
     /// a `.lowercase()` transform is applied. Original key value is stored in keyset
-    private func extractKeySet(dictionary: [String:Any], eventID: UUID, isCaseSensitive: Bool, keypath: [String]) -> [String:[KeySet]] {
-        var result: [String:[KeySet]] = [:]
-        
+    private func extractKeySet(dictionary: [String: Any], eventID: UUID, isCaseSensitive: Bool, keypath: [String]) -> [String: [KeySet]] {
+        var result: [String: [KeySet]] = [:]
+
         for (key, value) in dictionary {
             // Determine the search key to use based on case sensitive setting
             // The logic for value type collision here and the dictionary merge being consistent
@@ -175,12 +174,11 @@ class ContextDataCapturer {
             let keySet = KeySet(eventID: eventID, originalKeyValue: key, typeResult: typeResult, keypath: keypath)
             if let record = result[finalKey] {
                 result[finalKey]?.append(keySet)
-            }
-            else {
+            } else {
                 result[finalKey] = [keySet]
             }
-            if value is [String:Any] {
-                guard let childDictionary = value as? [String:Any] else { continue }
+            if value is [String: Any] {
+                guard let childDictionary = value as? [String: Any] else { continue }
                 var childKeypath = keypath
                 childKeypath.append(finalKey)
                 result.merge(extractKeySet(dictionary: childDictionary, eventID: eventID, isCaseSensitive: isCaseSensitive, keypath: childKeypath), uniquingKeysWith: { lhs, rhs in
@@ -192,14 +190,14 @@ class ContextDataCapturer {
         }
         return result
     }
-    
+
     /// Merges the data body from an event into a `MergeResult`
     private func mergeEvents(mergeResult: MergeResult, eventToMerge: Event) -> MergeResult {
         var mergeResult = mergeResult
         mergeResult.ids.append(eventToMerge.id)
-        
+
         let dictionaryToMerge = eventToMerge.data ?? [:]
-        
+
         // Extract type information
         let keySetToMerge = extractKeySet(dictionary: dictionaryToMerge, eventID: eventToMerge.id, isCaseSensitive: mergeResult.isCaseSensitive, keypath: [])
         mergeResult.keySet.merge(keySetToMerge, uniquingKeysWith: { lhs, rhs in
@@ -207,13 +205,13 @@ class ContextDataCapturer {
             result.append(contentsOf: rhs)
             return result
         })
-        
+
         // Merge event data into result
         mergeResult.dictionary = deepMerge(mergeResult.dictionary, dictionaryToMerge, isCaseSensitive: mergeResult.isCaseSensitive)
 
         return mergeResult
     }
-    
+
     /// Merges two dictionaries using case insensitive compare
     /// - Parameters:
     ///     - d1: The base dictionary that new records are merged into; that is, matching keys on this side of the merge are replaced
@@ -238,7 +236,7 @@ class ContextDataCapturer {
                 for key in foundPairs.map({ $0.key }) {
                     result.removeValue(forKey: key)
                 }
-                
+
                 searchKey = lastPair.key
             }
             // Check the value for the key in both dictionaries
@@ -262,7 +260,7 @@ class ContextDataCapturer {
     /// - Returns: TypeResult - result that holds unwrapped type and if type is optional or not
     private func checkType(value: Any?) -> TypeResult {
         var typeResult = TypeResult(isOptional: false, unwrappedType: Any.Type.self)
-        
+
         if let value = value {
             // Optional type unwrapping
             if let optional = value as? OptionalProtocol {
@@ -285,11 +283,11 @@ class ContextDataCapturer {
     }
 }
 
-fileprivate protocol OptionalProtocol {
+private protocol OptionalProtocol {
     func wrappedType() -> Any.Type
 }
 
-extension Optional : OptionalProtocol {
+extension Optional: OptionalProtocol {
     func wrappedType() -> Any.Type {
         return Wrapped.self
     }
