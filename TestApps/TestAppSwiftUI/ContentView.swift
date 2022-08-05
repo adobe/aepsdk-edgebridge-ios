@@ -90,23 +90,6 @@ struct TrackView: View {
                 MobileCore.track(action: "custom_test_action2", data: data2)
             }).padding()
 
-            Button("Output Context Data Capture", action: {
-                let data: [String: Any] = [
-                    "Product.id": 12345,
-                    "PRODUCT.add.event": 1,
-                    "pRODuct.name": [
-                        "key1": "value1",
-                        "key2": 2.1
-                    ],
-                    "product.units": "1"]
-                MobileCore.track(action: "custom_test_action1", data: data)
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    EdgeBridge.outputCapturedContextData(withMerge: withMerge, isMergeCaseSensitive: isCaseSensitive)
-                }
-
-            }).padding()
-
             Button("Stop Context Data Capture", action: {
                 EdgeBridge.stopContextDataCaptureSession(withMerge: withMerge, isMergeCaseSensitive: isCaseSensitive)
             }).padding()

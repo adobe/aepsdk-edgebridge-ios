@@ -23,8 +23,7 @@ public class EdgeBridge: NSObject, Extension {
     public let metadata: [String: String]? = nil
     public let runtime: ExtensionRuntime
 
-    private var contextDataCaptureIsActive: Bool = false
-    lazy var contextDataCapturer = ContextDataCapturer()
+    let contextDataCapturer = ContextDataCapturer()
 
     public required init?(runtime: ExtensionRuntime) {
         self.runtime = runtime
@@ -66,16 +65,14 @@ public class EdgeBridge: NSObject, Extension {
     private func handleCaptureRequest(_ event: Event) {
         switch event.source {
         case EventSource.startCapture:
-            contextDataCaptureIsActive = true
+            contextDataCapturer.startCapture()
         case EventSource.stopCapture:
-            contextDataCaptureIsActive = false
             // Context data capture output options with defaults
             // Merge defaults to true
             let withMerge: Bool = event.data?[EdgeBridgeConstants.EventDataKeys.CONTEXT_DATA_OUTPUT_WITH_MERGE] as? Bool ?? true
             // Case sensitive key match defaults to true
             let isMergeCaseSensitive: Bool = event.data?[EdgeBridgeConstants.EventDataKeys.CONTEXT_DATA_MERGE_IS_CASE_SENSITIVE] as? Bool ?? true
-            contextDataCapturer.outputCapturedContextData(withMerge: withMerge, isMergeCaseSensitive: isMergeCaseSensitive)
-            contextDataCapturer.removeAllEvents()
+            contextDataCapturer.stopCapture(withMerge: withMerge, isMergeCaseSensitive: isMergeCaseSensitive)
         }
     }
 
@@ -137,8 +134,6 @@ public class EdgeBridge: NSObject, Extension {
                              data: xdmEventData)
 
         runtime.dispatch(event: xdmEvent)
-        if contextDataCaptureIsActive {
-            handleCaptureContextData(event: xdmEvent)
-        }
+        contextDataCapturer.addEvent(event: xdmEvent)
     }
 }

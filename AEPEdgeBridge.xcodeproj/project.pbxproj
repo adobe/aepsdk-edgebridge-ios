@@ -24,9 +24,7 @@
 		21888AF32555F9FC005677ED /* FileManager+Testable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21888AF22555F9FC005677ED /* FileManager+Testable.swift */; };
 		34462B6033EB6C73D4BE07E5 /* Pods_TestAppSwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1309AD6A6FDC8FF2FCA3F1E4 /* Pods_TestAppSwiftUI.framework */; };
 		4C5FFCEE2899C7E400C07149 /* EdgeBridge+PublicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5FFCED2899C7E400C07149 /* EdgeBridge+PublicAPI.swift */; };
-		4C5FFCEF2899C7E400C07149 /* EdgeBridge+PublicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5FFCED2899C7E400C07149 /* EdgeBridge+PublicAPI.swift */; };
 		4C5FFCF12899C95100C07149 /* ContextDataCapturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5FFCF02899C95100C07149 /* ContextDataCapturer.swift */; };
-		4C5FFCF22899C95100C07149 /* ContextDataCapturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5FFCF02899C95100C07149 /* ContextDataCapturer.swift */; };
 		72EC4ED272DA96D1B2F44F4D /* Pods_UnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E05720B5778E784DC19DA9C /* Pods_UnitTests.framework */; };
 		BED54BA939EBDF54CB00AC51 /* Pods_FunctionalTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36054A57340EA919052D5C7C /* Pods_FunctionalTests.framework */; };
 		BF4A717926DDAE4C00612434 /* AssuranceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4A717826DDAE4B00612434 /* AssuranceView.swift */; };
@@ -812,8 +810,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4D5B57D2432977F00CAB6E4 /* AppDelegate.swift in Sources */,
-				4C5FFCF22899C95100C07149 /* ContextDataCapturer.swift in Sources */,
-				4C5FFCEF2899C7E400C07149 /* EdgeBridge+PublicAPI.swift in Sources */,
 				D4D5B57F2432977F00CAB6E4 /* SceneDelegate.swift in Sources */,
 				BF4A717926DDAE4C00612434 /* AssuranceView.swift in Sources */,
 				D4D5B5812432977F00CAB6E4 /* ContentView.swift in Sources */,

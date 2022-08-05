@@ -69,27 +69,54 @@ private struct MergeResult {
 
 class ContextDataCapturer {
 
+    var contextDataCaptureIsActive: Bool = false
     var contextDataStore: [Event] = []
 
-    // in this context, as the child object that is sent events, it doesnt really need to know that event capture has started or stopped, only that it is fed events; thus it should have controls to add and remove events from its storage, since it is not the main handler of incoming events
-    /// Starts context data capture session, hooking into Edge Bridge's dispatch of events.
-    public func addEvent(event: Event) {
-        contextDataStore.append(event)
+    /// Starts a debug context data capture session which tracks all context data handed by the Edge Bridge extension.
+    /// Once the session is stopped, a report is generated containing a merged view of the captured context data keys
+    /// and values. This report can then be uploaded to Data Prep for Data Collection to map the context data to XDM.
+    ///
+    /// Note, this API is intended for use during debugging and should not be used in a production environment. The
+    /// SDK log level must be configured to `LogLevel.debug` or `LogLevel.trace` for the report to be printed.
+    public func startCapture() {
+        contextDataCaptureIsActive = true
     }
 
-    /// Stops context data capture session, outputting the merge result using the case sentivity setting applied, and removing captured events from memory.
+    /// Adds the Event to the capture list, given a context data capturing session is active; use `startCapture()`to
+    /// start a capture session
+    public func addEvent(event: Event) {
+        if contextDataCaptureIsActive {
+            contextDataStore.append(event)
+        }
+    }
+
+    /// Stops a debug context data capture session and prints a report of the captured context data keys and values during
+    /// the session to the device logs. The report can then be uploaded to Data Prep for Data Collection to map the context
+    /// data to XDM.
+    ///
+    /// Note, this API is intended for use during debugging and should not be used in a production environment. The SDK log
+    /// level must be configured to `LogLevel.debug` or `LogLevel.trace` for the report to be printed.
+    ///
     /// - Parameters:
     ///     - withMerge: Controls if merge logic is applied to captured `Event`s
     ///     - isMergeCaseSensitive: Controls if merge logic for matching keys uses case sensitive compare or not
-    public func removeAllEvents() {
+    public func stopCapture(withMerge: Bool, isMergeCaseSensitive: Bool) {
+        contextDataCaptureIsActive = false
+        outputCapturedContextData(withMerge: withMerge, isMergeCaseSensitive: isMergeCaseSensitive)
         contextDataStore.removeAll()
     }
 
-    /// Outputs context data that has been captured up to the point the method is called; does not affect capture status.
+    /// Outputs context data that has been captured up to the point the method is called; does not affect capture status or collected data.
+    ///
     /// - Parameters:
     ///     - withMerge: Controls if merge logic is applied to captured `Event`s
     ///     - isMergeCaseSensitive: Controls if merge logic for matching keys uses case sensitive compare or not
-    public func outputCapturedContextData(withMerge: Bool, isMergeCaseSensitive: Bool) {
+    private func outputCapturedContextData(withMerge: Bool, isMergeCaseSensitive: Bool) {
+        var mergeReport = ""
+
+        func addToMergeReport(text: String) {
+            mergeReport += text + "\n"
+        }
         if withMerge {
             guard let firstEvent = contextDataStore.first else {
                 Log.debug(label: EdgeBridgeConstants.LOG_TAG, "No events to merge.")
@@ -103,8 +130,8 @@ class ContextDataCapturer {
                     mergeResult = mergeEvents(mergeResult: mergeResult, eventToMerge: contextDataStore[i])
                 }
             }
-            Log.debug(label: EdgeBridgeConstants.LOG_TAG, "============== Merge Result =================")
-            Log.debug(label: EdgeBridgeConstants.LOG_TAG, "-------------- Value type/key merge conflicts --------------")
+            addToMergeReport(text: "============== Merge Result =================")
+            addToMergeReport(text: "-------------- Value type/key merge conflicts --------------")
             for (key, value) in mergeResult.keySet {
                 // For each key, group by keypath to find actual key conflicts
                 var keysets = value
@@ -117,38 +144,39 @@ class ContextDataCapturer {
                     // Check for conflicts in:
                     // 1. Original key value
                     if !matchingKeysets.allSatisfy({ $0.originalKeyValue == matchingKeysets.first!.originalKeyValue }) {
-                        Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Key string mismatch (keypath: \(keypath)): \(matchingKeysets.map({($0.eventID, $0.originalKeyValue)}))")
+                        addToMergeReport(text: "Key string mismatch (keypath: \(keypath)): \(matchingKeysets.map({($0.eventID, $0.originalKeyValue)}))")
                     }
                     // 2. Types and Optional status
                     if !matchingKeysets.allSatisfy({ $0.typeResult == matchingKeysets.first!.typeResult }) {
-                        Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Value type mismatch (keypath: \(keypath)): \(matchingKeysets.map({($0.eventID, $0.originalKeyValue, $0.typeResult)}))")
+                        addToMergeReport(text: "Value type mismatch (keypath: \(keypath)): \(matchingKeysets.map({($0.eventID, $0.originalKeyValue, $0.typeResult)}))")
                     }
                 }
             }
-            Log.debug(label: EdgeBridgeConstants.LOG_TAG, "------------- Merge Dictionary ----------------")
-            prettyPrintJson(json: mergeResult.dictionary)
+            addToMergeReport(text: "------------- Merge Dictionary ----------------")
+            addToMergeReport(text: getPrettyPrintJson(json: mergeResult.dictionary))
         }
-        Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Number of events captured: \(contextDataStore.count)")
-        Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Event IDs in merged order: \(contextDataStore.map({ $0.id }))")
+        addToMergeReport(text: "Number of events captured: \(contextDataStore.count)")
+        addToMergeReport(text: "Event IDs in merged order: \(contextDataStore.map({ $0.id }))")
         for event in contextDataStore {
-            Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Event: \(event.id) - data:")
-            prettyPrintJson(json: event.data)
+
+            addToMergeReport(text: "Event: \(event.id) - data:")
+            addToMergeReport(text: getPrettyPrintJson(json: event.data))
         }
+        Log.debug(label: EdgeBridgeConstants.LOG_TAG, mergeReport)
     }
 
     /// Pretty prints JSON objects, checking for any `nil` values
     /// - Parameters:
     ///     - json: The valid JSON object to print
-    private func prettyPrintJson(json: Any?) {
+    private func getPrettyPrintJson(json: Any?) -> String {
         guard let json = json else {
-            Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Nil object. Invalid JSON data format; unable to print data.")
-            return
+            return "Nil object. Invalid JSON data format; unable to print data."
         }
 
         if let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) {
-            Log.debug(label: EdgeBridgeConstants.LOG_TAG, String(decoding: jsonData, as: UTF8.self))
+            return String(decoding: jsonData, as: UTF8.self)
         } else {
-            Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Invalid JSON data format; unable to print data.")
+            return "Invalid JSON data format; unable to print data."
         }
     }
 
