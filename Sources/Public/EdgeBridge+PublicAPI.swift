@@ -34,8 +34,8 @@ public extension EdgeBridge {
     public static func stopContextDataCaptureSession(withMerge: Bool, isMergeCaseSensitive: Bool) {
         // Dispatch event to edgebridge to signal stop capture of context data
         let outputOptions: [String: Any] = [
-            EdgeBridgeConstants.EventDataKeys.CONTEXT_DATA_OUTPUT_WITH_MERGE: withMerge,
-            EdgeBridgeConstants.EventDataKeys.CONTEXT_DATA_MERGE_IS_CASE_SENSITIVE: isMergeCaseSensitive
+            EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CONTEXT_DATA_OUTPUT_WITH_MERGE: withMerge,
+            EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CONTEXT_DATA_MERGE_IS_CASE_SENSITIVE: isMergeCaseSensitive
         ]
 
         let event = Event(name: EdgeBridgeConstants.EventNames.EDGE_BRDIGE_START_CONTEXT_DATA_CAPTURE,

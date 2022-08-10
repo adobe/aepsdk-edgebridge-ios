@@ -69,9 +69,9 @@ public class EdgeBridge: NSObject, Extension {
         case EventSource.stopCapture:
             // Context data capture output options with defaults
             // Merge defaults to true
-            let withMerge: Bool = event.data?[EdgeBridgeConstants.EventDataKeys.CONTEXT_DATA_OUTPUT_WITH_MERGE] as? Bool ?? true
+            let withMerge: Bool = event.data?[EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CONTEXT_DATA_OUTPUT_WITH_MERGE] as? Bool ?? true
             // Case sensitive key match defaults to true
-            let isMergeCaseSensitive: Bool = event.data?[EdgeBridgeConstants.EventDataKeys.CONTEXT_DATA_MERGE_IS_CASE_SENSITIVE] as? Bool ?? true
+            let isMergeCaseSensitive: Bool = event.data?[EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CONTEXT_DATA_MERGE_IS_CASE_SENSITIVE] as? Bool ?? true
             contextDataCapturer.stopCapture(withMerge: withMerge, isMergeCaseSensitive: isMergeCaseSensitive)
         }
     }

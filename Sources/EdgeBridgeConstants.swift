@@ -19,8 +19,10 @@ enum EdgeBridgeConstants {
     static let LOG_TAG = FRIENDLY_NAME
 
     enum EventDataKeys {
-        static let CONTEXT_DATA_OUTPUT_WITH_MERGE = "withMerge"
-        static let CONTEXT_DATA_MERGE_IS_CASE_SENSITIVE = "isMergeCaseSensitive"
+        enum ContextDataKeys {
+            static let CONTEXT_DATA_OUTPUT_WITH_MERGE = "withMerge"
+            static let CONTEXT_DATA_MERGE_IS_CASE_SENSITIVE = "isMergeCaseSensitive"
+        }
     }
 
     enum EventNames {
