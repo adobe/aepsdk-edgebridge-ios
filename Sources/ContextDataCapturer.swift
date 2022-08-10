@@ -84,7 +84,7 @@ class ContextDataCapturer {
 
     /// Adds the Event to the capture list, given a context data capturing session is active; use `startCapture()`to
     /// start a capture session
-    public func addEvent(event: Event) {
+    public func addEvent(_ event: Event) {
         if contextDataCaptureIsActive {
             contextDataStore.append(event)
         }

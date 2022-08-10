@@ -40,11 +40,7 @@ public class EdgeBridge: NSObject, Extension {
                          listener: handleRuleEngineResponse)
 
         registerListener(type: EventType.edgeBridge,
-                         source: EventSource.startCapture,
-                         listener: handleCaptureRequest)
-
-        registerListener(type: EventType.edgeBridge,
-                         source: EventSource.stopCapture,
+                         source: EventSource.captureContent,
                          listener: handleCaptureRequest)
     }
 
@@ -59,19 +55,25 @@ public class EdgeBridge: NSObject, Extension {
 
     private func handleCaptureContextData(event: Event) {
         // add to existing list
-        contextDataCapturer.addEvent(event: event)
+        contextDataCapturer.addEvent(event)
     }
 
     private func handleCaptureRequest(_ event: Event) {
-        switch event.source {
-        case EventSource.startCapture:
+        let captureState = event.data?[EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CAPTURE_STATE] as? String
+        
+        switch captureState {
+        case EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CAPTURE_STATE_START:
             contextDataCapturer.startCapture()
-        case EventSource.stopCapture:
+        // Handles stop state and all other cases
+        default:
+            if captureState != EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CAPTURE_STATE_STOP {
+                Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Received unknown capture state: '\(String(describing: captureState))'. Defaulting to stop capture.")
+            }
             // Context data capture output options with defaults
             // Merge defaults to true
-            let withMerge: Bool = event.data?[EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CONTEXT_DATA_OUTPUT_WITH_MERGE] as? Bool ?? true
+            let withMerge: Bool = event.data?[EdgeBridgeConstants.EventDataKeys.ContextDataKeys.MERGE] as? Bool ?? true
             // Case sensitive key match defaults to true
-            let isMergeCaseSensitive: Bool = event.data?[EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CONTEXT_DATA_MERGE_IS_CASE_SENSITIVE] as? Bool ?? true
+            let isMergeCaseSensitive: Bool = event.data?[EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CASE_SENSITIVE] as? Bool ?? true
             contextDataCapturer.stopCapture(withMerge: withMerge, isMergeCaseSensitive: isMergeCaseSensitive)
         }
     }
@@ -134,6 +136,6 @@ public class EdgeBridge: NSObject, Extension {
                              data: xdmEventData)
 
         runtime.dispatch(event: xdmEvent)
-        contextDataCapturer.addEvent(event: xdmEvent)
+        contextDataCapturer.addEvent(xdmEvent)
     }
 }

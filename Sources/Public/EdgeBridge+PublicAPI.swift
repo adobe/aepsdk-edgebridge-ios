@@ -18,11 +18,14 @@ import Foundation
 public extension EdgeBridge {
     /// Starts context data capture session, hooking into Edge Bridge's dispatch of events.
     public static func startContextDataCaptureSession() {
+        let eventOptions: [String: Any] = [
+            EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CAPTURE_STATE: EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CAPTURE_STATE_START
+        ]
         // Dispatch event to edgebridge to signal start capture of context data
         let event = Event(name: EdgeBridgeConstants.EventNames.EDGE_BRDIGE_START_CONTEXT_DATA_CAPTURE,
                           type: EventType.edgeBridge,
-                          source: EventSource.startCapture,
-                          data: nil)
+                          source: EventSource.captureContent,
+                          data: eventOptions)
 
         MobileCore.dispatch(event: event)
     }
@@ -33,15 +36,16 @@ public extension EdgeBridge {
     ///     - isMergeCaseSensitive: Controls if merge logic for matching keys uses case sensitive compare or not
     public static func stopContextDataCaptureSession(withMerge: Bool, isMergeCaseSensitive: Bool) {
         // Dispatch event to edgebridge to signal stop capture of context data
-        let outputOptions: [String: Any] = [
-            EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CONTEXT_DATA_OUTPUT_WITH_MERGE: withMerge,
-            EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CONTEXT_DATA_MERGE_IS_CASE_SENSITIVE: isMergeCaseSensitive
+        let eventOptions: [String: Any] = [
+            EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CAPTURE_STATE: EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CAPTURE_STATE_STOP,
+            EdgeBridgeConstants.EventDataKeys.ContextDataKeys.MERGE: withMerge,
+            EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CASE_SENSITIVE: isMergeCaseSensitive
         ]
 
         let event = Event(name: EdgeBridgeConstants.EventNames.EDGE_BRDIGE_START_CONTEXT_DATA_CAPTURE,
                           type: EventType.edgeBridge,
-                          source: EventSource.stopCapture,
-                          data: outputOptions)
+                          source: EventSource.captureContent,
+                          data: eventOptions)
 
         MobileCore.dispatch(event: event)
     }

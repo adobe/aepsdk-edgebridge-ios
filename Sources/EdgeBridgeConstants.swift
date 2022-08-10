@@ -20,8 +20,11 @@ enum EdgeBridgeConstants {
 
     enum EventDataKeys {
         enum ContextDataKeys {
-            static let CONTEXT_DATA_OUTPUT_WITH_MERGE = "withMerge"
-            static let CONTEXT_DATA_MERGE_IS_CASE_SENSITIVE = "isMergeCaseSensitive"
+            static let CAPTURE_STATE = "captureState"
+            static let CAPTURE_STATE_START = "start"
+            static let CAPTURE_STATE_STOP = "stop"
+            static let MERGE = "withMerge"
+            static let CASE_SENSITIVE = "isMergeCaseSensitive"
         }
     }
 
