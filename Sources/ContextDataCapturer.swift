@@ -141,27 +141,7 @@ class ContextDataCapturer {
                 }
             }
             addToMergeReport(text: "============== Merge Result ==============")
-            addToMergeReport(text: "-------------- Value type/key merge conflicts --------------")
-            for (key, value) in mergeResult.keySet {
-                // For each key, group by keypath to find actual key conflicts
-                var keysets = value
-
-                while !keysets.isEmpty {
-                    guard let keypath = keysets.first?.keypath else { break }
-                    let matchingKeysets = keysets.filter({ $0.keypath == keypath })
-                    keysets.removeAll(where: { $0.keypath == keypath })
-                    if matchingKeysets.count <= 1 { continue }
-                    // Check for conflicts in:
-                    // 1. Original key value
-                    if !matchingKeysets.allSatisfy({ $0.originalKeyValue == matchingKeysets.first!.originalKeyValue }) {
-                        addToMergeReport(text: "Key string mismatch (keypath: \(keypath)): \(matchingKeysets.map({($0.eventID, $0.originalKeyValue)}))")
-                    }
-                    // 2. Types and Optional status
-                    if !matchingKeysets.allSatisfy({ $0.typeResult == matchingKeysets.first!.typeResult }) {
-                        addToMergeReport(text: "Value type mismatch (keypath: \(keypath)): \(matchingKeysets.map({($0.eventID, $0.originalKeyValue, $0.typeResult)}))")
-                    }
-                }
-            }
+            addToMergeReport(text: getMergeConflictReport(for: mergeResult))
             addToMergeReport(text: "-------------- Merge Dictionary --------------")
             addToMergeReport(text: getPrettyPrintJson(json: mergeResult.dictionary))
         }
@@ -172,6 +152,37 @@ class ContextDataCapturer {
             addToMergeReport(text: getPrettyPrintJson(json: event.data))
         }
         Log.debug(label: EdgeBridgeConstants.LOG_TAG, mergeReport)
+    }
+    
+    private func getMergeConflictReport(for mergeResult: MergeResult) -> String {
+        var mergeReport = ""
+        
+        func addToMergeReport(text: String) {
+            mergeReport += text + "\n"
+        }
+        
+        addToMergeReport(text: "-------------- Value type/key merge conflicts --------------")
+        for (key, value) in mergeResult.keySet {
+            // For each key, group by keypath to find actual key conflicts
+            var keysets = value
+
+            while !keysets.isEmpty {
+                guard let keypath = keysets.first?.keypath else { break }
+                let matchingKeysets = keysets.filter({ $0.keypath == keypath })
+                keysets.removeAll(where: { $0.keypath == keypath })
+                if matchingKeysets.count <= 1 { continue }
+                // Check for conflicts in:
+                // 1. Original key value
+                if !matchingKeysets.allSatisfy({ $0.originalKeyValue == matchingKeysets.first!.originalKeyValue }) {
+                    addToMergeReport(text: "Key string mismatch (keypath: \(keypath)): \(matchingKeysets.map({($0.eventID, $0.originalKeyValue)}))")
+                }
+                // 2. Types and Optional status
+                if !matchingKeysets.allSatisfy({ $0.typeResult == matchingKeysets.first!.typeResult }) {
+                    addToMergeReport(text: "Value type mismatch (keypath: \(keypath)): \(matchingKeysets.map({($0.eventID, $0.originalKeyValue, $0.typeResult)}))")
+                }
+            }
+        }
+        return mergeReport
     }
 
     /// Pretty prints JSON objects, checking for any `nil` values
