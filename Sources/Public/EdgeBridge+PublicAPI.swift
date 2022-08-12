@@ -22,9 +22,14 @@ public extension EdgeBridge {
             EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CAPTURE: true
         ]
         // Dispatch event to edgebridge to signal start capture of context data
+        // TODO: Remove hardcoded values after Core constants are updated
+//        let event = Event(name: EdgeBridgeConstants.EventNames.EDGE_BRDIGE_START_CONTEXT_DATA_CAPTURE,
+//                          type: EventType.edgeBridge,
+//                          source: EventSource.captureContent,
+//                          data: eventOptions)
         let event = Event(name: EdgeBridgeConstants.EventNames.EDGE_BRDIGE_START_CONTEXT_DATA_CAPTURE,
-                          type: EventType.edgeBridge,
-                          source: EventSource.captureContent,
+                          type: "com.adobe.eventType.edgeBridge",
+                          source: "com.adobe.eventSource.captureContent",
                           data: eventOptions)
 
         MobileCore.dispatch(event: event)
@@ -41,10 +46,15 @@ public extension EdgeBridge {
             EdgeBridgeConstants.EventDataKeys.ContextDataKeys.MERGE: withMerge,
             EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CASE_SENSITIVE_MERGE: caseSensitiveMerge
         ]
-
+        
+        // TODO: Remove hardcoded values after Core constants are updated
+//        let event = Event(name: EdgeBridgeConstants.EventNames.EDGE_BRDIGE_START_CONTEXT_DATA_CAPTURE,
+//                          type: EventType.edgeBridge,
+//                          source: EventSource.captureContent,
+//                          data: eventOptions)
         let event = Event(name: EdgeBridgeConstants.EventNames.EDGE_BRDIGE_START_CONTEXT_DATA_CAPTURE,
-                          type: EventType.edgeBridge,
-                          source: EventSource.captureContent,
+                          type: "com.adobe.eventType.edgeBridge",
+                          source: "com.adobe.eventSource.captureContent",
                           data: eventOptions)
 
         MobileCore.dispatch(event: event)

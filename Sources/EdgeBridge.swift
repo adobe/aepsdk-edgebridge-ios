@@ -38,9 +38,12 @@ public class EdgeBridge: NSObject, Extension {
         registerListener(type: EventType.rulesEngine,
                          source: EventSource.responseContent,
                          listener: handleRuleEngineResponse)
-
-        registerListener(type: EventType.edgeBridge,
-                         source: EventSource.captureContent,
+        // TODO: Remove hardcoded values after Core constants are updated
+//        registerListener(type: EventType.edgeBridge,
+//                         source: EventSource.captureContent,
+//                         listener: handleCaptureRequest)
+        registerListener(type: "com.adobe.eventType.edgeBridge",
+                         source: "com.adobe.eventSource.captureContent",
                          listener: handleCaptureRequest)
     }
 
@@ -54,7 +57,6 @@ public class EdgeBridge: NSObject, Extension {
     }
 
     private func handleCaptureContextData(event: Event) {
-        // add to existing list
         contextDataCapturer.addEvent(event)
     }
 
@@ -71,8 +73,8 @@ public class EdgeBridge: NSObject, Extension {
             // Merge defaults to true
             let withMerge: Bool = event.data?[EdgeBridgeConstants.EventDataKeys.ContextDataKeys.MERGE] as? Bool ?? true
             // Case sensitive key match defaults to true
-            let isMergeCaseSensitive: Bool = event.data?[EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CASE_SENSITIVE_MERGE] as? Bool ?? true
-            contextDataCapturer.stopCapture(withMerge: withMerge, isMergeCaseSensitive: isMergeCaseSensitive)
+            let caseSensitiveMerge: Bool = event.data?[EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CASE_SENSITIVE_MERGE] as? Bool ?? true
+            contextDataCapturer.stopCapture(merge: withMerge, caseSensitiveMerge: caseSensitiveMerge)
         }
     }
 
