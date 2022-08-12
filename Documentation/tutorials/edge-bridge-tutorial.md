@@ -117,11 +117,31 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 ### 3. Run app   
 In Xcode, select the app target you want to run, and the destination device to run it on (either simulator or physical device). Then press the play button.
 
-You should see your application running on the device you selected, with logs being displayed in the console in Xcode.
+You should see your application running on the device you selected, with logs being displayed in the console in Xcode. 
 
+> **Note**
+> If the debug console area is not shown by default, activate it by selecting: View -> Debug Area -> Show Debug Area
 
 ### 4. TrackAction/TrackState implementation examples   
+With Edge Bridge extension successfully installed and registered, you can make  `trackAction` and `trackState` calls, which will be captured by Edge Bridge extension and sent to the Edge network.
 
+#### Swift
+```swift
+let actionData: [String: Any] = [
+    "product.id": "12345", 
+    "product.add.event": "1", 
+    "product.name": "wide_brim_sunhat", 
+    "product.units": "1"
+]
+MobileCore.track(action: "add_to_cart", data: actionData)
+
+let stateData: [String: Any] = [
+    "product.name": "wide_brim_sunhat", 
+    "product.id": "12345", 
+    "product.view.event": "1"
+]
+MobileCore.track(state: "hats/sunhat/wide_brim_sunhat_id12345", data: stateData)
+```
 
 ## Initial validation with Assurance
 Set up the Assurance session  
