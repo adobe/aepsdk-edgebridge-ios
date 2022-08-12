@@ -49,7 +49,7 @@ private struct KeySet {
 /// Initialized with an `Event` which will become the base of the overall merge
 private class CaptureResult {
     /// The array of `Event`s appended in merge order that were used to arrive at the final merge result
-    private var events: [Event] = []
+    private var events: [Event]
     /// The result of the merge process for the given `Event`s
     private var dictionary: [String: Any]
     /// The flat mapping of keys to the KeySet value type metadata
