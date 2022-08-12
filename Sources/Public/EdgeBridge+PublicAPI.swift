@@ -19,7 +19,7 @@ public extension EdgeBridge {
     /// Starts context data capture session, hooking into Edge Bridge's dispatch of events.
     public static func startContextDataCaptureSession() {
         let eventOptions: [String: Any] = [
-            EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CAPTURE_STATE: EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CAPTURE_STATE_START
+            EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CAPTURE: true
         ]
         // Dispatch event to edgebridge to signal start capture of context data
         let event = Event(name: EdgeBridgeConstants.EventNames.EDGE_BRDIGE_START_CONTEXT_DATA_CAPTURE,
@@ -33,13 +33,13 @@ public extension EdgeBridge {
     /// Stops context data capture session, outputting the merge result using the case sentivity setting applied, and removing captured events from memory.
     /// - Parameters:
     ///     - withMerge: Controls if merge logic is applied to captured `Event`s
-    ///     - isMergeCaseSensitive: Controls if merge logic for matching keys uses case sensitive compare or not
-    public static func stopContextDataCaptureSession(withMerge: Bool, isMergeCaseSensitive: Bool) {
+    ///     - caseSensitiveMerge: Controls if merge logic for matching keys uses case sensitive compare or not
+    public static func stopContextDataCaptureSession(withMerge: Bool, caseSensitiveMerge: Bool) {
         // Dispatch event to edgebridge to signal stop capture of context data
         let eventOptions: [String: Any] = [
-            EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CAPTURE_STATE: EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CAPTURE_STATE_STOP,
+            EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CAPTURE: false,
             EdgeBridgeConstants.EventDataKeys.ContextDataKeys.MERGE: withMerge,
-            EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CASE_SENSITIVE: isMergeCaseSensitive
+            EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CASE_SENSITIVE_MERGE: caseSensitiveMerge
         ]
 
         let event = Event(name: EdgeBridgeConstants.EventNames.EDGE_BRDIGE_START_CONTEXT_DATA_CAPTURE,
