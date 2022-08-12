@@ -24,16 +24,104 @@ Analytics should remain installed in Launch for production app versions.
 Publish the changes  
 
 ## Client-side implementation
-### 1. Pods / SPM dependencies diff adds/removes  
-On the client side, add the Edge Bridge extension to the dependency manager pods or Swift Package Manager
+### 1. Install Edge Bridge using dependency manager
+To install EdgeBridge, use the currently the supported installation options:
+### iOS
+#### [CocoaPods](https://guides.cocoapods.org/using/using-cocoapods.html)
 
+```ruby
+# Podfile
+use_frameworks!
+
+# For app development, include all the following pods
+target 'YOUR_TARGET_NAME' do
+  pod 'AEPAnalytics'
+  pod 'AEPCore'
+  pod 'AEPIdentity'
+  pod 'AEPLifecycle'  
+  pod 'AEPServices'
+  
+  pod 'AEPEdgeBridge'
+
+  pod 'AEPAssurance', '~> 3.0.0'
+end
 ```
 
+#### [Swift Package Manager](https://github.com/apple/swift-package-manager)
+
+To add the AEPEdgeBridge Package to your application, from the Xcode menu select:
+
+`File > Swift Packages > Add Package Dependency...`
+
+Enter the URL for the AEPEdgeIdentity package repository: `https://github.com/adobe/aepsdk-edgebridge-ios.git`.
+
+When prompted, input a specific version or a range of version for Version rule.
+
+Alternatively, if your project has a `Package.swift` file, you can add AEPEdgeBridge directly to your dependencies:
+
+```
+dependencies: [
+	.package(url: "https://github.com/adobe/aepsdk-edgebridge-ios.git", .upToNextMajor(from: "1.0.0"))
+],
+targets: [
+   	.target(name: "YourTarget",
+    		dependencies: ["AEPEdgeBridge"],
+          	path: "your/path")
+]
+```
+
+### Android
+#### Gradle
+Integrate the Edge Bridge extension into your app by including the following in your gradle file's `dependencies`:
+
+```gradle
+implementation 'com.adobe.marketing.mobile:edge:1.+'
+implementation 'com.adobe.marketing.mobile:core:1.+'
+implementation 'com.adobe.marketing.mobile:assurance:1.+'
+implementation 'com.adobe.marketing.mobile:lifecycle:1.+'
+implementation 'com.adobe.marketing.mobile:analytics:1.+'
+
+implementation 'com.adobe.marketing.mobile:edgebridge:1.+' 
 ```
 
 ### 2. Imports and extension registration diff  
-Run app   
-TrackAction/TrackState implementation examples   
+In your AppDelegate file, import the newly installed extension and register it with `MobileCore`:
+
+```swift
+import UIKit
+import AEPCore
+import AEPIdentity
+import AEPAnalytics
+import AEPAssurance
+import AEPLifecycle
+import AEPServices
+import AEPEdgeBridge // Newly added
+
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+        MobileCore.setLogLevel(.trace)
+        MobileCore.registerExtensions([
+            Identity.self, 
+            Analytics.self, 
+            Lifecycle.self, 
+            Assurance.self
+            EdgeBridge.self // Newly added
+        ], {
+            // Use the App ID assigned to this application via Adobe Data Collection UI
+            MobileCore.configureWith(appId: self.ENVIRONMENT_FILE_ID)
+        })
+        return true
+    }
+```
+
+### 3. Run app   
+In Xcode, select the app target you want to run, and the destination device to run it on (either simulator or physical device). Then press the play button.
+
+You should see your application running on the device you selected, with logs being displayed in the console in Xcode.
+
+
+### 4. TrackAction/TrackState implementation examples   
+
 
 ## Initial validation with Assurance
 Set up the Assurance session  
