@@ -120,7 +120,8 @@ In Xcode, select the app target you want to run, and the destination device to r
 You should see your application running on the device you selected, with logs being displayed in the console in Xcode. 
 
 > **Note**
-> If the debug console area is not shown by default, activate it by selecting: View -> Debug Area -> Show Debug Area
+> If the debug console area is not shown by default, activate it by selecting:  
+> View -> Debug Area -> Show Debug Area
 
 ### 4. TrackAction/TrackState implementation examples   
 With Edge Bridge extension successfully installed and registered, you can make  `trackAction` and `trackState` calls, which will be captured by Edge Bridge extension and sent to the Edge network.
@@ -144,9 +145,11 @@ MobileCore.track(state: "hats/sunhat/wide_brim_sunhat_id12345", data: stateData)
 ```
 
 ## Initial validation with Assurance
-Set up the Assurance session  
-Connect to the app   
-Event transactions view - check for Edge Bridge events  
+### 1. Set up the Assurance session  
+
+### 2. Connect to the app   
+
+### 3. Event transactions view - check for Edge Bridge events  
 
 ## Data prep mapping
 Copy data blob from Assurance (hint on copy from logs)  
