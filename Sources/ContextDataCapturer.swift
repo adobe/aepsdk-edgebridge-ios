@@ -69,7 +69,7 @@ private struct MergeResult {
 
 class ContextDataCapturer {
 
-    var contextDataCaptureIsActive: Bool = false
+    var isActive: Bool = false
     var contextDataStore: [Event] = []
 
     /// Starts a debug context data capture session which tracks all context data handed by the Edge Bridge extension.
@@ -79,13 +79,13 @@ class ContextDataCapturer {
     /// Note, this API is intended for use during debugging and should not be used in a production environment. The
     /// SDK log level must be configured to `LogLevel.debug` or `LogLevel.trace` for the report to be printed.
     public func startCapture() {
-        contextDataCaptureIsActive = true
+        isActive = true
     }
 
     /// Adds the Event to the capture list, given a context data capturing session is active; use `startCapture()`to
     /// start a capture session
     public func addEvent(_ event: Event) {
-        if contextDataCaptureIsActive {
+        if isActive {
             contextDataStore.append(event)
         }
     }
@@ -101,7 +101,11 @@ class ContextDataCapturer {
     ///     - withMerge: Controls if merge logic is applied to captured `Event`s
     ///     - isMergeCaseSensitive: Controls if merge logic for matching keys uses case sensitive compare or not
     public func stopCapture(withMerge: Bool, isMergeCaseSensitive: Bool) {
-        contextDataCaptureIsActive = false
+        if !isActive {
+            Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Context data capture is already disabled. Ignoring received stop capture event.")
+            return
+        }
+        isActive = false
         outputCapturedContextData(withMerge: withMerge, isMergeCaseSensitive: isMergeCaseSensitive)
         contextDataStore.removeAll()
     }

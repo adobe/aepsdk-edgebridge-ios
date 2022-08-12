@@ -59,12 +59,9 @@ public class EdgeBridge: NSObject, Extension {
     }
 
     private func handleCaptureRequest(_ event: Event) {
-        var captureState: Bool
-        if let capture = event.data?[EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CAPTURE] as? Bool {
-            captureState = capture
-        } else {
-            Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Received unknown capture state: '\(String(describing: event.data?[EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CAPTURE]))'. Defaulting to stop capture.")
-            captureState = false
+        guard let captureState = event.data?[EdgeBridgeConstants.EventDataKeys.ContextDataKeys.CAPTURE] as? Bool else {
+            Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Received unknown capture state. Ignoring event with ID: \(event.id).")
+            return
         }
 
         if captureState {
