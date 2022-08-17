@@ -162,11 +162,27 @@ When presented with this window, the new session should be created, and it is no
 
 
 ### 3. Event transactions view - check for Edge Bridge events  
+After creating a new session, by default Assurance should open to the Event transactions view in the left side navigation panel: `Home` -> `Events`. This view shows you all of the events captured by Assurance after a connection with the app is established.
 
+In order to see Edge Bridge events, trigger a `trackAction` and/or `trackState` within the app which the Edge Bridge extension will convert into Edge events. 
+<Image of app button triggering trackAction/trackState + console output? and also corresponding event in assurance event view>
+
+Click the Edge Bridge event to see its details, such as the data payload, event metadata, etc.
+<Image of EdgeBridge event, with event selected and event data visible>
 
 ## Data prep mapping
 Copy data blob from Assurance (hint on copy from logs)  
-Add mapping in Data Prep UI  
+1. Click the Event which has the data payload you want to map to XDM
+2. On the right side details window, click the Raw Event dropdown to see the raw event data
+3. Click `Copy Raw Event`
+
+## Add mapping in Data Prep UI  
+Click the nine dot menu in the top right and select Data Collection
+Select Datastreams in the left-side navigation window
+Select the Datastream that should have the mapping from `trackAction`/`trackState` mapped to `XDM` format
+Click **Edit Mapping**
+Paste the JSON copied from the raw event data from the previous section into the box
+
 
 ## Validation with Assurance
 Check mapping feedback in Event transactions view
