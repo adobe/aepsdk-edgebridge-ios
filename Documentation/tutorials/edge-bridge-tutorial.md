@@ -136,7 +136,7 @@ MobileCore.track(state: "hats/sunhat/wide_brim_sunhat_id12345", data: stateData)
 2. Create a new session (or use an existing one if available) 
     - Click `Create Session` in the top right.
 ![Create session in Assurance](../assets/edge-bridge-tutorial/assurance-create-session.jpg)
-    - In the `Create New Session` dialog, review instructions, and proceed by selecting `Start`
+    - In the `Create New Session` dialog, review instructions, and proceed by selecting `Start`  
 <img src="../assets/edge-bridge-tutorial/assurance-create-session-1.png" alt="Creating a new session in Assurance step 1" width="400"/>
 
     - Enter a name to identify the session (can be any desired name) 
@@ -174,11 +174,35 @@ To access these connection methods, click `Session Details`:
 
 Note that it is possible to edit both the `Session Name` and `Base URL`; changes to the `Base URL` value will automatically be reflected in both QR code and session link.
 
+To connect using QR code:
+Prerequisites (see [Set up the Assurance session](#1-set-up-the-assurance-session) for details on QR code requirements):
+- Running app using physical device with camera that can scan QR codes
+- App URL for deep linking is configured
+- App code for receiving link and connecting to Assurance is implemented
+
+1. Use physical device's camera to scan the QR code, which when tapped, should trigger a confirmation dialog to open the app.
+2. App should open and show the Assurance PIN screen to authenticate the session connection; enter the PIN from the session details and tap `Connect`
+
+To connect using session link:
+1. Copy the session link; you can click the icon of a double overlapping box to the right of the link to copy
+    - If using a physical device, it may be helpful to have a way to send this link to the device (ex: Airdrop, email, text, etc.)
+2. Open the sample app and tap the Assurance button
+3. Paste the Assurance session link copied from step 1 and tap `Connect`
+    - If using the simulator, it is possible to enable the paste menu by clicking in the text field twice, with a slight pause between clicks.
+4. App should open and show the Assurance PIN screen to authenticate the session connection; enter the PIN from the session details and tap `Connect`
+
+Once connected to Assurance, an Adobe Experience Platform icon will appear in the top right corner of the screen with a green dot indicating a connected session. In the web-based Assurance session, there is also an indicator in the top right that shows the number of connected sessions (which in this case should now show a green dot with "1 Client Connected", marked `1` in the screenshot below).
+
+<img src="../assets/edge-bridge-tutorial/simulator-assurance-connection.jpg" alt="Assurance Session Start - iOS simulator" width="400"/>
+<img src="../assets/edge-bridge-tutorial/assurance-session-start.jpg" alt="Assurance Session Start - Web UI after connection" width="800"/>  
+
+Observe how in the Assurance session Events view (`2`), there are already events populating as a consequence of the connection of the mobile app to the Assurance session (`3`); the Assurance extension itself emits events about the session connection and subsequently captures these events to display in the web-based session viewer. You can expect Assurance to capture all events processed by the AEP SDK from all other extensions as well.  
 
 ### 3. Event transactions view - check for Edge Bridge events  
-After creating a new session, by default Assurance should open to the Event transactions view in the left side navigation panel: `Home` -> `Events`. This view shows you all of the events captured by Assurance after a connection with the app is established.
-
 In order to see Edge Bridge events, trigger a `trackAction` and/or `trackState` within the app which the Edge Bridge extension will convert into Edge events. 
+
+<img src="../assets/edge-bridge-tutorial/simulator-track-buttons.jpg" alt="Simulator tracking buttons" width="400"/>
+
 <Image of app button triggering trackAction/trackState + console output? and also corresponding event in assurance event view>
 
 Click the Edge Bridge event to see its details, such as the data payload, event metadata, etc.
