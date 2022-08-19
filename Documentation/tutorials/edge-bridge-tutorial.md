@@ -199,9 +199,52 @@ Once connected to Assurance, an Adobe Experience Platform icon will appear in th
 Observe how in the Assurance session Events view (`2`), there are already events populating as a consequence of the connection of the mobile app to the Assurance session (`3`); the Assurance extension itself emits events about the session connection and subsequently captures these events to display in the web-based session viewer. You can expect Assurance to capture all events processed by the AEP SDK from all other extensions as well.  
 
 ### 3. Event transactions view - check for Edge Bridge events  
-In order to see Edge Bridge events, trigger a `trackAction` and/or `trackState` within the app which the Edge Bridge extension will convert into Edge events. 
+In order to see Edge Bridge events, in the connected app instance, trigger a `trackAction` and/or `trackState` within the app which the Edge Bridge extension will convert into Edge events. This event will be captured by the Assurance extension and shown in the web session viewer.
+
+```swift
+Button("Track Action", action: {
+    // Dispatch an Analytics track action event which is handled by the
+    // Edge Bridge extension which forwards it to the Edge Network.
+
+    let data: [String: Any] = [
+        "product.id": "12345", 
+        "product.add.event": "1", 
+        "product.name": "wide_brim_sunhat", 
+        "product.units": "1"
+    ]
+    MobileCore.track(action: "add_to_cart", data: data)
+}).padding()
+```
+
+```swift
+Button("Track State", action: {
+    // Dispatch an Analytics track state event which is handled by the
+    // Edge Bridge extension which forwards it to the Edge Network.
+
+    let data: [String: Any] = [
+        "product.name": "wide_brim_sunhat", 
+        "product.id": "12345", 
+        "product.view.event": "1"
+    ]
+    MobileCore.track(state: "hats/sunhat/wide_brim_sunhat_id12345", data: data)
+}).padding()
+```
+
+Click the `AnalyticsTrack` event (`1`) in the events table to see the event details in the right side window; click the `RAW EVENT` dropdown (`2`) in the event details window to see the event data payload. Verify that the `contextdata` matches what was sent by the Analytics `trackAction`/`trackState` API.
 
 <img src="../assets/edge-bridge-tutorial/simulator-track-buttons.jpg" alt="Simulator tracking buttons" width="400"/>
+<img src="../assets/edge-bridge-tutorial/assurance-analytics-track-event.jpg" alt="Simulator tracking buttons" width="800"/>
+
+Now click the `Edge Bridge Request` event (`1`) in the events table, and click the `RAW EVENT` dropdown (`2`) in the event details window; notice the slight differences in the payload structure as a result of the `Edge Bridge Request` event conforming to the format of an Edge event.
+
+<img src="../assets/edge-bridge-tutorial/assurance-edge-bridge-track-event.jpg" alt="Simulator tracking buttons" width="800"/>
+
+Notice the differences in event data structure and format between the two types of events: Analytics (left) vs Edge (right) via Edge Bridge extension
+The top level EventType is converted from a `generic.track` to `edge` (that is, Analytics generic track event -> Edge event) (`1`). The Edge Bridge extension also populates the standard XDM field for event type (`eventType`) in the event data payload. Also notice that the `contextdata` has moved from directly under `EventData` to under the generic Edge XDM `data` property (`2`).
+
+<img src="../assets/edge-bridge-tutorial/analytics-edge-bridge-conversion.jpg" alt="Comparison of event data between analytics and edge bridge events" width="900"/>
+
+The two new top level properties `xdm` and `data` are standard Edge event properties that are part of a new paradigm for event data organization that enables powerful customizable schema-based data processing. However, because the `contextdata` is not yet paired with an XDM schema, it is not intelligible to the Edge platform. We will solve this issue by mapping the event data to an XDM schema in the next section.
 
 <Image of app button triggering trackAction/trackState + console output? and also corresponding event in assurance event view>
 
