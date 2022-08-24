@@ -1,6 +1,6 @@
-# AEP Analytics & Edge Bridge
+# Migrating from Analytics mobile extension to Edge Network using the EdgeBridge extension
 ## Overview
-This hands-on tutorial provides end-to-end instructions for Mobile SDK customers on how  Edge Bridge can help easily migrate from AEPAnalytics to AEP.
+This hands-on tutorial provides end-to-end instructions on how to migrate to Edge Network from Analytics to EdgeBridge mobile extension.
 
 There are other beginning states the customer can be in like using ACP Analytics, v4 extension, etc. These usages can potentially be migrated to AEP and from there, this tutorial can be applied afterwards. However, this should be determined on a case-by-case basis, as for example in the v4 extension case, it may be more effective to simply implement AEP extensions itself without the need for Edge Bridge migration path.
 
@@ -19,15 +19,24 @@ Configure Datastream, enable Analytics - 2 paths:
     - same rsid(s) as in Analytics extension (if using Analytics + EdgeBridge this will cause double counting).  
     - different rsid(s) if the customer wants to start new or run the migration in a comparison mode (Analytics + EdgeBridge side by side).  
 
+## Prerequisites
+- A timestamp enabled report suite is configured for mobile data collection.
+- A tag (also known as mobile property) is configured in Data Collection UI which has Adobe Analytics extension installed and configured.
+- AEPAnalytics mobile extension is installed and registered in the client-side mobile application.
+- `MobileCore.trackAction` and/or `MobileCore.trackState` API(s) are already implemented in the mobile application.
+
+### Environment
+- macOS machine with a recent version of Xcode installed
+
 Install Edge Network & Edge Identity in Launch - Edge Bridge does not have a card here  
 Analytics should remain installed in Launch for production app versions.  
 Publish the changes  
 
 ## Client-side implementation
-### 1. Install Edge Bridge using dependency manager
-To install EdgeBridge, use the currently the supported installation options:
-### iOS
-#### [CocoaPods](https://guides.cocoapods.org/using/using-cocoapods.html)
+// TODO: refine these steps once tutorial app is complete
+### 1. Install Edge Bridge using dependency manager (CocoaPods)
+1. Open Podfile
+2. Edit Podfile as the following:
 
 ```ruby
 # Podfile
@@ -36,8 +45,10 @@ use_frameworks!
 # For app development, include all the following pods
 target 'YOUR_TARGET_NAME' do
   pod 'AEPAnalytics'
+  pod 'AEPEdgeConsent'
   pod 'AEPCore'
-  pod 'AEPIdentity'
+  pod 'AEPEdge'
+  pod 'AEPEdgeIdentity'
   pod 'AEPLifecycle'  
   pod 'AEPServices'
   
@@ -47,30 +58,33 @@ target 'YOUR_TARGET_NAME' do
 end
 ```
 
-#### [Swift Package Manager](https://github.com/apple/swift-package-manager)
-
-To add the AEPEdgeBridge Package to your application, from the Xcode menu select:
-
-`File > Swift Packages > Add Package Dependency...`
-
-Enter the URL for the AEPEdgeIdentity package repository: `https://github.com/adobe/aepsdk-edgebridge-ios.git`. 
-
-When prompted, input a specific version or a range of version for Version rule.
-
-Alternatively, if your project has a `Package.swift` file, you can add AEPEdgeBridge directly to your dependencies:
-
+3. Open a terminal window and while in the project directory, run:
+```bash
+pod update
 ```
-dependencies: [
-	.package(url: "https://github.com/adobe/aepsdk-edgebridge-ios.git", .upToNextMajor(from: "1.0.0"))
-],
-targets: [
-   	.target(name: "YourTarget",
-    		dependencies: ["AEPEdgeBridge"],
-          	path: "your/path")
-]
-```
+
+<details>
+  <summary> Using Swift package manager instead? </summary><p>
+
+### Swift Package Manager
+This tutorial assumes a project using Cocoapods for package dependency management, but if following along with a project that uses Swift package manager, refer to the [README for instructions on how to add the EdgeBridge package](../../README.md#swift-package-managerhttpsgithubcomappleswift-package-manager).
+
+</p></details>
+
 
 ### 2. Imports and extension registration diff  
+
+Replace
+```swift
+import AEPAnalytics
+```
+With
+```swift
+import AEPEdgeBridge
+```
+
+
+
 In your AppDelegate file, import the newly installed extension and register it with `MobileCore`:
 
 ```swift
@@ -326,6 +340,8 @@ You can use the search box (`1`) to look up the names (`2`) of the three field g
 
 After adding all three required field groups, click `Add field groups`. All the field groups should be present in the right side info panel (`2`).
 <img src="../assets/edge-bridge-tutorial/schema-field-group-3.png" alt="Add required field groups" width="1100"/>  
+
+
 
 2. [Create a datastream](https://experienceleague.adobe.com/docs/platform-learn/implement-mobile-sdk/initial-configuration/create-datastream.html)
 
