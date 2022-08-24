@@ -15,7 +15,7 @@ For a quick overview of the capabilities of Data Prep, watch the following [vide
 ## Prerequisites
 Before continuing, create an XDM schema and configure a datastream using the following tutorials. In order to send data to the Edge Network, the datastream must be configured with the Adobe Experience Platform service.
 - [Create a schema](https://experienceleague.adobe.com/docs/platform-learn/implement-mobile-sdk/initial-configuration/create-schema.html)
-- [Createa  datastream](https://experienceleague.adobe.com/docs/platform-learn/implement-mobile-sdk/initial-configuration/create-datastream.html)
+- [Create a datastream](https://experienceleague.adobe.com/docs/platform-learn/implement-mobile-sdk/initial-configuration/create-datastream.html)
 
 In the following steps, the examples assume the schema configured with the datastream contain these field groups:
 - AEP Mobile Lifecycle Details
