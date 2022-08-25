@@ -73,6 +73,8 @@ This tutorial assumes a project using Cocoapods for package dependency managemen
 
 
 ### 2. Imports and extension registration diff  
+// TODO: update this section with just the code snippets to change/replace after updating tutorial app for initial state
+// targets etc. should reflect the actual tutorial app
 
 Replace
 ```swift
@@ -177,6 +179,10 @@ When presented with this window, the new Assurance session is created, and it is
 <img src="../assets/edge-bridge-tutorial/assurance-create-session-link.png" alt="Creating a new session in Assurance step 3 - Session link" width="400"/>
 
 ### 2. Connect to the app   
+
+<details>
+  <summary> Details on connecting to Assurance </summary><p>
+
 There are two primary ways to connect an app instance to an Assurance session:
 1. QR Code: available with `Scan QR Code` option selected. Only works with physical devices, as it requires a physical device's camera to scan the code. Note that this method requires setup on the application code side to allow for deep linking (see [Set up the Assurance session](#1-set-up-the-assurance-session)).
 
@@ -188,6 +194,19 @@ To access these connection methods, click `Session Details`:
 
 Note that it is possible to edit both the `Session Name` and `Base URL`; changes to the `Base URL` value will automatically be reflected in both QR code and session link.
 
+</p></details>
+
+To connect using session link:
+1. Copy the session link; you can click the icon of a double overlapping box to the right of the link to copy
+    - If using a physical device, it may be helpful to have a way to send this link to the device (ex: Airdrop, email, text, etc.)
+2. Open the sample app and tap the Assurance button
+3. Paste the Assurance session link copied from step 1 and tap `Connect`
+    - If using the simulator, it is possible to enable the paste menu by clicking in the text field twice, with a slight pause between clicks.
+4. App should open and show the Assurance PIN screen to authenticate the session connection; enter the PIN from the session details and tap `Connect`
+
+<details>
+  <summary> Connecting using QR code </summary><p>
+
 To connect using QR code:
 Prerequisites (see [Set up the Assurance session](#1-set-up-the-assurance-session) for details on QR code requirements):
 - Running app using physical device with camera that can scan QR codes
@@ -197,13 +216,7 @@ Prerequisites (see [Set up the Assurance session](#1-set-up-the-assurance-sessio
 1. Use physical device's camera to scan the QR code, which when tapped, should trigger a confirmation dialog to open the app.
 2. App should open and show the Assurance PIN screen to authenticate the session connection; enter the PIN from the session details and tap `Connect`
 
-To connect using session link:
-1. Copy the session link; you can click the icon of a double overlapping box to the right of the link to copy
-    - If using a physical device, it may be helpful to have a way to send this link to the device (ex: Airdrop, email, text, etc.)
-2. Open the sample app and tap the Assurance button
-3. Paste the Assurance session link copied from step 1 and tap `Connect`
-    - If using the simulator, it is possible to enable the paste menu by clicking in the text field twice, with a slight pause between clicks.
-4. App should open and show the Assurance PIN screen to authenticate the session connection; enter the PIN from the session details and tap `Connect`
+</p></details>
 
 Once connected to Assurance, an Adobe Experience Platform icon will appear in the top right corner of the screen with a green dot indicating a connected session. In the web-based Assurance session, there is also an indicator in the top right that shows the number of connected sessions (which in this case should now show a green dot with "1 Client Connected", marked `1` in the screenshot below).
 
@@ -215,38 +228,10 @@ Observe how in the Assurance session Events view (`2`), there are already events
 ### 3. Event transactions view - check for Edge Bridge events  
 In order to see Edge Bridge events, in the connected app instance, trigger a `trackAction` and/or `trackState` within the app which the Edge Bridge extension will convert into Edge events. This event will be captured by the Assurance extension and shown in the web session viewer.
 
-```swift
-Button("Track Action", action: {
-    // Dispatch an Analytics track action event which is handled by the
-    // Edge Bridge extension which forwards it to the Edge Network.
-
-    let data: [String: Any] = [
-        "product.id": "12345", 
-        "product.add.event": "1", 
-        "product.name": "wide_brim_sunhat", 
-        "product.units": "1"
-    ]
-    MobileCore.track(action: "add_to_cart", data: data)
-}).padding()
-```
-
-```swift
-Button("Track State", action: {
-    // Dispatch an Analytics track state event which is handled by the
-    // Edge Bridge extension which forwards it to the Edge Network.
-
-    let data: [String: Any] = [
-        "product.name": "wide_brim_sunhat", 
-        "product.id": "12345", 
-        "product.view.event": "1"
-    ]
-    MobileCore.track(state: "hats/sunhat/wide_brim_sunhat_id12345", data: data)
-}).padding()
-```
+<img src="../assets/edge-bridge-tutorial/simulator-track-buttons.jpg" alt="Simulator tracking buttons" width="400"/>
 
 Click the `AnalyticsTrack` event (`1`) in the events table to see the event details in the right side window; click the `RAW EVENT` dropdown (`2`) in the event details window to see the event data payload. Verify that the `contextdata` matches what was sent by the Analytics `trackAction`/`trackState` API.
 
-<img src="../assets/edge-bridge-tutorial/simulator-track-buttons.jpg" alt="Simulator tracking buttons" width="400"/>
 <img src="../assets/edge-bridge-tutorial/assurance-analytics-track-event.jpg" alt="Simulator tracking buttons" width="800"/>
 
 Now click the `Edge Bridge Request` event (`1`) in the events table, and click the `RAW EVENT` dropdown (`2`) in the event details window; notice the slight differences in the payload structure as a result of the `Edge Bridge Request` event conforming to the format of an Edge event.
