@@ -323,14 +323,49 @@ You can use the search box (`1`) to look up the names (`2`) of the three field g
 
 </p></details>
 
-After adding all three required field groups, click `Add field groups`. All the field groups should be present in the right side info panel (`2`).
+Verify that all the required field groups are present in the right side info panel (`1`), then click `Add field groups` (`2`). 
 <img src="../assets/edge-bridge-tutorial/schema-field-group-3.png" alt="Add required field groups" width="1100"/>  
 
+Verify that the required field groups are present under the `Field groups` section (`1`) and the properties associated with those field groups are present under the `Structure` section (`2`), then click `Save` (`3`).
+<img src="../assets/edge-bridge-tutorial/schema-with-field-groups.png" alt="Schema with required field groups" width="1100"/>  
 
+<details>
+  <summary> Hints for using the schema creator tool </summary><p>
 
-2. [Create a datastream](https://experienceleague.adobe.com/docs/platform-learn/implement-mobile-sdk/initial-configuration/create-datastream.html)
+To quickly see what properties are from a given field group, click the field group under the `Field groups` section (`1`). The properties are highlighted in the `Structure` section (`2`).
+
+<img src="../assets/edge-bridge-tutorial/schema-tool-selection.png" alt="Schema tool selecting a field group example" width="1100"/>  
+
+To see only the properties from a given field group, click the selection box next to the field group (`1`). The properties are filtered to only the selected field group in the `Structure` section (`2`).
+
+<img src="../assets/edge-bridge-tutorial/schema-tool-filtering.png" alt="Schema tool filtering on a field group example" width="1100"/>  
+
+</p></details>
+
+### 2. Create a datastream
+
+<details>
+  <summary> What is a datastream? </summary><p>
+
+A datastream is a server-side configuration on Platform Edge Network. Datastreams ensure that incoming data is routed to Adobe Experience Cloud applications and services (like Analytics) appropriately. For more information, see the [datastreams documentation](https://experienceleague.adobe.com/docs/experience-platform/edge/datastreams/overview.html?lang=en) or this [video](https://experienceleague.adobe.com/docs/platform-learn/data-collection/edge-network/configure-datastreams.html?lang=en).
+
+</p></details>
+
+Click `Datastreams` under `DATA COLLECTION` in the left side navigation panel.
+
+<img src="../assets/edge-bridge-tutorial/datastreams-navigation.png" alt="Datastream in Data Collection Navigation" width="1100"/>  
+
+Click `New Datastream` in the top right.
+
+<img src="../assets/edge-bridge-tutorial/datastreams-main-view.png" alt="Create new datastream" width="1100"/>  
+
+Give the datastream an identifying name and description (`1`), then pick the schema created in the previous section using the dropdown menu (`2`). Then click `Save and Add Mapping` (`3`).
+
+<img src="../assets/edge-bridge-tutorial/datastreams-new-datastream.png" alt="Set datastream values" width="1100"/>  
+
 
 See the guide on [data prep mapping](map-track-data-using-data-prep.md)
+
 Copy data blob from Assurance (hint on copy from logs)  
 1. Click the Event which has the data payload you want to map to XDM
 2. On the right side details window, click the Raw Event dropdown to see the raw event data
