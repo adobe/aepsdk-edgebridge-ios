@@ -363,21 +363,36 @@ Give the datastream an identifying name and description (`1`), then pick the sch
 
 <img src="../assets/edge-bridge-tutorial/datastreams-new-datastream.png" alt="Set datastream values" width="1100"/>  
 
+Navigate back to your Assurance session for the Edge Bridge app and select the `Edge Bridge Request` event (`1`), then open the `RAW EVENT` dropdown and click and drag to select the `ACPExtensionEventData` value as shown, then copy the selected value (right click the highlighted selection and choose `Copy`, or use the copy keyboard shortcut `CMD + C`):
 
-See the guide on [data prep mapping](map-track-data-using-data-prep.md)
+<img src="../assets/edge-bridge-tutorial/assurance-edgebridge-mapping-data.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
-Copy data blob from Assurance (hint on copy from logs)  
-1. Click the Event which has the data payload you want to map to XDM
-2. On the right side details window, click the Raw Event dropdown to see the raw event data
-3. Click `Copy Raw Event`
+<details>
+  <summary> Edge Bridge event data snippet </summary><p>
 
-## Add mapping in Data Prep UI  
-Click the nine dot menu in the top right and select Data Collection
-Select Datastreams in the left-side navigation window
-Select the Datastream that should have the mapping from `trackAction`/`trackState` mapped to `XDM` format
-Click **Edit Mapping**
-Paste the JSON copied from the raw event data from the previous section into the box
+```json
+{
+    "xdm": {
+    "eventType": "analytics.track",
+    "timestamp": "2022-08-19T20:55:12.320Z"
+    },
+    "data": {
+    "contextdata": {
+        "product.id": "12345",
+        "product.add.event": "1",
+        "product.name": "wide_brim_sunhat",
+        "product.units": "1"
+    },
+    "action": "add_to_cart"
+    }
+}
+```
 
+</p></details>
+
+
+
+Follow the instructions in the guide on mapping data [using Data Prep for Data Collection](./map-track-data-using-data-prep.md)
 
 ## Validation with Assurance
 Check mapping feedback in Event transactions view
