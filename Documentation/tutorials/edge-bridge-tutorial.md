@@ -407,11 +407,40 @@ In the JSON property viewer window, click the dropdown arrows next to `data` (`1
 
 <img src="../assets/edge-bridge-tutorial/datastreams-select-property.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
-Notice that in the property viewer, you can see the data hierarchy, where `data` is at the top, `contextdata` is one level down, and `product.add.event` is one level below that. This is nested data, which is a way to organize data in the JSON format. The data mapper interprets the `.` character as nesting, which means if there are `.` characters in a property name that are not meant to be nesting, namely the ones in our current example: `product.add.event`, we need to escape this behavior by adding backslashes `\` before the `.`.
+Notice that in the property viewer, you can see the data hierarchy, where `data` is at the top, `contextdata` is one level down, and `product.add.event` is one level below that. This is nested data, which is a way to organize data in the JSON format. The data mapper interprets the `.` character as nesting, which means if there are `.` characters in a property name that are not meant to be nesting, namely the ones in our current example: `product.add.event`, we need to escape this behavior by adding backslashes `\` before the `.` (`1`).
 
-Now, we need to map this JSON property from the Edge Bridge event to its matching property in the XDM schema. Click the schema icon (`1`) to open the XDM property viewer window.
+Now, we need to map this JSON property from the Edge Bridge event to its matching property in the XDM schema. Click the schema icon (`2`) to open the XDM property viewer window.
 
 <img src="../assets/edge-bridge-tutorial/datastreams-mapping-xdm.png" alt="Select data from Edge Bridge event" width="1100"/>  
+
+In the XDM property viewer window, click the dropdown arrows next to `commerce` (`1`) and `productListAdds` (`2`). Then select the `value` property (`3`) and click `Select` (`4`).
+
+<img src="../assets/edge-bridge-tutorial/datastreams-mapping-xdm-property.png" alt="Select data from Edge Bridge event" width="1100"/>  
+
+Repeat this process, adding new mappings for all of the other properties on the JSON data side (except for the `timestamp` property which is handled automatically by Edge), finalizing the mappings like this:
+
+| JSON Property  | XDM Property  | trackAction | trackState |
+| ------------- | ------------- | ----- | --- |
+| data.contextdata.product\\.add\\.event  | commerce.productListAdds.value  | <ul><li>[x]</li></ul> |
+| data.contextdata.product\\.view\\.event  | commerce.productListViews.value  | `trackState` |
+| data.contextdata.product\\.id  | productListItems.SKU  | `trackAction`, `trackState` |
+| data.contextdata.product\\.name  | productListItems.name  | `trackAction`, `trackState` |
+| data.contextdata.product\\.units  | productListItems.quantity  | `trackAction` |
+| data.contextdata.action  | productListItems.productAddMethod  | `trackAction` |
+| data.contextdata.state  | productListItems.productAddMethod  | `trackState` |
+
+<details>
+  <summary> <code>trackState</code> Example </summary><p>
+
+| JSON Property  | XDM Property  |
+| ------------- | ------------- |
+| data.contextdata.product\\.add\\.event  | commerce.productListAdds.value  |
+| data.contextdata.product\\.id  | productListItems.SKU  |
+| data.contextdata.product\\.name  | productListItems.name  |
+| data.contextdata.product\\.units  | productListItems.quantity  |
+| data.contextdata.action  | productListItems.productAddMethod  |
+
+</p></details>
 
 
 
