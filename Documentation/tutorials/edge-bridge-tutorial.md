@@ -419,15 +419,15 @@ In the XDM property viewer window, click the dropdown arrows next to `commerce` 
 
 Repeat this process, adding new mappings for all of the other properties on the JSON data side (except for the `timestamp` property which is handled automatically by Edge), finalizing the mappings like this:
 
-| JSON Property  | XDM Property  | trackAction | trackState |
-| ------------- | ------------- | ----- | --- |
-| data.contextdata.product\\.add\\.event  | commerce.productListAdds.value  | :heavy_check_mark: |
-| data.contextdata.product\\.view\\.event  | commerce.productListViews.value  | :white_check_mark: |
-| data.contextdata.product\\.id  | productListItems.SKU  | `trackAction`, `trackState` |
-| data.contextdata.product\\.name  | productListItems.name  | `trackAction`, `trackState` |
-| data.contextdata.product\\.units  | productListItems.quantity  | `trackAction` |
-| data.contextdata.action  | productListItems.productAddMethod  | `trackAction` |
-| data.contextdata.state  | productListItems.productAddMethod  | `trackState` |
+| JSON Property                           | XDM Property                       | trackAction        | trackState         |
+| --------------------------------------- | ---------------------------------- | ------------------ | ------------------ |
+| data.contextdata.product\\.add\\.event  | commerce.productListAdds.value     | :white_check_mark: |                    |
+| data.contextdata.product\\.view\\.event | commerce.productListViews.value    |                    | :white_check_mark: |
+| data.contextdata.product\\.id           | productListItems.SKU               | :white_check_mark: | :white_check_mark: |
+| data.contextdata.product\\.name         | productListItems.name              | :white_check_mark: | :white_check_mark: |
+| data.contextdata.product\\.units        | productListItems.quantity          | :white_check_mark: |                    |
+| data.contextdata.action                 | productListItems.productAddMethod  | :white_check_mark: |                    |
+| data.contextdata.state                  | productListItems.productAddMethod  |                    | :white_check_mark: |
 
 <details>
   <summary> <code>trackState</code> Example </summary><p>
