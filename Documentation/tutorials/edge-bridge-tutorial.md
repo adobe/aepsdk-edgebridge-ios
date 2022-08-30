@@ -421,7 +421,7 @@ Repeat this process, adding new mappings for all of the other properties on the 
 
 | JSON Property  | XDM Property  | trackAction | trackState |
 | ------------- | ------------- | ----- | --- |
-| data.contextdata.product\\.add\\.event  | commerce.productListAdds.value  | <ul><li>[x]</li></ul> |
+| data.contextdata.product\\.add\\.event  | commerce.productListAdds.value  | :heavy_check_mark: |
 | data.contextdata.product\\.view\\.event  | commerce.productListViews.value  | `trackState` |
 | data.contextdata.product\\.id  | productListItems.SKU  | `trackAction`, `trackState` |
 | data.contextdata.product\\.name  | productListItems.name  | `trackAction`, `trackState` |
