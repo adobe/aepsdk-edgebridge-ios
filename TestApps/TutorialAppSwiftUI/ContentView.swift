@@ -10,7 +10,6 @@
 // governing permissions and limitations under the License.
 //
 
-import AEPAnalytics
 import AEPCore
 import SwiftUI
 

@@ -26,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let ENVIRONMENT_FILE_ID = ""
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        print("application didFinishLaunchingWithOptions")
         // Override point for customization after application launch.
         let appState = application.applicationState
         MobileCore.setLogLevel(.trace)
