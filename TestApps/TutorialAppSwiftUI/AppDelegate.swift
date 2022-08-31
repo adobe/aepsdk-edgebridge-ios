@@ -10,10 +10,11 @@
 // governing permissions and limitations under the License.
 //
 
+import AEPAnalytics
 import AEPAssurance
 import AEPCore
 import AEPEdge
-import AEPEdgeBridge
+import AEPEdgeConsent
 import AEPEdgeIdentity
 import AEPLifecycle
 import Compression
@@ -22,7 +23,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
-    private let ENVIRONMENT_FILE_ID = "3805cb8645dd/88c777c4d663/launch-10d089bd7138-development"
+    private let ENVIRONMENT_FILE_ID = ""
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         print("application didFinishLaunchingWithOptions")
@@ -31,10 +32,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MobileCore.setLogLevel(.trace)
         MobileCore.configureWith(appId: ENVIRONMENT_FILE_ID)
         MobileCore.registerExtensions([
-            Identity.self,
-            Edge.self,
+            Analytics.self,
             Assurance.self,
-            EdgeBridge.self,
+            Consent.self,
+            Edge.self,
+            Identity.self,
             Lifecycle.self
         ], {
             if appState != .background {

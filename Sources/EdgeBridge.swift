@@ -69,7 +69,7 @@ public class EdgeBridge: NSObject, Extension {
             Log.trace(label: EdgeBridgeConstants.LOG_TAG, "Ignoring Rule Engine response event with id '\(event.id.uuidString)': consequence data is missing.")
             return
         }
-        
+
         guard let consequenceType = consequence["type"] as? String, consequenceType == "an" else {
             return
         }

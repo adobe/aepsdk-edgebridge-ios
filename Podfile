@@ -32,9 +32,12 @@ target 'TestAppSwiftUI' do
 end
 
 target 'TutorialAppSwiftUI' do
-  pod 'AEPCore'
-  pod 'AEPLifecycle'
-  pod 'AEPEdge'
-  pod 'AEPEdgeIdentity'
+  pod 'AEPAnalytics'
   pod 'AEPAssurance'
+  pod 'AEPCore'
+  pod 'AEPEdge'
+  pod 'AEPEdgeConsent'
+  pod 'AEPEdgeIdentity'
+  pod 'AEPLifecycle'
+  pod 'AEPServices'
 end

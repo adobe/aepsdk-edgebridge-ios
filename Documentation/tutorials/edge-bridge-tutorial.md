@@ -364,34 +364,41 @@ Give the datastream an identifying name and description (`1`), then pick the sch
 
 <img src="../assets/edge-bridge-tutorial/datastreams-new-datastream.png" alt="Set datastream values" width="1100"/>  
 
+In order to map the properties from both `trackAction` and `trackState` events in the same datastream, we need to combine their event data properties into a single JSON. For simplicity, the merged data structure has been provided below:
+
+```json
+{
+  "xdm": {
+    "eventType": "analytics.track",
+    "timestamp": "2022-08-19T20:55:12.320Z"
+  },
+  "data": {
+    "contextdata": {
+      "product.add.event": "1",
+      "product.view.event": "1",
+      "product.id": "12345",
+      "product.name": "wide_brim_sunhat",
+      "product.units": "1"
+    },
+    "action": "add_to_cart",
+    "state": "hats/sunhat/wide_brim_sunhat_id12345"
+  }
+}
+
+```
+
+Copy and paste the JSON data into the datastreams JSON input box (`1`). Verify the uploaded JSON matches what is displayed in the `Preview sample data` section (`2`), then click `Next` (`3`).
+
+<details>
+  <summary> Getting the JSON data from Assurance </summary><p>
+
 Navigate back to your Assurance session for the Edge Bridge app and select the `Edge Bridge Request` event (`1`), then open the `RAW EVENT` dropdown and click and drag to select the `ACPExtensionEventData` value as shown, then copy the selected value (right click the highlighted selection and choose `Copy`, or use the copy keyboard shortcut `CMD + C`):
 
 <img src="../assets/edge-bridge-tutorial/assurance-edgebridge-mapping-data.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
-<details>
-  <summary> Edge Bridge event data snippet </summary><p>
-
-```json
-{
-    "xdm": {
-    "eventType": "analytics.track",
-    "timestamp": "2022-08-19T20:55:12.320Z"
-    },
-    "data": {
-    "contextdata": {
-        "product.id": "12345",
-        "product.add.event": "1",
-        "product.name": "wide_brim_sunhat",
-        "product.units": "1"
-    },
-    "action": "add_to_cart"
-    }
-}
-```
+To merge events, you would look for properties under `data` and `contextdata` that are unique between events and include them in the final data payload.
 
 </p></details>
-
-Paste the copied JSON data into the datastreams JSON input box (`1`). Verify the uploaded JSON matches what is displayed in the `Preview sample data` section (`2`), then click `Next` (`3`).
 
 <img src="../assets/edge-bridge-tutorial/datastreams-json-paste.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
@@ -426,9 +433,6 @@ Repeat this process, adding new mappings for all of the other properties on the 
 | data.contextdata.product\\.id           | productListItems.SKU               | :white_check_mark: | :white_check_mark: |
 | data.contextdata.product\\.name         | productListItems.name              | :white_check_mark: | :white_check_mark: |
 | data.contextdata.product\\.units        | productListItems.quantity          | :white_check_mark: |                    |
-| data.contextdata.action                 | productListItems.productAddMethod  | :white_check_mark: |                    |
-| data.contextdata.state                  | productListItems.productAddMethod  |                    | :white_check_mark: |
-
 
 
 
