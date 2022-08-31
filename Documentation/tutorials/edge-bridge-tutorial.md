@@ -429,18 +429,6 @@ Repeat this process, adding new mappings for all of the other properties on the 
 | data.contextdata.action                 | productListItems.productAddMethod  | :white_check_mark: |                    |
 | data.contextdata.state                  | productListItems.productAddMethod  |                    | :white_check_mark: |
 
-<details>
-  <summary> <code>trackState</code> Example </summary><p>
-
-| JSON Property  | XDM Property  |
-| ------------- | ------------- |
-| data.contextdata.product\\.add\\.event  | commerce.productListAdds.value  |
-| data.contextdata.product\\.id  | productListItems.SKU  |
-| data.contextdata.product\\.name  | productListItems.name  |
-| data.contextdata.product\\.units  | productListItems.quantity  |
-| data.contextdata.action  | productListItems.productAddMethod  |
-
-</p></details>
 
 
 
