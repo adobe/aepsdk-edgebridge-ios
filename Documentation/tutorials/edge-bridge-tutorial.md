@@ -31,7 +31,7 @@ There are other beginning states the customer can be in like using ACP Analytics
 
 ```mermaid
 graph LR;
-    Analytics ready app --> Add Edge and Edge Bridge extensions\ntest --> Add Assurance --> Map data to XDM -> Final app;
+    step1(Analytics ready app) --> step2(Add Edge and Edge Bridge extensions\ntest) --> step3(Add Assurance) --> step4(Map data to XDM) -> step5(Final app);
 ```
 
 Tutorial setup:
