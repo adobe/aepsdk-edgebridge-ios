@@ -29,6 +29,14 @@ This hands-on tutorial provides end-to-end instructions on how to migrate to Edg
 
 There are other beginning states the customer can be in like using ACP Analytics, v4 extension, etc. These usages can potentially be migrated to AEP and from there, this tutorial can be applied afterwards. However, this should be determined on a case-by-case basis, as for example in the v4 extension case, it may be more effective to simply implement AEP extensions itself without the need for Edge Bridge migration path.
 
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
 Tutorial setup:
 
 Initial test app that is based on prerequisites (implements Analytics)
