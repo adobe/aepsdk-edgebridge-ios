@@ -1,4 +1,29 @@
 # Migrating from Analytics mobile extension to Edge Network using the EdgeBridge extension
+
+## Table of Contents
+- [Migrating from Analytics mobile extension to Edge Network using the EdgeBridge extension](#migrating-from-analytics-mobile-extension-to-edge-network-using-the-edgebridge-extension)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Data Collection config instructions](#data-collection-config-instructions)
+  - [Prerequisites](#prerequisites)
+    - [Environment](#environment)
+  - [Client-side implementation](#client-side-implementation)
+    - [1. Install Edge Bridge using dependency manager (CocoaPods)](#1-install-edge-bridge-using-dependency-manager-cocoapods)
+    - [Swift Package Manager](#swift-package-manager)
+    - [2. Imports and extension registration diff](#2-imports-and-extension-registration-diff)
+    - [3. Run app](#3-run-app)
+    - [4. TrackAction/TrackState implementation examples](#4-trackactiontrackstate-implementation-examples)
+      - [Swift](#swift)
+  - [Initial validation with Assurance](#initial-validation-with-assurance)
+    - [1. Set up the Assurance session](#1-set-up-the-assurance-session)
+    - [2. Connect to the app](#2-connect-to-the-app)
+    - [3. Event transactions view - check for Edge Bridge events](#3-event-transactions-view---check-for-edge-bridge-events)
+  - [Data prep mapping](#data-prep-mapping)
+    - [Prerequisites](#prerequisites-1)
+    - [1. Create a schema](#1-create-a-schema)
+    - [2. Create a datastream](#2-create-a-datastream)
+  - [Validation with Assurance](#validation-with-assurance)
+
 ## Overview
 This hands-on tutorial provides end-to-end instructions on how to migrate to Edge Network from Analytics to EdgeBridge mobile extension.
 
