@@ -34,6 +34,7 @@ end
 target 'TutorialAppStart' do
   pod 'AEPAnalytics'
   pod 'AEPCore'
+  pod 'AEPIdentity'
   pod 'AEPServices'
 end
 
@@ -44,6 +45,7 @@ target 'TutorialAppFinal' do
   pod 'AEPEdge'
   pod 'AEPEdgeConsent'
   pod 'AEPEdgeIdentity'
+  pod 'AEPIdentity'
   pod 'AEPLifecycle'
   pod 'AEPServices'
 end
