@@ -15,7 +15,6 @@
     - [2. Update Tutorial App Code to Enable EdgeBridge functionality](#2-update-tutorial-app-code-to-enable-edgebridge-functionality)
     - [3. Run app](#3-run-app)
     - [4. TrackAction/TrackState implementation examples](#4-trackactiontrackstate-implementation-examples)
-      - [Swift](#swift)
   - [Initial validation with Assurance](#initial-validation-with-assurance)
     - [1. Set up the Assurance session](#1-set-up-the-assurance-session)
     - [2. Connect to the app](#2-connect-to-the-app)
@@ -418,25 +417,9 @@ You should see your application running on the device you selected, with logs be
 > View -> Debug Area -> Show Debug Area
 
 ### 4. TrackAction/TrackState implementation examples   
-With Edge Bridge extension successfully installed and registered, you can make  `trackAction` and `trackState` calls, which will be captured by Edge Bridge extension and sent to the Edge network.
+With Edge Bridge extension successfully installed and registered, you can make the regular Analytics `trackAction` and `trackState` calls, which will be captured by Edge Bridge extension and sent to the Edge network.
 
-#### Swift
-```swift
-let actionData: [String: Any] = [
-    "product.id": "12345", 
-    "product.add.event": "1", 
-    "product.name": "wide_brim_sunhat", 
-    "product.units": "1"
-]
-MobileCore.track(action: "add_to_cart", data: actionData)
-
-let stateData: [String: Any] = [
-    "product.name": "wide_brim_sunhat", 
-    "product.id": "12345", 
-    "product.view.event": "1"
-]
-MobileCore.track(state: "hats/sunhat/wide_brim_sunhat_id12345", data: stateData)
-```
+Check `ContentView.swift` for implementation examples of both APIs. You can see the data payloads that are to be sent with the calls.
 
 ## Initial validation with Assurance
 ### 1. Set up the Assurance session  
