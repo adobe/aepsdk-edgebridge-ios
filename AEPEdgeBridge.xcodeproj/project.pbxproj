@@ -282,14 +282,14 @@
 		4C772FF328C1819100D7F889 /* TutorialAppStart */ = {
 			isa = PBXGroup;
 			children = (
-				4C77300628C1822400D7F889 /* LaunchScreen.storyboard */,
 				4C772FFC28C181F200D7F889 /* AppDelegate.swift */,
-				4C772FFA28C181F200D7F889 /* Assets.xcassets */,
-				4C772FF728C181F200D7F889 /* AssuranceView.swift */,
+				4C772FF528C181F200D7F889 /* SceneDelegate.swift */,
 				4C772FF628C181F200D7F889 /* ContentView.swift */,
+				4C772FF728C181F200D7F889 /* AssuranceView.swift */,
+				4C77300628C1822400D7F889 /* LaunchScreen.storyboard */,
+				4C772FFA28C181F200D7F889 /* Assets.xcassets */,
 				4C772FF928C181F200D7F889 /* Info.plist */,
 				4C772FFB28C181F200D7F889 /* Preview Content */,
-				4C772FF528C181F200D7F889 /* SceneDelegate.swift */,
 			);
 			path = TutorialAppStart;
 			sourceTree = "<group>";
@@ -297,14 +297,14 @@
 		4C9103E328BF1D3600CD5A66 /* TutorialAppFinal */ = {
 			isa = PBXGroup;
 			children = (
-				4C772FD428C1802000D7F889 /* Preview Content */,
 				4C772FD328C1802000D7F889 /* AppDelegate.swift */,
+				4C772FCF28C1802000D7F889 /* SceneDelegate.swift */,
+				4C772FD128C1802000D7F889 /* ContentView.swift */,
+				4C772FD228C1802000D7F889 /* AssuranceView.swift */,
+				4C772FD428C1802000D7F889 /* Preview Content */,
 				4C772FDC28C1804200D7F889 /* LaunchScreen.storyboard */,
 				4C772FD028C1802000D7F889 /* Assets.xcassets */,
-				4C772FD228C1802000D7F889 /* AssuranceView.swift */,
-				4C772FD128C1802000D7F889 /* ContentView.swift */,
 				4C772FCE28C1802000D7F889 /* Info.plist */,
-				4C772FCF28C1802000D7F889 /* SceneDelegate.swift */,
 			);
 			path = TutorialAppFinal;
 			sourceTree = "<group>";
@@ -346,12 +346,12 @@
 		D4D5B4DE242EBB1600CAB6E4 = {
 			isa = PBXGroup;
 			children = (
-				4C772FF328C1819100D7F889 /* TutorialAppStart */,
 				D4D5B4E9242EBB1600CAB6E4 /* Sources */,
 				D4D5B4F1242EBD2200CAB6E4 /* UnitTests */,
 				D4D5B4F2242EBFAE00CAB6E4 /* FunctionalTests */,
 				D4655403246DF3B000A150E2 /* TestUtils */,
 				D4D5B57B2432977F00CAB6E4 /* TestAppSwiftUI */,
+				4C772FF328C1819100D7F889 /* TutorialAppStart */,
 				4C9103E328BF1D3600CD5A66 /* TutorialAppFinal */,
 				D4D5B4E8242EBB1600CAB6E4 /* Products */,
 				E5239B915F53B993A1976FC4 /* Pods */,
