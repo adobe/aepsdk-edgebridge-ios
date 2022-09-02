@@ -388,11 +388,11 @@ Make sure to uncomment all sections within the file (the total will tell you how
 <details>
   <summary> What am I uncommenting in <code>AppDelegate.swift</code>? </summary><p>
 
-Section 1: imports the EdgeBridge extension and other AEP extensions that enable its functionality and power other features. This makes it available to use in the code below.
+**Section 1**: imports the EdgeBridge extension and other AEP extensions that enable its functionality and power other features. This makes it available to use in the code below.
 
-Section 2: registers the extensions with Core (which contains all of the baseline capabilities required to run Adobe extensions), getting them ready to run in the app.
+**Section 2**: registers the extensions with Core (which contains all of the baseline capabilities required to run Adobe extensions), getting them ready to run in the app.
 
-Section 3: Enables deep linking to connect to Assurance (which we will cover in depth in a later section); this is for iOS versions 12 and below.
+**Section 3**: Enables deep linking to connect to Assurance (which we will cover in depth in a later section); this is for iOS versions 12 and below.
 
 </p></details>
 
@@ -401,9 +401,9 @@ Repeat this process for the `SceneDelegate.swift` file.
 <details>
   <summary> What am I uncommenting in <code>SceneDelegate.swift</code>? </summary><p>
 
-Section 1: imports the Assurance extension for use in the code below.
+**Section 1**: imports the Assurance extension for use in the code below.
 
-Section 2: Enables deep linking to connect to Assurance (which we will cover in depth in a later section); this is for iOS versions 13 and above.
+**Section 2**: Enables deep linking to connect to Assurance (which we will cover in depth in a later section); this is for iOS versions 13 and above.
 
 </p></details>
 
