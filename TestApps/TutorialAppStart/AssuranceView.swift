@@ -10,7 +10,9 @@
 // governing permissions and limitations under the License.
 //
 
+/* Edge Bridge Tutorial - code section 1/2 */
 //import AEPAssurance
+/* Edge Bridge Tutorial - code section 1/2 */
 import SwiftUI
 
 struct AssuranceView: View {
@@ -22,9 +24,11 @@ struct AssuranceView: View {
             HStack {
                 Button(action: {
                     // replace the url with the valid one generated on Assurance UI
+/* Edge Bridge Tutorial - code section 2/2 */
 //                    if let url = URL(string: self.assuranceSessionUrl) {
 //                        Assurance.startSession(url: url)
 //                    }
+/* Edge Bridge Tutorial - code section 2/2 */
                 }) {
                     Text("Connect")
                         .frame(minWidth: 0, maxWidth: .infinity)

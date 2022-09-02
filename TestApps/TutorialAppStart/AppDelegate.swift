@@ -10,7 +10,13 @@
 // governing permissions and limitations under the License.
 //
 
-//import AEPAssurance
+/* EdgeBridge Tutorial - code section 1/3
+import AEPAssurance
+import AEPEdge
+import AEPEdgeConsent
+import AEPEdgeIdentity
+import AEPLifecycle
+// EdgeBridge Tutorial - code section 1/3 */
 import AEPAnalytics
 import AEPCore
 import Compression
@@ -28,14 +34,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MobileCore.configureWith(appId: ENVIRONMENT_FILE_ID)
         MobileCore.registerExtensions([
             Analytics.self,
-//            Assurance.self,
-//            Consent.self,
-//            Edge.self,
-//            Identity.self,
-//            Lifecycle.self
+/* EdgeBridge Tutorial - code section 2/3
+            Assurance.self,
+            Consent.self,
+            Edge.self,
+            Identity.self,
+            Lifecycle.self
+// EdgeBridge Tutorial - code section 2/3 */
         ], {
             if appState != .background {
-                // only start lifecycle if the application is not in the background
+                // Only start lifecycle if the application is not in the background
                 MobileCore.lifecycleStart(additionalContextData: nil)
             }
         })
@@ -52,7 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // To handle deeplink on iOS versions 12 and below
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-//        Assurance.startSession(url: url)
+/* EdgeBridge Tutorial - code section 3/3
+        Assurance.startSession(url: url)
+// EdgeBridge Tutorial - code section 3/3 */
         return true
     }
 }

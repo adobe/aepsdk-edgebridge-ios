@@ -4,12 +4,16 @@
 - [Migrating from Analytics mobile extension to Edge Network using the EdgeBridge extension](#migrating-from-analytics-mobile-extension-to-edge-network-using-the-edgebridge-extension)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
-  - [Prerequisites](#prerequisites)
     - [Environment](#environment)
+  - [Prerequisites](#prerequisites)
+    - [Prerequisites](#prerequisites-1)
+    - [1. Create a schema](#1-create-a-schema)
+    - [2. Create a datastream](#2-create-a-datastream)
   - [Client-side implementation](#client-side-implementation)
-    - [1. Install Edge Bridge using dependency manager (CocoaPods)](#1-install-edge-bridge-using-dependency-manager-cocoapods)
+    - [1. Get a copy of the files (code and tutorial app)](#1-get-a-copy-of-the-files-code-and-tutorial-app)
     - [Swift Package Manager](#swift-package-manager)
-    - [2. Imports and extension registration diff](#2-imports-and-extension-registration-diff)
+    - [1. Install Edge Bridge using dependency manager (CocoaPods)](#1-install-edge-bridge-using-dependency-manager-cocoapods)
+    - [2. Update Tutorial App Code to Enable EdgeBridge functionality](#2-update-tutorial-app-code-to-enable-edgebridge-functionality)
     - [3. Run app](#3-run-app)
     - [4. TrackAction/TrackState implementation examples](#4-trackactiontrackstate-implementation-examples)
       - [Swift](#swift)
@@ -18,9 +22,6 @@
     - [2. Connect to the app](#2-connect-to-the-app)
     - [3. Event transactions view - check for Edge Bridge events](#3-event-transactions-view---check-for-edge-bridge-events)
   - [Data prep mapping](#data-prep-mapping)
-    - [Prerequisites](#prerequisites-1)
-    - [1. Create a schema](#1-create-a-schema)
-    - [2. Create a datastream](#2-create-a-datastream)
   - [Validation with Assurance](#validation-with-assurance)
 
 ## Overview
@@ -33,6 +34,12 @@ graph LR;
     step1(Analytics ready app) --> step2(Add Edge and Edge Bridge extensions<br/>Enable sending context data to the Edge Network) --> step3(Add Assurance<br/>Verify event data formats) --> step4(Map data to XDM<br/>Allows Edge network to understand the data format) --> step5(Final app);
 ```
 
+### Environment
+- macOS machine with a recent version of Xcode installed
+- Cocoapods installed
+- git with GitHub desktop or GitHub access token for access to repo
+- Chrome/Chromium browser strongly recommended as some functionality doesn't work with Firefox (ex: Analytics info auto-populating in mobile property Extension, Analytics in general, etc.)
+///////// OUTLINE
 Tutorial setup:
 
 Initial test app that is based on prerequisites (implements Analytics)
@@ -40,7 +47,13 @@ Final test app after all the tutorial steps have been implemented (implements Ed
 
 Tutorial steps:
 
-      0. Prerequisites (set up Analytics report suite, mobile property, Assurance). List out required permissions for this tutorial: Analytics, Schema creation, Data Collection (Launch tags), Datastream view and edit, Assurance.
+      1. Prerequisites (set up Analytics report suite, mobile property, Assurance). List out required permissions for this tutorial: Analytics, Schema creation, Data Collection (Launch tags), Datastream view and edit, Assurance.
+
+Install Edge Network & Edge Identity in Launch - Edge Bridge does not have a card here  
+Analytics should remain installed in Launch for production app versions.  
+Publish the changes  
+
+////////// END: OUTLINE
 
 ## Prerequisites
 - A timestamp enabled report suite is configured for mobile data collection.
@@ -48,40 +61,235 @@ Tutorial steps:
 - AEPAnalytics mobile extension is installed and registered in the client-side mobile application.
 - `MobileCore.trackAction` and/or `MobileCore.trackState` API(s) are already implemented in the mobile application.
 
-### Environment
-- macOS machine with a recent version of Xcode installed
+### Prerequisites
+Before any app changes we need to set up some configuration items on the Adobe Experience Platform (AEP) side. The end goal of this section is to create a mobile property that controls the configuration settings for the various AEP extensions in use in this tutorial.
 
-Install Edge Network & Edge Identity in Launch - Edge Bridge does not have a card here  
-Analytics should remain installed in Launch for production app versions.  
-Publish the changes  
+First we need to create an XDM schema (the format for data that the Edge Network uses) and configure a datastream (controls where the data will go). 
+
+### 1. Create a schema  
+At a high level, a schema is a definition for the structure of your data; what properties you are expecting, what format they should be in, and checks for the actual values coming in.  
+
+1. Go to the [Adobe Experience Platform](https://experience.adobe.com/#/platform), using your Adobe ID credentials to log in if prompted.
+
+2. Navigate to the Data Collection UI by clicking the nine-dot menu in the top right (`1`), and selecting `Data Collection` (`2`)  
+<img src="../assets/edge-bridge-tutorial/assurance-to-data-collection.png" alt="Going from Assurance to Data Collection" width="1100"/>
+
+3. Click `Schemas` in the left navigation window  
+<img src="../assets/edge-bridge-tutorial/data-collection-tags.png" alt="Going from Assurance to Data Collection" width="1100"/>
+
+4. In the schemas view, click the `+ Create schema` button in the top right (`1`), then select `XDM ExperienceEvent` (`2`)
+<img src="../assets/edge-bridge-tutorial/data-collection-schemas.png" alt="Creating new XDM ExperienceEvent schema" width="1100"/>
+
+Once in the new schema creation view, notice the schema class is `XDM ExperienceEvent` (`1`); schemas adhere to specific class types which just means that they have some predefined properties and behaviors within the Edge platform. In this case, `XDM ExperienceEvent` creates the base properties you see in the `Structure` section that help define some baseline data for each Experience Event. 
+
+5. Give the new schema a name and description (`2`) to help identify it.
+6. Click the `+ Add` button (`3`) next to the `Field groups` section under `Composition`.
+
+<details>
+  <summary> What is a field group?</summary><p>
+
+A schema is made up of building blocks called field groups.
+
+Think of field groups as blueprints for specific groups of data; the data properties describing things like: the current device in use, products and contents/state of carts, information about the users themselves, etc. 
+
+For example, the `Commerce Details` field group has properties for common commerce-related data like: 
+- Product information (SKU, name, quantity)
+- Cart state (abandons, product add sources, etc.). 
+ 
+This logical grouping helps organize individual data properties into easily understandable sections. They are even reusable! Once you define a field group, you can use it in any schema that has a compatible class (some field groups only make sense with the capabilities of certain schema classes). There are two types of field groups available:
+
+1. Adobe defined - standardized templates of common use-cases and datasets created and updated by Adobe
+    - Note that Adobe Experience Platform services implicitly understand standard field groups and can provide additional functionality on top of just reading and writing data. That's why it is strongly recommended that you use standard field groups wherever possible.
+2. Custom defined - any field group outside of the Adobe defined ones that users can use to create their own custom collections of data properties  
+
+See the [Field Groups section in the Basics of schema composition](https://experienceleague.adobe.com/docs/experience-platform/xdm/schema/composition.html?lang=en#field-group) for an in depth look at how field groups work in the context of XDM schemas.
+
+</p></details>
+
+<img src="../assets/edge-bridge-tutorial/schema-creation.png" alt="Initial schema creation view" width="1100"/>
+
+In our case, we're going to add three Adobe defined field groups to our schema:  
+- AEP Mobile Lifecycle Details
+- Adobe Experience Edge Autofilled Environment Details
+- Commerce Details
+
+You can use the search box (`1`) to look up the names (`2`) of the three field groups required for this exercise. Note the owner of each of the schemas should be `Adobe` (`3`).
+<img src="../assets/edge-bridge-tutorial/schema-field-group-1.png" alt="Add field group to schema" width="1100"/>
+
+<details>
+  <summary> Hints for using the <code>Add field groups</code> tool</summary><p>
+
+(<code>1</code>) Selected field groups are shown on the right side of the window, where you can quickly see what field groups have been selected so far, and remove individual or all field groups from the current add session.  
+
+(<code>2</code>) Popularity: shows how many organizations are using the field group across the Adobe Experience Platform; can potentially be a good place to start in terms of finding which field groups may be the most useful for your needs.
+
+(<code>3</code>) The inspector icon lets you see the field group structure, and the info icon presents a card with the field group name, industry, and description.
+
+(<code>4</code>) The Industry filter selections let you quickly narrow down field groups based on the selected industry; another useful tool to find relevant field groups for your use-case.
+
+<img src="../assets/edge-bridge-tutorial/schema-field-group-2.jpg" alt="Add field group window hints" width="1100"/>  
+
+</p></details>
+
+Verify that all the required field groups are present in the right side info panel (`1`), then click `Add field groups` (`2`). 
+<img src="../assets/edge-bridge-tutorial/schema-field-group-3.png" alt="Add required field groups" width="1100"/>  
+
+Verify that the required field groups are present under the `Field groups` section (`1`) and the properties associated with those field groups are present under the `Structure` section (`2`), then click `Save` (`3`).
+<img src="../assets/edge-bridge-tutorial/schema-with-field-groups.png" alt="Schema with required field groups" width="1100"/>  
+
+<details>
+  <summary> Hints for using the schema creator tool </summary><p>
+
+To quickly see what properties are from a given field group, click the field group under the `Field groups` section (`1`). The properties are highlighted in the `Structure` section (`2`).
+
+<img src="../assets/edge-bridge-tutorial/schema-tool-selection.png" alt="Schema tool selecting a field group example" width="1100"/>  
+
+To see only the properties from a given field group, click the selection box next to the field group (`1`). The properties are filtered to only the selected field group in the `Structure` section (`2`).
+
+<img src="../assets/edge-bridge-tutorial/schema-tool-filtering.png" alt="Schema tool filtering on a field group example" width="1100"/>  
+
+</p></details>
+
+### 2. Create a datastream
+
+<details>
+  <summary> What is a datastream? </summary><p>
+
+A datastream is a server-side configuration on Platform Edge Network that controls where data goes. Datastreams ensure that incoming data is routed to Adobe Experience Cloud applications and services (like Analytics) appropriately. For more information, see the [datastreams documentation](https://experienceleague.adobe.com/docs/experience-platform/edge/datastreams/overview.html?lang=en) or this [video](https://experienceleague.adobe.com/docs/platform-learn/data-collection/edge-network/configure-datastreams.html?lang=en).
+
+In order to send data to the Edge Network, the datastream must be configured with the Adobe Experience Platform service.
+
+</p></details>
+
+Click `Datastreams` under `DATA COLLECTION` in the left side navigation panel.
+
+<img src="../assets/edge-bridge-tutorial/datastreams-navigation.png" alt="Datastream in Data Collection Navigation" width="1100"/>  
+
+Click `New Datastream` in the top right.
+
+<img src="../assets/edge-bridge-tutorial/datastreams-main-view.png" alt="Create new datastream" width="1100"/>  
+
+Give the datastream an identifying name and description (`1`), then pick the schema created in the previous section using the dropdown menu (`2`). Then click `Save` (`3`). We will be returning to this datastream later on.
+
+<img src="../assets/edge-bridge-tutorial/datastreams-new-datastream.png" alt="Set datastream values" width="1100"/>  
+
+// TODO: Mobile property setup?
+Click `Tags` (**1**) under `DATA COLLECTION` in the left-side navigation panel.
+
+<img src="../assets/edge-bridge-tutorial/data-collection-tags-navigation.png" alt="Navigating to tags" width="1100"/>  
+
+Find and click the Edge Bridge tutorial mobile property (**2**), optionally using the search box to help quickly narrow down the search (**1**).
+
+<img src="../assets/edge-bridge-tutorial/tag-search.png" alt="Finding desired mobile property" width="1100"/>  
+
+Click `Extensions` (**1**) in the left-side navigation panel, under `AUTHORING`.
+
+<img src="../assets/edge-bridge-tutorial/mobile-property-extensions.png" alt="Finding desired mobile property" width="1100"/>  
+
+Click `Catalog` (**1**) and (optionally) use the search box (**2**) to find the `Adobe Analytics` extension; click install (**3**) (if not done already). 
+
+<img src="../assets/edge-bridge-tutorial/mobile-property-catalog-analytics.png" alt="Catalog search for Analytics" width="1100"/>  
+
+<details>
+  <summary> Adobe Analytics settings </summary><p>
+
+  Click `Select or type a report suite [RSID]` (**1**) and select the Analytics report suite ID for this tutorial. Repeat this process for all three environments (**2**). Then click `Save` (**3**).
+
+<img src="../assets/edge-bridge-tutorial/mobile-property-analytics-settings.png" alt="Analytics extension settings" width="1100"/>  
+
+</p></details>
+
+We will also be installing the following AEP extension configurations:
+
+<details>
+  <summary> Adobe Experience Platform Edge Network </summary><p>
+
+Go back to the `Catalog` and install the `Adobe Experience Platform Edge Network` extension configuration.
+
+<img src="../assets/edge-bridge-tutorial/mobile-property-catalog-edge.png" alt="Catalog search for Adobe Experience Platform Edge Network" width="1100"/>  
+
+In the extension configuration settings window, set the datastream for each environment (**1**) to the one created for this tutorial. Then click `Save` (**2**)
+
+<img src="../assets/edge-bridge-tutorial/mobile-property-edge-settings.png" alt="Edge extension settings" width="1100"/>  
+
+</p></details>
+
+<details>
+  <summary> Identity </summary><p>
+
+Open the `Catalog` and install the `Identity` extension configuration. There are no settings for this extension.
+
+<img src="../assets/edge-bridge-tutorial/mobile-property-catalog-identity.png" alt="Catalog search for Identity" width="1100"/>  
+
+</p></details>
+
+<details>
+  <summary> Consent </summary><p>
+
+Open the `Catalog` and install the `Consent` extension configuration.
+
+<img src="../assets/edge-bridge-tutorial/mobile-property-catalog-consent.png" alt="Catalog search for Consent" width="1100"/>  
+
+In the extension configuration settings window, the `Default Consent Level` should be set to `Yes` by default (**1**); for the tutorial app this setting is fine as-is, however when using this configuration in production apps, it should reflect the requirements of the company's actual data collection policy for the app. 
+
+<img src="../assets/edge-bridge-tutorial/mobile-property-consent-settings.png" alt="Consent extension settings" width="1100"/>  
+
+</p></details>
+
+You should see the following after all the extensions are installed: 
+
+<img src="../assets/edge-bridge-tutorial/mobile-property-all-extensions.png" alt="All installed extensions" width="1100"/>  
+
+// TODO: Publishing changes
 
 ## Client-side implementation
-// TODO: refine these steps once tutorial app is complete
-### 1. Install Edge Bridge using dependency manager (CocoaPods)
-1. Open Podfile
-2. Edit Podfile as the following:
-
-```ruby
-# Podfile
-use_frameworks!
-
-# For app development, include all the following pods
-target 'YOUR_TARGET_NAME' do
-  pod 'AEPAnalytics'
-  pod 'AEPEdgeConsent'
-  pod 'AEPCore'
-  pod 'AEPEdge'
-  pod 'AEPEdgeIdentity'
-  pod 'AEPLifecycle'  
-  pod 'AEPServices'
-  
-  pod 'AEPEdgeBridge'
-
-  pod 'AEPAssurance', '~> 3.0.0'
-end
+### 1. Get a copy of the files (code and tutorial app)
+1. Download and install [GitHub Desktop](https://desktop.github.com/).
+2. Open the app and login with your GitHub credentials and provide the required permissions.
+3. Click `Clone a Repository from the Internet...`
+4. In the window that opens, select `URL` in the top ribbon.
+5. In the textfield with `URL or username/repository`, paste the following URL:
 ```
+https://github.com/adobe/aepsdk-edgebridge-ios.git
+```
+Make a note of the value under `Local Path`; this is the folder path that GitHub Desktop is planning on creating the copy of the repository. By default it should be something like: `/Users/tim/Documents/GitHub` where instead of `tim` it would be your username.   
 
-3. Open a terminal window and while in the project directory, run:
+6. Click `Clone`
+
+This will download a copy of the code from the official public Adobe code repository for the Edge Bridge extension onto your machine for you to work with! 
+
+Now we can use the tutorial app to go through the changes required to install the Edge Bridge extension.
+
+1. Open the `Finder` application.
+2. Click `Documents` in the left-side navigation panel.
+3. Open the `GitHub` directory.
+4. You should see the `aepsdk-edgebridge-ios` directory, open it.
+
+1. Open Xcode.
+2. Click `Open a project or file`
+3. Navigate to the repository: `Documents` -> `GitHub` -> `aepsdk-edgebridge-ios`
+4. After selecting `aepsdk-edgebridge-ios` (the folder, not any of the inner files), click `Open`
+
+1. Open the Terminal app
+   - Applications -> Utilities -> Terminal
+   - Open Spotlight search (CMD + Space) and search for "terminal"
+2. Copy the following command, and paste into terminal
+```bash
+cd $HOME/Documents/Github/aepsdk-edgebridge-ios
+```
+Then press `return` to execute the command.
+
+<details>
+  <summary> What is <code>cd</code>? What did I just do? </summary><p>
+
+`cd` is the terminal command for change directory; the command above changes your terminal's active directory to the repository we just copied.
+
+`$HOME` is a terminal variable that stands for your base directory; by default ususally: `/Users/<your username>` for example, `/Users/tim`. When substituted, the full path becomes: `/Users/tim/Documents/Github/aepsdk-edgebridge-ios`, taking us to the newly cloned repository!
+
+</p></details>
+
+Now that we're in the project directory, there's some setup we have to do; the app depends on packages which are not installed with the repository. To install them, run the command:
+
 ```bash
 pod update
 ```
@@ -94,50 +302,113 @@ This tutorial assumes a project using Cocoapods for package dependency managemen
 
 </p></details>
 
+You should see the dependency manager CocoaPods installing the various packages required by the project. 
 
-### 2. Imports and extension registration diff  
-// TODO: update this section with just the code snippets to change/replace after updating tutorial app for initial state
-// targets etc. should reflect the actual tutorial app
+<details>
+  <summary> Expected output </summary><p>
 
-Replace
-```swift
-import AEPAnalytics
 ```
-With
-```swift
-import AEPEdgeBridge
+tim@Tims-MacBook-Pro aepsdk-edgebridge-ios % pod update
+Update all pods
+Updating local specs repositories
+Analyzing dependencies
+Downloading dependencies
+Installing AEPAssurance (3.0.1)
+Installing AEPCore (3.7.1)
+Installing AEPEdge (1.4.1)
+Installing AEPEdgeIdentity (1.1.0)
+Installing AEPLifecycle (3.7.1)
+Installing AEPRulesEngine (1.2.0)
+Installing AEPServices (3.7.1)
+Installing SwiftLint (0.44.0)
+Generating Pods project
+Integrating client project
+Pod installation complete! There are 6 dependencies from the Podfile and 8 total pods installed.
+tim@Tims-MacBook-Pro aepsdk-edgebridge-ios % 
 ```
 
+</p></details>
 
+### 1. Install Edge Bridge using dependency manager (CocoaPods)
+Our next task is actually modifying the file that controls the package dependencies, adding the new extensions that will enable the Edge Bridge extension to function.
 
-In your AppDelegate file, import the newly installed extension and register it with `MobileCore`:
-
-```swift
-import UIKit
-import AEPCore
-import AEPIdentity
-import AEPAnalytics
-import AEPAssurance
-import AEPLifecycle
-import AEPServices
-import AEPEdgeBridge // <-- Newly added
-
-func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
-        MobileCore.setLogLevel(.trace)
-        MobileCore.registerExtensions([
-            Identity.self, 
-            Analytics.self, 
-            Lifecycle.self, 
-            Assurance.self
-            EdgeBridge.self // <-- Newly added
-        ], {
-            // Use the App ID assigned to this application via Adobe Data Collection UI
-            MobileCore.configureWith(appId: self.ENVIRONMENT_FILE_ID)
-        })
-        return true
-    }
+Open the project using the command:
+```bash
+open AEPEdgeBridge.xcworkspace
 ```
+
+This should automatically open the Xcode IDE. In Xcode:
+1. Click the dropdown chevron next to `Pods` in the left-side navigation panel.
+2. Click the `Podfile` file.
+3. Replace the section: 
+
+```ruby
+target 'TutorialAppStart' do
+  pod 'AEPAnalytics'
+  pod 'AEPCore'
+  pod 'AEPServices'
+end
+```
+With:
+
+```ruby
+target 'TutorialAppStart' do
+  pod 'AEPAnalytics'
+  pod 'AEPAssurance'
+  pod 'AEPCore'
+  pod 'AEPEdge'
+  pod 'AEPEdgeConsent'
+  pod 'AEPEdgeIdentity'
+  pod 'AEPLifecycle'
+  pod 'AEPServices'
+end
+```
+
+4. Go back to your terminal window and run:
+```bash
+pod update
+```
+Cocoapods will use this updated configuration file to install the new packages (including the EdgeBridge extension itself!), which will allow us to add new functionality in the app's code. 
+
+### 2. Update Tutorial App Code to Enable EdgeBridge functionality
+There are two files we need to update to enable the EdgeBridge extension. 
+1. Click the dropdown chevron next to `AEPEdgeBridge` in the left-side navigation panel.
+2. Click the dropdown chevron next to `TutorialAppStart`.
+3. Click the `AppDelegate.swift` file.
+
+Inside you will see code blocks for this tutorial that are greyed out, because they are commented out. They are marked by the header and footer `EdgeBridge Tutorial - code section n/m` (where `n` is the current section and `m` is the total number of sections in the file).
+
+To uncomment the section and activate the code, simply add a forward slash at the front of the header:
+```swift
+/* EdgeBridge Tutorial - code section 1/2
+```
+To:
+```swift
+//* EdgeBridge Tutorial - code section 1/2
+```
+Make sure to uncomment all sections within the file (the total will tell you how many sections there are).
+
+<details>
+  <summary> What am I uncommenting in <code>AppDelegate.swift</code>? </summary><p>
+
+Section 1: imports the EdgeBridge extension and other AEP extensions that enable its functionality and power other features. This makes it available to use in the code below.
+
+Section 2: registers the extensions with Core (which contains all of the baseline capabilities required to run Adobe extensions), getting them ready to run in the app.
+
+Section 3: Enables deep linking to connect to Assurance (which we will cover in depth in a later section); this is for iOS versions 12 and below.
+
+</p></details>
+
+Repeat this process for the `SceneDelegate.swift` file.
+
+<details>
+  <summary> What am I uncommenting in <code>SceneDelegate.swift</code>? </summary><p>
+
+Section 1: imports the Assurance extension for use in the code below.
+
+Section 2: Enables deep linking to connect to Assurance (which we will cover in depth in a later section); this is for iOS versions 13 and above.
+
+</p></details>
 
 ### 3. Run app   
 In Xcode, select the app target you want to run, and the destination device to run it on (either simulator or physical device). Then press the play button.
@@ -288,104 +559,7 @@ For a quick overview of the capabilities of Data Prep, watch the following [vide
 
 </p></details>
 
-### Prerequisites
-Before creating a mapping, we need to create an XDM schema (what we are mapping to) and configure a datastream (where the data will go). In order to send data to the Edge Network, the datastream must be configured with the Adobe Experience Platform service.
-### 1. Create a schema  
-At a high level, a schema is a definition for the structure of your data; what properties you are expecting, what format they should be in, and checks for the actual values coming in. 
 
-Navigate to the Data Collection UI by clicking the nine-dot menu in the top right (`1`), and selecting `Data Collection` (`2`)  
-<img src="../assets/edge-bridge-tutorial/assurance-to-data-collection.png" alt="Going from Assurance to Data Collection" width="1100"/>
-
-Click `Schemas` in the left navigation window  
-<img src="../assets/edge-bridge-tutorial/data-collection-tags.png" alt="Going from Assurance to Data Collection" width="1100"/>
-
-In the schemas view, click the `+ Create schema` button in the top right (`1`), then select `XDM ExperienceEvent` (`2`)
-<img src="../assets/edge-bridge-tutorial/data-collection-schemas.png" alt="Creating new XDM ExperienceEvent schema" width="1100"/>
-
-Once in the new schema creation view, notice the schema class is `XDM ExperienceEvent` (`1`); schemas adhere to specific class types which just means that they have some predefined properties and behaviors within the Edge platform. In this case, `XDM ExperienceEvent` creates the base properties you see in the `Structure` section that help define some baseline data for each Experience Event. 
-
-(`2`) Give the new schema a name and description to help identify it.
-(`3`) Click the `+ Add` button next to the `Field groups` section under `Composition`.
-
-<details>
-  <summary> What is a field group?</summary><p>
-
-A schema is made up of building blocks called field groups.
-
-Think of field groups as blueprints for specific groups of data; the data properties describing: the current device in use, products and carts, information about the users themselves, etc. For example, the `Commerce Details` field group has properties for common commerce-related data like product information (SKU, name, quantity), cart state (abandons, product add sources, etc.). This logical grouping helps organize individual data properties into easily understandable sections. They are even reusable! Once you define a field group, you can use it in any schema that has a compatible class (some field groups only make sense with the capabilities of certain schema classes). There are two types of field groups available:
-
-1. Adobe defined - standardized templates of common use-cases and datasets created and updated by Adobe
-    - Note that Adobe Experience Platform services implicitly understand standard field groups and can provide additional functionality on top of just reading and writing data. That's why it is strongly recommended that you use standard field groups wherever possible.
-2. Custom defined - any field group outside of the Adobe defined ones that users can use to create their own custom collections of data properties  
-
-See the [Field Groups section in the Basics of schema composition](https://experienceleague.adobe.com/docs/experience-platform/xdm/schema/composition.html?lang=en#field-group) for an in depth look at how field groups work in the context of XDM schemas.
-
-</p></details>
-
-<img src="../assets/edge-bridge-tutorial/schema-creation.png" alt="Initial schema creation view" width="1100"/>
-
-In our case, we're going to add three Adobe defined field groups to our schema:  
-- AEP Mobile Lifecycle Details
-- Adobe Experience Edge Autofilled Environment Details
-- Commerce Details
-
-You can use the search box (`1`) to look up the names (`2`) of the three field groups required for this exercise. Note the owner of each of the schemas should be `Adobe` (`3`).
-<img src="../assets/edge-bridge-tutorial/schema-field-group-1.png" alt="Add field group to schema" width="1100"/>
-
-<details>
-  <summary> Hints for using the Add field group tool</summary><p>
-
-(1) Selected field groups are shown on the right side of the window, where you can quickly see what field groups have been selected so far, and remove individual or all field groups from the current add session.  
-
-(2) Popularity: shows how many organizations are using the field group across Adobe Experience Platform; can potentially be a good place to start in terms of finding which field groups may be the most useful for your needs.
-
-(3) The inspector icon lets you see the field group structure, and the info icon presents a card with the field group name, industry, and description.
-
-(4) The Industry filter selections let you quickly narrow down field groups based on the selected industry; another useful tool to find relevant field groups for your use-case.
-
-<img src="../assets/edge-bridge-tutorial/schema-field-group-2.jpg" alt="Add field group window hints" width="1100"/>  
-
-</p></details>
-
-Verify that all the required field groups are present in the right side info panel (`1`), then click `Add field groups` (`2`). 
-<img src="../assets/edge-bridge-tutorial/schema-field-group-3.png" alt="Add required field groups" width="1100"/>  
-
-Verify that the required field groups are present under the `Field groups` section (`1`) and the properties associated with those field groups are present under the `Structure` section (`2`), then click `Save` (`3`).
-<img src="../assets/edge-bridge-tutorial/schema-with-field-groups.png" alt="Schema with required field groups" width="1100"/>  
-
-<details>
-  <summary> Hints for using the schema creator tool </summary><p>
-
-To quickly see what properties are from a given field group, click the field group under the `Field groups` section (`1`). The properties are highlighted in the `Structure` section (`2`).
-
-<img src="../assets/edge-bridge-tutorial/schema-tool-selection.png" alt="Schema tool selecting a field group example" width="1100"/>  
-
-To see only the properties from a given field group, click the selection box next to the field group (`1`). The properties are filtered to only the selected field group in the `Structure` section (`2`).
-
-<img src="../assets/edge-bridge-tutorial/schema-tool-filtering.png" alt="Schema tool filtering on a field group example" width="1100"/>  
-
-</p></details>
-
-### 2. Create a datastream
-
-<details>
-  <summary> What is a datastream? </summary><p>
-
-A datastream is a server-side configuration on Platform Edge Network that controls where data goes. Datastreams ensure that incoming data is routed to Adobe Experience Cloud applications and services (like Analytics) appropriately. For more information, see the [datastreams documentation](https://experienceleague.adobe.com/docs/experience-platform/edge/datastreams/overview.html?lang=en) or this [video](https://experienceleague.adobe.com/docs/platform-learn/data-collection/edge-network/configure-datastreams.html?lang=en).
-
-</p></details>
-
-Click `Datastreams` under `DATA COLLECTION` in the left side navigation panel.
-
-<img src="../assets/edge-bridge-tutorial/datastreams-navigation.png" alt="Datastream in Data Collection Navigation" width="1100"/>  
-
-Click `New Datastream` in the top right.
-
-<img src="../assets/edge-bridge-tutorial/datastreams-main-view.png" alt="Create new datastream" width="1100"/>  
-
-Give the datastream an identifying name and description (`1`), then pick the schema created in the previous section using the dropdown menu (`2`). Then click `Save and Add Mapping` (`3`).
-
-<img src="../assets/edge-bridge-tutorial/datastreams-new-datastream.png" alt="Set datastream values" width="1100"/>  
 
 In order to map the properties from both `trackAction` and `trackState` events in the same datastream, we need to combine their event data properties into a single JSON. For simplicity, the merged data structure has been provided below:
 
