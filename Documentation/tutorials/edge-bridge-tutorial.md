@@ -11,7 +11,6 @@
     - [2. Create a datastream](#2-create-a-datastream)
   - [Client-side implementation](#client-side-implementation)
     - [1. Get a copy of the files (code and tutorial app)](#1-get-a-copy-of-the-files-code-and-tutorial-app)
-    - [Swift Package Manager](#swift-package-manager)
     - [1. Install Edge Bridge using dependency manager (CocoaPods)](#1-install-edge-bridge-using-dependency-manager-cocoapods)
     - [2. Update Tutorial App Code to Enable EdgeBridge functionality](#2-update-tutorial-app-code-to-enable-edgebridge-functionality)
     - [3. Run app](#3-run-app)
@@ -39,6 +38,8 @@ graph LR;
 - Cocoapods installed
 - git with GitHub desktop or GitHub access token for access to repo
 - Chrome/Chromium browser strongly recommended as some functionality doesn't work with Firefox (ex: Analytics info auto-populating in mobile property Extension, Analytics in general, etc.)
+
+// TODO: remove outline after finishing tutorial
 ///////// OUTLINE
 Tutorial setup:
 
@@ -297,7 +298,7 @@ pod update
 <details>
   <summary> Using Swift package manager instead? </summary><p>
 
-### Swift Package Manager
+**Swift Package Manager**
 This tutorial assumes a project using Cocoapods for package dependency management, but if following along with a project that uses Swift package manager, refer to the [README for instructions on how to add the EdgeBridge package](../../README.md#swift-package-managerhttpsgithubcomappleswift-package-manager).
 
 </p></details>
