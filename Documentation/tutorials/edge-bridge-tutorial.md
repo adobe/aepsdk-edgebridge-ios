@@ -35,7 +35,6 @@ graph LR;
 ### Environment
 - macOS machine with a recent version of Xcode installed
 - Cocoapods installed
-- git with GitHub desktop or GitHub access token for access to repo
 - Chrome/Chromium browser strongly recommended as some functionality doesn't work with Firefox (ex: Analytics info auto-populating in mobile property Extension, Analytics in general, etc.)
 
 <!-- // TODO: remove outline after finishing tutorial
@@ -241,17 +240,8 @@ You should see the following after all the extensions are installed:
 
 ## Client-side implementation
 ### 1. Get a copy of the files (code and tutorial app)
-1. Download and install [GitHub Desktop](https://desktop.github.com/).
-2. Open the app and login with your GitHub credentials and provide the required permissions.
-3. Click `Clone a Repository from the Internet...`
-4. In the window that opens, select `URL` in the top ribbon.
-5. In the textfield with `URL or username/repository`, paste the following URL:
-```
-https://github.com/adobe/aepsdk-edgebridge-ios.git
-```
-Make a note of the value under `Local Path`; this is the folder path that GitHub Desktop is planning on creating the copy of the repository. By default it should be something like: `/Users/tim/Documents/GitHub` where instead of `tim` it would be your username.   
-
-6. Click `Clone`
+1. Open the code repository: https://github.com/adobe/aepsdk-edgebridge-ios
+2. Click **Code** in the top right 
 
 This will download a copy of the code from the official public Adobe code repository for the Edge Bridge extension onto your machine for you to work with! 
 
@@ -262,15 +252,15 @@ Now we can use the tutorial app to go through the changes required to install th
 3. Open the `GitHub` directory.
 4. You should see the `aepsdk-edgebridge-ios` directory, open it.
 
-1. Open Xcode.
-2. Click `Open a project or file`
-3. Navigate to the repository: `Documents` -> `GitHub` -> `aepsdk-edgebridge-ios`
-4. After selecting `aepsdk-edgebridge-ios` (the folder, not any of the inner files), click `Open`
+5. Open Xcode.
+6. Click `Open a project or file`
+7. Navigate to the repository: `Documents` -> `GitHub` -> `aepsdk-edgebridge-ios`
+8. After selecting `aepsdk-edgebridge-ios` (the folder, not any of the inner files), click `Open`
 
-1. Open the Terminal app
+9. Open the Terminal app
    - Applications -> Utilities -> Terminal
    - Open Spotlight search (CMD + Space) and search for "terminal"
-2. Copy the following command, and paste into terminal
+10. Copy the following command, and paste into terminal
 ```bash
 cd $HOME/Documents/Github/aepsdk-edgebridge-ios
 ```
@@ -480,13 +470,14 @@ Note that it is possible to edit both the `Session Name` and `Base URL`; changes
 
 </p></details>
 
-To connect using session link:
-1. Copy the session link; you can click the icon of a double overlapping box to the right of the link to copy
+To connect to Assurance, we will use the session link:
+1. Copy the session link; you can click the icon of a double overlapping box to the right of the link to copy it.
     - If using a physical device, it may be helpful to have a way to send this link to the device (ex: Airdrop, email, text, etc.)
-2. Open the sample app and tap the Assurance button
-3. Paste the Assurance session link copied from step 1 and tap `Connect`
+2. Open Safari (or other web browser).
+3. Paste the Assurance session link copied from step 1 into the URL/search text field and enter.
     - If using the simulator, it is possible to enable the paste menu by clicking in the text field twice, with a slight pause between clicks.
-4. App should open and show the Assurance PIN screen to authenticate the session connection; enter the PIN from the session details and tap `Connect`
+4. A new dialog box should open requesting to open the tutorial app, tap **OK**.
+4. App should open and show the Assurance PIN screen to authenticate the session connection; enter the PIN from the session details and tap **Connect**.
 
 <details>
   <summary> Connecting using QR code </summary><p>
@@ -502,7 +493,7 @@ Prerequisites (see [Set up the Assurance session](#1-set-up-the-assurance-sessio
 
 </p></details>
 
-Once connected to Assurance, an Adobe Experience Platform icon will appear in the top right corner of the screen with a green dot indicating a connected session. In the web-based Assurance session, there is also an indicator in the top right that shows the number of connected sessions (which in this case should now show a green dot with "1 Client Connected", marked **1** in the screenshot below).
+Once connected to Assurance, in the tutorial app, an Adobe Experience Platform icon will appear in the top right corner of the screen with a green dot indicating a connected session. In the web-based Assurance session, there is also an indicator in the top right that shows the number of connected sessions (which in this case should now show a green dot with "1 Client Connected" (**1**)).
 
 <img src="../assets/edge-bridge-tutorial/simulator-assurance-connection.jpg" alt="Assurance Session Start - iOS simulator" width="400"/>
 <img src="../assets/edge-bridge-tutorial/assurance-session-start.jpg" alt="Assurance Session Start - Web UI after connection" width="800"/>  
@@ -637,9 +628,9 @@ Now, we need to map this JSON property from the Edge Bridge event to its matchin
 | data.contextdata.product\\.name         | productListItems.name              | :white_check_mark: | :white_check_mark: |
 | data.contextdata.product\\.units        | productListItems.quantity          | :white_check_mark: |                    |
 
+12. After completing all the mappings, click **Save**.
 
 
-Follow the instructions in the guide on mapping data [using Data Prep for Data Collection](./map-track-data-using-data-prep.md)
 
 ## Validation with Assurance
 Check mapping feedback in Event transactions view
