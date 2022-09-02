@@ -31,7 +31,13 @@ target 'TestAppSwiftUI' do
   pod 'AEPAssurance'
 end
 
-target 'TutorialAppSwiftUI' do
+target 'TutorialAppStart' do
+  pod 'AEPAnalytics'
+  pod 'AEPCore'
+  pod 'AEPServices'
+end
+
+target 'TutorialAppFinal' do
   pod 'AEPAnalytics'
   pod 'AEPAssurance'
   pod 'AEPCore'

@@ -4,7 +4,6 @@
 - [Migrating from Analytics mobile extension to Edge Network using the EdgeBridge extension](#migrating-from-analytics-mobile-extension-to-edge-network-using-the-edgebridge-extension)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
-  - [Data Collection config instructions](#data-collection-config-instructions)
   - [Prerequisites](#prerequisites)
     - [Environment](#environment)
   - [Client-side implementation](#client-side-implementation)
@@ -42,12 +41,6 @@ Final test app after all the tutorial steps have been implemented (implements Ed
 Tutorial steps:
 
       0. Prerequisites (set up Analytics report suite, mobile property, Assurance). List out required permissions for this tutorial: Analytics, Schema creation, Data Collection (Launch tags), Datastream view and edit, Assurance.
-
-## Data Collection config instructions
-Create XDM schema   
-Configure Datastream, enable Analytics - 2 paths:   
-    - same rsid(s) as in Analytics extension (if using Analytics + EdgeBridge this will cause double counting).  
-    - different rsid(s) if the customer wants to start new or run the migration in a comparison mode (Analytics + EdgeBridge side by side).  
 
 ## Prerequisites
 - A timestamp enabled report suite is configured for mobile data collection.
