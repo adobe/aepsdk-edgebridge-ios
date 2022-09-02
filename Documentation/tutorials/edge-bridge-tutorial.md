@@ -242,12 +242,13 @@ You should see the following after all the extensions are installed:
 ### 1. Get a copy of the files (code and tutorial app)
 1. Open the code repository: https://github.com/adobe/aepsdk-edgebridge-ios
 2. Click **Code** in the top right 
-
-This will download a copy of the code from the official public Adobe code repository for the Edge Bridge extension onto your machine for you to work with! 
+3. In the window that opens, click **Download ZIP**; by default it should land in your **Downloads** folder.
+   - Optionally, move the ZIP to your **Documents** folder
+4. Unzip the archived file by double clicking it, and keep this Finder window open, as we will need it later.
 
 Now we can use the tutorial app to go through the changes required to install the Edge Bridge extension.
 
-1. Open the `Finder` application.
+<!-- 1. Open the `Finder` application.
 2. Click `Documents` in the left-side navigation panel.
 3. Open the `GitHub` directory.
 4. You should see the `aepsdk-edgebridge-ios` directory, open it.
@@ -255,23 +256,25 @@ Now we can use the tutorial app to go through the changes required to install th
 5. Open Xcode.
 6. Click `Open a project or file`
 7. Navigate to the repository: `Documents` -> `GitHub` -> `aepsdk-edgebridge-ios`
-8. After selecting `aepsdk-edgebridge-ios` (the folder, not any of the inner files), click `Open`
+8. After selecting `aepsdk-edgebridge-ios` (the folder, not any of the inner files), click `Open` -->
 
-9. Open the Terminal app
+5. Open the Terminal app
    - Applications -> Utilities -> Terminal
    - Open Spotlight search (CMD + Space) and search for "terminal"
-10. Copy the following command, and paste into terminal
+6. Type the following characters, but do not press return yet: `c` + `d` + `SPACE`  
+You should see the following in your terminal: "cd " (the space after `cd` is important!).
 ```bash
-cd $HOME/Documents/Github/aepsdk-edgebridge-ios
+cd 
 ```
-Then press `return` to execute the command.
+7. Return to your Finder window that has the unzipped repository folder. Click and drag the folder into your Terminal window that has the `cd ` command typed. You should see something like: `cd /Users/tim/Documents/aepsdk-edgebridge-ios`  
+8. Then press `return` to execute the command.
 
 <details>
   <summary> What is <code>cd</code>? What did I just do? </summary><p>
 
 `cd` is the terminal command for change directory; the command above changes your terminal's active directory to the repository we just copied.
 
-`$HOME` is a terminal variable that stands for your base directory; by default ususally: `/Users/<your username>` for example, `/Users/tim`. When substituted, the full path becomes: `/Users/tim/Documents/Github/aepsdk-edgebridge-ios`, taking us to the newly cloned repository!
+The long string after is the full path (kind of like an address) to the code repository folder: `/Users/tim/Documents/aepsdk-edgebridge-ios`, taking our terminal window to the newly created repository!
 
 </p></details>
 
