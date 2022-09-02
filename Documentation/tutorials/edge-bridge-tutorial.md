@@ -20,7 +20,7 @@
     - [2. Connect to the app](#2-connect-to-the-app)
     - [3. Event transactions view - check for Edge Bridge events](#3-event-transactions-view---check-for-edge-bridge-events)
   - [Data prep mapping](#data-prep-mapping)
-  - [Validation with Assurance](#validation-with-assurance)
+  - [Validating the implementation](#validating-the-implementation)
 
 ## Overview
 This hands-on tutorial provides end-to-end instructions on how to migrate to Edge Network from Analytics to EdgeBridge mobile extension.
@@ -633,7 +633,11 @@ Now, we need to map this JSON property from the Edge Bridge event to its matchin
 
 12. After completing all the mappings, click **Save**.
 
+## Validating the implementation
+Now that the mapping is set up in the datastream, we have the full pathway of data:
+```mermaid
+graph LR;
+    step1(App<br/>Analytics trackAction/trackState) --> step2(App<br/>EdgeBridge conversion to Edge event) --> step3(Edge Network<br/>Datastream translation of payload from contextdata to Edge XDM) --> step4(Edge Network<br/>Routing XDM data using datastream to Analytics);
+```
 
-
-## Validation with Assurance
 Check mapping feedback in Event transactions view
