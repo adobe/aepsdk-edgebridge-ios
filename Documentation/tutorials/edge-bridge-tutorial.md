@@ -5,8 +5,8 @@
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
     - [Environment](#environment)
-  - [Prerequisites](#prerequisites)
-    - [Prerequisites](#prerequisites-1)
+    - [Prerequisites](#prerequisites)
+    - [Adobe Experience Platform setup](#adobe-experience-platform-setup)
     - [1. Create a schema](#1-create-a-schema)
     - [2. Create a datastream](#2-create-a-datastream)
   - [Client-side implementation](#client-side-implementation)
@@ -39,7 +39,7 @@ graph LR;
 - git with GitHub desktop or GitHub access token for access to repo
 - Chrome/Chromium browser strongly recommended as some functionality doesn't work with Firefox (ex: Analytics info auto-populating in mobile property Extension, Analytics in general, etc.)
 
-// TODO: remove outline after finishing tutorial
+<!-- // TODO: remove outline after finishing tutorial
 ///////// OUTLINE
 Tutorial setup:
 
@@ -53,16 +53,13 @@ Tutorial steps:
 Install Edge Network & Edge Identity in Launch - Edge Bridge does not have a card here  
 Analytics should remain installed in Launch for production app versions.  
 Publish the changes  
-
-////////// END: OUTLINE
-
-## Prerequisites
-- A timestamp enabled report suite is configured for mobile data collection.
-- A tag (also known as mobile property) is configured in Data Collection UI which has Adobe Analytics extension installed and configured.
-- AEPAnalytics mobile extension is installed and registered in the client-side mobile application.
-- `MobileCore.trackAction` and/or `MobileCore.trackState` API(s) are already implemented in the mobile application.
+////////// END: OUTLINE -->
 
 ### Prerequisites
+- A timestamp enabled report suite is configured for mobile data collection.
+- A tag (also known as mobile property) is configured in Data Collection UI which has Adobe Analytics extension installed and configured.
+
+### Adobe Experience Platform setup
 Before any app changes we need to set up some configuration items on the Adobe Experience Platform (AEP) side. The end goal of this section is to create a mobile property that controls the configuration settings for the various AEP extensions in use in this tutorial.
 
 First we need to create an XDM schema (the format for data that the Edge Network uses) and configure a datastream (controls where the data will go). 
