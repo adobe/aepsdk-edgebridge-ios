@@ -68,19 +68,19 @@ At a high level, a schema is a definition for the structure of your data; what p
 
 1. Go to the [Adobe Experience Platform](https://experience.adobe.com/#/platform), using your Adobe ID credentials to log in if prompted.
 
-2. Navigate to the Data Collection UI by clicking the nine-dot menu in the top right (`1`), and selecting `Data Collection` (`2`)  
+2. Navigate to the Data Collection UI by clicking the nine-dot menu in the top right (**1**), and selecting `Data Collection` (**2**)  
 <img src="../assets/edge-bridge-tutorial/assurance-to-data-collection.png" alt="Going from Assurance to Data Collection" width="1100"/>
 
 3. Click `Schemas` in the left navigation window  
 <img src="../assets/edge-bridge-tutorial/data-collection-tags.png" alt="Going from Assurance to Data Collection" width="1100"/>
 
-4. In the schemas view, click the `+ Create schema` button in the top right (`1`), then select `XDM ExperienceEvent` (`2`)
+4. In the schemas view, click the `+ Create schema` button in the top right (**1**), then select `XDM ExperienceEvent` (**2**)
 <img src="../assets/edge-bridge-tutorial/data-collection-schemas.png" alt="Creating new XDM ExperienceEvent schema" width="1100"/>
 
-Once in the new schema creation view, notice the schema class is `XDM ExperienceEvent` (`1`); schemas adhere to specific class types which just means that they have some predefined properties and behaviors within the Edge platform. In this case, `XDM ExperienceEvent` creates the base properties you see in the `Structure` section that help define some baseline data for each Experience Event. 
+Once in the new schema creation view, notice the schema class is `XDM ExperienceEvent` (**1**); schemas adhere to specific class types which just means that they have some predefined properties and behaviors within the Edge platform. In this case, `XDM ExperienceEvent` creates the base properties you see in the `Structure` section that help define some baseline data for each Experience Event. 
 
-5. Give the new schema a name and description (`2`) to help identify it.
-6. Click the `+ Add` button (`3`) next to the `Field groups` section under `Composition`.
+5. Give the new schema a name and description (**2**) to help identify it.
+6. Click the `+ Add` button (**3**) next to the `Field groups` section under `Composition`.
 
 <details>
   <summary> What is a field group?</summary><p>
@@ -110,7 +110,7 @@ In our case, we're going to add three Adobe defined field groups to our schema:
 - Adobe Experience Edge Autofilled Environment Details
 - Commerce Details
 
-You can use the search box (`1`) to look up the names (`2`) of the three field groups required for this exercise. Note the owner of each of the schemas should be `Adobe` (`3`).
+You can use the search box (**1**) to look up the names (**2**) of the three field groups required for this exercise. Note the owner of each of the schemas should be `Adobe` (**3**).
 <img src="../assets/edge-bridge-tutorial/schema-field-group-1.png" alt="Add field group to schema" width="1100"/>
 
 <details>
@@ -128,20 +128,20 @@ You can use the search box (`1`) to look up the names (`2`) of the three field g
 
 </p></details>
 
-Verify that all the required field groups are present in the right side info panel (`1`), then click `Add field groups` (`2`). 
+Verify that all the required field groups are present in the right side info panel (**1**), then click `Add field groups` (**2**). 
 <img src="../assets/edge-bridge-tutorial/schema-field-group-3.png" alt="Add required field groups" width="1100"/>  
 
-Verify that the required field groups are present under the `Field groups` section (`1`) and the properties associated with those field groups are present under the `Structure` section (`2`), then click `Save` (`3`).
+Verify that the required field groups are present under the `Field groups` section (**1**) and the properties associated with those field groups are present under the `Structure` section (**2**), then click `Save` (**3**).
 <img src="../assets/edge-bridge-tutorial/schema-with-field-groups.png" alt="Schema with required field groups" width="1100"/>  
 
 <details>
   <summary> Hints for using the schema creator tool </summary><p>
 
-To quickly see what properties are from a given field group, click the field group under the `Field groups` section (`1`). The properties are highlighted in the `Structure` section (`2`).
+To quickly see what properties are from a given field group, click the field group under the `Field groups` section (**1**). The properties are highlighted in the `Structure` section (**2**).
 
 <img src="../assets/edge-bridge-tutorial/schema-tool-selection.png" alt="Schema tool selecting a field group example" width="1100"/>  
 
-To see only the properties from a given field group, click the selection box next to the field group (`1`). The properties are filtered to only the selected field group in the `Structure` section (`2`).
+To see only the properties from a given field group, click the selection box next to the field group (**1**). The properties are filtered to only the selected field group in the `Structure` section (**2**).
 
 <img src="../assets/edge-bridge-tutorial/schema-tool-filtering.png" alt="Schema tool filtering on a field group example" width="1100"/>  
 
@@ -166,7 +166,7 @@ Click `New Datastream` in the top right.
 
 <img src="../assets/edge-bridge-tutorial/datastreams-main-view.png" alt="Create new datastream" width="1100"/>  
 
-Give the datastream an identifying name and description (`1`), then pick the schema created in the previous section using the dropdown menu (`2`). Then click `Save` (`3`). We will be returning to this datastream later on.
+Give the datastream an identifying name and description (**1**), then pick the schema created in the previous section using the dropdown menu (**2**). Then click `Save` (**3**). We will be returning to this datastream later on.
 
 <img src="../assets/edge-bridge-tutorial/datastreams-new-datastream.png" alt="Set datastream values" width="1100"/>  
 
@@ -422,6 +422,8 @@ With Edge Bridge extension successfully installed and registered, you can make t
 Check `ContentView.swift` for implementation examples of both APIs. You can see the data payloads that are to be sent with the calls.
 
 ## Initial validation with Assurance
+Assurance is the AEP tool for inspecting all events that Adobe extensions send out, in real time. It will allow us to see the flow of events, including the EdgeBridge conversion of `trackAction`/`trackState`.
+
 ### 1. Set up the Assurance session  
 1. In the browser, navigate to [Assurance](https://experience.adobe.com/griffon) and login using your Adobe ID credentials.
 2. Create a new session (or use an existing one if available) 
@@ -433,6 +435,9 @@ Check `ContentView.swift` for implementation examples of both APIs. You can see 
     - Enter a name to identify the session (can be any desired name) 
     - Use Base URL value: `aepedgebridge://`  
 <img src="../assets/edge-bridge-tutorial/assurance-create-session-2.png" alt="Creating a new session in Assurance step 2" width="400"/>
+
+<details>
+  <summary> What is a base URL? </summary><p>
 
 > **Note**  
 > The Base URL is the root definition used to launch your app from a URL (deep linking). A session URL is generated by which you may initiate the Assurance session. An example value might look like: `myapp://default`  
@@ -448,6 +453,10 @@ Check `ContentView.swift` for implementation examples of both APIs. You can see 
 > 4. Set the desired deep linking URL.
 > ![Xcode deeplink app url config](../assets/edge-bridge-tutorial/xcode-deeplink-app-url-config.jpg)
 > Please note that there is still code on the application side that is required for the app to respond to deep links; see the [guide on adding Assurance to your app](https://aep-sdks.gitbook.io/docs/foundation-extensions/adobe-experience-platform-assurance#add-the-aep-assurance-extension-to-your-app). For general implementation recommendations and best practices, see Apple's guide on [Defining a custom URL scheme for your app](https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app)
+
+
+</p></details>
+
 
 When presented with this window, the new Assurance session is created, and it is now possible to connect the app to your Assurance session.  
 <img src="../assets/edge-bridge-tutorial/assurance-create-session-qr.png" alt="Creating a new session in Assurance step 3 - QR code" width="400"/>
@@ -493,32 +502,38 @@ Prerequisites (see [Set up the Assurance session](#1-set-up-the-assurance-sessio
 
 </p></details>
 
-Once connected to Assurance, an Adobe Experience Platform icon will appear in the top right corner of the screen with a green dot indicating a connected session. In the web-based Assurance session, there is also an indicator in the top right that shows the number of connected sessions (which in this case should now show a green dot with "1 Client Connected", marked `1` in the screenshot below).
+Once connected to Assurance, an Adobe Experience Platform icon will appear in the top right corner of the screen with a green dot indicating a connected session. In the web-based Assurance session, there is also an indicator in the top right that shows the number of connected sessions (which in this case should now show a green dot with "1 Client Connected", marked **1** in the screenshot below).
 
 <img src="../assets/edge-bridge-tutorial/simulator-assurance-connection.jpg" alt="Assurance Session Start - iOS simulator" width="400"/>
 <img src="../assets/edge-bridge-tutorial/assurance-session-start.jpg" alt="Assurance Session Start - Web UI after connection" width="800"/>  
 
-Observe how in the Assurance session Events view (`2`), there are already events populating as a consequence of the connection of the mobile app to the Assurance session (`3`); the Assurance extension itself emits events about the session connection and subsequently captures these events to display in the web-based session viewer. You can expect Assurance to capture all events processed by the AEP SDK from all other extensions as well.  
+Observe how in the Assurance session Events view (**2**), there are already events populating as a consequence of the connection of the mobile app to the Assurance session (**3**); the Assurance extension itself emits events about the session connection and subsequently captures these events to display in the web-based session viewer. You can expect Assurance to capture all events processed by the AEP SDK from all other extensions as well.  
 
 ### 3. Event transactions view - check for Edge Bridge events  
-In order to see Edge Bridge events, in the connected app instance, trigger a `trackAction` and/or `trackState` within the app which the Edge Bridge extension will convert into Edge events. This event will be captured by the Assurance extension and shown in the web session viewer.
+In order to see Edge Bridge events, in the connected app instance:
+1. Trigger a `trackAction` and/or `trackState` within the app which the Edge Bridge extension will convert into Edge events. This event will be captured by the Assurance extension and shown in the web session viewer.
 
 <img src="../assets/edge-bridge-tutorial/simulator-track-buttons.jpg" alt="Simulator tracking buttons" width="400"/>
 
-Click the `AnalyticsTrack` event (`1`) in the events table to see the event details in the right side window; click the `RAW EVENT` dropdown (`2`) in the event details window to see the event data payload. Verify that the `contextdata` matches what was sent by the Analytics `trackAction`/`trackState` API.
+2. Click the `AnalyticsTrack` event (**1**) in the events table to see the event details in the right side window
+3. Click the `RAW EVENT` dropdown (**2**) in the event details window to see the event data payload. 
+4. Verify that the `contextdata` matches what was sent by the Analytics `trackAction`/`trackState` API.
 
 <img src="../assets/edge-bridge-tutorial/assurance-analytics-track-event.jpg" alt="Simulator tracking buttons" width="800"/>
 
-Now click the `Edge Bridge Request` event (`1`) in the events table, and click the `RAW EVENT` dropdown (`2`) in the event details window; notice the slight differences in the payload structure as a result of the `Edge Bridge Request` event conforming to the format of an Edge event.
+5. Now click the `Edge Bridge Request` event (**1**) in the events table
+6. Click the `RAW EVENT` dropdown (**2**) in the event details window; notice the slight differences in the payload structure as a result of the `Edge Bridge Request` event conforming to the format of an Edge event.
 
 <img src="../assets/edge-bridge-tutorial/assurance-edge-bridge-track-event.jpg" alt="Simulator tracking buttons" width="800"/>
 
 Notice the differences in event data structure and format between the two types of events: Analytics (left) vs Edge (right) via Edge Bridge extension
-The top level EventType is converted from a `generic.track` to `edge` (that is, Analytics generic track event -> Edge event) (`1`). The Edge Bridge extension also populates the standard XDM field for event type (`eventType`) in the event data payload. Also notice that the `contextdata` has moved from directly under `EventData` to under the generic Edge XDM `data` property (`2`).
+The top level EventType is converted from a `generic.track` to `edge` (that is, Analytics generic track event -> Edge event) (**1**). The Edge Bridge extension also populates the standard XDM field for event type (`eventType`) in the event data payload. Also notice that the `contextdata` has moved from directly under `EventData` to under the generic Edge XDM `data` property (**2**).
 
 <img src="../assets/edge-bridge-tutorial/analytics-edge-bridge-conversion.jpg" alt="Comparison of event data between analytics and edge bridge events" width="1100"/>
 
-The two new top level properties `xdm` and `data` are standard Edge event properties that are part of the Edge platform's XDM schema-based system for event data organization that enables powerful, customizable data processing. However, because the `contextdata` is not yet mapped to an XDM schema, it is not in a usable form for the Edge platform. We will solve this issue by mapping the event data to an XDM schema in the next section.
+> **Note**
+> The two new top level properties `xdm` and `data` are standard Edge event properties that are part of the Edge platform's XDM schema-based system for event data organization that enables powerful, customizable data processing. However, because the `contextdata` is not yet mapped to an XDM schema, it is not in a usable form for the Edge platform. We will solve this issue by mapping the event data to an XDM schema in the next section.
+
 
 ## Data prep mapping
 
@@ -539,8 +554,6 @@ For a quick overview of the capabilities of Data Prep, watch the following [vide
 >
 
 </p></details>
-
-
 
 In order to map the properties from both `trackAction` and `trackState` events in the same datastream, we need to combine their event data properties into a single JSON. For simplicity, the merged data structure has been provided below:
 
@@ -565,44 +578,56 @@ In order to map the properties from both `trackAction` and `trackState` events i
 
 ```
 
-Copy and paste the JSON data into the datastreams JSON input box (`1`). Verify the uploaded JSON matches what is displayed in the `Preview sample data` section (`2`), then click `Next` (`3`).
+1. Copy and paste the JSON data into the datastreams JSON input box (**1**). 
+2. Verify the uploaded JSON matches what is displayed in the `Preview sample data` section (**2**) and click `Next` (**3**).
 
 <details>
   <summary> Getting the JSON data from Assurance </summary><p>
 
-Navigate back to your Assurance session for the Edge Bridge app and select the `Edge Bridge Request` event (`1`), then open the `RAW EVENT` dropdown and click and drag to select the `ACPExtensionEventData` value as shown, then copy the selected value (right click the highlighted selection and choose `Copy`, or use the copy keyboard shortcut `CMD + C`):
+1. Navigate back to your Assurance session for the Edge Bridge app and select the `Edge Bridge Request` event (**1**)
+2. Open the `RAW EVENT` dropdown and click and drag to select the `ACPExtensionEventData` value as shown, then copy the selected value (right click the highlighted selection and choose `Copy`, or use the copy keyboard shortcut `CMD + C`)  
 
 <img src="../assets/edge-bridge-tutorial/assurance-edgebridge-mapping-data.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
-To merge events, you would look for properties under `data` and `contextdata` that are unique between events and include them in the final data payload.
+> **Note**
+> To merge events, you would look for properties under `data` and `contextdata` that are unique between events and include them in the final data payload.
 
 </p></details>
 
 <img src="../assets/edge-bridge-tutorial/datastreams-json-paste.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
-Click the `Add new mapping` button (`1`).
+3. Click the `Add new mapping` button (**1**).
 
 <img src="../assets/edge-bridge-tutorial/datastreams-start-mapping.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
-A new entry for mapping will appear in the window; click the arrow button (`1`) next to the field `Select source field`.
+4. A new entry for mapping will appear in the window; click the arrow button (**1**) next to the field `Select source field`.
 
 <img src="../assets/edge-bridge-tutorial/datastreams-mapping-1.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
-In the JSON property viewer window, click the dropdown arrows next to `data` (`1`) and `contextdata` (`2`). Then select the first property to map, `product.add.event` (`3`) and click `Select` (`4`).
+5. In the JSON property viewer window, click the dropdown arrows next to `data` (**1**) and `contextdata` (**2**). 
+6. Then select the first property to map, `product.add.event` (**3**) and click `Select` (**4**).
 
 <img src="../assets/edge-bridge-tutorial/datastreams-select-property.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
-Notice that in the property viewer, you can see the data hierarchy, where `data` is at the top, `contextdata` is one level down, and `product.add.event` is one level below that. This is nested data, which is a way to organize data in the JSON format. The data mapper interprets the `.` character as nesting, which means if there are `.` characters in a property name that are not meant to be nesting, namely the ones in our current example: `product.add.event`, we need to escape this behavior by adding backslashes `\` before the `.` (`1`).
+Notice that in the property viewer, you can see the data hierarchy, where `data` is at the top, `contextdata` is one level down, and `product.add.event` is one level below that. This is nested data, which is a way to organize data in the JSON format. 
 
-Now, we need to map this JSON property from the Edge Bridge event to its matching property in the XDM schema. Click the schema icon (`2`) to open the XDM property viewer window.
+> **Info**
+> The data mapper interprets the `.` character as nesting, which means if there are `.` characters in a property name that are not meant to be nesting, namely the ones in our current example: `product.add.event`, we need to escape this behavior by adding backslashes `\` before the `.` (**1**).
+
+7. Add backslashes `\` before the `.` characters as shown below (**1**).
+
+Now, we need to map this JSON property from the Edge Bridge event to its matching property in the XDM schema. 
+
+8. Click the schema icon (**2**) to open the XDM property viewer window.
 
 <img src="../assets/edge-bridge-tutorial/datastreams-mapping-xdm.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
-In the XDM property viewer window, click the dropdown arrows next to `commerce` (`1`) and `productListAdds` (`2`). Then select the `value` property (`3`) and click `Select` (`4`).
+9. In the XDM property viewer window, click the dropdown arrows next to `commerce` (**1**) and `productListAdds` (**2**). 
+10. Then select the `value` property (**3**) and click `Select` (**4**).
 
 <img src="../assets/edge-bridge-tutorial/datastreams-mapping-xdm-property.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
-Repeat this process, adding new mappings for all of the other properties on the JSON data side (except for the `timestamp` property which is handled automatically by Edge), finalizing the mappings like this:
+11. Repeat this process, adding new mappings for all of the other properties on the JSON data side (except for the `timestamp` property which is handled automatically by Edge), finalizing the mappings like this:
 
 | JSON Property                           | XDM Property                       | trackAction        | trackState         |
 | --------------------------------------- | ---------------------------------- | ------------------ | ------------------ |
