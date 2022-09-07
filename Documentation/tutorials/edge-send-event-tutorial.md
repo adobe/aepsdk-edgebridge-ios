@@ -222,6 +222,7 @@ You should see the following after all the extensions are installed:
 // TODO: Publishing changes
 
 ## Client-side implementation
+
 Now that the server side configuration is complete, we can install the extensions in the app and enable extension functionality by making some code updates.
 
 ### 1. Get a copy of the files (code and tutorial app)
@@ -244,8 +245,8 @@ Now we can use the tutorial app to go through the changes required to install th
 8. After selecting `aepsdk-edgebridge-ios` (the folder, not any of the inner files), click `Open` -->
 
 5. Open the Terminal app
-   - Applications -> Utilities -> Terminal
-   - Open Spotlight search (CMD + Space) and search for "terminal"
+   - **Applications** -> **Utilities** -> **Terminal**
+   - Open Spotlight search (CMD + Space) and search for "terminal", the select the **Terminal** app to open it.
 6. Type the following characters, but do not press return yet: `c` + `d` + `SPACE`  
 You should see the following in your terminal: "cd " (the space after `cd` is important!).
 ```bash
