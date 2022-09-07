@@ -8,6 +8,7 @@
     - [Adobe Experience Platform setup](#adobe-experience-platform-setup)
     - [1. Create a schema](#1-create-a-schema)
     - [2. Create a datastream](#2-create-a-datastream)
+    - [3. Create a property](#3-create-a-property)
   - [Client-side implementation](#client-side-implementation)
     - [1. Get a copy of the files (code and tutorial app)](#1-get-a-copy-of-the-files-code-and-tutorial-app)
     - [1. Install Edge Bridge using dependency manager (CocoaPods)](#1-install-edge-bridge-using-dependency-manager-cocoapods)
@@ -89,7 +90,7 @@ In our case, we're going to add three Adobe defined field groups to our schema:
 - Adobe Experience Edge Autofilled Environment Details
 - Commerce Details
 
-You can use the search box (**1**) to look up the names (**2**) of the three field groups required for this section. Note the owner of each of the schemas should be `Adobe` (**3**).
+You can use the search box (**1**) to look up the names (**2**) of the three field groups required for this section. Note the owner of each of the schemas should be **Adobe** (**3**).
 <img src="../assets/edge-bridge-tutorial/schema-field-group-1.png" alt="Add field group to schema" width="1100"/>
 
 <details>
@@ -116,11 +117,11 @@ Verify that the required field groups are present under the **Field groups** sec
 <details>
   <summary> Hints for using the schema creator tool </summary><p>
 
-To quickly see what properties are from a given field group, click the field group under the `Field groups` section (**1**). The properties are highlighted in the `Structure` section (**2**).
+To quickly see what properties are from a given field group, click the field group under the **Field groups** section (**1**). The properties are highlighted in the **Structure** section (**2**).
 
 <img src="../assets/edge-bridge-tutorial/schema-tool-selection.png" alt="Schema tool selecting a field group example" width="1100"/>  
 
-To see only the properties from a given field group, click the selection box next to the field group (**1**). The properties are filtered to only the selected field group in the `Structure` section (**2**).
+To see only the properties from a given field group, click the selection box next to the field group (**1**). The properties are filtered to only the selected field group in the **Structure** section (**2**).
 
 <img src="../assets/edge-bridge-tutorial/schema-tool-filtering.png" alt="Schema tool filtering on a field group example" width="1100"/>  
 
@@ -137,50 +138,52 @@ In order to send data to the Edge Network, the datastream must be configured wit
 
 </p></details>
 
-Click `Datastreams` under `DATA COLLECTION` in the left side navigation panel.
+Click **Datastreams** under **DATA COLLECTION** in the left side navigation panel.
 
 <img src="../assets/edge-bridge-tutorial/datastreams-navigation.png" alt="Datastream in Data Collection Navigation" width="1100"/>  
 
-Click `New Datastream` in the top right.
+Click **New Datastream** in the top right.
 
 <img src="../assets/edge-bridge-tutorial/datastreams-main-view.png" alt="Create new datastream" width="1100"/>  
 
-Give the datastream an identifying name and description (**1**), then pick the schema created in the previous section using the dropdown menu (**2**). Then click `Save` (**3**). We will be returning to this datastream later on.
+Give the datastream an identifying name and description (**1**), then pick the schema created in the previous section using the dropdown menu (**2**). Then click **Save** (**3**). We will be returning to this datastream later on.
 
 <img src="../assets/edge-bridge-tutorial/datastreams-new-datastream.png" alt="Set datastream values" width="1100"/>  
 
-// TODO: Mobile property setup?
-Click `Tags` (**1**) under `DATA COLLECTION` in the left-side navigation panel.
+### 3. Create a property
+
+Next, we need to create a property for mobile. A property is basically a bundled configuration for AEP extensions. It controls the configuration settings available for each extension, allowing you to modify their functionality. 
+
+Click **Tags** (**1**) under **DATA COLLECTION** in the left-side navigation panel.
 
 <img src="../assets/edge-bridge-tutorial/data-collection-tags-navigation.png" alt="Navigating to tags" width="1100"/>  
 
-Find and click the Edge Bridge tutorial mobile property (**2**), optionally using the search box to help quickly narrow down the search (**1**).
+Click **New Property** (**1**) to create a new property.
 
-<img src="../assets/edge-bridge-tutorial/tag-search.png" alt="Finding desired mobile property" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/tags-main-view.png" alt="Navigating to tags" width="1100"/>  
 
-Click `Extensions` (**1**) in the left-side navigation panel, under `AUTHORING`.
+Enter an identifying name for the new property in the **Name** textfield (**1**), select **Mobile** (**2**) under **Platform**, then click **Save** (**3**).
+
+<img src="../assets/edge-bridge-tutorial/tags-create-property.png" alt="Navigating to tags" width="1100"/>  
+
+Find and click the mobile property for this tutorial (**2**), optionally using the search box to help quickly narrow down the search (**1**).
+
+<img src="../assets/edge-bridge-tutorial/property-search.png" alt="Finding desired mobile property" width="1100"/>  
+
+Click **Extensions** (**2**) in the left-side navigation panel, under **AUTHORING**. Notice there are some extensions are that installed by default (**1**).
 
 <img src="../assets/edge-bridge-tutorial/mobile-property-extensions.png" alt="Finding desired mobile property" width="1100"/>  
 
-Click `Catalog` (**1**) and (optionally) use the search box (**2**) to find the `Adobe Analytics` extension; click install (**3**) (if not done already). 
+Click **Catalog** (**1**) and (optionally) use the search box (**2**) to find the required extensions; click the **Install** button in an extension card to install the extension. 
 
-<img src="../assets/edge-bridge-tutorial/mobile-property-catalog-analytics.png" alt="Catalog search for Analytics" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/mobile-property-catalog.png" alt="Catalog search example" width="1100"/>  
 
-<details>
-  <summary> Adobe Analytics settings </summary><p>
-
-  Click `Select or type a report suite [RSID]` (**1**) and select the Analytics report suite ID for this tutorial. Repeat this process for all three environments (**2**). Then click `Save` (**3**).
-
-<img src="../assets/edge-bridge-tutorial/mobile-property-analytics-settings.png" alt="Analytics extension settings" width="1100"/>  
-
-</p></details>
-
-We will also be installing the following AEP extension configurations:
+We will be installing the following AEP extension configurations:
 
 <details>
   <summary> Adobe Experience Platform Edge Network </summary><p>
 
-Go back to the `Catalog` and install the `Adobe Experience Platform Edge Network` extension configuration.
+Open the **Catalog** and install the `Adobe Experience Platform Edge Network` extension configuration.
 
 <img src="../assets/edge-bridge-tutorial/mobile-property-catalog-edge.png" alt="Catalog search for Adobe Experience Platform Edge Network" width="1100"/>  
 
@@ -193,7 +196,7 @@ In the extension configuration settings window, set the datastream for each envi
 <details>
   <summary> Identity </summary><p>
 
-Open the `Catalog` and install the `Identity` extension configuration. There are no settings for this extension.
+Open the **Catalog** and install the **Identity** extension configuration. There are no settings for this extension.
 
 <img src="../assets/edge-bridge-tutorial/mobile-property-catalog-identity.png" alt="Catalog search for Identity" width="1100"/>  
 
@@ -202,11 +205,11 @@ Open the `Catalog` and install the `Identity` extension configuration. There are
 <details>
   <summary> Consent </summary><p>
 
-Open the `Catalog` and install the `Consent` extension configuration.
+Open the **Catalog** and install the **Consent** extension configuration.
 
 <img src="../assets/edge-bridge-tutorial/mobile-property-catalog-consent.png" alt="Catalog search for Consent" width="1100"/>  
 
-In the extension configuration settings window, the `Default Consent Level` should be set to `Yes` by default (**1**); for the tutorial app this setting is fine as-is, however when using this configuration in production apps, it should reflect the requirements of the company's actual data collection policy for the app. 
+In the extension configuration settings window, the **Default Consent Level** should be set to **Yes** by default (**1**); for the tutorial app this setting is fine as-is, however when using this configuration in production apps, it should reflect the requirements of the company's actual data collection policy for the app. 
 
 <img src="../assets/edge-bridge-tutorial/mobile-property-consent-settings.png" alt="Consent extension settings" width="1100"/>  
 
@@ -214,11 +217,13 @@ In the extension configuration settings window, the `Default Consent Level` shou
 
 You should see the following after all the extensions are installed: 
 
-<img src="../assets/edge-bridge-tutorial/mobile-property-all-extensions.png" alt="All installed extensions" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/mobile-property-edge-extensions.png" alt="All installed extensions" width="1100"/>  
 
 // TODO: Publishing changes
 
 ## Client-side implementation
+Now that the server side configuration is complete, we can install the extensions in the app and enable extension functionality by making some code updates.
+
 ### 1. Get a copy of the files (code and tutorial app)
 1. Open the code repository: https://github.com/adobe/aepsdk-edgebridge-ios
 2. Click **Code** in the top right 
