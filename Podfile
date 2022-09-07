@@ -31,6 +31,18 @@ target 'TestAppSwiftUI' do
   pod 'AEPAssurance'
 end
 
+target 'EdgeTutorialAppStart' do
+=begin
+  pod 'AEPAssurance'
+  pod 'AEPCore'
+  pod 'AEPEdge'
+  pod 'AEPEdgeConsent'
+  pod 'AEPEdgeIdentity'
+  pod 'AEPLifecycle'
+  pod 'AEPServices'
+=end
+end
+
 target 'TutorialAppStart' do
   pod 'AEPAnalytics'
   pod 'AEPCore'
