@@ -12,6 +12,7 @@
 
 /* Edge Tutorial - code section (1/4)
 import AEPCore
+import AEPEdge
 // Edge Tutorial - code section (1/4) */
 
 import SwiftUI
@@ -27,33 +28,54 @@ struct TrackView: View {
 
     var body: some View {
         VStack {
-            Button("Track Action", action: {
-                // Dispatch an Analytics track action event which is handled by the
-                // Edge Bridge extension which forwards it to the Edge Network.
-
-                let data: [String: Any] = [
-                    "product.id": "12345",
-                    "product.add.event": "1",
-                    "product.name": "wide_brim_sunhat",
-                    "product.units": "1"
+            Button("Product add event", action: {
+                // Dispatch an Experience Event which is handled by the
+                // Edge extension which sends it to the Edge Network.
+                
+                var xdmData: [String: Any] = [
+                  "eventType": "commerce.productViews",
+                  "commerce": [
+                    "productListAdds": [
+                      "value": 1
+                    ]
+                  ],
+                  "productListItems": [
+                    [
+                      "name":  "wide_brim_sunhat",
+                      "SKU": "12345",
+                      "quantity": 1
+                    ]
+                  ]
                 ]
                 
 /* Edge Tutorial - code section (2/4)
-                 MobileCore.track(action: "add_to_cart", data: data)
+                let experienceEvent = ExperienceEvent(xdm: xdmData)
+                Edge.sendEvent(experienceEvent: experienceEvent)
 // Edge Tutorial - code section (2/4) */
             }).padding()
 
-            Button("Track State", action: {
-                // Dispatch an Analytics track state event which is handled by the
-                // Edge Bridge extension which forwards it to the Edge Network.
-
-                let data: [String: Any] = [
-                    "product.name": "wide_brim_sunhat",
-                    "product.id": "12345",
-                    "product.view.event": "1"]
+            Button("Product view event", action: {
+                // Dispatch an Experience Event which is handled by the
+                // Edge extension which sends it to the Edge Network.
+                
+                var xdmData: [String: Any] = [
+                  "eventType": "commerce.productViews",
+                  "commerce": [
+                    "productListViews": [
+                      "value": 1
+                    ]
+                  ],
+                  "productListItems": [
+                    [
+                      "name":  "wide_brim_sunhat",
+                      "SKU": "12345"
+                    ]
+                  ]
+                ]
                 
 /* Edge Tutorial - code section (3/4)
-                 MobileCore.track(state: "hats/sunhat/wide_brim_sunhat_id12345", data: data)
+                let experienceEvent = ExperienceEvent(xdm: xdmData)
+                Edge.sendEvent(experienceEvent: experienceEvent)
 // Edge Tutorial - code section (3/4) */
             }).padding()
 

@@ -418,9 +418,11 @@ Notice that both of these APIs rely on the developer to place them in the proper
 <details>
   <summary> What am I uncommenting in <code>ContentView.swift</code>? </summary><p>
 
-**Section 1**: imports the Assurance extension for use in the code below.
+**Section 1**: Imports the Core extension for use in the code below.
 
-**Section 2**: Enables deep linking to connect to Assurance (which we will cover in depth in a later section); this is for iOS versions 13 and above.
+**Section 2**: Creates an Experience Event with an event payload that conforms to the XDM schema we set up earlier. This event is an example of a product add.
+
+**Section 3**: Creates an Experience Event with an event payload that conforms to the XDM schema we set up earlier. This event is an example of a product view.
 
 </p></details>
 
@@ -434,12 +436,12 @@ You should see your application running on the device you selected, with logs be
 > View -> Debug Area -> Show Debug Area
 
 ### 4. TrackAction/TrackState implementation examples   
-With Edge Bridge extension successfully installed and registered, you can make the regular Analytics `trackAction` and `trackState` calls, which will be captured by Edge Bridge extension and sent to the Edge network.
+With Edge extension successfully installed and registered, you can make `sendEvent` calls, which will be processed by the Edge extension and sent to the Edge network.
 
-Check `ContentView.swift` for implementation examples of both APIs. You can see the data payloads that are to be sent with the calls.
+Check `ContentView.swift` for implementation examples of product add and view events. You can see the data payloads that are to be sent with the calls. Notice that they conform to the XDM schema structure we set up in the first section.
 
 ## Initial validation with Assurance
-Assurance is the AEP tool for inspecting all events that Adobe extensions send out, in real time. It will allow us to see the flow of events, including the EdgeBridge conversion of `trackAction`/`trackState`.
+Assurance is the AEP tool for inspecting all events that Adobe extensions send out, in real time. It will allow us to see the flow of events, including the Experience Event sent out by the Edge extension.
 
 ### 1. Set up the Assurance session  
 1. In the browser, navigate to [Assurance](https://experience.adobe.com/griffon) and login using your Adobe ID credentials.
