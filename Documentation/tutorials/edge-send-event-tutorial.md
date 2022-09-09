@@ -10,9 +10,9 @@
     - [2. Create a datastream](#2-create-a-datastream)
     - [3. Create a property](#3-create-a-property)
   - [Client-side implementation](#client-side-implementation)
-    - [1. Get a copy of the files (code and tutorial app)](#1-get-a-copy-of-the-files-code-and-tutorial-app)
-    - [1. Install Edge Bridge using dependency manager (CocoaPods)](#1-install-edge-bridge-using-dependency-manager-cocoapods)
-    - [2. Update Tutorial App Code to Enable EdgeBridge functionality](#2-update-tutorial-app-code-to-enable-edgebridge-functionality)
+    - [1. Get a copy of the files (tutorial app code) and initial setup](#1-get-a-copy-of-the-files-tutorial-app-code-and-initial-setup)
+    - [1. Install the Edge extensions using dependency manager (CocoaPods)](#1-install-the-edge-extensions-using-dependency-manager-cocoapods)
+    - [2. Update tutorial app code to enable Edge features](#2-update-tutorial-app-code-to-enable-edge-features)
     - [3. Run app](#3-run-app)
     - [4. TrackAction/TrackState implementation examples](#4-trackactiontrackstate-implementation-examples)
   - [Initial validation with Assurance](#initial-validation-with-assurance)
@@ -225,7 +225,7 @@ You should see the following after all the extensions are installed:
 
 Now that the server side configuration is complete, we can install the extensions in the app and enable extension functionality by making some code updates.
 
-### 1. Get a copy of the files (code and tutorial app)
+### 1. Get a copy of the files (tutorial app code) and initial setup
 1. Open the code repository: https://github.com/adobe/aepsdk-edgebridge-ios
 2. Click **Code** in the top right 
 3. In the window that opens, click **Download ZIP**; by default it should land in your **Downloads** folder.
@@ -305,31 +305,23 @@ tim@Tims-MacBook-Pro aepsdk-edgebridge-ios %
 
 </p></details>
 
-### 1. Install Edge Bridge using dependency manager (CocoaPods)
-Our next task is actually modifying the file that controls the package dependencies, adding the new extensions that will enable the Edge Bridge extension to function.
+### 1. Install the Edge extensions using dependency manager (CocoaPods)
+With the project set up, our next task is to install the Edge extensions for our tutorial app. We can easily do this by updating the file that controls the package dependencies for the repository. 
 
-Open the project using the command:
+1. Open the project using the command:
 ```bash
 open AEPEdgeBridge.xcworkspace
 ```
 
 This should automatically open the Xcode IDE. In Xcode:
 1. Click the dropdown chevron next to `Pods` in the left-side navigation panel.
-2. Click the `Podfile` file.
-3. Replace the section: 
+2. Click the `Podfile` file.   
+   
+You should see a section like the following: 
 
 ```ruby
-target 'TutorialAppStart' do
-  pod 'AEPAnalytics'
-  pod 'AEPCore'
-  pod 'AEPServices'
-end
-```
-With:
-
-```ruby
-target 'TutorialAppStart' do
-  pod 'AEPAnalytics'
+target 'EdgeTutorialAppStart' do
+=begin
   pod 'AEPAssurance'
   pod 'AEPCore'
   pod 'AEPEdge'
@@ -337,48 +329,94 @@ target 'TutorialAppStart' do
   pod 'AEPEdgeIdentity'
   pod 'AEPLifecycle'
   pod 'AEPServices'
+=end
+end
+```
+Add a pound symbol `#` in front of the `=begin` and `=end` like so:
+
+```ruby
+target 'EdgeTutorialAppStart' do
+#=begin
+  pod 'AEPAssurance'
+  pod 'AEPCore'
+  pod 'AEPEdge'
+  pod 'AEPEdgeConsent'
+  pod 'AEPEdgeIdentity'
+  pod 'AEPLifecycle'
+  pod 'AEPServices'
+#=end
 end
 ```
 
-4. Go back to your terminal window and run:
+<details>
+  <summary> What does the <code>#</code> do? </summary><p>
+
+The `#` symbol is how to comment out lines of code in the programming language Ruby (which our Podfile is written in). Commenting out code allows you to quickly deactivate code, or write documentation/notes. In our case, we're commenting out the lines that create a block comment (the multi-line version of comments) in Ruby, activating all the code between those two lines!
+
+</p></details>
+
+3. Go back to your terminal window and run:
 ```bash
 pod update
 ```
-Cocoapods will use this updated configuration file to install the new packages (including the EdgeBridge extension itself!), which will allow us to add new functionality in the app's code. 
+Cocoapods will use the newly updated configuration file to install the new packages (all of the new Edge extensions we want!), which will allow us to use the Edge extensions' features in the app's code. 
 
-### 2. Update Tutorial App Code to Enable EdgeBridge functionality
-There are two files we need to update to enable the EdgeBridge extension. 
+### 2. Update tutorial app code to enable Edge features
+There are three files we need to update to enable the features we want from the Edge extension. Thankfully, all of the code changes are contained in block comments like the Podfile so you only have to make a few updates!
+
 1. Click the dropdown chevron next to `AEPEdgeBridge` in the left-side navigation panel.
-2. Click the dropdown chevron next to `TutorialAppStart`.
+2. Click the dropdown chevron next to `EdgeTutorialAppStart`.
 3. Click the `AppDelegate.swift` file.
 
-Inside you will see code blocks for this tutorial that are greyed out, because they are commented out. They are marked by the header and footer `EdgeBridge Tutorial - code section n/m` (where `n` is the current section and `m` is the total number of sections in the file).
+Inside, you will see code blocks for this tutorial that are greyed out, because they are block commented out. They are marked by the header and footer:  
+`Edge Tutorial - code section (n/m)`  
+Where `n` is the current section and `m` is the total number of sections in the file.
 
-To uncomment the section and activate the code, simply add a forward slash at the front of the header:
+To activate the code, simply add a forward slash `/` at the front of the header:
 ```swift
-/* EdgeBridge Tutorial - code section 1/2
+/* Edge Tutorial - code section (1/2)
 ```
 To:
 ```swift
-//* EdgeBridge Tutorial - code section 1/2
+//* Edge Tutorial - code section (1/2)
 ```
 Make sure to uncomment all sections within the file (the total will tell you how many sections there are).
 
 <details>
   <summary> What am I uncommenting in <code>AppDelegate.swift</code>? </summary><p>
 
-**Section 1**: imports the EdgeBridge extension and other AEP extensions that enable its functionality and power other features. This makes it available to use in the code below.
+**Section 1**: imports the various Edge extensions and other AEP extensions that enable sending event data to Edge, and power other features. The `import` statement makes it available to use in the code below.
 
-**Section 2**: registers the extensions with Core (which contains all of the baseline capabilities required to run Adobe extensions), getting them ready to run in the app.
+**Section 2**: In order:
+1. Sets the log level of Core (which handles the core functionality used by extensions, like networking, data conversions, etc.) to `trace`, which provides more granular details on app logic; this can be helpful in debugging or troubleshooting issues.
+2. This sets the environment file ID which is the mobile property configuration we set up in the first section; this will apply the extension settings in our app.
+3. Registers the extensions with Core, getting them ready to run in the app.
 
-**Section 3**: Enables deep linking to connect to Assurance (which we will cover in depth in a later section); this is for iOS versions 12 and below.
+**Section 3**: Enables deep linking to connect to Assurance (which we will cover in depth in a later section); this is the method used for iOS versions 12 and below.
 
 </p></details>
 
-Repeat this process for the `SceneDelegate.swift` file.
+Repeat this process for the `SceneDelegate.swift` and `ContentView.swift` files.
 
 <details>
   <summary> What am I uncommenting in <code>SceneDelegate.swift</code>? </summary><p>
+
+**Section 1**: Imports the Assurance (covered later) and Core extensions for use in the code below.
+
+The next two code sections are functionality that is enabled by the [AEP Lifecycle](https://aep-sdks.gitbook.io/docs/foundation-extensions/lifecycle-for-edge-network) extension; the extension's main purpose is to track the app's state, basically when the app starts, or is closed, or crashes, etc.
+
+**Section 2**: Enables the [`lifecycleStart` API](https://aep-sdks.gitbook.io/docs/foundation-extensions/mobile-core/lifecycle/lifecycle-api-reference#lifecycle-start) that tracks when the app is opened.
+
+**Section 3**: Enables the [`lifecyclePause` API](https://aep-sdks.gitbook.io/docs/foundation-extensions/mobile-core/lifecycle/lifecycle-api-reference#lifecycle-pause) that tracks when the app is closed.
+
+Notice that both of these APIs rely on the developer to place them in the proper iOS app lifecycle functions; that is, iOS has built-in functions that are called by the operating system that give the app notices that it is about to enter an active state, or go into a background state, etc. A proper Lifecycle extension implementation requires that the developer places the API calls in the required iOS lifecycle functions. See the full guide on [implementing Lifecycle](https://aep-sdks.gitbook.io/docs/foundation-extensions/mobile-core/lifecycle).
+
+**Section 4**: Enables deep linking to connect to Assurance; this is the method used for iOS versions 13 and above.
+
+</p></details>
+
+<details>
+  <summary> What am I uncommenting in <code>ContentView.swift</code>? </summary><p>
 
 **Section 1**: imports the Assurance extension for use in the code below.
 
