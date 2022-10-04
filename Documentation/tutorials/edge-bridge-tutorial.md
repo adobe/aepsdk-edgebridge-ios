@@ -25,10 +25,10 @@ This hands-on tutorial provides end-to-end instructions on how to migrate from s
 graph LR;
     step1(1<br/>Existing Adobe Analytics app) -->
     step2(2<br/>Adobe Experience Platform<br/>Update server-side configuration) --> 
-    step3(3<br/>Update app to enable EdgeBridge features<br/>Send event data to the Edge Network & Analytics) --> 
-    step4(4<br/>Validate flow with Assurance<br/>Verify event data formats) -->
-    step5(5<br/>Map data to XDM<br/>Edge network data format) -->
-    step6(6<br/>Validate mapping with Assurance<br/>Verify trackAction/trackState to XDM conversion)
+    step3(3<br/>EdgeBridge<br/>Send event data to the Edge Network & Analytics) --> 
+    step4(4<br/>Assurance<br/>Verify event data formats) -->
+    step5(5<br/>Data mapper<br/>Map data to XDM - Edge network data format) -->
+    step6(6<br/>Assurance<br/>Verify trackAction/trackState to XDM conversion)
 ```
 
 ### Environment
@@ -97,20 +97,10 @@ You should see the following after all the extensions are installed:
 
 Now we can use the tutorial app to go through the changes required to install the Edge Bridge extension.
 
-<!-- 1. Open the `Finder` application.
-2. Click `Documents` in the left-side navigation panel.
-3. Open the `GitHub` directory.
-4. You should see the `aepsdk-edgebridge-ios` directory, open it.
-
-5. Open Xcode.
-6. Click `Open a project or file`
-7. Navigate to the repository: `Documents` -> `GitHub` -> `aepsdk-edgebridge-ios`
-8. After selecting `aepsdk-edgebridge-ios` (the folder, not any of the inner files), click `Open` -->
-
-5. Open the Terminal app
+1. Open the Terminal app
    - Applications -> Utilities -> Terminal
    - Open Spotlight search (CMD + Space) and search for "terminal"
-6. Type the following characters, but do not press return yet: `c` + `d` + `SPACE`  
+2. Type the following characters, but do not press return yet: `c` + `d` + `SPACE`  
 You should see the following in your terminal: "cd " (the space after `cd` is important!).
 ```bash
 cd 
