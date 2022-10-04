@@ -10,15 +10,15 @@
 // governing permissions and limitations under the License.
 //
 
-/* Edge Tutorial - code section (1/3)
+//* EdgeBridge Tutorial - code section (1/3)
 import AEPAssurance
-import AEPCore
 import AEPEdge
 import AEPEdgeConsent
 import AEPEdgeIdentity
 import AEPLifecycle
-// Edge Tutorial - code section (1/3) */
-
+// EdgeBridge Tutorial - code section (1/3) */
+import AEPAnalytics
+import AEPCore
 import Compression
 import UIKit
 
@@ -30,22 +30,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let appState = application.applicationState
-/* Edge Tutorial - code section (2/3)
         MobileCore.setLogLevel(.trace)
         MobileCore.configureWith(appId: ENVIRONMENT_FILE_ID)
         MobileCore.registerExtensions([
+            Analytics.self,
+//* EdgeBridge Tutorial - code section (2/3)
             Assurance.self,
             Consent.self,
             Edge.self,
             Identity.self,
             Lifecycle.self
+// EdgeBridge Tutorial - code section (2/3) */
         ], {
             if appState != .background {
                 // Only start lifecycle if the application is not in the background
                 MobileCore.lifecycleStart(additionalContextData: nil)
             }
         })
-// Edge Tutorial - code section (2/3) */
         return true
     }
 
@@ -59,9 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // To handle deeplink on iOS versions 12 and below
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-/* Edge Tutorial - code section (3/3)
+//* EdgeBridge Tutorial - code section (3/3)
         Assurance.startSession(url: url)
-// Edge Tutorial - code section (3/3) */
+// EdgeBridge Tutorial - code section (3/3) */
         return true
     }
 }

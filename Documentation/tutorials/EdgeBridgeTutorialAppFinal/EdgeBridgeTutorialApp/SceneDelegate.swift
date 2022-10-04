@@ -10,11 +10,10 @@
 // governing permissions and limitations under the License.
 //
 
-/* Edge Tutorial - code section (1/4)
+//* EdgeBridge Tutorial - code section (1/2)
 import AEPAssurance
+// EdgeBridge Tutorial - code section (1/2) */
 import AEPCore
-// Edge Tutorial - code section (1/4) */
-
 import SwiftUI
 import UIKit
 
@@ -59,28 +58,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
-/* Edge Tutorial - code section (2/4)
-         MobileCore.lifecycleStart(additionalContextData: ["start": "lifecycle"])
-// Edge Tutorial - code section (2/4) */
+        MobileCore.lifecycleStart(additionalContextData: ["start": "lifecycle"])
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-        
-/* Edge Tutorial - code section (3/4)
-         MobileCore.lifecyclePause()
-// Edge Tutorial - code section (3/4) */
+        MobileCore.lifecyclePause()
     }
 
     @available(iOS 13.0, *)
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         // to note : this method is not called when an app not in memory (forceclosed) is opened with deeplink
         if let url = URLContexts.first?.url {
-/* Edge Tutorial - code section (4/4)
+//* EdgeBridge Tutorial - code section (2/2)
             Assurance.startSession(url: url)
-// Edge Tutorial - code section (4/4) */
+// EdgeBridge Tutorial - code section (2/2) */
         }
     }
 }
