@@ -122,15 +122,9 @@
 		1E05720B5778E784DC19DA9C /* Pods_UnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		21888AF22555F9FC005677ED /* FileManager+Testable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Testable.swift"; sourceTree = "<group>"; };
 		36054A57340EA919052D5C7C /* Pods_FunctionalTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FunctionalTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4194F76588A66B1DB6669DAF /* Pods-TutorialAppSwiftUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TutorialAppSwiftUI.debug.xcconfig"; path = "Target Support Files/Pods-TutorialAppSwiftUI/Pods-TutorialAppSwiftUI.debug.xcconfig"; sourceTree = "<group>"; };
-		4CC4EA6328C905C900720483 /* EdgeTutorialAppStart-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EdgeTutorialAppStart-Bridging-Header.h"; sourceTree = "<group>"; };
 		5D22D82A33CBDE146CA99CD2 /* Pods-FunctionalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunctionalTests.release.xcconfig"; path = "Target Support Files/Pods-FunctionalTests/Pods-FunctionalTests.release.xcconfig"; sourceTree = "<group>"; };
 		62486E62D61645288AB5B6C9 /* Pods-TestAppSwiftUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestAppSwiftUI.debug.xcconfig"; path = "Target Support Files/Pods-TestAppSwiftUI/Pods-TestAppSwiftUI.debug.xcconfig"; sourceTree = "<group>"; };
 		77FC2B63149099B9807FD885 /* Pods-TestAppSwiftUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestAppSwiftUI.release.xcconfig"; path = "Target Support Files/Pods-TestAppSwiftUI/Pods-TestAppSwiftUI.release.xcconfig"; sourceTree = "<group>"; };
-		85470B80C30CEC968BF1DABD /* Pods-TutorialAppSwiftUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TutorialAppSwiftUI.release.xcconfig"; path = "Target Support Files/Pods-TutorialAppSwiftUI/Pods-TutorialAppSwiftUI.release.xcconfig"; sourceTree = "<group>"; };
-		9A45BD64F3D1F7A84EAB5EF6 /* Pods-EdgeTutorialAppStart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EdgeTutorialAppStart.release.xcconfig"; path = "Target Support Files/Pods-EdgeTutorialAppStart/Pods-EdgeTutorialAppStart.release.xcconfig"; sourceTree = "<group>"; };
-		A5B5DBDC197107A726150890 /* Pods_EdgeTutorialAppStart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EdgeTutorialAppStart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AD59CC8D9FFBA4AF55CBDCC9 /* Pods-EdgeTutorialAppStart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EdgeTutorialAppStart.debug.xcconfig"; path = "Target Support Files/Pods-EdgeTutorialAppStart/Pods-EdgeTutorialAppStart.debug.xcconfig"; sourceTree = "<group>"; };
 		B9D153C35B8B3C9241D531AA /* Pods-AEPEdgeBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AEPEdgeBridge.debug.xcconfig"; path = "Target Support Files/Pods-AEPEdgeBridge/Pods-AEPEdgeBridge.debug.xcconfig"; sourceTree = "<group>"; };
 		BF4A717826DDAE4B00612434 /* AssuranceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssuranceView.swift; sourceTree = "<group>"; };
 		BF5DCF37280653E70057D7D3 /* EdgeBridgeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeBridgeConstants.swift; sourceTree = "<group>"; };
@@ -217,7 +211,6 @@
 				1309AD6A6FDC8FF2FCA3F1E4 /* Pods_TestAppSwiftUI.framework */,
 				1E05720B5778E784DC19DA9C /* Pods_UnitTests.framework */,
 				EC2A9254159485D4AF3FBF1F /* Pods_AEPEdgeBridge.framework */,
-				A5B5DBDC197107A726150890 /* Pods_EdgeTutorialAppStart.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -267,7 +260,6 @@
 				D4D5B4E8242EBB1600CAB6E4 /* Products */,
 				E5239B915F53B993A1976FC4 /* Pods */,
 				3BB2159D8E84140309C411FF /* Frameworks */,
-				4CC4EA6328C905C900720483 /* EdgeTutorialAppStart-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -358,10 +350,6 @@
 				77FC2B63149099B9807FD885 /* Pods-TestAppSwiftUI.release.xcconfig */,
 				B9D153C35B8B3C9241D531AA /* Pods-AEPEdgeBridge.debug.xcconfig */,
 				D03DD3837CC7F199A22E4F9C /* Pods-AEPEdgeBridge.release.xcconfig */,
-				4194F76588A66B1DB6669DAF /* Pods-TutorialAppSwiftUI.debug.xcconfig */,
-				85470B80C30CEC968BF1DABD /* Pods-TutorialAppSwiftUI.release.xcconfig */,
-				AD59CC8D9FFBA4AF55CBDCC9 /* Pods-EdgeTutorialAppStart.debug.xcconfig */,
-				9A45BD64F3D1F7A84EAB5EF6 /* Pods-EdgeTutorialAppStart.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
