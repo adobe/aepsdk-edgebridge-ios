@@ -44,7 +44,25 @@ Before any app changes we need to set up some configuration items on the Adobe E
 
 If you don't have an existing mobile property, see the [instructions on how to set up a new property](https://github.com/adobe/aepsdk-edge-ios/blob/tutorial-send-event/Documentation/Tutorials/edge-send-event-tutorial.md#1-create-a-schema).
 
-We will also be installing the following AEP extension configurations:
+The following AEP extension configurations should be installed:  
+
+<details>
+  <summary> Adobe Analytics </summary><p>
+
+Open the **Catalog** and install the `Adobe Analytics` extension configuration.
+
+<img src="../Assets/edge-bridge-tutorial/mobile-property-catalog-analytics.png" alt="Catalog search for Adobe Experience Platform Edge Network" width="1100"/>  
+
+</p></details>
+
+<details>
+  <summary> AEP Assurance </summary><p>
+
+Open the **Catalog** and install the `AEP Assurance` extension configuration.
+
+<img src="../Assets/edge-bridge-tutorial/mobile-property-catalog-assurance.png" alt="Catalog search for Adobe Experience Platform Edge Network" width="1100"/>  
+
+</p></details>
 
 <details>
   <summary> Adobe Experience Platform Edge Network </summary><p>
@@ -81,11 +99,9 @@ In the extension configuration settings window, the `Default Consent Level` shou
 
 </p></details>
 
-You should see the following after all the extensions are installed: 
+The following cards should be visible after all the extensions are installed: 
 
 <img src="../Assets/edge-bridge-tutorial/mobile-property-all-extensions.png" alt="All installed extensions" width="1100"/>  
-
-// TODO: Publishing changes
 
 ## Client-side implementation
 ### 1. Get a copy of the files (code and tutorial app)
@@ -172,7 +188,7 @@ This should automatically open the Xcode IDE. In Xcode:
 3. Replace the section: 
 
 ```ruby
-target 'TutorialAppStart' do
+target 'EdgeBridgeTutorialApp' do
   pod 'AEPAnalytics'
   pod 'AEPCore'
   pod 'AEPServices'
@@ -181,7 +197,7 @@ end
 With:
 
 ```ruby
-target 'TutorialAppStart' do
+target 'EdgeBridgeTutorialApp' do
   pod 'AEPAnalytics'
   pod 'AEPAssurance'
   pod 'AEPCore'
@@ -201,8 +217,8 @@ Cocoapods will use this updated configuration file to install the new packages (
 
 ### 2. Update Tutorial App Code to Enable EdgeBridge functionality
 There are two files we need to update to enable the EdgeBridge extension. 
-1. Click the dropdown chevron next to `AEPEdgeBridge` in the left-side navigation panel.
-2. Click the dropdown chevron next to `TutorialAppStart`.
+1. Click the dropdown chevron next to `EdgeBridgeTutorialApp` in the left-side navigation panel.
+2. Click the dropdown chevron next to the `EdgeBridgeTutorialApp` folder.
 3. Click the `AppDelegate.swift` file.
 
 Inside you will see code blocks for this tutorial that are greyed out, because they are commented out. They are marked by the header and footer `EdgeBridge Tutorial - code section n/m` (where `n` is the current section and `m` is the total number of sections in the file).
