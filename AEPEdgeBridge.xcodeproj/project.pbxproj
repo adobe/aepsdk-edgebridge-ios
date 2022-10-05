@@ -23,12 +23,7 @@
 /* Begin PBXBuildFile section */
 		21888AF32555F9FC005677ED /* FileManager+Testable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21888AF22555F9FC005677ED /* FileManager+Testable.swift */; };
 		34462B6033EB6C73D4BE07E5 /* Pods_TestAppSwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1309AD6A6FDC8FF2FCA3F1E4 /* Pods_TestAppSwiftUI.framework */; };
-		4C77300928C182E800D7F889 /* AEPEdgeBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D444995F2519506B0093B364 /* AEPEdgeBridge.framework */; };
-		4C91040228BF1ECE00CD5A66 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4D5B5852432977F00CAB6E4 /* Preview Assets.xcassets */; };
-		4C91040628BF20E300CD5A66 /* AEPEdgeBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D444995F2519506B0093B364 /* AEPEdgeBridge.framework */; };
 		72EC4ED272DA96D1B2F44F4D /* Pods_UnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E05720B5778E784DC19DA9C /* Pods_UnitTests.framework */; };
-		9D519A4159869F6DCBE1C3B3 /* Pods_TutorialAppStart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F362549B35EBBDCFE0E3FD2 /* Pods_TutorialAppStart.framework */; };
-		A33B052859DB071046F1B6F5 /* Pods_TutorialAppFinal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A79DE62EDE6087BF404527 /* Pods_TutorialAppFinal.framework */; };
 		BED54BA939EBDF54CB00AC51 /* Pods_FunctionalTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36054A57340EA919052D5C7C /* Pods_FunctionalTests.framework */; };
 		BF4A717926DDAE4C00612434 /* AssuranceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4A717826DDAE4B00612434 /* AssuranceView.swift */; };
 		BF5DCF38280653E70057D7D3 /* EdgeBridgeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DCF37280653E70057D7D3 /* EdgeBridgeConstants.swift */; };
@@ -126,19 +121,13 @@
 		15082756B2E8D8B9741517FD /* Pods-FunctionalTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunctionalTests.debug.xcconfig"; path = "Target Support Files/Pods-FunctionalTests/Pods-FunctionalTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1E05720B5778E784DC19DA9C /* Pods_UnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		21888AF22555F9FC005677ED /* FileManager+Testable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Testable.swift"; sourceTree = "<group>"; };
-		230968FCD216F54480B896C4 /* Pods-TutorialAppStart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TutorialAppStart.debug.xcconfig"; path = "Target Support Files/Pods-TutorialAppStart/Pods-TutorialAppStart.debug.xcconfig"; sourceTree = "<group>"; };
 		36054A57340EA919052D5C7C /* Pods_FunctionalTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FunctionalTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3F362549B35EBBDCFE0E3FD2 /* Pods_TutorialAppStart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TutorialAppStart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4194F76588A66B1DB6669DAF /* Pods-TutorialAppSwiftUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TutorialAppSwiftUI.debug.xcconfig"; path = "Target Support Files/Pods-TutorialAppSwiftUI/Pods-TutorialAppSwiftUI.debug.xcconfig"; sourceTree = "<group>"; };
-		4C772FE328C180E800D7F889 /* TutorialAppStart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutorialAppStart.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C9103E228BF1D3600CD5A66 /* TutorialAppFinal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutorialAppFinal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CC4EA6328C905C900720483 /* EdgeTutorialAppStart-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EdgeTutorialAppStart-Bridging-Header.h"; sourceTree = "<group>"; };
 		5D22D82A33CBDE146CA99CD2 /* Pods-FunctionalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunctionalTests.release.xcconfig"; path = "Target Support Files/Pods-FunctionalTests/Pods-FunctionalTests.release.xcconfig"; sourceTree = "<group>"; };
 		62486E62D61645288AB5B6C9 /* Pods-TestAppSwiftUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestAppSwiftUI.debug.xcconfig"; path = "Target Support Files/Pods-TestAppSwiftUI/Pods-TestAppSwiftUI.debug.xcconfig"; sourceTree = "<group>"; };
-		72ADF0927D92EEB571D6F22F /* Pods-TutorialAppStart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TutorialAppStart.release.xcconfig"; path = "Target Support Files/Pods-TutorialAppStart/Pods-TutorialAppStart.release.xcconfig"; sourceTree = "<group>"; };
 		77FC2B63149099B9807FD885 /* Pods-TestAppSwiftUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestAppSwiftUI.release.xcconfig"; path = "Target Support Files/Pods-TestAppSwiftUI/Pods-TestAppSwiftUI.release.xcconfig"; sourceTree = "<group>"; };
 		85470B80C30CEC968BF1DABD /* Pods-TutorialAppSwiftUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TutorialAppSwiftUI.release.xcconfig"; path = "Target Support Files/Pods-TutorialAppSwiftUI/Pods-TutorialAppSwiftUI.release.xcconfig"; sourceTree = "<group>"; };
-		8AED0300637893BCFDB9D323 /* Pods-TutorialAppFinal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TutorialAppFinal.debug.xcconfig"; path = "Target Support Files/Pods-TutorialAppFinal/Pods-TutorialAppFinal.debug.xcconfig"; sourceTree = "<group>"; };
 		9A45BD64F3D1F7A84EAB5EF6 /* Pods-EdgeTutorialAppStart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EdgeTutorialAppStart.release.xcconfig"; path = "Target Support Files/Pods-EdgeTutorialAppStart/Pods-EdgeTutorialAppStart.release.xcconfig"; sourceTree = "<group>"; };
 		A5B5DBDC197107A726150890 /* Pods_EdgeTutorialAppStart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EdgeTutorialAppStart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD59CC8D9FFBA4AF55CBDCC9 /* Pods-EdgeTutorialAppStart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EdgeTutorialAppStart.debug.xcconfig"; path = "Target Support Files/Pods-EdgeTutorialAppStart/Pods-EdgeTutorialAppStart.debug.xcconfig"; sourceTree = "<group>"; };
@@ -150,8 +139,6 @@
 		BF7E5B362788080500D5E0FF /* EdgeBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeBridge.swift; sourceTree = "<group>"; };
 		BF7E5B382788B16800D5E0FF /* EdgeBridgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeBridgeTests.swift; sourceTree = "<group>"; };
 		BF947FA1244587520057A6CC /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
-		C1A79DE62EDE6087BF404527 /* Pods_TutorialAppFinal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TutorialAppFinal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C462D49A61656AB9B502968E /* Pods-TutorialAppFinal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TutorialAppFinal.release.xcconfig"; path = "Target Support Files/Pods-TutorialAppFinal/Pods-TutorialAppFinal.release.xcconfig"; sourceTree = "<group>"; };
 		D03DD3837CC7F199A22E4F9C /* Pods-AEPEdgeBridge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AEPEdgeBridge.release.xcconfig"; path = "Target Support Files/Pods-AEPEdgeBridge/Pods-AEPEdgeBridge.release.xcconfig"; sourceTree = "<group>"; };
 		D444995F2519506B0093B364 /* AEPEdgeBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AEPEdgeBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D44BBB74248DC54F00775DAC /* CountDownLatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownLatch.swift; sourceTree = "<group>"; };
@@ -184,24 +171,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4C772FE028C180E800D7F889 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9D519A4159869F6DCBE1C3B3 /* Pods_TutorialAppStart.framework in Frameworks */,
-				4C77300928C182E800D7F889 /* AEPEdgeBridge.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4C9103DF28BF1D3600CD5A66 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C91040628BF20E300CD5A66 /* AEPEdgeBridge.framework in Frameworks */,
-				A33B052859DB071046F1B6F5 /* Pods_TutorialAppFinal.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D444995C2519506B0093B364 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -248,8 +217,6 @@
 				1309AD6A6FDC8FF2FCA3F1E4 /* Pods_TestAppSwiftUI.framework */,
 				1E05720B5778E784DC19DA9C /* Pods_UnitTests.framework */,
 				EC2A9254159485D4AF3FBF1F /* Pods_AEPEdgeBridge.framework */,
-				C1A79DE62EDE6087BF404527 /* Pods_TutorialAppFinal.framework */,
-				3F362549B35EBBDCFE0E3FD2 /* Pods_TutorialAppStart.framework */,
 				A5B5DBDC197107A726150890 /* Pods_EdgeTutorialAppStart.framework */,
 			);
 			name = Frameworks;
@@ -311,8 +278,6 @@
 				D4D5B53324325AB700CAB6E4 /* FunctionalTests.xctest */,
 				D4D5B57A2432977F00CAB6E4 /* TestAppSwiftUI.app */,
 				D444995F2519506B0093B364 /* AEPEdgeBridge.framework */,
-				4C9103E228BF1D3600CD5A66 /* TutorialAppFinal.app */,
-				4C772FE328C180E800D7F889 /* TutorialAppStart.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -395,10 +360,6 @@
 				D03DD3837CC7F199A22E4F9C /* Pods-AEPEdgeBridge.release.xcconfig */,
 				4194F76588A66B1DB6669DAF /* Pods-TutorialAppSwiftUI.debug.xcconfig */,
 				85470B80C30CEC968BF1DABD /* Pods-TutorialAppSwiftUI.release.xcconfig */,
-				8AED0300637893BCFDB9D323 /* Pods-TutorialAppFinal.debug.xcconfig */,
-				C462D49A61656AB9B502968E /* Pods-TutorialAppFinal.release.xcconfig */,
-				230968FCD216F54480B896C4 /* Pods-TutorialAppStart.debug.xcconfig */,
-				72ADF0927D92EEB571D6F22F /* Pods-TutorialAppStart.release.xcconfig */,
 				AD59CC8D9FFBA4AF55CBDCC9 /* Pods-EdgeTutorialAppStart.debug.xcconfig */,
 				9A45BD64F3D1F7A84EAB5EF6 /* Pods-EdgeTutorialAppStart.release.xcconfig */,
 			);
@@ -419,44 +380,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		4C772FE228C180E800D7F889 /* TutorialAppStart */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4C772FEE28C180EA00D7F889 /* Build configuration list for PBXNativeTarget "TutorialAppStart" */;
-			buildPhases = (
-				C44C510DC6412B619679394C /* [CP] Check Pods Manifest.lock */,
-				4C772FDF28C180E800D7F889 /* Sources */,
-				4C772FE028C180E800D7F889 /* Frameworks */,
-				4C772FE128C180E800D7F889 /* Resources */,
-				6A47F228B1B01C3E09DF2047 /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = TutorialAppStart;
-			productName = TutorialAppStart;
-			productReference = 4C772FE328C180E800D7F889 /* TutorialAppStart.app */;
-			productType = "com.apple.product-type.application";
-		};
-		4C9103E128BF1D3600CD5A66 /* TutorialAppFinal */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4C9103EF28BF1D3800CD5A66 /* Build configuration list for PBXNativeTarget "TutorialAppFinal" */;
-			buildPhases = (
-				B52F3EE4976FA6813FA86762 /* [CP] Check Pods Manifest.lock */,
-				4C9103DE28BF1D3600CD5A66 /* Sources */,
-				4C9103DF28BF1D3600CD5A66 /* Frameworks */,
-				4C9103E028BF1D3600CD5A66 /* Resources */,
-				BDC0C6C64F5454CA1ACA6259 /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = TutorialAppFinal;
-			productName = TutorialAppSwiftUI;
-			productReference = 4C9103E228BF1D3600CD5A66 /* TutorialAppFinal.app */;
-			productType = "com.apple.product-type.application";
-		};
 		D444995E2519506B0093B364 /* AEPEdgeBridge */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D44499642519506B0093B364 /* Build configuration list for PBXNativeTarget "AEPEdgeBridge" */;
@@ -551,13 +474,6 @@
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1160;
 				TargetAttributes = {
-					4C772FE228C180E800D7F889 = {
-						CreatedOnToolsVersion = 13.4.1;
-						LastSwiftMigration = 1340;
-					};
-					4C9103E128BF1D3600CD5A66 = {
-						CreatedOnToolsVersion = 13.4.1;
-					};
 					D444995E2519506B0093B364 = {
 						CreatedOnToolsVersion = 12.0;
 					};
@@ -592,29 +508,12 @@
 				D4D5B5202432599B00CAB6E4 /* UnitTests */,
 				D4D5B53224325AB700CAB6E4 /* FunctionalTests */,
 				D4D5B5792432977F00CAB6E4 /* TestAppSwiftUI */,
-				4C772FE228C180E800D7F889 /* TutorialAppStart */,
-				4C9103E128BF1D3600CD5A66 /* TutorialAppFinal */,
 				D496756B25117262001F5F95 /* AEPEdgeBridgeXCF */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4C772FE128C180E800D7F889 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4C9103E028BF1D3600CD5A66 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C91040228BF1ECE00CD5A66 /* Preview Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D444995D2519506B0093B364 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -690,23 +589,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6A47F228B1B01C3E09DF2047 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TutorialAppStart/Pods-TutorialAppStart-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TutorialAppStart/Pods-TutorialAppStart-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TutorialAppStart/Pods-TutorialAppStart-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		884B4A1D9F4826C97FF530CD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -722,28 +604,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UnitTests/Pods-UnitTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B52F3EE4976FA6813FA86762 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TutorialAppFinal-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BB65AD570084E14C89AC6F59 /* [CP] Check Pods Manifest.lock */ = {
@@ -766,23 +626,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BDC0C6C64F5454CA1ACA6259 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TutorialAppFinal/Pods-TutorialAppFinal-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TutorialAppFinal/Pods-TutorialAppFinal-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TutorialAppFinal/Pods-TutorialAppFinal-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BF024B7424BFDC8B002131E9 /* ShellScript */ = {
@@ -835,28 +678,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [[ -z ${ADB_SKIP_LINT} || ${ADB_SKIP_LINT} -ne \"YES\" ]]; then\n    if which swiftlint >/dev/null; then\n        ./Pods/SwiftLint/swiftlint lint --config Tests/TestUtils/.swiftlint.yml --lenient Tests/FunctionalTests Tests/TestUtils\n    else\n        echo \"warning: SwiftLint is not installed, please run the pod install command from the project root directory.\"\n    fi\nelse\n    echo \"Skipping linting build phase as ADB_SKIP_LINT flag is YES.\"\nfi\n";
-		};
-		C44C510DC6412B619679394C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TutorialAppStart-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 		D42F36B7251BEBF100490C0D /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -940,20 +761,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4C772FDF28C180E800D7F889 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4C9103DE28BF1D3600CD5A66 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D444995B2519506B0093B364 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1037,143 +844,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		4C772FEF28C180EA00D7F889 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 230968FCD216F54480B896C4 /* Pods-TutorialAppStart.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "TestApps/TutorialAppStart/Preview\\ Content";
-				DEVELOPMENT_TEAM = FKGEE875K4;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/TestApps/TutorialAppStart/Info.plist";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = NO;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = NO;
-				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.edge.bridge.tutorialappstart.swiftui;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		4C772FF028C180EA00D7F889 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72ADF0927D92EEB571D6F22F /* Pods-TutorialAppStart.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "TestApps/TutorialAppStart/Preview\\ Content";
-				DEVELOPMENT_TEAM = FKGEE875K4;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/TestApps/TutorialAppStart/Info.plist";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = NO;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = NO;
-				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.edge.bridge.tutorialappstart.swiftui;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		4C9103ED28BF1D3800CD5A66 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8AED0300637893BCFDB9D323 /* Pods-TutorialAppFinal.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "TestApps/TutorialAppFinal/Preview\\ Content";
-				DEVELOPMENT_TEAM = FKGEE875K4;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/TestApps/TutorialAppFinal/Info.plist";
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = NO;
-				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
-				INFOPLIST_KEY_UILaunchStoryboardName = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.edge.bridge.tutorialappfinal.swiftui;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		4C9103EE28BF1D3800CD5A66 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C462D49A61656AB9B502968E /* Pods-TutorialAppFinal.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "TestApps/TutorialAppFinal/Preview\\ Content";
-				DEVELOPMENT_TEAM = FKGEE875K4;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/TestApps/TutorialAppFinal/Info.plist";
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = NO;
-				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
-				INFOPLIST_KEY_UILaunchStoryboardName = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.edge.bridge.tutorialappfinal.swiftui;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		D44499652519506B0093B364 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B9D153C35B8B3C9241D531AA /* Pods-AEPEdgeBridge.debug.xcconfig */;
@@ -1547,24 +1217,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4C772FEE28C180EA00D7F889 /* Build configuration list for PBXNativeTarget "TutorialAppStart" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4C772FEF28C180EA00D7F889 /* Debug */,
-				4C772FF028C180EA00D7F889 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4C9103EF28BF1D3800CD5A66 /* Build configuration list for PBXNativeTarget "TutorialAppFinal" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4C9103ED28BF1D3800CD5A66 /* Debug */,
-				4C9103EE28BF1D3800CD5A66 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		D44499642519506B0093B364 /* Build configuration list for PBXNativeTarget "AEPEdgeBridge" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
