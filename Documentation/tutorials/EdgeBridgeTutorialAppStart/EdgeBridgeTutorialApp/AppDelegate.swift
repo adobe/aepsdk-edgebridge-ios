@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //* EdgeBridge Tutorial - remove section (2/2)
             Analytics.self,
             AEPIdentity.Identity.self,
-//* EdgeBridge Tutorial - remove section (2/2)
+// EdgeBridge Tutorial - remove section (2/2) */
             Assurance.self,
             Consent.self,
             Edge.self,

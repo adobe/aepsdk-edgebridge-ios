@@ -10,8 +10,9 @@
 - [Client-side implementation](#client-side-implementation)
   - [1. Get a copy of the files (code and tutorial app)](#1-get-a-copy-of-the-files-code-and-tutorial-app)
   - [2. Install Edge Bridge using dependency manager (Swift Package Manager)](#2-install-edge-bridge-using-dependency-manager-swift-package-manager)
-  - [3. Update tutorial app code to remove Analytics](#3-update-tutorial-app-code-to-remove-analytics)
   - [3. Update tutorial app code to enable Edge Bridge functionality](#3-update-tutorial-app-code-to-enable-edge-bridge-functionality)
+    - [Add the Edge Bridge extension](#add-the-edge-bridge-extension)
+    - [Remove Analytics and AEPIdentity](#remove-analytics-and-aepidentity)
   - [4. Run app](#4-run-app)
   - [5. `trackAction`/`trackState` implementation examples](#5-trackactiontrackstate-implementation-examples)
 - [Initial validation with Assurance](#initial-validation-with-assurance)
@@ -121,8 +122,6 @@ The collectPII API for Analytics does not send events to the Edge Network by def
 2. Give your rule an easily recognizable name (**1**) in your list of rules. In this example, the rule is named "Forward PII events to Edge Network".
 3. Under the **EVENTS** section, select **Add** (**2**).
 
-
-
 #### Define the event <!-- omit in toc -->
 
 2. From the **Extension** dropdown list (**1**), select **Mobile Core**.
@@ -135,7 +134,8 @@ The collectPII API for Analytics does not send events to the Edge Network by def
 2. From the **Extension** dropdown list (**1**), select **Adobe Analytics**.
 3. From the **Action Type** dropdown list (**2**), select **Track**.
 4. On the right side window, name the **Action** field "collect_pii".
-5. Select **Keep Changes** (**3**).
+5. 
+6. Select **Keep Changes** (**3**).
 
 #### Save the rule and rebuild your property <!-- omit in toc -->
 1. After you complete your configuration, verify that your rule looks like the following:
@@ -179,17 +179,8 @@ This tutorial assumes a project using Swift Package Manager (SPM) for package de
 
 </p></details>
 
-### 3. Update tutorial app code to remove Analytics
-There are two files we need to update to enable the EdgeBridge extension.
-1. Click the dropdown chevron next to `EdgeBridgeTutorialApp` in the left-side navigation panel.
-2. Click the dropdown chevron next to the `EdgeBridgeTutorialApp` folder.
-3. Click the `AppDelegate.swift` file.
-
-Inside you will see code blocks for this tutorial marked by a header and footer `EdgeBridge Tutorial - remove section (n/m)` (where `n` is the current section and `m` is the total number of sections in the file).
-
-Simply delete everything between the header and footer, and make sure to do this for all "remove section" blocks within the file.
-
 ### 3. Update tutorial app code to enable Edge Bridge functionality
+#### Add the Edge Bridge extension
 There is one file that needs to be updated to enable the Edge Bridge extension:  
 1. `AppDelegate.swift`
    
@@ -204,6 +195,16 @@ To:
 //* EdgeBridge Tutorial - code section (1/2)
 ```
 Make sure to uncomment all sections within the file (the total will tell you how many sections there are).
+
+#### Remove Analytics and AEPIdentity
+To remove the Analytics and AEPIdentity extensions:
+1. Click the dropdown chevron next to `EdgeBridgeTutorialApp` in the left-side navigation panel.
+2. Click the dropdown chevron next to the `EdgeBridgeTutorialApp` folder.
+3. Click the `AppDelegate.swift` file.
+
+Inside you will see code blocks for this tutorial marked by a header and footer `EdgeBridge Tutorial - remove section (n/m)` (where `n` is the current section and `m` is the total number of sections in the file).
+
+Simply delete everything between the header and footer, and make sure to do this for all "remove section" blocks within the file.
 
 For details on the various Edge extensions used, see the [table of related projects](../../README.md#related-projects).
 
