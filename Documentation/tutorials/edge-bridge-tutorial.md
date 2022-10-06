@@ -147,6 +147,7 @@ The collectPII API for Analytics does not send events to the Edge Network by def
 1. After you complete your configuration, verify that your rule looks like the following:
 2. Select **Save** (**1**).
 
+<img src="../assets/edge-bridge-tutorial/analytics-rule-4.png" alt="All installed extensions" width="1100"/>  
 
 ## Client-side implementation
 ### 1. Get a copy of the files (code and tutorial app)
@@ -381,6 +382,7 @@ Now, we need to map this JSON property from the Edge Bridge event to its matchin
 
 ## Final validation using Assurance
 Now that the mapping is set up in the datastream, we have the full pathway of data:
+
 ```mermaid
 graph LR;
     step1(App<br/>Analytics trackAction/trackState) --> step2(App<br/>Edge Bridge conversion to Edge event) --> step3(Edge Network<br/>Datastream translation of payload from contextdata to Edge XDM) --> step4(Edge Network<br/>Routing XDM data using datastream to Analytics);
