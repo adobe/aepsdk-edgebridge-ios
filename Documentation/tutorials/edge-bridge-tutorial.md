@@ -117,28 +117,19 @@ The next task is to add the necessary dependencies that will enable the Edge Bri
 
 1. In Xcode, from the top bar select File -> Add Packages...
 
-2. Add each dependency one by one, as follows:
-  - In the "Search or Enter URL" box, type https://github.com/adobe/aepsdk-edge-ios.git and click Enter.
-  - Select the aepsdk-edge-ios package
-  - For Dependency Rule select **Branch** and type `main`
-  - Select Add Package.
-
-3. Repeat step 2 for the following repositories:
-  - https://github.com/adobe/aepsdk-edgeidentity-ios.git
-  - https://github.com/adobe/aepsdk-edgeconsent-ios.git
-  - https://github.com/adobe/aepsdk-assurance-ios.git
-
-4. Install the AEPEdgeBridge extension.
+2. Install the AEPEdgeBridge extension.
   - In the "Search or Enter URL" box, type https://github.com/adobe/aepsdk-edgebridge-ios.git and click Enter.
   - Select the aepsdk-edgebridge-ios package
   - For Dependency Rule select **Branch** and type `dev`
   - Select Add Package.
 
-5. Remove the AEPAnalytics extension.
+3. Remove the AEPAnalytics extension.
   - In Xcode, from the left side file navigator, select **EdgeBridgeTutorialApp**.
   - Select PROJECT -> EdgeBridgeTutorialApp
   - Select **Package dependencies**
   - Select **AEPAnalytics** and then the minus (-) button under the table, then select **Remove**.
+
+4. Discussion: After this step, in this tutorial app there are no other Adobe Experience Cloud Solution extensions. At this point the import and registration for AEPIdentity extension can also be removed since AEPEdgeIdentity takes care of the identity piece on the Edge extensions.
 
 <details>
   <summary> Using CocoaPods instead? </summary><p>
