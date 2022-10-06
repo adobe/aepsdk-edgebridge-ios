@@ -10,13 +10,16 @@
 // governing permissions and limitations under the License.
 //
 
-//* EdgeBridge Tutorial - code section (1/3)
+/// Imports the EdgeBridge extension and other AEP extensions that enable its functionality and power other features.
+/// This makes it available to use in the code below.
+//* EdgeBridge Tutorial - code section 1/3
 import AEPAssurance
 import AEPEdge
 import AEPEdgeConsent
+import AEPEdgeBridge
 import AEPEdgeIdentity
 import AEPLifecycle
-// EdgeBridge Tutorial - code section (1/3) */
+// EdgeBridge Tutorial - code section 1/3 */
 import AEPAnalytics
 import AEPCore
 import Compression
@@ -34,13 +37,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MobileCore.configureWith(appId: ENVIRONMENT_FILE_ID)
         MobileCore.registerExtensions([
             Analytics.self,
-//* EdgeBridge Tutorial - code section (2/3)
+/// Registers the newly added extensions with Core (which contains all of the baseline capabilities required to run Adobe extensions),
+/// getting them ready to run in the app.
+//* EdgeBridge Tutorial - code section 2/3
+            EdgeBridge.self,
             Assurance.self,
             Consent.self,
             Edge.self,
             Identity.self,
             Lifecycle.self
-// EdgeBridge Tutorial - code section (2/3) */
+// EdgeBridge Tutorial - code section 2/3 */
         ], {
             if appState != .background {
                 // Only start lifecycle if the application is not in the background
@@ -60,9 +66,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // To handle deeplink on iOS versions 12 and below
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-//* EdgeBridge Tutorial - code section (3/3)
+/// Enables deep linking to connect to Assurance; this is for iOS versions 12 and below.
+//* EdgeBridge Tutorial - code section 3/3
         Assurance.startSession(url: url)
-// EdgeBridge Tutorial - code section (3/3) */
+// EdgeBridge Tutorial - code section 3/3 */
         return true
     }
 }

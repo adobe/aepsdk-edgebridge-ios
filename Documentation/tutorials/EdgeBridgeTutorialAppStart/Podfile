@@ -13,6 +13,7 @@ target 'EdgeBridgeTutorialApp' do
 =begin
   pod 'AEPAssurance'
   pod 'AEPEdge'
+#  pod 'AEPEdgeBridge'
   pod 'AEPEdgeConsent'
   pod 'AEPEdgeIdentity'
   pod 'AEPLifecycle'

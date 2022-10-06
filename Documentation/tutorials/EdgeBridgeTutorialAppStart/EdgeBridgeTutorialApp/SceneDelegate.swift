@@ -10,7 +10,8 @@
 // governing permissions and limitations under the License.
 //
 
-/* EdgeBridge Tutorial - code section 1/2
+/// Imports the Assurance extension for use in the code below.
+//* EdgeBridge Tutorial - code section 1/2
 import AEPAssurance
 // EdgeBridge Tutorial - code section 1/2 */
 import AEPCore
@@ -72,7 +73,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         // to note : this method is not called when an app not in memory (forceclosed) is opened with deeplink
         if let url = URLContexts.first?.url {
-/* EdgeBridge Tutorial - code section 2/2
+/// Enables deep linking to connect to Assurance; this is for iOS versions 13 and above.
+//* EdgeBridge Tutorial - code section 2/2
             Assurance.startSession(url: url)
 // EdgeBridge Tutorial - code section 2/2 */
         }

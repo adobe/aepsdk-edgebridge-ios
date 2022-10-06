@@ -1,4 +1,4 @@
-# Migrating from Analytics mobile extension to the Edge Network using the EdgeBridge extension <!-- omit in toc -->
+# Migrating from Analytics mobile extension to the Edge Network using the Edge Bridge extension <!-- omit in toc -->
 
 ## Table of Contents <!-- omit in toc -->
 - [Overview](#overview)
@@ -10,22 +10,22 @@
   - [1. Install Edge Bridge using dependency manager (CocoaPods)](#1-install-edge-bridge-using-dependency-manager-cocoapods)
   - [2. Update Tutorial App Code to Enable EdgeBridge functionality](#2-update-tutorial-app-code-to-enable-edgebridge-functionality)
   - [3. Run app](#3-run-app)
-  - [4. TrackAction/TrackState implementation examples](#4-trackactiontrackstate-implementation-examples)
+  - [4. `trackAction`/`trackState` implementation examples](#4-trackactiontrackstate-implementation-examples)
 - [Initial validation with Assurance](#initial-validation-with-assurance)
   - [1. Set up the Assurance session](#1-set-up-the-assurance-session)
-  - [2. Connect to the app](#2-connect-to-the-app)
-  - [3. Event transactions view - check for Edge Bridge events](#3-event-transactions-view---check-for-edge-bridge-events)
+  - [2. Connect the app to the Assurance session](#2-connect-the-app-to-the-assurance-session)
+  - [3. Event transactions view - check for EdgeBridge events](#3-event-transactions-view---check-for-edgebridge-events)
 - [Data prep mapping](#data-prep-mapping)
-- [Validating the implementation](#validating-the-implementation)
+- [Final validation using Assurance](#final-validation-using-assurance)
 
 ## Overview
-This hands-on tutorial provides end-to-end instructions on how to migrate from sending data to Analytics to sending data to the Edge Network using the EdgeBridge mobile extension.
+This hands-on tutorial provides end-to-end instructions on how to migrate from sending data to Analytics to sending data to the Edge Network using the Edge Bridge mobile extension.
 
 ```mermaid
 graph LR;
     step1(1<br/>Existing Adobe Analytics app) -->
     step2(2<br/>Adobe Experience Platform<br/>Update server-side configuration) --> 
-    step3(3<br/>EdgeBridge<br/>Send event data to the Edge Network & Analytics) --> 
+    step3(3<br/>Edge Bridge<br/>Send event data to the Edge Network & Analytics) --> 
     step4(4<br/>Assurance<br/>Verify event data formats) -->
     step5(5<br/>Data mapper<br/>Map data to XDM - Edge network data format) -->
     step6(6<br/>Assurance<br/>Verify trackAction/trackState to XDM conversion)
@@ -103,6 +103,9 @@ The following cards should be visible after all the extensions are installed:
 
 <img src="../Assets/edge-bridge-tutorial/mobile-property-all-extensions.png" alt="All installed extensions" width="1100"/>  
 
+Also create a rule
+Forward PII events to Edge Network
+
 ## Client-side implementation
 ### 1. Get a copy of the files (code and tutorial app)
 1. Open the code repository: https://github.com/adobe/aepsdk-edgebridge-ios
@@ -143,7 +146,7 @@ pod update
   <summary> Using Swift package manager instead? </summary><p>
 
 **Swift Package Manager**
-This tutorial assumes a project using Cocoapods for package dependency management, but if following along with a project that uses Swift package manager, refer to the [README for instructions on how to add the EdgeBridge package](../../README.md#swift-package-managerhttpsgithubcomappleswift-package-manager).
+This tutorial assumes a project using Cocoapods for package dependency management, but if following along with a project that uses Swift package manager, refer to the [README for instructions on how to add the Edge Bridge package](../../README.md#swift-package-managerhttpsgithubcomappleswift-package-manager).
 
 </p></details>
 
@@ -225,35 +228,17 @@ Inside you will see code blocks for this tutorial that are greyed out, because t
 
 To uncomment the section and activate the code, simply add a forward slash at the front of the header:
 ```swift
-/* EdgeBridge Tutorial - code section 1/2
+/* EdgeBridge Tutorial - code section (1/2)
 ```
 To:
 ```swift
-//* EdgeBridge Tutorial - code section 1/2
+//* EdgeBridge Tutorial - code section (1/2)
 ```
-Make sure to uncomment all sections within the file (the total will tell you how many sections there are).
+Make sure to uncomment all sections within the file (the total will tell you how many sections there are):
+1. `AppDelegate.swift`
+2. `SceneDelegate.swift`
 
-<details>
-  <summary> What am I uncommenting in <code>AppDelegate.swift</code>? </summary><p>
-
-**Section 1**: imports the EdgeBridge extension and other AEP extensions that enable its functionality and power other features. This makes it available to use in the code below.
-
-**Section 2**: registers the extensions with Core (which contains all of the baseline capabilities required to run Adobe extensions), getting them ready to run in the app.
-
-**Section 3**: Enables deep linking to connect to Assurance (which we will cover in depth in a later section); this is for iOS versions 12 and below.
-
-</p></details>
-
-Repeat this process for the `SceneDelegate.swift` file.
-
-<details>
-  <summary> What am I uncommenting in <code>SceneDelegate.swift</code>? </summary><p>
-
-**Section 1**: imports the Assurance extension for use in the code below.
-
-**Section 2**: Enables deep linking to connect to Assurance (which we will cover in depth in a later section); this is for iOS versions 13 and above.
-
-</p></details>
+For details on the various Edge extensions used, see the [table of related projects](../../README.md#related-projects).
 
 ### 3. Run app   
 In Xcode, select the app target you want to run, and the destination device to run it on (either simulator or physical device). Then press the play button.
@@ -264,71 +249,25 @@ You should see your application running on the device you selected, with logs be
 > If the debug console area is not shown by default, activate it by selecting:  
 > View -> Debug Area -> Show Debug Area
 
-### 4. TrackAction/TrackState implementation examples   
-With Edge Bridge extension successfully installed and registered, you can make the regular Analytics `trackAction` and `trackState` calls, which will be captured by Edge Bridge extension and sent to the Edge network.
+### 4. `trackAction`/`trackState` implementation examples   
+With Edge Bridge extension successfully installed and registered, you can make the regular Analytics `trackAction` and `trackState` calls, which will be captured by Edge Bridge extension and sent to the Edge Network.
 
 Check `ContentView.swift` for implementation examples of both APIs. You can see the data payloads that are to be sent with the calls.
 
 ## Initial validation with Assurance
 Assurance is the AEP tool for inspecting all events that Adobe extensions send out, in real time. It will allow us to see the flow of events, including the EdgeBridge conversion of `trackAction`/`trackState`.
 
-### 1. Set up the Assurance session  
-1. In the browser, navigate to [Assurance](https://experience.adobe.com/griffon) and login using your Adobe ID credentials.
-2. Create a new session (or use an existing one if available) 
-    - Click `Create Session` in the top right.
-![Create session in Assurance](../Assets/edge-bridge-tutorial/assurance-create-session.jpg)
-    - In the `Create New Session` dialog, review instructions, and proceed by selecting `Start`  
-<img src="../Assets/edge-bridge-tutorial/assurance-create-session-1.png" alt="Creating a new session in Assurance step 1" width="400"/>
-
-    - Enter a name to identify the session (can be any desired name) 
-    - Use Base URL value: `aepedgebridge://`  
-<img src="../Assets/edge-bridge-tutorial/assurance-create-session-2.png" alt="Creating a new session in Assurance step 2" width="400"/>
-
-<details>
-  <summary> What is a base URL? </summary><p>
-
-> **Note**  
-> The Base URL is the root definition used to launch your app from a URL (deep linking). A session URL is generated by which you may initiate the Assurance session. An example value might look like: `myapp://default`  
->
-> Note that proper base URL configuration is required for Assurance QR code app launching to function. However, even without setting up deep linking on the application-side, it is still possible to connect to Assurance using the session link.
->
-> If you do not know the URL or don't want to use it at this time, enter a placeholder URL like `test://`. 
->  
-> In Xcode the app URL can be configured using these steps:
-> 1. Select the project in the navigator.
-> 2. Select the app target in the `Targets` section, in the project configuration window.
-> 3. Select the `Info` tab.
-> 4. Set the desired deep linking URL.
-> ![Xcode deeplink app url config](../Assets/edge-bridge-tutorial/xcode-deeplink-app-url-config.jpg)
-> Please note that there is still code on the application side that is required for the app to respond to deep links; see the [guide on adding Assurance to your app](https://aep-sdks.gitbook.io/docs/foundation-extensions/adobe-experience-platform-assurance#add-the-aep-assurance-extension-to-your-app). For general implementation recommendations and best practices, see Apple's guide on [Defining a custom URL scheme for your app](https://developer.apple.com/documentation/xcode/defining-a-custom-url-scheme-for-your-app)
-
-
-</p></details>
-
-
-When presented with this window, the new Assurance session is created, and it is now possible to connect the app to your Assurance session.  
-<img src="../Assets/edge-bridge-tutorial/assurance-create-session-qr.png" alt="Creating a new session in Assurance step 3 - QR code" width="400"/>
-<img src="../Assets/edge-bridge-tutorial/assurance-create-session-link.png" alt="Creating a new session in Assurance step 3 - Session link" width="400"/>
-
-### 2. Connect to the app   
-
-<details>
-  <summary> Details on connecting to Assurance </summary><p>
-
-To create a new Assurance session and connect to it, see the instructions on [validation with Assurance](), using the base URL value:
+### 1. Set up the Assurance session 
+To create a new Assurance session and connect to it, see the instructions on [setting up an Assurance session](https://github.com/adobe/aepsdk-edge-ios/blob/dev/Documentation/Tutorials/edge-send-event-tutorial.md#1-set-up-the-assurance-session), using the base URL value:
 ```
 edgebridgetutorialapp://
 ```
 
-Once connected to Assurance, in the tutorial app, an Adobe Experience Platform icon will appear in the top right corner of the screen with a green dot indicating a connected session. In the web-based Assurance session, there is also an indicator in the top right that shows the number of connected sessions (which in this case should now show a green dot with "1 Client Connected" (**1**)).
+### 2. Connect the app to the Assurance session  
+To connect the tutorial app to the Assurance session, see the instructions on [connecting the app to the Assurance session](https://github.com/adobe/aepsdk-edge-ios/blob/dev/Documentation/Tutorials/edge-send-event-tutorial.md#2-connect-to-the-app).
 
-<img src="../Assets/edge-bridge-tutorial/simulator-assurance-connection.jpg" alt="Assurance Session Start - iOS simulator" width="400"/>
-<img src="../Assets/edge-bridge-tutorial/assurance-session-start.jpg" alt="Assurance Session Start - Web UI after connection" width="800"/>  
-
-Observe how in the Assurance session Events view (**2**), there are already events populating as a consequence of the connection of the mobile app to the Assurance session (**3**); the Assurance extension itself emits events about the session connection and subsequently captures these events to display in the web-based session viewer. You can expect Assurance to capture all events processed by the AEP SDK from all other extensions as well.  
-
-### 3. Event transactions view - check for Edge Bridge events  
-In order to see Edge Bridge events, in the connected app instance:
+### 3. Event transactions view - check for EdgeBridge events  
+In order to see EdgeBridge events, in the connected app instance:
 1. Trigger a `trackAction` and/or `trackState` within the app which the Edge Bridge extension will convert into Edge events. This event will be captured by the Assurance extension and shown in the web session viewer.
 
 <img src="../Assets/edge-bridge-tutorial/simulator-track-buttons.jpg" alt="Simulator tracking buttons" width="400"/>
@@ -352,6 +291,8 @@ The top level EventType is converted from a `generic.track` to `edge` (that is, 
 > **Note**
 > The two new top level properties `xdm` and `data` are standard Edge event properties that are part of the Edge platform's XDM schema-based system for event data organization that enables powerful, customizable data processing. However, because the `contextdata` is not yet mapped to an XDM schema, it is not in a usable form for the Edge platform. We will solve this issue by mapping the event data to an XDM schema in the next section.
 
+
+<!-- TODO: example of PII event -->
 
 ## Data prep mapping
 
@@ -457,11 +398,11 @@ Now, we need to map this JSON property from the Edge Bridge event to its matchin
 
 12. After completing all the mappings, click **Save**.
 
-## Validating the implementation
+## Final validation using Assurance
 Now that the mapping is set up in the datastream, we have the full pathway of data:
 ```mermaid
 graph LR;
-    step1(App<br/>Analytics trackAction/trackState) --> step2(App<br/>EdgeBridge conversion to Edge event) --> step3(Edge Network<br/>Datastream translation of payload from contextdata to Edge XDM) --> step4(Edge Network<br/>Routing XDM data using datastream to Analytics);
+    step1(App<br/>Analytics trackAction/trackState) --> step2(App<br/>Edge Bridge conversion to Edge event) --> step3(Edge Network<br/>Datastream translation of payload from contextdata to Edge XDM) --> step4(Edge Network<br/>Routing XDM data using datastream to Analytics);
 ```
 
 Check mapping feedback in Event transactions view
