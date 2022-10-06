@@ -5,7 +5,7 @@
   - [Environment](#environment)
   - [Prerequisites](#prerequisites)
   - [Adobe Experience Platform setup](#adobe-experience-platform-setup)
-  - [4. Configure a Rule to forward Lifecycle metrics to Edge Network](#4-configure-a-rule-to-forward-lifecycle-metrics-to-edge-network)
+  - [4. Configure a Rule to forward PII events to Edge Network](#4-configure-a-rule-to-forward-pii-events-to-edge-network)
 - [Client-side implementation](#client-side-implementation)
   - [1. Get a copy of the files (code and tutorial app)](#1-get-a-copy-of-the-files-code-and-tutorial-app)
   - [1. Install Edge Bridge using dependency manager (Swift Package Manager)](#1-install-edge-bridge-using-dependency-manager-swift-package-manager)
@@ -106,9 +106,7 @@ The following cards should be visible after all the extensions are installed:
 
 <img src="../assets/edge-bridge-tutorial/mobile-property-all-extensions.png" alt="All installed extensions" width="1100"/>  
 
-Also create a rule
-Forward PII events to Edge Network
-### 4. Configure a Rule to forward Lifecycle metrics to Edge Network 
+### 4. Configure a Rule to forward PII events to Edge Network 
 
 The Lifecycle for Edge extension sends app foreground and background events, and a rule needs to be configured in order to forward these events to the Edge Network. Note that there is no need to install Lifecycle since it is already included with Mobile Core.
 
@@ -127,8 +125,6 @@ The Lifecycle for Edge extension sends app foreground and background events, and
 2. From the **Extension** dropdown list (**1**), select **Mobile Core**.
 3. From the **Event Type** dropdown list (**2**), select **Collect PII**.
 4. Select **Keep Changes** (**3**).
-
-
 
 #### Define the action <!-- omit in toc -->
 1. Under the Actions section, select **+ Add** (**1**).
