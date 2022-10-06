@@ -209,7 +209,7 @@ To remove the Analytics and AEPIdentity extensions:
 2. Click the dropdown chevron next to the `EdgeBridgeTutorialApp` folder.
 3. Click the `AppDelegate.swift` file.
 4. First update the `ENVIRONMENT_FILE_ID` value to the mobile property ID published in the first section.
-   - See how to get your mobile property ID in the instructions for [getting the mobile property ID](https://github.com/timkimadobe/aepsdk-edge-ios/blob/dev/Documentation/Tutorials/edge-send-event-tutorial.md#getting-the-mobile-property-id-).
+   - See how to get your mobile property ID in the instructions for [getting the mobile property ID](https://github.com/adobe/aepsdk-edge-ios/blob/dev/Documentation/Tutorials/edge-send-event-tutorial.md#getting-the-mobile-property-id-).
 
 Inside you will see code blocks for this tutorial marked by a header and footer `EdgeBridge Tutorial - remove section (n/m)` (where `n` is the current section and `m` is the total number of sections in the file).
 
