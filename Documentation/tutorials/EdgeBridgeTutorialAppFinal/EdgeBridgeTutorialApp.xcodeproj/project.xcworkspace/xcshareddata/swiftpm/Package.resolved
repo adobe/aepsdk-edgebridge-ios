@@ -1,0 +1,68 @@
+{
+  "pins" : [
+    {
+      "identity" : "aepsdk-assurance-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adobe/aepsdk-assurance-ios.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "06ea89a7f155aa2cc95dbdab9cdf0ab78fb38577"
+      }
+    },
+    {
+      "identity" : "aepsdk-core-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adobe/aepsdk-core-ios.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "55d208283eed4f99b5fe8ed75940fcc03b0511a1"
+      }
+    },
+    {
+      "identity" : "aepsdk-edge-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adobe/aepsdk-edge-ios.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "11f5431c28052900d0cb688089ad620a283666e3"
+      }
+    },
+    {
+      "identity" : "aepsdk-edgebridge-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adobe/aepsdk-edgebridge-ios.git",
+      "state" : {
+        "branch" : "dev",
+        "revision" : "182a08d67a210d6c7d700d156342b84ae72114d9"
+      }
+    },
+    {
+      "identity" : "aepsdk-edgeconsent-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adobe/aepsdk-edgeconsent-ios.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "7e8498bef54275e440bcaaaa8c57b16c2117fce6"
+      }
+    },
+    {
+      "identity" : "aepsdk-edgeidentity-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adobe/aepsdk-edgeidentity-ios.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "d65794fc0559e68efa829014e0c4f1e173fc1fe5"
+      }
+    },
+    {
+      "identity" : "aepsdk-rulesengine-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adobe/aepsdk-rulesengine-ios.git",
+      "state" : {
+        "revision" : "5907e2ed364135448a2a5d77a76c2ff971396397",
+        "version" : "1.2.0"
+      }
+    }
+  ],
+  "version" : 2
+}

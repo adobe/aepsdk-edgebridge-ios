@@ -20,7 +20,7 @@
   - [2. Connect the app to the Assurance session](#2-connect-the-app-to-the-assurance-session)
   - [3. Event transactions view - check for EdgeBridge events](#3-event-transactions-view---check-for-edgebridge-events)
     - [`trackAction`/`trackState` events](#trackactiontrackstate-events)
-    - [Rules-based events](#rules-based-events)
+    - [Trigger rule-based `trackAction` events](#trigger-rule-based-trackaction-events)
 - [Data prep mapping](#data-prep-mapping)
 - [Final validation using Assurance](#final-validation-using-assurance)
 
@@ -122,20 +122,26 @@ The collectPII API for Analytics does not send events to the Edge Network by def
 2. Give your rule an easily recognizable name (**1**) in your list of rules. In this example, the rule is named "Forward PII events to Edge Network".
 3. Under the **EVENTS** section, select **Add** (**2**).
 
+<img src="../assets/edge-bridge-tutorial/analytics-rule-1.png" alt="All installed extensions" width="1100"/>  
+
 #### Define the event <!-- omit in toc -->
 
 2. From the **Extension** dropdown list (**1**), select **Mobile Core**.
 3. From the **Event Type** dropdown list (**2**), select **Collect PII**.
 4. Select **Keep Changes** (**3**).
 
+<img src="../assets/edge-bridge-tutorial/analytics-rule-2.png" alt="All installed extensions" width="1100"/>  
+
 #### Define the action <!-- omit in toc -->
 1. Under the Actions section, select **+ Add** (**1**).
 
 2. From the **Extension** dropdown list (**1**), select **Adobe Analytics**.
 3. From the **Action Type** dropdown list (**2**), select **Track**.
-4. On the right side window, name the **Action** field "collect_pii".
-5. 
-6. Select **Keep Changes** (**3**).
+4. Name the **Action** field (**3**) "collect_pii", in the right-side window.
+5. Select the **+** (**4**) next to **Context Data** and set the **Key** to "ruleKey" and **Value** to "ruleValue" (**5**).
+6. Select **Keep Changes** (**6**).
+
+<img src="../assets/edge-bridge-tutorial/analytics-rule-3.png" alt="All installed extensions" width="1100"/>  
 
 #### Save the rule and rebuild your property <!-- omit in toc -->
 1. After you complete your configuration, verify that your rule looks like the following:
@@ -260,8 +266,8 @@ The top level EventType is converted from a `generic.track` to `edge` (that is, 
 > **Note**
 > The two new top level properties `xdm` and `data` are standard Edge event properties that are part of the Edge platform's XDM schema-based system for event data organization that enables powerful, customizable data processing. However, because the `contextdata` is not yet mapped to an XDM schema, it is not in a usable form for the Edge platform. We will solve this issue by mapping the event data to an XDM schema in the next section.
 
-#### Rules-based events
-Rules-based trackAction/trackState events are also converted to Edge events by the Edge Bridge extension. Select the **Trigger Consequence** button to trigger a rule that creates a trackAction event.
+#### Trigger rule-based `trackAction` events
+Rules-based trackAction/trackState events are also converted to Edge events by the Edge Bridge extension. Select the **Trigger Rule** button to trigger a rule that creates a trackAction event.
 
 Just like the `trackAction`/`trackState` events above, the Edge Bridge extension will convert the PII trackAction event into an Edge event.
 
@@ -285,7 +291,9 @@ For a quick overview of the capabilities of Data Prep, watch the following [vide
 
 </p></details>
 
-In order to map the properties from both `trackAction` and `trackState` events in the same datastream, we need to combine their event data properties into a single JSON. For simplicity, the merged data structure has been provided below:
+Currently, the data mapper UI only allows for one JSON payload to be mapped per datastream. This means for a given datastream, all of the potential event payloads need to be merged so that they can be mapped at once.
+
+The properties from both `trackAction` and `trackState` events from the tutorial app need to be combined into a single JSON. For simplicity, the merged data structure has been provided below:
 
 ```json
 {

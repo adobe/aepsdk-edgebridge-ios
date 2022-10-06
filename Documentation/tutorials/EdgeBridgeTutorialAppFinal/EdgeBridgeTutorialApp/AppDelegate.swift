@@ -31,7 +31,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
-    private let ENVIRONMENT_FILE_ID = ""
+    private let ENVIRONMENT_FILE_ID = "94f571f308d5/3a705b49a018/launch-9832b27f3df8-development"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
