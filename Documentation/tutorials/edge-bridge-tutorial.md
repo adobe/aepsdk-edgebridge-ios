@@ -7,10 +7,10 @@
   - [Adobe Experience Platform setup](#adobe-experience-platform-setup)
 - [Client-side implementation](#client-side-implementation)
   - [1. Get a copy of the files (code and tutorial app)](#1-get-a-copy-of-the-files-code-and-tutorial-app)
-  - [1. Install Edge Bridge using dependency manager (Swift Package Manager)](#1-install-edge-bridge-using-dependency-manager-swift-package-manager)
-  - [2. Update Tutorial App Code to Enable EdgeBridge functionality](#2-update-tutorial-app-code-to-enable-edgebridge-functionality)
-  - [3. Run app](#3-run-app)
-  - [4. TrackAction/TrackState implementation examples](#4-trackactiontrackstate-implementation-examples)
+  - [2. Install Edge Bridge using dependency manager (Swift Package Manager)](#2-install-edge-bridge-using-dependency-manager-swift-package-manager)
+  - [3. Update Tutorial App Code to Enable EdgeBridge functionality](#2-update-tutorial-app-code-to-enable-edgebridge-functionality)
+  - [4. Run app](#3-run-app)
+  - [5. TrackAction/TrackState implementation examples](#4-trackactiontrackstate-implementation-examples)
 - [Initial validation with Assurance](#initial-validation-with-assurance)
   - [1. Set up the Assurance session](#1-set-up-the-assurance-session)
   - [2. Connect to the app](#2-connect-to-the-app)
@@ -109,52 +109,36 @@ The following cards should be visible after all the extensions are installed:
 3. In the window that opens, click **Download ZIP**; by default it should land in your **Downloads** folder.
    - Optionally, move the ZIP to your **Documents** folder
 4. Unzip the archived file by double clicking it.
-5. Navigate to Documentation -> tutorials -> EdgeBridgeTutorialAppStart.
-6. Double click on EdgeBridgeTutorialApp.xcworkspace.
-
-Now we can use the tutorial app to go through the changes required to install the Edge Bridge extension.
+5. Navigate inside the unarchived file, then to Documentation -> tutorials -> EdgeBridgeTutorialAppStart.
+6. Double click on EdgeBridgeTutorialApp.xcworkspace. This should automatically open the Xcode IDE.
 
 ### 2. Install Edge Bridge using dependency manager (Swift Package Manager)
-Our next task is actually modifying the file that controls the package dependencies, adding the new extensions that will enable the Edge Bridge extension to function.
+The next task is to add the necessary dependencies that will enable the Edge Bridge extension to function.
 
-Open the project using the command:
-```bash
-open AEPEdgeBridge.xcworkspace
-```
+1. In Xcode, from the top bar select File -> Add Packages...
 
-This should automatically open the Xcode IDE. In Xcode:
-1. Click the dropdown chevron next to `Pods` in the left-side navigation panel.
-2. Click the `Podfile` file.
-3. Replace the section:
+2. Add each dependency one by one, as follows:
+  - In the "Search or Enter URL" box, type https://github.com/adobe/aepsdk-edge-ios.git and click Enter.
+  - Select the aepsdk-edge-ios package
+  - For Dependency Rule select **Branch** and type `main`
+  - Select Add Package.
 
-```ruby
-target 'EdgeBridgeTutorialApp' do
-  pod 'AEPAnalytics'
-  pod 'AEPCore'
-  pod 'AEPServices'
-end
-```
-With:
+3. Repeat step 2 for the following repositories:
+  - https://github.com/adobe/aepsdk-edgeidentity-ios.git
+  - https://github.com/adobe/aepsdk-edgeconsent-ios.git
+  - https://github.com/adobe/aepsdk-assurance-ios.git
 
-```ruby
-target 'EdgeBridgeTutorialApp' do
-  pod 'AEPAnalytics'
-  pod 'AEPAssurance'
-  pod 'AEPCore'
-  pod 'AEPEdge'
-  pod 'AEPEdgeConsent'
-  pod 'AEPEdgeIdentity'
-  pod 'AEPLifecycle'
-  pod 'AEPServices'
-end
-```
+4. Install the AEPEdgeBridge extension.
+  - In the "Search or Enter URL" box, type https://github.com/adobe/aepsdk-edgebridge-ios.git and click Enter.
+  - Select the aepsdk-edgebridge-ios package
+  - For Dependency Rule select **Branch** and type `dev`
+  - Select Add Package.
 
-4. Go back to your terminal window and run:
-```bash
-pod update
-```
-Cocoapods will use this updated configuration file to install the new packages (including the EdgeBridge extension itself!), which will allow us to add new functionality in the app's code.
-
+5. Remove the AEPAnalytics extension.
+  - In Xcode, from the left side file navigator, select **EdgeBridgeTutorialApp**.
+  - Select PROJECT -> EdgeBridgeTutorialApp
+  - Select **Package dependencies**
+  - Select **AEPAnalytics** and then the minus (-) button under the table, then select **Remove**.
 
 <details>
   <summary> Using CocoaPods instead? </summary><p>
