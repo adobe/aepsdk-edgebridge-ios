@@ -11,7 +11,7 @@
 //
 
 /// Imports the Assurance extension for use in the code below.
-//* EdgeBridge Tutorial - code section 1/2
+/* EdgeBridge Tutorial - code section 1/2
 import AEPAssurance
 // EdgeBridge Tutorial - code section 1/2 */
 import AEPCore
@@ -74,7 +74,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to note : this method is not called when an app not in memory (forceclosed) is opened with deeplink
         if let url = URLContexts.first?.url {
 /// Enables deep linking to connect to Assurance; this is for iOS versions 13 and above.
-//* EdgeBridge Tutorial - code section 2/2
+/* EdgeBridge Tutorial - code section 2/2
             Assurance.startSession(url: url)
 // EdgeBridge Tutorial - code section 2/2 */
         }

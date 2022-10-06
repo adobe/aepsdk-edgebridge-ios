@@ -13,7 +13,7 @@ target 'EdgeBridgeTutorialApp' do
 =begin
   pod 'AEPAssurance'
   pod 'AEPEdge'
-#  pod 'AEPEdgeBridge'
+  pod 'AEPEdgeBridge', :git => 'https://github.com/adobe/aepsdk-edgebridge-ios.git', :tag => 'dev'
   pod 'AEPEdgeConsent'
   pod 'AEPEdgeIdentity'
   pod 'AEPLifecycle'

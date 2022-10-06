@@ -5,6 +5,7 @@
   - [Environment](#environment)
   - [Prerequisites](#prerequisites)
   - [Adobe Experience Platform setup](#adobe-experience-platform-setup)
+  - [4. Configure a Rule to forward Lifecycle metrics to Edge Network](#4-configure-a-rule-to-forward-lifecycle-metrics-to-edge-network)
 - [Client-side implementation](#client-side-implementation)
   - [1. Get a copy of the files (code and tutorial app)](#1-get-a-copy-of-the-files-code-and-tutorial-app)
   - [1. Install Edge Bridge using dependency manager (CocoaPods)](#1-install-edge-bridge-using-dependency-manager-cocoapods)
@@ -15,6 +16,8 @@
   - [1. Set up the Assurance session](#1-set-up-the-assurance-session)
   - [2. Connect the app to the Assurance session](#2-connect-the-app-to-the-assurance-session)
   - [3. Event transactions view - check for EdgeBridge events](#3-event-transactions-view---check-for-edgebridge-events)
+    - [`trackAction`/`trackState` events](#trackactiontrackstate-events)
+    - [Rules-based events](#rules-based-events)
 - [Data prep mapping](#data-prep-mapping)
 - [Final validation using Assurance](#final-validation-using-assurance)
 
@@ -105,6 +108,45 @@ The following cards should be visible after all the extensions are installed:
 
 Also create a rule
 Forward PII events to Edge Network
+### 4. Configure a Rule to forward Lifecycle metrics to Edge Network 
+
+The Lifecycle for Edge extension sends app foreground and background events, and a rule needs to be configured in order to forward these events to the Edge Network. Note that there is no need to install Lifecycle since it is already included with Mobile Core.
+
+#### Create a rule <!-- omit in toc -->
+1. On the Rules tab, select **Create New Rule**.
+   - If your property already has rules, the button will be in the top right of the screen.
+
+<img src="../Assets/edge-send-event-tutorial/mobile-property-create-rule.png" alt="All installed extensions" width="1100"/>  
+
+2. Give your rule an easily recognizable name (**1**) in your list of rules. In this example, the rule is named "Forward PII events to Edge Network".
+3. Under the **EVENTS** section, select **Add** (**2**).
+
+<img src="../Assets/edge-send-event-tutorial/mobile-property-rule-1.png" alt="All installed extensions" width="1100"/>  
+
+#### Define the event <!-- omit in toc -->
+
+2. From the **Extension** dropdown list (**1**), select **Mobile Core**.
+3. From the **Event Type** dropdown list (**2**), select **Collect PII**.
+4. Select **Keep Changes** (**3**).
+
+<img src="../Assets/edge-send-event-tutorial/mobile-property-rule-2.png" alt="All installed extensions" width="1100"/>  
+
+#### Define the action <!-- omit in toc -->
+1. Under the Actions section, select **+ Add** (**1**).
+
+<img src="../Assets/edge-send-event-tutorial/mobile-property-rule-5.png" alt="All installed extensions" width="1100"/>  
+
+2. From the **Extension** dropdown list (**1**), select **Adobe Analytics**.
+3. From the **Action Type** dropdown list (**2**), select **Track**.
+4. On the right side window, name the **Action** field "collect_pii".
+5. Select **Keep Changes** (**3**).
+
+<img src="../Assets/edge-send-event-tutorial/mobile-property-rule-6.png" alt="All installed extensions" width="1100"/>  
+
+#### Save the rule and rebuild your property <!-- omit in toc -->
+1. After you complete your configuration, verify that your rule looks like the following:
+2. Select **Save** (**1**).
+
 
 ## Client-side implementation
 ### 1. Get a copy of the files (code and tutorial app)
@@ -267,6 +309,7 @@ edgebridgetutorialapp://
 To connect the tutorial app to the Assurance session, see the instructions on [connecting the app to the Assurance session](https://github.com/adobe/aepsdk-edge-ios/blob/dev/Documentation/Tutorials/edge-send-event-tutorial.md#2-connect-to-the-app).
 
 ### 3. Event transactions view - check for EdgeBridge events  
+#### `trackAction`/`trackState` events
 In order to see EdgeBridge events, in the connected app instance:
 1. Trigger a `trackAction` and/or `trackState` within the app which the Edge Bridge extension will convert into Edge events. This event will be captured by the Assurance extension and shown in the web session viewer.
 
@@ -291,8 +334,8 @@ The top level EventType is converted from a `generic.track` to `edge` (that is, 
 > **Note**
 > The two new top level properties `xdm` and `data` are standard Edge event properties that are part of the Edge platform's XDM schema-based system for event data organization that enables powerful, customizable data processing. However, because the `contextdata` is not yet mapped to an XDM schema, it is not in a usable form for the Edge platform. We will solve this issue by mapping the event data to an XDM schema in the next section.
 
-
-<!-- TODO: example of PII event -->
+#### Rules-based events
+Rules-based trackAction/trackState events are also converted to Edge events by the Edge Bridge extension. Select the **Trigger Consequence** button to trigger a rule that creates a trackAction event.
 
 ## Data prep mapping
 
