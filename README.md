@@ -42,33 +42,23 @@ $ pod install
 
 #### [Swift Package Manager](https://github.com/apple/swift-package-manager)
 
-To add the AEPEdgeBridge Package to your application, from the Xcode menu select:
+To add the AEPEdgeBridge Package to your application, from the Xcode 13.x menu select:
 
 `File > Add Packages...`
 
 > **Note** 
+
 > The menu options may vary depending on the version of Xcode being used.
 
 Enter the URL for the AEPEdgeBridge package repository: `https://github.com/adobe/aepsdk-edgebridge-ios.git`.
 
-When prompted, input a specific version or a range of version for Version rule.
+When prompted, input a specific version or a range of versions for Version rule.
 
 Alternatively, if your project has a `Package.swift` file, you can add AEPEdgeBridge directly to your dependencies:
 
 ```
 dependencies: [
-	.package(url: "https://github.com/adobe/aepsdk-core-ios.git", .upToNextMajor(from: "3.0.0")),
-	.package(url: "https://github.com/adobe/aepsdk-edge-ios.git", .upToNextMajor(from: "1.0.0")),
-	.package(url: "https://github.com/adobe/aepsdk-edgebridge-ios.git", .upToNextMajor(from: "1.0.0")),
-	.package(url: "https://github.com/adobe/aepsdk-edgeidentity-ios.git", .upToNextMajor(from: "1.0.0")),
-],
-targets: [
-   	.target(name: "YourTarget",
-    		dependencies: ["AEPCore",
-                       "AEPEdge",
-                       "AEPEdgeBridge",
-                       "AEPEdgeIdentity"],
-          	path: "your/path")
+    .package(url: "https://github.com/adobe/aepsdk-edgebridge-ios.git", .upToNextMajor(from: "1.0.0"))
 ]
 ```
 

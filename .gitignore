@@ -98,3 +98,4 @@ Pods/
 .bundle/
 vendor/
 
+.vscode

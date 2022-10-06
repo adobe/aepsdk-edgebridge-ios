@@ -9,7 +9,10 @@ coverage:
 
   status:
     project: yes
-    patch: yes
+    patch:
+      default:
+        target: 90%
+        threshold: 0%
     changes: no
 
   ignore:
@@ -29,4 +32,3 @@ comment:
   layout: "header, diff"
   behavior: default
   require_changes: no
-

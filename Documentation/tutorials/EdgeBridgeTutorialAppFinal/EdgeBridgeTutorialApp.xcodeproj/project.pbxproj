@@ -1,0 +1,515 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4C4AFBC328EE83E9002C6426 /* AEPEdgeConsent in Frameworks */ = {isa = PBXBuildFile; productRef = 4C4AFBC228EE83E9002C6426 /* AEPEdgeConsent */; };
+		4C8C2E9428ECDA5000DA94D2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8C2E9328ECDA5000DA94D2 /* ContentView.swift */; };
+		4C8C2E9928ECDA5200DA94D2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C8C2E9828ECDA5200DA94D2 /* Preview Assets.xcassets */; };
+		4C8C2EA128ECDAF900DA94D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C8C2E9F28ECDAF900DA94D2 /* LaunchScreen.storyboard */; };
+		4C8C2EA628ECDB0E00DA94D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8C2EA328ECDB0E00DA94D2 /* SceneDelegate.swift */; };
+		4C8C2EAC28ECDB1900DA94D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8C2EA928ECDB1900DA94D2 /* AppDelegate.swift */; };
+		4C8C2EAD28ECDB1900DA94D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C8C2EAA28ECDB1900DA94D2 /* Assets.xcassets */; };
+		D4CFD2B428EE5EDF004635C4 /* AEPCore in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2B328EE5EDF004635C4 /* AEPCore */; };
+		D4CFD2B628EE5EDF004635C4 /* AEPIdentity in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2B528EE5EDF004635C4 /* AEPIdentity */; };
+		D4CFD2B828EE5EDF004635C4 /* AEPLifecycle in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2B728EE5EDF004635C4 /* AEPLifecycle */; };
+		D4CFD2BA28EE5EDF004635C4 /* AEPServices in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2B928EE5EDF004635C4 /* AEPServices */; };
+		D4CFD2BC28EE5EDF004635C4 /* AEPSignal in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2BB28EE5EDF004635C4 /* AEPSignal */; };
+		D4CFD2BF28EE5F40004635C4 /* AEPEdge in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2BE28EE5F40004635C4 /* AEPEdge */; };
+		D4CFD2C528EE5FAE004635C4 /* AEPAssurance in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2C428EE5FAE004635C4 /* AEPAssurance */; };
+		D4CFD2C828EE5FDA004635C4 /* AEPEdgeIdentity in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2C728EE5FDA004635C4 /* AEPEdgeIdentity */; };
+		D4CFD2CE28EE614C004635C4 /* AEPEdgeBridge in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2CD28EE614C004635C4 /* AEPEdgeBridge */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4C8C2E8E28ECDA5000DA94D2 /* EdgeBridgeTutorialApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EdgeBridgeTutorialApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C8C2E9328ECDA5000DA94D2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4C8C2E9828ECDA5200DA94D2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4C8C2EA028ECDAF900DA94D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4C8C2EA228ECDB0E00DA94D2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C8C2EA328ECDB0E00DA94D2 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		4C8C2EA928ECDB1900DA94D2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4C8C2EAA28ECDB1900DA94D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4C8C2E8B28ECDA5000DA94D2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4CFD2BF28EE5F40004635C4 /* AEPEdge in Frameworks */,
+				D4CFD2B428EE5EDF004635C4 /* AEPCore in Frameworks */,
+				D4CFD2BC28EE5EDF004635C4 /* AEPSignal in Frameworks */,
+				4C4AFBC328EE83E9002C6426 /* AEPEdgeConsent in Frameworks */,
+				D4CFD2BA28EE5EDF004635C4 /* AEPServices in Frameworks */,
+				D4CFD2C828EE5FDA004635C4 /* AEPEdgeIdentity in Frameworks */,
+				D4CFD2B628EE5EDF004635C4 /* AEPIdentity in Frameworks */,
+				D4CFD2B828EE5EDF004635C4 /* AEPLifecycle in Frameworks */,
+				D4CFD2C528EE5FAE004635C4 /* AEPAssurance in Frameworks */,
+				D4CFD2CE28EE614C004635C4 /* AEPEdgeBridge in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4C8C2E8528ECDA5000DA94D2 = {
+			isa = PBXGroup;
+			children = (
+				4C8C2E9028ECDA5000DA94D2 /* EdgeBridgeTutorialApp */,
+				4C8C2E8F28ECDA5000DA94D2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4C8C2E8F28ECDA5000DA94D2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4C8C2E8E28ECDA5000DA94D2 /* EdgeBridgeTutorialApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4C8C2E9028ECDA5000DA94D2 /* EdgeBridgeTutorialApp */ = {
+			isa = PBXGroup;
+			children = (
+				4C8C2EA928ECDB1900DA94D2 /* AppDelegate.swift */,
+				4C8C2EA328ECDB0E00DA94D2 /* SceneDelegate.swift */,
+				4C8C2E9328ECDA5000DA94D2 /* ContentView.swift */,
+				4C8C2EAA28ECDB1900DA94D2 /* Assets.xcassets */,
+				4C8C2EA228ECDB0E00DA94D2 /* Info.plist */,
+				4C8C2E9F28ECDAF900DA94D2 /* LaunchScreen.storyboard */,
+				4C8C2E9728ECDA5200DA94D2 /* Preview Content */,
+			);
+			path = EdgeBridgeTutorialApp;
+			sourceTree = "<group>";
+		};
+		4C8C2E9728ECDA5200DA94D2 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				4C8C2E9828ECDA5200DA94D2 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4C8C2E8D28ECDA5000DA94D2 /* EdgeBridgeTutorialApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C8C2E9C28ECDA5200DA94D2 /* Build configuration list for PBXNativeTarget "EdgeBridgeTutorialApp" */;
+			buildPhases = (
+				4C8C2E8A28ECDA5000DA94D2 /* Sources */,
+				4C8C2E8B28ECDA5000DA94D2 /* Frameworks */,
+				4C8C2E8C28ECDA5000DA94D2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EdgeBridgeTutorialApp;
+			packageProductDependencies = (
+				D4CFD2B328EE5EDF004635C4 /* AEPCore */,
+				D4CFD2B528EE5EDF004635C4 /* AEPIdentity */,
+				D4CFD2B728EE5EDF004635C4 /* AEPLifecycle */,
+				D4CFD2B928EE5EDF004635C4 /* AEPServices */,
+				D4CFD2BB28EE5EDF004635C4 /* AEPSignal */,
+				D4CFD2BE28EE5F40004635C4 /* AEPEdge */,
+				D4CFD2C428EE5FAE004635C4 /* AEPAssurance */,
+				D4CFD2C728EE5FDA004635C4 /* AEPEdgeIdentity */,
+				D4CFD2CD28EE614C004635C4 /* AEPEdgeBridge */,
+				4C4AFBC228EE83E9002C6426 /* AEPEdgeConsent */,
+			);
+			productName = EdgeBridgeTutorialAppStart;
+			productReference = 4C8C2E8E28ECDA5000DA94D2 /* EdgeBridgeTutorialApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4C8C2E8628ECDA5000DA94D2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1400;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					4C8C2E8D28ECDA5000DA94D2 = {
+						CreatedOnToolsVersion = 14.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 4C8C2E8928ECDA5000DA94D2 /* Build configuration list for PBXProject "EdgeBridgeTutorialApp" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4C8C2E8528ECDA5000DA94D2;
+			packageReferences = (
+				D4CFD2B228EE5EDF004635C4 /* XCRemoteSwiftPackageReference "aepsdk-core-ios" */,
+				D4CFD2BD28EE5F40004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edge-ios" */,
+				D4CFD2C328EE5FAE004635C4 /* XCRemoteSwiftPackageReference "aepsdk-assurance-ios" */,
+				D4CFD2C628EE5FDA004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edgeidentity-ios" */,
+				D4CFD2CC28EE614C004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edgebridge-ios" */,
+				4C4AFBC128EE83E9002C6426 /* XCRemoteSwiftPackageReference "aepsdk-edgeconsent-ios" */,
+			);
+			productRefGroup = 4C8C2E8F28ECDA5000DA94D2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4C8C2E8D28ECDA5000DA94D2 /* EdgeBridgeTutorialApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4C8C2E8C28ECDA5000DA94D2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C8C2EA128ECDAF900DA94D2 /* LaunchScreen.storyboard in Resources */,
+				4C8C2E9928ECDA5200DA94D2 /* Preview Assets.xcassets in Resources */,
+				4C8C2EAD28ECDB1900DA94D2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4C8C2E8A28ECDA5000DA94D2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C8C2E9428ECDA5000DA94D2 /* ContentView.swift in Sources */,
+				4C8C2EAC28ECDB1900DA94D2 /* AppDelegate.swift in Sources */,
+				4C8C2EA628ECDB0E00DA94D2 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4C8C2E9F28ECDAF900DA94D2 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4C8C2EA028ECDAF900DA94D2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4C8C2E9A28ECDA5200DA94D2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4C8C2E9B28ECDA5200DA94D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4C8C2E9D28ECDA5200DA94D2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"EdgeBridgeTutorialApp/Preview Content\"";
+				DEVELOPMENT_TEAM = FKGEE875K4;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = EdgeBridgeTutorialApp/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = NO;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = NO;
+				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.edge.edgetutorialappstart.EdgeBridgeTutorialAppStart;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4C8C2E9E28ECDA5200DA94D2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"EdgeBridgeTutorialApp/Preview Content\"";
+				DEVELOPMENT_TEAM = FKGEE875K4;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = EdgeBridgeTutorialApp/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = NO;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = NO;
+				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.edge.edgetutorialappstart.EdgeBridgeTutorialAppStart;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4C8C2E8928ECDA5000DA94D2 /* Build configuration list for PBXProject "EdgeBridgeTutorialApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C8C2E9A28ECDA5200DA94D2 /* Debug */,
+				4C8C2E9B28ECDA5200DA94D2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C8C2E9C28ECDA5200DA94D2 /* Build configuration list for PBXNativeTarget "EdgeBridgeTutorialApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C8C2E9D28ECDA5200DA94D2 /* Debug */,
+				4C8C2E9E28ECDA5200DA94D2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4C4AFBC128EE83E9002C6426 /* XCRemoteSwiftPackageReference "aepsdk-edgeconsent-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adobe/aepsdk-edgeconsent-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		D4CFD2B228EE5EDF004635C4 /* XCRemoteSwiftPackageReference "aepsdk-core-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adobe/aepsdk-core-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		D4CFD2BD28EE5F40004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edge-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adobe/aepsdk-edge-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		D4CFD2C328EE5FAE004635C4 /* XCRemoteSwiftPackageReference "aepsdk-assurance-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adobe/aepsdk-assurance-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		D4CFD2C628EE5FDA004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edgeidentity-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adobe/aepsdk-edgeidentity-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		D4CFD2CC28EE614C004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edgebridge-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adobe/aepsdk-edgebridge-ios.git";
+			requirement = {
+				branch = dev;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4C4AFBC228EE83E9002C6426 /* AEPEdgeConsent */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C4AFBC128EE83E9002C6426 /* XCRemoteSwiftPackageReference "aepsdk-edgeconsent-ios" */;
+			productName = AEPEdgeConsent;
+		};
+		D4CFD2B328EE5EDF004635C4 /* AEPCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2B228EE5EDF004635C4 /* XCRemoteSwiftPackageReference "aepsdk-core-ios" */;
+			productName = AEPCore;
+		};
+		D4CFD2B528EE5EDF004635C4 /* AEPIdentity */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2B228EE5EDF004635C4 /* XCRemoteSwiftPackageReference "aepsdk-core-ios" */;
+			productName = AEPIdentity;
+		};
+		D4CFD2B728EE5EDF004635C4 /* AEPLifecycle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2B228EE5EDF004635C4 /* XCRemoteSwiftPackageReference "aepsdk-core-ios" */;
+			productName = AEPLifecycle;
+		};
+		D4CFD2B928EE5EDF004635C4 /* AEPServices */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2B228EE5EDF004635C4 /* XCRemoteSwiftPackageReference "aepsdk-core-ios" */;
+			productName = AEPServices;
+		};
+		D4CFD2BB28EE5EDF004635C4 /* AEPSignal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2B228EE5EDF004635C4 /* XCRemoteSwiftPackageReference "aepsdk-core-ios" */;
+			productName = AEPSignal;
+		};
+		D4CFD2BE28EE5F40004635C4 /* AEPEdge */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2BD28EE5F40004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edge-ios" */;
+			productName = AEPEdge;
+		};
+		D4CFD2C428EE5FAE004635C4 /* AEPAssurance */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2C328EE5FAE004635C4 /* XCRemoteSwiftPackageReference "aepsdk-assurance-ios" */;
+			productName = AEPAssurance;
+		};
+		D4CFD2C728EE5FDA004635C4 /* AEPEdgeIdentity */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2C628EE5FDA004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edgeidentity-ios" */;
+			productName = AEPEdgeIdentity;
+		};
+		D4CFD2CD28EE614C004635C4 /* AEPEdgeBridge */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2CC28EE614C004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edgebridge-ios" */;
+			productName = AEPEdgeBridge;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 4C8C2E8628ECDA5000DA94D2 /* Project object */;
+}
