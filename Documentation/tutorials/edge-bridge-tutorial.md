@@ -7,7 +7,7 @@
   - [Adobe Experience Platform setup](#adobe-experience-platform-setup)
 - [Client-side implementation](#client-side-implementation)
   - [1. Get a copy of the files (code and tutorial app)](#1-get-a-copy-of-the-files-code-and-tutorial-app)
-  - [1. Install Edge Bridge using dependency manager (CocoaPods)](#1-install-edge-bridge-using-dependency-manager-cocoapods)
+  - [1. Install Edge Bridge using dependency manager (Swift Package Manager)](#1-install-edge-bridge-using-dependency-manager-swift-package-manager)
   - [2. Update Tutorial App Code to Enable EdgeBridge functionality](#2-update-tutorial-app-code-to-enable-edgebridge-functionality)
   - [3. Run app](#3-run-app)
   - [4. TrackAction/TrackState implementation examples](#4-trackactiontrackstate-implementation-examples)
@@ -24,8 +24,8 @@ This hands-on tutorial provides end-to-end instructions on how to migrate from s
 ```mermaid
 graph LR;
     step1(1<br/>Existing Adobe Analytics app) -->
-    step2(2<br/>Adobe Experience Platform<br/>Update server-side configuration) --> 
-    step3(3<br/>EdgeBridge<br/>Send event data to the Edge Network & Analytics) --> 
+    step2(2<br/>Adobe Experience Platform<br/>Update server-side configuration) -->
+    step3(3<br/>EdgeBridge<br/>Send event data to the Edge Network & Analytics) -->
     step4(4<br/>Assurance<br/>Verify event data formats) -->
     step5(5<br/>Data mapper<br/>Map data to XDM - Edge network data format) -->
     step6(6<br/>Assurance<br/>Verify trackAction/trackState to XDM conversion)
@@ -33,7 +33,6 @@ graph LR;
 
 ### Environment
 - macOS machine with a recent version of Xcode installed.
-- Cocoapods installed.
 
 ### Prerequisites
 - A timestamp enabled report suite is configured for mobile data collection.
@@ -93,88 +92,29 @@ Open the `Catalog` and install the `Consent` extension configuration.
 
 <img src="../Assets/edge-bridge-tutorial/mobile-property-catalog-consent.png" alt="Catalog search for Consent" width="1100"/>  
 
-In the extension configuration settings window, the `Default Consent Level` should be set to `Yes` by default (**1**); for the tutorial app this setting is fine as-is, however when using this configuration in production apps, it should reflect the requirements of the company's actual data collection policy for the app. 
+In the extension configuration settings window, the `Default Consent Level` should be set to `Yes` by default (**1**); for the tutorial app this setting is fine as-is, however when using this configuration in production apps, it should reflect the requirements of the company's actual data collection policy for the app.
 
 <img src="../Assets/edge-bridge-tutorial/mobile-property-consent-settings.png" alt="Consent extension settings" width="1100"/>  
 
 </p></details>
 
-The following cards should be visible after all the extensions are installed: 
+The following cards should be visible after all the extensions are installed:
 
 <img src="../Assets/edge-bridge-tutorial/mobile-property-all-extensions.png" alt="All installed extensions" width="1100"/>  
 
 ## Client-side implementation
 ### 1. Get a copy of the files (code and tutorial app)
 1. Open the code repository: https://github.com/adobe/aepsdk-edgebridge-ios
-2. Click **Code** in the top right 
+2. Click **Code** in the top right
 3. In the window that opens, click **Download ZIP**; by default it should land in your **Downloads** folder.
    - Optionally, move the ZIP to your **Documents** folder
-4. Unzip the archived file by double clicking it, and keep this Finder window open, as we will need it later.
+4. Unzip the archived file by double clicking it.
+5. Navigate to Documentation -> tutorials -> EdgeBridgeTutorialAppStart.
+6. Double click on EdgeBridgeTutorialApp.xcworkspace.
 
 Now we can use the tutorial app to go through the changes required to install the Edge Bridge extension.
 
-1. Open the Terminal app
-   - Applications -> Utilities -> Terminal
-   - Open Spotlight search (CMD + Space) and search for "terminal"
-2. Type the following characters, but do not press return yet: `c` + `d` + `SPACE`  
-You should see the following in your terminal: "cd " (the space after `cd` is important!).
-```bash
-cd 
-```
-7. Return to your Finder window that has the unzipped repository folder. Click and drag the folder into your Terminal window that has the `cd ` command typed. You should see something like: `cd /Users/tim/Documents/aepsdk-edgebridge-ios`  
-8. Then press `return` to execute the command.
-
-<details>
-  <summary> What is <code>cd</code>? What did I just do? </summary><p>
-
-`cd` is the terminal command for change directory; the command above changes your terminal's active directory to the repository we just copied.
-
-The long string after is the full path (kind of like an address) to the code repository folder: `/Users/tim/Documents/aepsdk-edgebridge-ios`, taking our terminal window to the newly created repository!
-
-</p></details>
-
-Now that we're in the project directory, there's some setup we have to do; the app depends on packages which are not installed with the repository. To install them, run the command:
-
-```bash
-pod update
-```
-
-<details>
-  <summary> Using Swift package manager instead? </summary><p>
-
-**Swift Package Manager**
-This tutorial assumes a project using Cocoapods for package dependency management, but if following along with a project that uses Swift package manager, refer to the [README for instructions on how to add the EdgeBridge package](../../README.md#swift-package-managerhttpsgithubcomappleswift-package-manager).
-
-</p></details>
-
-You should see the dependency manager CocoaPods installing the various packages required by the project. 
-
-<details>
-  <summary> Expected output </summary><p>
-
-```
-tim@Tims-MacBook-Pro aepsdk-edgebridge-ios % pod update
-Update all pods
-Updating local specs repositories
-Analyzing dependencies
-Downloading dependencies
-Installing AEPAssurance (3.0.1)
-Installing AEPCore (3.7.1)
-Installing AEPEdge (1.4.1)
-Installing AEPEdgeIdentity (1.1.0)
-Installing AEPLifecycle (3.7.1)
-Installing AEPRulesEngine (1.2.0)
-Installing AEPServices (3.7.1)
-Installing SwiftLint (0.44.0)
-Generating Pods project
-Integrating client project
-Pod installation complete! There are 6 dependencies from the Podfile and 8 total pods installed.
-tim@Tims-MacBook-Pro aepsdk-edgebridge-ios % 
-```
-
-</p></details>
-
-### 1. Install Edge Bridge using dependency manager (CocoaPods)
+### 2. Install Edge Bridge using dependency manager (Swift Package Manager)
 Our next task is actually modifying the file that controls the package dependencies, adding the new extensions that will enable the Edge Bridge extension to function.
 
 Open the project using the command:
@@ -185,7 +125,7 @@ open AEPEdgeBridge.xcworkspace
 This should automatically open the Xcode IDE. In Xcode:
 1. Click the dropdown chevron next to `Pods` in the left-side navigation panel.
 2. Click the `Podfile` file.
-3. Replace the section: 
+3. Replace the section:
 
 ```ruby
 target 'EdgeBridgeTutorialApp' do
@@ -213,10 +153,19 @@ end
 ```bash
 pod update
 ```
-Cocoapods will use this updated configuration file to install the new packages (including the EdgeBridge extension itself!), which will allow us to add new functionality in the app's code. 
+Cocoapods will use this updated configuration file to install the new packages (including the EdgeBridge extension itself!), which will allow us to add new functionality in the app's code.
+
+
+<details>
+  <summary> Using CocoaPods instead? </summary><p>
+
+**CocoaPods**
+This tutorial assumes a project using Swift Package Manager (SPM) for package dependency management, but if following along with a project that uses CocoaPods, refer to the [README for instructions on how to add the EdgeBridge extension](../../README.md#cocoapods).
+
+</p></details>
 
 ### 2. Update Tutorial App Code to Enable EdgeBridge functionality
-There are two files we need to update to enable the EdgeBridge extension. 
+There are two files we need to update to enable the EdgeBridge extension.
 1. Click the dropdown chevron next to `EdgeBridgeTutorialApp` in the left-side navigation panel.
 2. Click the dropdown chevron next to the `EdgeBridgeTutorialApp` folder.
 3. Click the `AppDelegate.swift` file.
@@ -258,7 +207,7 @@ Repeat this process for the `SceneDelegate.swift` file.
 ### 3. Run app   
 In Xcode, select the app target you want to run, and the destination device to run it on (either simulator or physical device). Then press the play button.
 
-You should see your application running on the device you selected, with logs being displayed in the console in Xcode. 
+You should see your application running on the device you selected, with logs being displayed in the console in Xcode.
 
 > **Note**
 > If the debug console area is not shown by default, activate it by selecting:  
@@ -274,13 +223,13 @@ Assurance is the AEP tool for inspecting all events that Adobe extensions send o
 
 ### 1. Set up the Assurance session  
 1. In the browser, navigate to [Assurance](https://experience.adobe.com/griffon) and login using your Adobe ID credentials.
-2. Create a new session (or use an existing one if available) 
+2. Create a new session (or use an existing one if available)
     - Click `Create Session` in the top right.
 ![Create session in Assurance](../Assets/edge-bridge-tutorial/assurance-create-session.jpg)
     - In the `Create New Session` dialog, review instructions, and proceed by selecting `Start`  
 <img src="../Assets/edge-bridge-tutorial/assurance-create-session-1.png" alt="Creating a new session in Assurance step 1" width="400"/>
 
-    - Enter a name to identify the session (can be any desired name) 
+    - Enter a name to identify the session (can be any desired name)
     - Use Base URL value: `aepedgebridge://`  
 <img src="../Assets/edge-bridge-tutorial/assurance-create-session-2.png" alt="Creating a new session in Assurance step 2" width="400"/>
 
@@ -292,7 +241,7 @@ Assurance is the AEP tool for inspecting all events that Adobe extensions send o
 >
 > Note that proper base URL configuration is required for Assurance QR code app launching to function. However, even without setting up deep linking on the application-side, it is still possible to connect to Assurance using the session link.
 >
-> If you do not know the URL or don't want to use it at this time, enter a placeholder URL like `test://`. 
+> If you do not know the URL or don't want to use it at this time, enter a placeholder URL like `test://`.
 >  
 > In Xcode the app URL can be configured using these steps:
 > 1. Select the project in the navigator.
@@ -334,7 +283,7 @@ In order to see Edge Bridge events, in the connected app instance:
 <img src="../Assets/edge-bridge-tutorial/simulator-track-buttons.jpg" alt="Simulator tracking buttons" width="400"/>
 
 2. Click the `AnalyticsTrack` event (**1**) in the events table to see the event details in the right side window
-3. Click the `RAW EVENT` dropdown (**2**) in the event details window to see the event data payload. 
+3. Click the `RAW EVENT` dropdown (**2**) in the event details window to see the event data payload.
 4. Verify that the `contextdata` matches what was sent by the Analytics `trackAction`/`trackState` API.
 
 <img src="../Assets/edge-bridge-tutorial/assurance-analytics-track-event.jpg" alt="Simulator tracking buttons" width="800"/>
@@ -396,7 +345,7 @@ In order to map the properties from both `trackAction` and `trackState` events i
 
 ```
 
-1. Copy and paste the JSON data into the datastreams JSON input box (**1**). 
+1. Copy and paste the JSON data into the datastreams JSON input box (**1**).
 2. Verify the uploaded JSON matches what is displayed in the `Preview sample data` section (**2**) and click `Next` (**3**).
 
 <details>
@@ -422,25 +371,25 @@ In order to map the properties from both `trackAction` and `trackState` events i
 
 <img src="../Assets/edge-bridge-tutorial/datastreams-mapping-1.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
-5. In the JSON property viewer window, click the dropdown arrows next to `data` (**1**) and `contextdata` (**2**). 
+5. In the JSON property viewer window, click the dropdown arrows next to `data` (**1**) and `contextdata` (**2**).
 6. Then select the first property to map, `product.add.event` (**3**) and click `Select` (**4**).
 
 <img src="../Assets/edge-bridge-tutorial/datastreams-select-property.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
-Notice that in the property viewer, you can see the data hierarchy, where `data` is at the top, `contextdata` is one level down, and `product.add.event` is one level below that. This is nested data, which is a way to organize data in the JSON format. 
+Notice that in the property viewer, you can see the data hierarchy, where `data` is at the top, `contextdata` is one level down, and `product.add.event` is one level below that. This is nested data, which is a way to organize data in the JSON format.
 
 > **Info**
 > The data mapper interprets the `.` character as nesting, which means if there are `.` characters in a property name that are not meant to be nesting, namely the ones in our current example: `product.add.event`, we need to escape this behavior by adding backslashes `\` before the `.` (**1**).
 
 7. Add backslashes `\` before the `.` characters as shown below (**1**).
 
-Now, we need to map this JSON property from the Edge Bridge event to its matching property in the XDM schema. 
+Now, we need to map this JSON property from the Edge Bridge event to its matching property in the XDM schema.
 
 8. Click the schema icon (**2**) to open the XDM property viewer window.
 
 <img src="../Assets/edge-bridge-tutorial/datastreams-mapping-xdm.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
-9. In the XDM property viewer window, click the dropdown arrows next to `commerce` (**1**) and `productListAdds` (**2**). 
+9. In the XDM property viewer window, click the dropdown arrows next to `commerce` (**1**) and `productListAdds` (**2**).
 10. Then select the `value` property (**3**) and click `Select` (**4**).
 
 <img src="../Assets/edge-bridge-tutorial/datastreams-mapping-xdm-property.png" alt="Select data from Edge Bridge event" width="1100"/>  
