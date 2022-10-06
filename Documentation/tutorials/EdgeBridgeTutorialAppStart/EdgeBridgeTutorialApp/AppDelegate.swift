@@ -36,7 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MobileCore.setLogLevel(.trace)
         MobileCore.configureWith(appId: ENVIRONMENT_FILE_ID)
         MobileCore.registerExtensions([
+//* EdgeBridge Tutorial - code section 2/3
             Analytics.self,
+// EdgeBridge Tutorial - code section 2/3
 /// Registers the newly added extensions with Core (which contains all of the baseline capabilities required to run Adobe extensions),
 /// getting them ready to run in the app.
 /* EdgeBridge Tutorial - code section 2/3

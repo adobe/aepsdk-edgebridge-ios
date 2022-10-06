@@ -5,10 +5,12 @@
   - [Environment](#environment)
   - [Prerequisites](#prerequisites)
   - [Adobe Experience Platform setup](#adobe-experience-platform-setup)
-  - [4. Configure a Rule to forward PII events to Edge Network](#4-configure-a-rule-to-forward-pii-events-to-edge-network)
+  - [1. Set up mobile property](#1-set-up-mobile-property)
+  - [2. Configure a Rule to forward PII events to Edge Network](#2-configure-a-rule-to-forward-pii-events-to-edge-network)
 - [Client-side implementation](#client-side-implementation)
   - [1. Get a copy of the files (code and tutorial app)](#1-get-a-copy-of-the-files-code-and-tutorial-app)
   - [1. Install Edge Bridge using dependency manager (Swift Package Manager)](#1-install-edge-bridge-using-dependency-manager-swift-package-manager)
+  - [2. Update Tutorial App Code to remove Analytics](#2-update-tutorial-app-code-to-remove-analytics)
   - [2. Update Tutorial App Code to Enable EdgeBridge functionality](#2-update-tutorial-app-code-to-enable-edgebridge-functionality)
   - [3. Run app](#3-run-app)
   - [4. `trackAction`/`trackState` implementation examples](#4-trackactiontrackstate-implementation-examples)
@@ -45,6 +47,7 @@ graph LR;
 ### Adobe Experience Platform setup
 Before any app changes we need to set up some configuration items on the Adobe Experience Platform (AEP) side. The end goal of this section is to create a mobile property that controls the configuration settings for the various AEP extensions used in this tutorial.
 
+### 1. Set up mobile property  
 If you don't have an existing mobile property, see the [instructions on how to set up a new property](https://github.com/adobe/aepsdk-edge-ios/blob/tutorial-send-event/Documentation/Tutorials/edge-send-event-tutorial.md#1-create-a-schema).
 
 The following AEP extension configurations should be installed:  
@@ -55,6 +58,10 @@ The following AEP extension configurations should be installed:
 Open the **Catalog** and install the `Adobe Analytics` extension configuration.
 
 <img src="../assets/edge-bridge-tutorial/mobile-property-catalog-analytics.png" alt="Catalog search for Adobe Experience Platform Edge Network" width="1100"/>  
+
+In the extension configuration settings window, set the report suite ID (**1**) for each environment to the one for this tutorial. Then click `Save` (**2**)
+
+<img src="../assets/edge-bridge-tutorial/mobile-property-analytics-settings.png" alt="Edge extension settings" width="1100"/>  
 
 </p></details>
 
@@ -106,15 +113,12 @@ The following cards should be visible after all the extensions are installed:
 
 <img src="../assets/edge-bridge-tutorial/mobile-property-all-extensions.png" alt="All installed extensions" width="1100"/>  
 
-### 4. Configure a Rule to forward PII events to Edge Network 
-
-The Lifecycle for Edge extension sends app foreground and background events, and a rule needs to be configured in order to forward these events to the Edge Network. Note that there is no need to install Lifecycle since it is already included with Mobile Core.
+### 2. Configure a Rule to forward PII events to Edge Network 
+The collectPII API for Analytics does not send events to the Edge Network by default, and needs a rule to be configured in order to forward these events.
 
 #### Create a rule <!-- omit in toc -->
 1. On the Rules tab, select **Create New Rule**.
    - If your property already has rules, the button will be in the top right of the screen.
-
-
 2. Give your rule an easily recognizable name (**1**) in your list of rules. In this example, the rule is named "Forward PII events to Edge Network".
 3. Under the **EVENTS** section, select **Add** (**2**).
 
@@ -250,6 +254,8 @@ end
 pod update
 ```
 Cocoapods will use this updated configuration file to install the new packages (including the EdgeBridge extension itself!), which will allow us to add new functionality in the app's code. 
+### 2. Update Tutorial App Code to remove Analytics
+With the Edge Bridge extension converting `trackAction`/`trackState`
 
 ### 2. Update Tutorial App Code to Enable EdgeBridge functionality
 There are two files we need to update to enable the EdgeBridge extension. 
