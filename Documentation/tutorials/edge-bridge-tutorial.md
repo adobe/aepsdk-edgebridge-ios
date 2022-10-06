@@ -245,7 +245,7 @@ To connect the tutorial app to the Assurance session, see the instructions on [c
 In order to see EdgeBridge events, in the connected app instance:
 1. Trigger a `trackAction` and/or `trackState` within the app which the Edge Bridge extension will convert into Edge events. This event will be captured by the Assurance extension and shown in the web session viewer.
 
-<img src="../assets/edge-bridge-tutorial/simulator-track-buttons.jpg" alt="Simulator tracking buttons" width="400"/>
+<img src="../assets/edge-bridge-tutorial/simulator-track-buttons.png" alt="Simulator tracking buttons" width="400"/>
 
 2. Click the `AnalyticsTrack` event (**1**) in the events table to see the event details in the right side window
 3. Click the `RAW EVENT` dropdown (**2**) in the event details window to see the event data payload.
@@ -267,7 +267,9 @@ The top level EventType is converted from a `generic.track` to `edge` (that is, 
 > The two new top level properties `xdm` and `data` are standard Edge event properties that are part of the Edge platform's XDM schema-based system for event data organization that enables powerful, customizable data processing. However, because the `contextdata` is not yet mapped to an XDM schema, it is not in a usable form for the Edge platform. We will solve this issue by mapping the event data to an XDM schema in the next section.
 
 #### Trigger rule-based `trackAction` events
-Rules-based trackAction/trackState events are also converted to Edge events by the Edge Bridge extension. Select the **Trigger Rule** button to trigger a rule that creates a trackAction event.
+Rules-based trackAction/trackState events are also converted to Edge events by the Edge Bridge extension. Select the **Trigger Rule** button (**1**) to trigger a rule that creates a trackAction event.
+
+<img src="../assets/edge-bridge-tutorial/simulator-trigger-rule-button.png" alt="Simulator tracking buttons" width="400"/>
 
 Just like the `trackAction`/`trackState` events above, the Edge Bridge extension will convert the PII trackAction event into an Edge event.
 
