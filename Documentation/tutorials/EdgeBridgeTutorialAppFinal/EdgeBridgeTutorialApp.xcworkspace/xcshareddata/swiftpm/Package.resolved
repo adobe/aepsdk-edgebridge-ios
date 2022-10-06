@@ -1,15 +1,6 @@
 {
   "pins" : [
     {
-      "identity" : "aepsdk-analytics-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/adobe/aepsdk-analytics-ios.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "c6866d8989686e532a528c508bf74eca8b5efe57"
-      }
-    },
-    {
       "identity" : "aepsdk-assurance-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/adobe/aepsdk-assurance-ios.git",
