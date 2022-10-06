@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "aepsdk-analytics-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adobe/aepsdk-analytics-ios.git",
+      "state" : {
+        "revision" : "3540865cbeaa13d90b1a4307e6b3bd0ac30d1974",
+        "version" : "3.2.0"
+      }
+    },
+    {
+      "identity" : "aepsdk-core-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adobe/aepsdk-core-ios.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "55d208283eed4f99b5fe8ed75940fcc03b0511a1"
+      }
+    },
+    {
+      "identity" : "aepsdk-rulesengine-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adobe/aepsdk-rulesengine-ios.git",
+      "state" : {
+        "revision" : "5907e2ed364135448a2a5d77a76c2ff971396397",
+        "version" : "1.2.0"
+      }
+    }
+  ],
+  "version" : 2
+}
