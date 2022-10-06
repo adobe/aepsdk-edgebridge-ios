@@ -402,3 +402,7 @@ graph LR;
 
 By using the Event Transactions view in the left-side navigation panel, the logical flow of events from `trackAction` event -> data mapping -> Analytics can be seen.
 <img src="../assets/edge-bridge-tutorial/assurance-event-transactions.png" alt="Select data from Edge Bridge event" width="1100"/>  
+
+Back in the Events view, the **mapper:xdm-event** (**1**) shows the result of the mapping from the Edge Bridge event's generic **data** -> **contextdata** structure into the XDM schema format (**2**).
+<img src="../assets/edge-bridge-tutorial/assurance-mapper-event.png" alt="Select data from Edge Bridge event" width="1100"/>  
+
