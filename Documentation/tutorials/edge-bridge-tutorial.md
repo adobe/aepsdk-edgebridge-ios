@@ -116,12 +116,11 @@ The Lifecycle for Edge extension sends app foreground and background events, and
 1. On the Rules tab, select **Create New Rule**.
    - If your property already has rules, the button will be in the top right of the screen.
 
-<img src="../assets/edge-bridge-tutorial/mobile-property-create-rule.png" alt="All installed extensions" width="1100"/>  
 
 2. Give your rule an easily recognizable name (**1**) in your list of rules. In this example, the rule is named "Forward PII events to Edge Network".
 3. Under the **EVENTS** section, select **Add** (**2**).
 
-<img src="../assets/edge-bridge-tutorial/mobile-property-rule-1.png" alt="All installed extensions" width="1100"/>  
+
 
 #### Define the event <!-- omit in toc -->
 
@@ -129,19 +128,19 @@ The Lifecycle for Edge extension sends app foreground and background events, and
 3. From the **Event Type** dropdown list (**2**), select **Collect PII**.
 4. Select **Keep Changes** (**3**).
 
-<img src="../assets/edge-bridge-tutorial/mobile-property-rule-2.png" alt="All installed extensions" width="1100"/>  
+
 
 #### Define the action <!-- omit in toc -->
 1. Under the Actions section, select **+ Add** (**1**).
 
-<img src="../assets/edge-bridge-tutorial/mobile-property-rule-5.png" alt="All installed extensions" width="1100"/>  
+
 
 2. From the **Extension** dropdown list (**1**), select **Adobe Analytics**.
 3. From the **Action Type** dropdown list (**2**), select **Track**.
 4. On the right side window, name the **Action** field "collect_pii".
 5. Select **Keep Changes** (**3**).
 
-<img src="../assets/edge-bridge-tutorial/mobile-property-rule-6.png" alt="All installed extensions" width="1100"/>  
+
 
 #### Save the rule and rebuild your property <!-- omit in toc -->
 1. After you complete your configuration, verify that your rule looks like the following:
