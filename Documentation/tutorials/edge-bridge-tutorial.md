@@ -187,12 +187,11 @@ There are two files we need to update to enable the EdgeBridge extension.
 
 Inside you will see code blocks for this tutorial marked by a header and footer `EdgeBridge Tutorial - remove section (n/m)` (where `n` is the current section and `m` is the total number of sections in the file).
 
-Simply delete everything between the header and footer, and make sure to cover all sections within the file.
+Simply delete everything between the header and footer, and make sure to do this for all "remove section" blocks within the file.
 
 ### 3. Update tutorial app code to enable Edge Bridge functionality
-There are two files that need to be updated to enable the Edge Bridge extension:  
+There is one file that needs to be updated to enable the Edge Bridge extension:  
 1. `AppDelegate.swift`
-2. `SceneDelegate.swift`
    
 Inside you will see code blocks for this tutorial that are greyed out, because they are commented out. They are marked by the header and footer `EdgeBridge Tutorial - code section n/m` (where `n` is the current section and `m` is the total number of sections in the file).
 
