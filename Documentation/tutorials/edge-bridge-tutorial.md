@@ -129,14 +129,10 @@ The Lifecycle for Edge extension sends app foreground and background events, and
 #### Define the action <!-- omit in toc -->
 1. Under the Actions section, select **+ Add** (**1**).
 
-
-
 2. From the **Extension** dropdown list (**1**), select **Adobe Analytics**.
 3. From the **Action Type** dropdown list (**2**), select **Track**.
 4. On the right side window, name the **Action** field "collect_pii".
 5. Select **Keep Changes** (**3**).
-
-
 
 #### Save the rule and rebuild your property <!-- omit in toc -->
 1. After you complete your configuration, verify that your rule looks like the following:
@@ -331,6 +327,8 @@ The top level EventType is converted from a `generic.track` to `edge` (that is, 
 
 #### Rules-based events
 Rules-based trackAction/trackState events are also converted to Edge events by the Edge Bridge extension. Select the **Trigger Consequence** button to trigger a rule that creates a trackAction event.
+
+Just like the `trackAction`/`trackState` events above, the Edge Bridge extension will convert the PII trackAction event into an Edge event.
 
 ## Data prep mapping
 
