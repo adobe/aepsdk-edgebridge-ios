@@ -8,7 +8,7 @@
   - [4. Configure a Rule to forward Lifecycle metrics to Edge Network](#4-configure-a-rule-to-forward-lifecycle-metrics-to-edge-network)
 - [Client-side implementation](#client-side-implementation)
   - [1. Get a copy of the files (code and tutorial app)](#1-get-a-copy-of-the-files-code-and-tutorial-app)
-  - [1. Install Edge Bridge using dependency manager (CocoaPods)](#1-install-edge-bridge-using-dependency-manager-cocoapods)
+  - [1. Install Edge Bridge using dependency manager (Swift Package Manager)](#1-install-edge-bridge-using-dependency-manager-swift-package-manager)
   - [2. Update Tutorial App Code to Enable EdgeBridge functionality](#2-update-tutorial-app-code-to-enable-edgebridge-functionality)
   - [3. Run app](#3-run-app)
   - [4. `trackAction`/`trackState` implementation examples](#4-trackactiontrackstate-implementation-examples)
@@ -54,7 +54,7 @@ The following AEP extension configurations should be installed:
 
 Open the **Catalog** and install the `Adobe Analytics` extension configuration.
 
-<img src="../Assets/edge-bridge-tutorial/mobile-property-catalog-analytics.png" alt="Catalog search for Adobe Experience Platform Edge Network" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/mobile-property-catalog-analytics.png" alt="Catalog search for Adobe Experience Platform Edge Network" width="1100"/>  
 
 </p></details>
 
@@ -63,7 +63,7 @@ Open the **Catalog** and install the `Adobe Analytics` extension configuration.
 
 Open the **Catalog** and install the `AEP Assurance` extension configuration.
 
-<img src="../Assets/edge-bridge-tutorial/mobile-property-catalog-assurance.png" alt="Catalog search for Adobe Experience Platform Edge Network" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/mobile-property-catalog-assurance.png" alt="Catalog search for Adobe Experience Platform Edge Network" width="1100"/>  
 
 </p></details>
 
@@ -72,11 +72,11 @@ Open the **Catalog** and install the `AEP Assurance` extension configuration.
 
 Go back to the `Catalog` and install the `Adobe Experience Platform Edge Network` extension configuration.
 
-<img src="../Assets/edge-bridge-tutorial/mobile-property-catalog-edge.png" alt="Catalog search for Adobe Experience Platform Edge Network" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/mobile-property-catalog-edge.png" alt="Catalog search for Adobe Experience Platform Edge Network" width="1100"/>  
 
 In the extension configuration settings window, set the datastream for each environment (**1**) to the one created for this tutorial. Then click `Save` (**2**)
 
-<img src="../Assets/edge-bridge-tutorial/mobile-property-edge-settings.png" alt="Edge extension settings" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/mobile-property-edge-settings.png" alt="Edge extension settings" width="1100"/>  
 
 </p></details>
 
@@ -85,7 +85,7 @@ In the extension configuration settings window, set the datastream for each envi
 
 Open the `Catalog` and install the `Identity` extension configuration. There are no settings for this extension.
 
-<img src="../Assets/edge-bridge-tutorial/mobile-property-catalog-identity.png" alt="Catalog search for Identity" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/mobile-property-catalog-identity.png" alt="Catalog search for Identity" width="1100"/>  
 
 </p></details>
 
@@ -94,17 +94,17 @@ Open the `Catalog` and install the `Identity` extension configuration. There are
 
 Open the `Catalog` and install the `Consent` extension configuration.
 
-<img src="../Assets/edge-bridge-tutorial/mobile-property-catalog-consent.png" alt="Catalog search for Consent" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/mobile-property-catalog-consent.png" alt="Catalog search for Consent" width="1100"/>  
 
 In the extension configuration settings window, the `Default Consent Level` should be set to `Yes` by default (**1**); for the tutorial app this setting is fine as-is, however when using this configuration in production apps, it should reflect the requirements of the company's actual data collection policy for the app. 
 
-<img src="../Assets/edge-bridge-tutorial/mobile-property-consent-settings.png" alt="Consent extension settings" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/mobile-property-consent-settings.png" alt="Consent extension settings" width="1100"/>  
 
 </p></details>
 
 The following cards should be visible after all the extensions are installed: 
 
-<img src="../Assets/edge-bridge-tutorial/mobile-property-all-extensions.png" alt="All installed extensions" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/mobile-property-all-extensions.png" alt="All installed extensions" width="1100"/>  
 
 Also create a rule
 Forward PII events to Edge Network
@@ -116,12 +116,12 @@ The Lifecycle for Edge extension sends app foreground and background events, and
 1. On the Rules tab, select **Create New Rule**.
    - If your property already has rules, the button will be in the top right of the screen.
 
-<img src="../Assets/edge-send-event-tutorial/mobile-property-create-rule.png" alt="All installed extensions" width="1100"/>  
+<img src="../assets/edge-send-event-tutorial/mobile-property-create-rule.png" alt="All installed extensions" width="1100"/>  
 
 2. Give your rule an easily recognizable name (**1**) in your list of rules. In this example, the rule is named "Forward PII events to Edge Network".
 3. Under the **EVENTS** section, select **Add** (**2**).
 
-<img src="../Assets/edge-send-event-tutorial/mobile-property-rule-1.png" alt="All installed extensions" width="1100"/>  
+<img src="../assets/edge-send-event-tutorial/mobile-property-rule-1.png" alt="All installed extensions" width="1100"/>  
 
 #### Define the event <!-- omit in toc -->
 
@@ -129,19 +129,19 @@ The Lifecycle for Edge extension sends app foreground and background events, and
 3. From the **Event Type** dropdown list (**2**), select **Collect PII**.
 4. Select **Keep Changes** (**3**).
 
-<img src="../Assets/edge-send-event-tutorial/mobile-property-rule-2.png" alt="All installed extensions" width="1100"/>  
+<img src="../assets/edge-send-event-tutorial/mobile-property-rule-2.png" alt="All installed extensions" width="1100"/>  
 
 #### Define the action <!-- omit in toc -->
 1. Under the Actions section, select **+ Add** (**1**).
 
-<img src="../Assets/edge-send-event-tutorial/mobile-property-rule-5.png" alt="All installed extensions" width="1100"/>  
+<img src="../assets/edge-send-event-tutorial/mobile-property-rule-5.png" alt="All installed extensions" width="1100"/>  
 
 2. From the **Extension** dropdown list (**1**), select **Adobe Analytics**.
 3. From the **Action Type** dropdown list (**2**), select **Track**.
 4. On the right side window, name the **Action** field "collect_pii".
 5. Select **Keep Changes** (**3**).
 
-<img src="../Assets/edge-send-event-tutorial/mobile-property-rule-6.png" alt="All installed extensions" width="1100"/>  
+<img src="../assets/edge-send-event-tutorial/mobile-property-rule-6.png" alt="All installed extensions" width="1100"/>  
 
 #### Save the rule and rebuild your property <!-- omit in toc -->
 1. After you complete your configuration, verify that your rule looks like the following:
@@ -219,7 +219,7 @@ tim@Tims-MacBook-Pro aepsdk-edgebridge-ios %
 
 </p></details>
 
-### 1. Install Edge Bridge using dependency manager (CocoaPods)
+### 1. Install Edge Bridge using dependency manager (Swift Package Manager)
 Our next task is actually modifying the file that controls the package dependencies, adding the new extensions that will enable the Edge Bridge extension to function.
 
 Open the project using the command:
@@ -313,23 +313,23 @@ To connect the tutorial app to the Assurance session, see the instructions on [c
 In order to see EdgeBridge events, in the connected app instance:
 1. Trigger a `trackAction` and/or `trackState` within the app which the Edge Bridge extension will convert into Edge events. This event will be captured by the Assurance extension and shown in the web session viewer.
 
-<img src="../Assets/edge-bridge-tutorial/simulator-track-buttons.jpg" alt="Simulator tracking buttons" width="400"/>
+<img src="../assets/edge-bridge-tutorial/simulator-track-buttons.jpg" alt="Simulator tracking buttons" width="400"/>
 
 2. Click the `AnalyticsTrack` event (**1**) in the events table to see the event details in the right side window
 3. Click the `RAW EVENT` dropdown (**2**) in the event details window to see the event data payload. 
 4. Verify that the `contextdata` matches what was sent by the Analytics `trackAction`/`trackState` API.
 
-<img src="../Assets/edge-bridge-tutorial/assurance-analytics-track-event.jpg" alt="Simulator tracking buttons" width="800"/>
+<img src="../assets/edge-bridge-tutorial/assurance-analytics-track-event.jpg" alt="Simulator tracking buttons" width="800"/>
 
 5. Now click the `Edge Bridge Request` event (**1**) in the events table
 6. Click the `RAW EVENT` dropdown (**2**) in the event details window; notice the slight differences in the payload structure as a result of the `Edge Bridge Request` event conforming to the format of an Edge event.
 
-<img src="../Assets/edge-bridge-tutorial/assurance-edge-bridge-track-event.jpg" alt="Simulator tracking buttons" width="800"/>
+<img src="../assets/edge-bridge-tutorial/assurance-edge-bridge-track-event.jpg" alt="Simulator tracking buttons" width="800"/>
 
 Notice the differences in event data structure and format between the two types of events: Analytics (left) vs Edge (right) via Edge Bridge extension
 The top level EventType is converted from a `generic.track` to `edge` (that is, Analytics generic track event -> Edge event) (**1**). The Edge Bridge extension also populates the standard XDM field for event type (`eventType`) in the event data payload. Also notice that the `contextdata` has moved from directly under `EventData` to under the generic Edge XDM `data` property (**2**).
 
-<img src="../Assets/edge-bridge-tutorial/analytics-edge-bridge-conversion.jpg" alt="Comparison of event data between analytics and edge bridge events" width="1100"/>
+<img src="../assets/edge-bridge-tutorial/analytics-edge-bridge-conversion.jpg" alt="Comparison of event data between analytics and edge bridge events" width="1100"/>
 
 > **Note**
 > The two new top level properties `xdm` and `data` are standard Edge event properties that are part of the Edge platform's XDM schema-based system for event data organization that enables powerful, customizable data processing. However, because the `contextdata` is not yet mapped to an XDM schema, it is not in a usable form for the Edge platform. We will solve this issue by mapping the event data to an XDM schema in the next section.
@@ -389,27 +389,27 @@ In order to map the properties from both `trackAction` and `trackState` events i
 1. Navigate back to your Assurance session for the Edge Bridge app and select the `Edge Bridge Request` event (**1**)
 2. Open the `RAW EVENT` dropdown and click and drag to select the `ACPExtensionEventData` value as shown, then copy the selected value (right click the highlighted selection and choose `Copy`, or use the copy keyboard shortcut `CMD + C`)  
 
-<img src="../Assets/edge-bridge-tutorial/assurance-edgebridge-mapping-data.png" alt="Select data from Edge Bridge event" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/assurance-edgebridge-mapping-data.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
 > **Note**
 > To merge events, you would look for properties under `data` and `contextdata` that are unique between events and include them in the final data payload.
 
 </p></details>
 
-<img src="../Assets/edge-bridge-tutorial/datastreams-json-paste.png" alt="Select data from Edge Bridge event" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/datastreams-json-paste.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
 3. Click the `Add new mapping` button (**1**).
 
-<img src="../Assets/edge-bridge-tutorial/datastreams-start-mapping.png" alt="Select data from Edge Bridge event" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/datastreams-start-mapping.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
 4. A new entry for mapping will appear in the window; click the arrow button (**1**) next to the field `Select source field`.
 
-<img src="../Assets/edge-bridge-tutorial/datastreams-mapping-1.png" alt="Select data from Edge Bridge event" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/datastreams-mapping-1.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
 5. In the JSON property viewer window, click the dropdown arrows next to `data` (**1**) and `contextdata` (**2**). 
 6. Then select the first property to map, `product.add.event` (**3**) and click `Select` (**4**).
 
-<img src="../Assets/edge-bridge-tutorial/datastreams-select-property.png" alt="Select data from Edge Bridge event" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/datastreams-select-property.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
 Notice that in the property viewer, you can see the data hierarchy, where `data` is at the top, `contextdata` is one level down, and `product.add.event` is one level below that. This is nested data, which is a way to organize data in the JSON format. 
 
@@ -422,12 +422,12 @@ Now, we need to map this JSON property from the Edge Bridge event to its matchin
 
 8. Click the schema icon (**2**) to open the XDM property viewer window.
 
-<img src="../Assets/edge-bridge-tutorial/datastreams-mapping-xdm.png" alt="Select data from Edge Bridge event" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/datastreams-mapping-xdm.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
 9. In the XDM property viewer window, click the dropdown arrows next to `commerce` (**1**) and `productListAdds` (**2**). 
 10. Then select the `value` property (**3**) and click `Select` (**4**).
 
-<img src="../Assets/edge-bridge-tutorial/datastreams-mapping-xdm-property.png" alt="Select data from Edge Bridge event" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/datastreams-mapping-xdm-property.png" alt="Select data from Edge Bridge event" width="1100"/>  
 
 11. Repeat this process, adding new mappings for all of the other properties on the JSON data side (except for the `timestamp` property which is handled automatically by Edge), finalizing the mappings like this:
 
