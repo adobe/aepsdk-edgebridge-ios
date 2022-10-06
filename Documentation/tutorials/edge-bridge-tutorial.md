@@ -10,8 +10,9 @@
 - [Client-side implementation](#client-side-implementation)
   - [1. Get a copy of the files (code and tutorial app)](#1-get-a-copy-of-the-files-code-and-tutorial-app)
   - [2. Install Edge Bridge using dependency manager (Swift Package Manager)](#2-install-edge-bridge-using-dependency-manager-swift-package-manager)
-  - [3. Update tutorial app code to remove Analytics](#3-update-tutorial-app-code-to-remove-analytics)
   - [3. Update tutorial app code to enable Edge Bridge functionality](#3-update-tutorial-app-code-to-enable-edge-bridge-functionality)
+    - [Add the Edge Bridge extension](#add-the-edge-bridge-extension)
+    - [Remove Analytics and AEPIdentity](#remove-analytics-and-aepidentity)
   - [4. Run app](#4-run-app)
   - [5. `trackAction`/`trackState` implementation examples](#5-trackactiontrackstate-implementation-examples)
 - [Initial validation with Assurance](#initial-validation-with-assurance)
@@ -19,7 +20,7 @@
   - [2. Connect the app to the Assurance session](#2-connect-the-app-to-the-assurance-session)
   - [3. Event transactions view - check for EdgeBridge events](#3-event-transactions-view---check-for-edgebridge-events)
     - [`trackAction`/`trackState` events](#trackactiontrackstate-events)
-    - [Rules-based events](#rules-based-events)
+    - [Trigger rule-based `trackAction` events](#trigger-rule-based-trackaction-events)
 - [Data prep mapping](#data-prep-mapping)
 - [Final validation using Assurance](#final-validation-using-assurance)
 
@@ -121,7 +122,7 @@ The collectPII API for Analytics does not send events to the Edge Network by def
 2. Give your rule an easily recognizable name (**1**) in your list of rules. In this example, the rule is named "Forward PII events to Edge Network".
 3. Under the **EVENTS** section, select **Add** (**2**).
 
-
+<img src="../assets/edge-bridge-tutorial/analytics-rule-1.png" alt="All installed extensions" width="1100"/>  
 
 #### Define the event <!-- omit in toc -->
 
@@ -129,13 +130,18 @@ The collectPII API for Analytics does not send events to the Edge Network by def
 3. From the **Event Type** dropdown list (**2**), select **Collect PII**.
 4. Select **Keep Changes** (**3**).
 
+<img src="../assets/edge-bridge-tutorial/analytics-rule-2.png" alt="All installed extensions" width="1100"/>  
+
 #### Define the action <!-- omit in toc -->
 1. Under the Actions section, select **+ Add** (**1**).
 
 2. From the **Extension** dropdown list (**1**), select **Adobe Analytics**.
 3. From the **Action Type** dropdown list (**2**), select **Track**.
-4. On the right side window, name the **Action** field "collect_pii".
-5. Select **Keep Changes** (**3**).
+4. Name the **Action** field (**3**) "collect_pii", in the right-side window.
+5. Select the **+** (**4**) next to **Context Data** and set the **Key** to "ruleKey" and **Value** to "ruleValue" (**5**).
+6. Select **Keep Changes** (**6**).
+
+<img src="../assets/edge-bridge-tutorial/analytics-rule-3.png" alt="All installed extensions" width="1100"/>  
 
 #### Save the rule and rebuild your property <!-- omit in toc -->
 1. After you complete your configuration, verify that your rule looks like the following:
@@ -179,17 +185,8 @@ This tutorial assumes a project using Swift Package Manager (SPM) for package de
 
 </p></details>
 
-### 3. Update tutorial app code to remove Analytics
-There are two files we need to update to enable the EdgeBridge extension.
-1. Click the dropdown chevron next to `EdgeBridgeTutorialApp` in the left-side navigation panel.
-2. Click the dropdown chevron next to the `EdgeBridgeTutorialApp` folder.
-3. Click the `AppDelegate.swift` file.
-
-Inside you will see code blocks for this tutorial marked by a header and footer `EdgeBridge Tutorial - remove section (n/m)` (where `n` is the current section and `m` is the total number of sections in the file).
-
-Simply delete everything between the header and footer, and make sure to do this for all "remove section" blocks within the file.
-
 ### 3. Update tutorial app code to enable Edge Bridge functionality
+#### Add the Edge Bridge extension
 There is one file that needs to be updated to enable the Edge Bridge extension:  
 1. `AppDelegate.swift`
    
@@ -204,6 +201,16 @@ To:
 //* EdgeBridge Tutorial - code section (1/2)
 ```
 Make sure to uncomment all sections within the file (the total will tell you how many sections there are).
+
+#### Remove Analytics and AEPIdentity
+To remove the Analytics and AEPIdentity extensions:
+1. Click the dropdown chevron next to `EdgeBridgeTutorialApp` in the left-side navigation panel.
+2. Click the dropdown chevron next to the `EdgeBridgeTutorialApp` folder.
+3. Click the `AppDelegate.swift` file.
+
+Inside you will see code blocks for this tutorial marked by a header and footer `EdgeBridge Tutorial - remove section (n/m)` (where `n` is the current section and `m` is the total number of sections in the file).
+
+Simply delete everything between the header and footer, and make sure to do this for all "remove section" blocks within the file.
 
 For details on the various Edge extensions used, see the [table of related projects](../../README.md#related-projects).
 
@@ -238,7 +245,7 @@ To connect the tutorial app to the Assurance session, see the instructions on [c
 In order to see EdgeBridge events, in the connected app instance:
 1. Trigger a `trackAction` and/or `trackState` within the app which the Edge Bridge extension will convert into Edge events. This event will be captured by the Assurance extension and shown in the web session viewer.
 
-<img src="../assets/edge-bridge-tutorial/simulator-track-buttons.jpg" alt="Simulator tracking buttons" width="400"/>
+<img src="../assets/edge-bridge-tutorial/simulator-track-buttons.png" alt="Simulator tracking buttons" width="400"/>
 
 2. Click the `AnalyticsTrack` event (**1**) in the events table to see the event details in the right side window
 3. Click the `RAW EVENT` dropdown (**2**) in the event details window to see the event data payload.
@@ -259,8 +266,10 @@ The top level EventType is converted from a `generic.track` to `edge` (that is, 
 > **Note**
 > The two new top level properties `xdm` and `data` are standard Edge event properties that are part of the Edge platform's XDM schema-based system for event data organization that enables powerful, customizable data processing. However, because the `contextdata` is not yet mapped to an XDM schema, it is not in a usable form for the Edge platform. We will solve this issue by mapping the event data to an XDM schema in the next section.
 
-#### Rules-based events
-Rules-based trackAction/trackState events are also converted to Edge events by the Edge Bridge extension. Select the **Trigger Consequence** button to trigger a rule that creates a trackAction event.
+#### Trigger rule-based `trackAction` events
+Rules-based trackAction/trackState events are also converted to Edge events by the Edge Bridge extension. Select the **Trigger Rule** button (**1**) to trigger a rule that creates a trackAction event.
+
+<img src="../assets/edge-bridge-tutorial/simulator-trigger-rule-button.png" alt="Simulator tracking buttons" width="400"/>
 
 Just like the `trackAction`/`trackState` events above, the Edge Bridge extension will convert the PII trackAction event into an Edge event.
 
@@ -284,7 +293,9 @@ For a quick overview of the capabilities of Data Prep, watch the following [vide
 
 </p></details>
 
-In order to map the properties from both `trackAction` and `trackState` events in the same datastream, we need to combine their event data properties into a single JSON. For simplicity, the merged data structure has been provided below:
+Currently, the data mapper UI only allows for one JSON payload to be mapped per datastream. This means for a given datastream, all of the potential event payloads need to be merged so that they can be mapped at once.
+
+The properties from both `trackAction` and `trackState` events from the tutorial app need to be combined into a single JSON. For simplicity, the merged data structure has been provided below:
 
 ```json
 {

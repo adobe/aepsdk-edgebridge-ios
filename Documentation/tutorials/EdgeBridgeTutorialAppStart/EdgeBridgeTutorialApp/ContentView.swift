@@ -48,7 +48,7 @@ struct TrackView: View {
                 MobileCore.track(state: "hats/sunhat/wide_brim_sunhat_id12345", data: data)
             }).padding()
 
-            Button("Trigger Consequence", action: {
+            Button("Trigger Rule", action: {
                 // Configure the Data Collection Mobile Property with a Rule to dispatch
                 // an Analytics event when a PII event is dispatched in the SDK.
                 // Without the rule, this button will not forward a track call to the Edge Network.
