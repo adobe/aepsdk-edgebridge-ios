@@ -39,7 +39,7 @@
     {
       "identity" : "aepsdk-edgeconsent-ios",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:adobe/aepsdk-edgeconsent-ios.git",
+      "location" : "https://github.com/adobe/aepsdk-edgeconsent-ios.git",
       "state" : {
         "branch" : "main",
         "revision" : "7e8498bef54275e440bcaaaa8c57b16c2117fce6"

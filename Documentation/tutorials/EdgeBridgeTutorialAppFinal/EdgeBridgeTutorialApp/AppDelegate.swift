@@ -14,6 +14,7 @@ import AEPAssurance
 import AEPCore
 import AEPEdge
 import AEPEdgeConsent
+import AEPEdgeBridge
 import AEPEdgeIdentity
 import AEPLifecycle
 
