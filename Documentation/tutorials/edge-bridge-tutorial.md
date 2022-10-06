@@ -8,9 +8,9 @@
 - [Client-side implementation](#client-side-implementation)
   - [1. Get a copy of the files (code and tutorial app)](#1-get-a-copy-of-the-files-code-and-tutorial-app)
   - [2. Install Edge Bridge using dependency manager (Swift Package Manager)](#2-install-edge-bridge-using-dependency-manager-swift-package-manager)
-  - [3. Update Tutorial App Code to Enable EdgeBridge functionality](#2-update-tutorial-app-code-to-enable-edgebridge-functionality)
-  - [4. Run app](#3-run-app)
-  - [5. TrackAction/TrackState implementation examples](#4-trackactiontrackstate-implementation-examples)
+  - [3. Update Tutorial App Code to Enable EdgeBridge functionality](#3-update-tutorial-app-code-to-enable-edgebridge-functionality)
+  - [4. Run app](#4-run-app)
+  - [5. TrackAction/TrackState implementation examples](#5-trackactiontrackstate-implementation-examples)
 - [Initial validation with Assurance](#initial-validation-with-assurance)
   - [1. Set up the Assurance session](#1-set-up-the-assurance-session)
   - [2. Connect to the app](#2-connect-to-the-app)
@@ -148,7 +148,7 @@ This tutorial assumes a project using Swift Package Manager (SPM) for package de
 
 </p></details>
 
-### 2. Update Tutorial App Code to Enable EdgeBridge functionality
+### 3. Update Tutorial App Code to Enable EdgeBridge functionality
 There are two files we need to update to enable the EdgeBridge extension.
 1. Click the dropdown chevron next to `EdgeBridgeTutorialApp` in the left-side navigation panel.
 2. Click the dropdown chevron next to the `EdgeBridgeTutorialApp` folder.
@@ -188,7 +188,7 @@ Repeat this process for the `SceneDelegate.swift` file.
 
 </p></details>
 
-### 3. Run app   
+### 4. Run app   
 In Xcode, select the app target you want to run, and the destination device to run it on (either simulator or physical device). Then press the play button.
 
 You should see your application running on the device you selected, with logs being displayed in the console in Xcode.
@@ -197,7 +197,7 @@ You should see your application running on the device you selected, with logs be
 > If the debug console area is not shown by default, activate it by selecting:  
 > View -> Debug Area -> Show Debug Area
 
-### 4. TrackAction/TrackState implementation examples   
+### 5. TrackAction/TrackState implementation examples   
 With Edge Bridge extension successfully installed and registered, you can make the regular Analytics `trackAction` and `trackState` calls, which will be captured by Edge Bridge extension and sent to the Edge network.
 
 Check `ContentView.swift` for implementation examples of both APIs. You can see the data payloads that are to be sent with the calls.
