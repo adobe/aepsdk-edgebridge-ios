@@ -10,8 +10,8 @@
 - [Client-side implementation](#client-side-implementation)
   - [1. Get a copy of the files (code and tutorial app)](#1-get-a-copy-of-the-files-code-and-tutorial-app)
   - [1. Install Edge Bridge using dependency manager (Swift Package Manager)](#1-install-edge-bridge-using-dependency-manager-swift-package-manager)
-  - [2. Update Tutorial App Code to remove Analytics](#2-update-tutorial-app-code-to-remove-analytics)
-  - [3. Update Tutorial App Code to Enable EdgeBridge functionality](#3-update-tutorial-app-code-to-enable-edgebridge-functionality)
+  - [2. Update tutorial app code to remove Analytics](#2-update-tutorial-app-code-to-remove-analytics)
+  - [3. Update tutorial app code to enable Edge Bridge functionality](#3-update-tutorial-app-code-to-enable-edge-bridge-functionality)
   - [4. Run app](#4-run-app)
   - [5. `trackAction`/`trackState` implementation examples](#5-trackactiontrackstate-implementation-examples)
 - [Initial validation with Assurance](#initial-validation-with-assurance)
@@ -255,7 +255,7 @@ pod update
 ```
 Cocoapods will use this updated configuration file to install the new packages (including the EdgeBridge extension itself!), which will allow us to add new functionality in the app's code. 
 
-### 2. Update Tutorial App Code to remove Analytics
+### 2. Update tutorial app code to remove Analytics
 With the Edge Bridge extension handling `trackAction`/`trackState` API calls, we can remove the Analytics extension from the code and as a dependency.
 
 There is one file we need to update to remove the Analytics extension. 
@@ -267,7 +267,7 @@ Inside you will see code blocks for this tutorial marked by a header and footer 
 
 Simply delete everything between the header and footer, and make sure to cover all sections within the file.
 
-### 3. Update Tutorial App Code to Enable EdgeBridge functionality
+### 3. Update tutorial app code to enable Edge Bridge functionality
 There are two files that need to be updated to enable the Edge Bridge extension:  
 1. `AppDelegate.swift`
 2. `SceneDelegate.swift`
