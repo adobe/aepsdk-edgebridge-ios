@@ -11,9 +11,9 @@
   - [1. Get a copy of the files (code and tutorial app)](#1-get-a-copy-of-the-files-code-and-tutorial-app)
   - [1. Install Edge Bridge using dependency manager (Swift Package Manager)](#1-install-edge-bridge-using-dependency-manager-swift-package-manager)
   - [2. Update Tutorial App Code to remove Analytics](#2-update-tutorial-app-code-to-remove-analytics)
-  - [2. Update Tutorial App Code to Enable EdgeBridge functionality](#2-update-tutorial-app-code-to-enable-edgebridge-functionality)
-  - [3. Run app](#3-run-app)
-  - [4. `trackAction`/`trackState` implementation examples](#4-trackactiontrackstate-implementation-examples)
+  - [3. Update Tutorial App Code to Enable EdgeBridge functionality](#3-update-tutorial-app-code-to-enable-edgebridge-functionality)
+  - [4. Run app](#4-run-app)
+  - [5. `trackAction`/`trackState` implementation examples](#5-trackactiontrackstate-implementation-examples)
 - [Initial validation with Assurance](#initial-validation-with-assurance)
   - [1. Set up the Assurance session](#1-set-up-the-assurance-session)
   - [2. Connect the app to the Assurance session](#2-connect-the-app-to-the-assurance-session)
@@ -254,15 +254,24 @@ end
 pod update
 ```
 Cocoapods will use this updated configuration file to install the new packages (including the EdgeBridge extension itself!), which will allow us to add new functionality in the app's code. 
-### 2. Update Tutorial App Code to remove Analytics
-With the Edge Bridge extension converting `trackAction`/`trackState`
 
-### 2. Update Tutorial App Code to Enable EdgeBridge functionality
-There are two files we need to update to enable the EdgeBridge extension. 
+### 2. Update Tutorial App Code to remove Analytics
+With the Edge Bridge extension handling `trackAction`/`trackState` API calls, we can remove the Analytics extension from the code and as a dependency.
+
+There is one file we need to update to remove the Analytics extension. 
 1. Click the dropdown chevron next to `EdgeBridgeTutorialApp` in the left-side navigation panel.
 2. Click the dropdown chevron next to the `EdgeBridgeTutorialApp` folder.
 3. Click the `AppDelegate.swift` file.
 
+Inside you will see code blocks for this tutorial marked by a header and footer `EdgeBridge Tutorial - remove section (n/m)` (where `n` is the current section and `m` is the total number of sections in the file).
+
+Simply delete everything between the header and footer, and make sure to cover all sections within the file.
+
+### 3. Update Tutorial App Code to Enable EdgeBridge functionality
+There are two files that need to be updated to enable the Edge Bridge extension:  
+1. `AppDelegate.swift`
+2. `SceneDelegate.swift`
+   
 Inside you will see code blocks for this tutorial that are greyed out, because they are commented out. They are marked by the header and footer `EdgeBridge Tutorial - code section n/m` (where `n` is the current section and `m` is the total number of sections in the file).
 
 To uncomment the section and activate the code, simply add a forward slash at the front of the header:
@@ -273,13 +282,11 @@ To:
 ```swift
 //* EdgeBridge Tutorial - code section (1/2)
 ```
-Make sure to uncomment all sections within the file (the total will tell you how many sections there are):
-1. `AppDelegate.swift`
-2. `SceneDelegate.swift`
+Make sure to uncomment all sections within the file (the total will tell you how many sections there are).
 
 For details on the various Edge extensions used, see the [table of related projects](../../README.md#related-projects).
 
-### 3. Run app   
+### 4. Run app   
 In Xcode, select the app target you want to run, and the destination device to run it on (either simulator or physical device). Then press the play button.
 
 You should see your application running on the device you selected, with logs being displayed in the console in Xcode. 
@@ -288,7 +295,7 @@ You should see your application running on the device you selected, with logs be
 > If the debug console area is not shown by default, activate it by selecting:  
 > View -> Debug Area -> Show Debug Area
 
-### 4. `trackAction`/`trackState` implementation examples   
+### 5. `trackAction`/`trackState` implementation examples   
 With Edge Bridge extension successfully installed and registered, you can make the regular Analytics `trackAction` and `trackState` calls, which will be captured by Edge Bridge extension and sent to the Edge Network.
 
 Check `ContentView.swift` for implementation examples of both APIs. You can see the data payloads that are to be sent with the calls.

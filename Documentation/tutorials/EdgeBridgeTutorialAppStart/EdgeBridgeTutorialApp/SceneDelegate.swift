@@ -11,9 +11,9 @@
 //
 
 /// Imports the Assurance extension for use in the code below.
-/* EdgeBridge Tutorial - code section 1/2
+/* EdgeBridge Tutorial - code section (1/2)
 import AEPAssurance
-// EdgeBridge Tutorial - code section 1/2 */
+// EdgeBridge Tutorial - code section (1/2) */
 import AEPCore
 import SwiftUI
 import UIKit
