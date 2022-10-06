@@ -388,4 +388,5 @@ graph LR;
     step1(App<br/>Analytics trackAction/trackState) --> step2(App<br/>Edge Bridge conversion to Edge event) --> step3(Edge Network<br/>Datastream translation of payload from contextdata to Edge XDM) --> step4(Edge Network<br/>Routing XDM data using datastream to Analytics);
 ```
 
-Check mapping feedback in Event transactions view
+By using the Event Transactions view in the left-side navigation panel, the logical flow of events from `trackAction` event -> data mapping -> Analytics can be seen.
+<img src="../assets/edge-bridge-tutorial/assurance-event-transactions.png" alt="Select data from Edge Bridge event" width="1100"/>  
