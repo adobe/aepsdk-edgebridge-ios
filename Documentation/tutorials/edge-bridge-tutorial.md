@@ -296,6 +296,16 @@ For a quick overview of the capabilities of Data Prep, watch the following [vide
 
 </p></details>
 
+To open the data prep mapper: 
+1. Select **Datastreams** (**1**) in the left-side navigation panel.
+2. Select your datastream (**2**).
+
+<img src="../assets/edge-bridge-tutorial/datastreams-mapper-nav-1.png" alt="Select data from Edge Bridge event" width="1100"/>  
+
+3. Select **Edit Mapping** (**1**) in the right-side navigation panel.  
+
+<img src="../assets/edge-bridge-tutorial/datastreams-mapper-nav-2.png" alt="Select data from Edge Bridge event" width="1100"/>
+
 Currently, the data mapper UI only allows for one JSON payload to be mapped per datastream. This means for a given datastream, all of the potential event payloads need to be merged so that they can be mapped at once.
 
 The properties from both `trackAction` and `trackState` events from the tutorial app need to be combined into a single JSON. For simplicity, the merged data structure has been provided below:
