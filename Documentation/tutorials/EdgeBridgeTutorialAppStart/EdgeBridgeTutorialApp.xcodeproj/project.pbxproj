@@ -7,18 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08672275337CF288F1D9088A /* Pods_EdgeBridgeTutorialApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0048DD1D538D62910029CFCA /* Pods_EdgeBridgeTutorialApp.framework */; };
 		4C8C2E9428ECDA5000DA94D2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8C2E9328ECDA5000DA94D2 /* ContentView.swift */; };
 		4C8C2E9928ECDA5200DA94D2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C8C2E9828ECDA5200DA94D2 /* Preview Assets.xcassets */; };
 		4C8C2EA128ECDAF900DA94D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C8C2E9F28ECDAF900DA94D2 /* LaunchScreen.storyboard */; };
 		4C8C2EA628ECDB0E00DA94D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8C2EA328ECDB0E00DA94D2 /* SceneDelegate.swift */; };
 		4C8C2EAC28ECDB1900DA94D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8C2EA928ECDB1900DA94D2 /* AppDelegate.swift */; };
 		4C8C2EAD28ECDB1900DA94D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C8C2EAA28ECDB1900DA94D2 /* Assets.xcassets */; };
+		D4CFD2A628EE5D60004635C4 /* AEPCore in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2A528EE5D60004635C4 /* AEPCore */; };
+		D4CFD2A828EE5D60004635C4 /* AEPIdentity in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2A728EE5D60004635C4 /* AEPIdentity */; };
+		D4CFD2AA28EE5D60004635C4 /* AEPLifecycle in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2A928EE5D60004635C4 /* AEPLifecycle */; };
+		D4CFD2AC28EE5D60004635C4 /* AEPServices in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2AB28EE5D60004635C4 /* AEPServices */; };
+		D4CFD2AE28EE5D60004635C4 /* AEPSignal in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2AD28EE5D60004635C4 /* AEPSignal */; };
+		D4CFD2D128EE6916004635C4 /* AEPEdge in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2D028EE6916004635C4 /* AEPEdge */; };
+		D4CFD2D428EE6A25004635C4 /* AEPEdgeConsent in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2D328EE6A25004635C4 /* AEPEdgeConsent */; };
+		D4CFD2D728EE6F47004635C4 /* AEPAssurance in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2D628EE6F47004635C4 /* AEPAssurance */; };
+		D4CFD2DA28EE6F60004635C4 /* AEPEdgeIdentity in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2D928EE6F60004635C4 /* AEPEdgeIdentity */; };
+		D4CFD2DD28EE6F88004635C4 /* AEPAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2DC28EE6F88004635C4 /* AEPAnalytics */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0048DD1D538D62910029CFCA /* Pods_EdgeBridgeTutorialApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EdgeBridgeTutorialApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1DF4937D2EFB96E56FFD3F51 /* Pods-EdgeBridgeTutorialApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EdgeBridgeTutorialApp.debug.xcconfig"; path = "Target Support Files/Pods-EdgeBridgeTutorialApp/Pods-EdgeBridgeTutorialApp.debug.xcconfig"; sourceTree = "<group>"; };
 		4C8C2E8E28ECDA5000DA94D2 /* EdgeBridgeTutorialApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EdgeBridgeTutorialApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C8C2E9328ECDA5000DA94D2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4C8C2E9828ECDA5200DA94D2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -27,7 +34,6 @@
 		4C8C2EA328ECDB0E00DA94D2 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4C8C2EA928ECDB1900DA94D2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C8C2EAA28ECDB1900DA94D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B8006ABE385A2603B500F7D3 /* Pods-EdgeBridgeTutorialApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EdgeBridgeTutorialApp.release.xcconfig"; path = "Target Support Files/Pods-EdgeBridgeTutorialApp/Pods-EdgeBridgeTutorialApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,28 +41,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08672275337CF288F1D9088A /* Pods_EdgeBridgeTutorialApp.framework in Frameworks */,
+				D4CFD2D128EE6916004635C4 /* AEPEdge in Frameworks */,
+				D4CFD2A628EE5D60004635C4 /* AEPCore in Frameworks */,
+				D4CFD2AE28EE5D60004635C4 /* AEPSignal in Frameworks */,
+				D4CFD2D428EE6A25004635C4 /* AEPEdgeConsent in Frameworks */,
+				D4CFD2DD28EE6F88004635C4 /* AEPAnalytics in Frameworks */,
+				D4CFD2DA28EE6F60004635C4 /* AEPEdgeIdentity in Frameworks */,
+				D4CFD2AC28EE5D60004635C4 /* AEPServices in Frameworks */,
+				D4CFD2A828EE5D60004635C4 /* AEPIdentity in Frameworks */,
+				D4CFD2AA28EE5D60004635C4 /* AEPLifecycle in Frameworks */,
+				D4CFD2D728EE6F47004635C4 /* AEPAssurance in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		131215C3D4DE2961297CED45 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				0048DD1D538D62910029CFCA /* Pods_EdgeBridgeTutorialApp.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		4C8C2E8528ECDA5000DA94D2 = {
 			isa = PBXGroup;
 			children = (
 				4C8C2E9028ECDA5000DA94D2 /* EdgeBridgeTutorialApp */,
 				4C8C2E8F28ECDA5000DA94D2 /* Products */,
-				B77E68E2874EEDA78B0F8614 /* Pods */,
-				131215C3D4DE2961297CED45 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,15 +95,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		B77E68E2874EEDA78B0F8614 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1DF4937D2EFB96E56FFD3F51 /* Pods-EdgeBridgeTutorialApp.debug.xcconfig */,
-				B8006ABE385A2603B500F7D3 /* Pods-EdgeBridgeTutorialApp.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,17 +102,27 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C8C2E9C28ECDA5200DA94D2 /* Build configuration list for PBXNativeTarget "EdgeBridgeTutorialApp" */;
 			buildPhases = (
-				CC4F8EBB4F51978F462069AB /* [CP] Check Pods Manifest.lock */,
 				4C8C2E8A28ECDA5000DA94D2 /* Sources */,
 				4C8C2E8B28ECDA5000DA94D2 /* Frameworks */,
 				4C8C2E8C28ECDA5000DA94D2 /* Resources */,
-				6C3F71B98FCB601555668632 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = EdgeBridgeTutorialApp;
+			packageProductDependencies = (
+				D4CFD2A528EE5D60004635C4 /* AEPCore */,
+				D4CFD2A728EE5D60004635C4 /* AEPIdentity */,
+				D4CFD2A928EE5D60004635C4 /* AEPLifecycle */,
+				D4CFD2AB28EE5D60004635C4 /* AEPServices */,
+				D4CFD2AD28EE5D60004635C4 /* AEPSignal */,
+				D4CFD2D028EE6916004635C4 /* AEPEdge */,
+				D4CFD2D328EE6A25004635C4 /* AEPEdgeConsent */,
+				D4CFD2D628EE6F47004635C4 /* AEPAssurance */,
+				D4CFD2D928EE6F60004635C4 /* AEPEdgeIdentity */,
+				D4CFD2DC28EE6F88004635C4 /* AEPAnalytics */,
+			);
 			productName = EdgeBridgeTutorialAppStart;
 			productReference = 4C8C2E8E28ECDA5000DA94D2 /* EdgeBridgeTutorialApp.app */;
 			productType = "com.apple.product-type.application";
@@ -145,6 +151,14 @@
 				Base,
 			);
 			mainGroup = 4C8C2E8528ECDA5000DA94D2;
+			packageReferences = (
+				D4CFD2A428EE5D60004635C4 /* XCRemoteSwiftPackageReference "aepsdk-core-ios" */,
+				D4CFD2CF28EE6916004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edge-ios" */,
+				D4CFD2D228EE6A25004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edgeconsent-ios" */,
+				D4CFD2D528EE6F47004635C4 /* XCRemoteSwiftPackageReference "aepsdk-assurance-ios" */,
+				D4CFD2D828EE6F60004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edgeidentity-ios" */,
+				D4CFD2DB28EE6F88004635C4 /* XCRemoteSwiftPackageReference "aepsdk-analytics-ios" */,
+			);
 			productRefGroup = 4C8C2E8F28ECDA5000DA94D2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -166,48 +180,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		6C3F71B98FCB601555668632 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EdgeBridgeTutorialApp/Pods-EdgeBridgeTutorialApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-EdgeBridgeTutorialApp/Pods-EdgeBridgeTutorialApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EdgeBridgeTutorialApp/Pods-EdgeBridgeTutorialApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CC4F8EBB4F51978F462069AB /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-EdgeBridgeTutorialApp-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4C8C2E8A28ECDA5000DA94D2 /* Sources */ = {
@@ -350,7 +322,6 @@
 		};
 		4C8C2E9D28ECDA5200DA94D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1DF4937D2EFB96E56FFD3F51 /* Pods-EdgeBridgeTutorialApp.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -383,7 +354,6 @@
 		};
 		4C8C2E9E28ECDA5200DA94D2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B8006ABE385A2603B500F7D3 /* Pods-EdgeBridgeTutorialApp.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -436,6 +406,110 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D4CFD2A428EE5D60004635C4 /* XCRemoteSwiftPackageReference "aepsdk-core-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adobe/aepsdk-core-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		D4CFD2CF28EE6916004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edge-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adobe/aepsdk-edge-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		D4CFD2D228EE6A25004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edgeconsent-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:adobe/aepsdk-edgeconsent-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		D4CFD2D528EE6F47004635C4 /* XCRemoteSwiftPackageReference "aepsdk-assurance-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adobe/aepsdk-assurance-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		D4CFD2D828EE6F60004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edgeidentity-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adobe/aepsdk-edgeidentity-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		D4CFD2DB28EE6F88004635C4 /* XCRemoteSwiftPackageReference "aepsdk-analytics-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adobe/aepsdk-analytics-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D4CFD2A528EE5D60004635C4 /* AEPCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2A428EE5D60004635C4 /* XCRemoteSwiftPackageReference "aepsdk-core-ios" */;
+			productName = AEPCore;
+		};
+		D4CFD2A728EE5D60004635C4 /* AEPIdentity */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2A428EE5D60004635C4 /* XCRemoteSwiftPackageReference "aepsdk-core-ios" */;
+			productName = AEPIdentity;
+		};
+		D4CFD2A928EE5D60004635C4 /* AEPLifecycle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2A428EE5D60004635C4 /* XCRemoteSwiftPackageReference "aepsdk-core-ios" */;
+			productName = AEPLifecycle;
+		};
+		D4CFD2AB28EE5D60004635C4 /* AEPServices */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2A428EE5D60004635C4 /* XCRemoteSwiftPackageReference "aepsdk-core-ios" */;
+			productName = AEPServices;
+		};
+		D4CFD2AD28EE5D60004635C4 /* AEPSignal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2A428EE5D60004635C4 /* XCRemoteSwiftPackageReference "aepsdk-core-ios" */;
+			productName = AEPSignal;
+		};
+		D4CFD2D028EE6916004635C4 /* AEPEdge */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2CF28EE6916004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edge-ios" */;
+			productName = AEPEdge;
+		};
+		D4CFD2D328EE6A25004635C4 /* AEPEdgeConsent */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2D228EE6A25004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edgeconsent-ios" */;
+			productName = AEPEdgeConsent;
+		};
+		D4CFD2D628EE6F47004635C4 /* AEPAssurance */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2D528EE6F47004635C4 /* XCRemoteSwiftPackageReference "aepsdk-assurance-ios" */;
+			productName = AEPAssurance;
+		};
+		D4CFD2D928EE6F60004635C4 /* AEPEdgeIdentity */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2D828EE6F60004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edgeidentity-ios" */;
+			productName = AEPEdgeIdentity;
+		};
+		D4CFD2DC28EE6F88004635C4 /* AEPAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4CFD2DB28EE6F88004635C4 /* XCRemoteSwiftPackageReference "aepsdk-analytics-ios" */;
+			productName = AEPAnalytics;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4C8C2E8628ECDA5000DA94D2 /* Project object */;
 }

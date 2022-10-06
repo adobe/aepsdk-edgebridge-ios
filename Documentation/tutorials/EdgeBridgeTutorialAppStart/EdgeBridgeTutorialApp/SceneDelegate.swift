@@ -10,9 +10,7 @@
 // governing permissions and limitations under the License.
 //
 
-/* EdgeBridge Tutorial - code section 1/2
 import AEPAssurance
-// EdgeBridge Tutorial - code section 1/2 */
 import AEPCore
 import SwiftUI
 import UIKit
@@ -72,9 +70,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         // to note : this method is not called when an app not in memory (forceclosed) is opened with deeplink
         if let url = URLContexts.first?.url {
-/* EdgeBridge Tutorial - code section 2/2
             Assurance.startSession(url: url)
-// EdgeBridge Tutorial - code section 2/2 */
         }
     }
 }
