@@ -14,18 +14,17 @@ import AEPAssurance
 import AEPCore
 import AEPEdge
 import AEPEdgeConsent
-import AEPEdgeBridge
 import AEPEdgeIdentity
 import AEPLifecycle
 
-/* EdgeBridge Tutorial - code section 1/4
+/* EdgeBridge Tutorial - code section 1/2
 import AEPEdgeBridge
-// EdgeBridge Tutorial - code section 1/4 */
+// EdgeBridge Tutorial - code section 1/2 */
 
-//* EdgeBridge Tutorial - code section 3/4
+//* EdgeBridge Tutorial - remove section 1/2
 import AEPAnalytics
 import AEPIdentity
-// EdgeBridge Tutorial - code section 3/4 */
+// EdgeBridge Tutorial - remove section 1/2 */
 
 import Compression
 import UIKit
@@ -33,7 +32,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
-    private let ENVIRONMENT_FILE_ID = "94f571f308d5/3a705b49a018/launch-9832b27f3df8-development"
+    private let ENVIRONMENT_FILE_ID = ""
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -41,14 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MobileCore.setLogLevel(.trace)
         MobileCore.configureWith(appId: ENVIRONMENT_FILE_ID)
         MobileCore.registerExtensions([
-/* EdgeBridge Tutorial - code section 2/4
+/* EdgeBridge Tutorial - code section 2/2
             EdgeBridge.self,
-// EdgeBridge Tutorial - code section 2/4 */
+// EdgeBridge Tutorial - code section 2/2 */
             
-//* EdgeBridge Tutorial - code section 4/4
+//* EdgeBridge Tutorial - remove section 2/2
             Analytics.self,
             AEPIdentity.Identity.self,
-//* EdgeBridge Tutorial - code section 4/4
+//* EdgeBridge Tutorial - remove section 2/2
             Assurance.self,
             Consent.self,
             Edge.self,

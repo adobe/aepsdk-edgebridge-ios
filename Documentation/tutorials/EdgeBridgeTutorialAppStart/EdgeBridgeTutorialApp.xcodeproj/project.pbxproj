@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C4AFBC028EE7A54002C6426 /* AEPEdgeConsent in Frameworks */ = {isa = PBXBuildFile; productRef = 4C4AFBBF28EE7A54002C6426 /* AEPEdgeConsent */; };
 		4C8C2E9428ECDA5000DA94D2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8C2E9328ECDA5000DA94D2 /* ContentView.swift */; };
 		4C8C2E9928ECDA5200DA94D2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C8C2E9828ECDA5200DA94D2 /* Preview Assets.xcassets */; };
 		4C8C2EA128ECDAF900DA94D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C8C2E9F28ECDAF900DA94D2 /* LaunchScreen.storyboard */; };
@@ -19,7 +20,6 @@
 		D4CFD2AC28EE5D60004635C4 /* AEPServices in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2AB28EE5D60004635C4 /* AEPServices */; };
 		D4CFD2AE28EE5D60004635C4 /* AEPSignal in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2AD28EE5D60004635C4 /* AEPSignal */; };
 		D4CFD2D128EE6916004635C4 /* AEPEdge in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2D028EE6916004635C4 /* AEPEdge */; };
-		D4CFD2D428EE6A25004635C4 /* AEPEdgeConsent in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2D328EE6A25004635C4 /* AEPEdgeConsent */; };
 		D4CFD2D728EE6F47004635C4 /* AEPAssurance in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2D628EE6F47004635C4 /* AEPAssurance */; };
 		D4CFD2DA28EE6F60004635C4 /* AEPEdgeIdentity in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2D928EE6F60004635C4 /* AEPEdgeIdentity */; };
 		D4CFD2DD28EE6F88004635C4 /* AEPAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D4CFD2DC28EE6F88004635C4 /* AEPAnalytics */; };
@@ -44,7 +44,7 @@
 				D4CFD2D128EE6916004635C4 /* AEPEdge in Frameworks */,
 				D4CFD2A628EE5D60004635C4 /* AEPCore in Frameworks */,
 				D4CFD2AE28EE5D60004635C4 /* AEPSignal in Frameworks */,
-				D4CFD2D428EE6A25004635C4 /* AEPEdgeConsent in Frameworks */,
+				4C4AFBC028EE7A54002C6426 /* AEPEdgeConsent in Frameworks */,
 				D4CFD2DD28EE6F88004635C4 /* AEPAnalytics in Frameworks */,
 				D4CFD2DA28EE6F60004635C4 /* AEPEdgeIdentity in Frameworks */,
 				D4CFD2AC28EE5D60004635C4 /* AEPServices in Frameworks */,
@@ -118,10 +118,10 @@
 				D4CFD2AB28EE5D60004635C4 /* AEPServices */,
 				D4CFD2AD28EE5D60004635C4 /* AEPSignal */,
 				D4CFD2D028EE6916004635C4 /* AEPEdge */,
-				D4CFD2D328EE6A25004635C4 /* AEPEdgeConsent */,
 				D4CFD2D628EE6F47004635C4 /* AEPAssurance */,
 				D4CFD2D928EE6F60004635C4 /* AEPEdgeIdentity */,
 				D4CFD2DC28EE6F88004635C4 /* AEPAnalytics */,
+				4C4AFBBF28EE7A54002C6426 /* AEPEdgeConsent */,
 			);
 			productName = EdgeBridgeTutorialAppStart;
 			productReference = 4C8C2E8E28ECDA5000DA94D2 /* EdgeBridgeTutorialApp.app */;
@@ -154,10 +154,10 @@
 			packageReferences = (
 				D4CFD2A428EE5D60004635C4 /* XCRemoteSwiftPackageReference "aepsdk-core-ios" */,
 				D4CFD2CF28EE6916004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edge-ios" */,
-				D4CFD2D228EE6A25004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edgeconsent-ios" */,
 				D4CFD2D528EE6F47004635C4 /* XCRemoteSwiftPackageReference "aepsdk-assurance-ios" */,
 				D4CFD2D828EE6F60004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edgeidentity-ios" */,
 				D4CFD2DB28EE6F88004635C4 /* XCRemoteSwiftPackageReference "aepsdk-analytics-ios" */,
+				4C4AFBBE28EE7A54002C6426 /* XCRemoteSwiftPackageReference "aepsdk-edgeconsent-ios" */,
 			);
 			productRefGroup = 4C8C2E8F28ECDA5000DA94D2 /* Products */;
 			projectDirPath = "";
@@ -408,6 +408,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4C4AFBBE28EE7A54002C6426 /* XCRemoteSwiftPackageReference "aepsdk-edgeconsent-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adobe/aepsdk-edgeconsent-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		D4CFD2A428EE5D60004635C4 /* XCRemoteSwiftPackageReference "aepsdk-core-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/adobe/aepsdk-core-ios.git";
@@ -419,14 +427,6 @@
 		D4CFD2CF28EE6916004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edge-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/adobe/aepsdk-edge-ios.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		D4CFD2D228EE6A25004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edgeconsent-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:adobe/aepsdk-edgeconsent-ios.git";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -459,6 +459,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4C4AFBBF28EE7A54002C6426 /* AEPEdgeConsent */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C4AFBBE28EE7A54002C6426 /* XCRemoteSwiftPackageReference "aepsdk-edgeconsent-ios" */;
+			productName = AEPEdgeConsent;
+		};
 		D4CFD2A528EE5D60004635C4 /* AEPCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4CFD2A428EE5D60004635C4 /* XCRemoteSwiftPackageReference "aepsdk-core-ios" */;
@@ -488,11 +493,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4CFD2CF28EE6916004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edge-ios" */;
 			productName = AEPEdge;
-		};
-		D4CFD2D328EE6A25004635C4 /* AEPEdgeConsent */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D4CFD2D228EE6A25004635C4 /* XCRemoteSwiftPackageReference "aepsdk-edgeconsent-ios" */;
-			productName = AEPEdgeConsent;
 		};
 		D4CFD2D628EE6F47004635C4 /* AEPAssurance */ = {
 			isa = XCSwiftPackageProductDependency;

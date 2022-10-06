@@ -9,8 +9,8 @@
   - [2. Configure a Rule to forward PII events to Edge Network](#2-configure-a-rule-to-forward-pii-events-to-edge-network)
 - [Client-side implementation](#client-side-implementation)
   - [1. Get a copy of the files (code and tutorial app)](#1-get-a-copy-of-the-files-code-and-tutorial-app)
-  - [1. Install Edge Bridge using dependency manager (Swift Package Manager)](#1-install-edge-bridge-using-dependency-manager-swift-package-manager)
-  - [2. Update tutorial app code to remove Analytics](#2-update-tutorial-app-code-to-remove-analytics)
+  - [2. Install Edge Bridge using dependency manager (Swift Package Manager)](#2-install-edge-bridge-using-dependency-manager-swift-package-manager)
+  - [3. Update tutorial app code to remove Analytics](#3-update-tutorial-app-code-to-remove-analytics)
   - [3. Update tutorial app code to enable Edge Bridge functionality](#3-update-tutorial-app-code-to-enable-edge-bridge-functionality)
   - [4. Run app](#4-run-app)
   - [5. `trackAction`/`trackState` implementation examples](#5-trackactiontrackstate-implementation-examples)
@@ -179,7 +179,7 @@ This tutorial assumes a project using Swift Package Manager (SPM) for package de
 
 </p></details>
 
-### 3. Update Tutorial App Code to Enable EdgeBridge functionality
+### 3. Update tutorial app code to remove Analytics
 There are two files we need to update to enable the EdgeBridge extension.
 1. Click the dropdown chevron next to `EdgeBridgeTutorialApp` in the left-side navigation panel.
 2. Click the dropdown chevron next to the `EdgeBridgeTutorialApp` folder.
