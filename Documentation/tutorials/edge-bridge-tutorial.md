@@ -37,6 +37,7 @@ graph LR;
 - macOS machine with a recent version of Xcode installed.
 
 ### Prerequisites
+- The tutorial app for this exercise already includes the Edge extensions. If you want to learn more about this, check out the [Edge tutorial](https://github.com/adobe/aepsdk-edge-ios/tree/main/Documentation/Tutorials).
 - A timestamp enabled report suite is configured for mobile data collection.
 - A tag (also known as mobile property) is configured in Data Collection UI which has Adobe Analytics extension installed and configured.
 
@@ -172,7 +173,9 @@ The next task is to add the necessary dependencies that will enable the Edge Bri
   - Select **Package dependencies**
   - Select **AEPAnalytics** and then the minus (-) button under the table, then select **Remove**.
 
-4. Discussion: After this step, in this tutorial app there are no other Adobe Experience Cloud Solution extensions. At this point the import and registration for AEPIdentity extension can also be removed since AEPEdgeIdentity takes care of the identity piece on the Edge extensions.
+> **Note**  
+> After this step, there are no Adobe Experience Cloud Solution extensions in the app. At this point, the import and registration for the AEPIdentity extension can also be removed since AEPEdgeIdentity takes care of the identity functionality for the Edge extensions.
+> If your application still uses Adobe Experience Cloud Solution extensions, such as Adobe Target, Adobe Campaign, etc. (find the full list [here](https://aep-sdks.gitbook.io/docs/)) you should ignore the steps below for removing AEPIdentity and continue to use the extension.
 
 <details>
   <summary> Using CocoaPods instead? </summary><p>
