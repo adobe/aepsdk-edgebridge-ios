@@ -173,7 +173,7 @@ The next task is to add the necessary dependencies that will enable the Edge Bri
   - Select **Package dependencies**
   - Select **AEPAnalytics** and then the minus (-) button under the table, then select **Remove**.
 
-> **Note**  
+> **Warning**  
 > After this step, there are no Adobe Experience Cloud Solution extensions in the app. At this point, the import and registration for the AEPIdentity extension can also be removed since AEPEdgeIdentity takes care of the identity functionality for the Edge extensions.
 > If your application still uses Adobe Experience Cloud Solution extensions, such as Adobe Target, Adobe Campaign, etc. (find the full list [here](https://aep-sdks.gitbook.io/docs/)) you should ignore the steps below for removing AEPIdentity and continue to use the extension.
 
