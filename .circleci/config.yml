@@ -3,8 +3,8 @@
 
 version: 2.1
 
-#orbs: 
-  #codecov: codecov/codecov@3.2.3
+orbs: 
+  codecov: codecov/codecov@3.2.3
 
 # Workflows orchestrate a set of jobs to be run
 workflows:
@@ -73,8 +73,8 @@ jobs:
 
       # Code coverage upload using Codecov
       # See options explanation here: https://docs.codecov.com/docs/codecov-uploader
-      #- codecov/upload:
-          #xtra_args: -c -v --xc --xp results.xcresult
+      - codecov/upload:
+          xtra_args: -c -v --xc --xp results.xcresult
 
       # verify XCFramework archive builds
       # ci-archive updates Pods so run this step last
