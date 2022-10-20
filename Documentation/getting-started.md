@@ -134,3 +134,6 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
   ...
 }
 ```
+
+### Using Context Data Capture Feature
+In order to see the output from the context data capture, set the log level for the application to at least `debug`.

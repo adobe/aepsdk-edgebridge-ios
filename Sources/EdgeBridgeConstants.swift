@@ -18,8 +18,18 @@ enum EdgeBridgeConstants {
     static let EXTENSION_VERSION = "1.0.0-beta"
     static let LOG_TAG = FRIENDLY_NAME
 
+    enum EventDataKeys {
+        enum ContextDataKeys {
+            static let CAPTURE = "capture"
+            static let MERGE = "merge"
+            static let CASE_SENSITIVE_MERGE = "caseSensitiveMerge"
+        }
+    }
+
     enum EventNames {
         static let EDGE_BRIDGE_REQUEST = "Edge Bridge Request"
+        static let EDGE_BRDIGE_START_CONTEXT_DATA_CAPTURE = "Edge Bridge Start Context Data Capture"
+        static let EDGE_BRDIGE_STOP_CONTEXT_DATA_CAPTURE = "Edge Bridge Stop Context Data Capture"
     }
 
     enum JsonValues {
