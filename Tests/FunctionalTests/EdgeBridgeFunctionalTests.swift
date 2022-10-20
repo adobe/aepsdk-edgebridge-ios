@@ -32,8 +32,8 @@ class EdgeBridgeFunctionalTests: FunctionalTestBase {
         continueAfterFailure = false
         FileManager.default.clearCache()
 
-        // hub shared state update for 1 extension versions (InstrumentedExtension (registered in FunctionalTestBase), IdentityEdge, Edge) IdentityEdge XDM and Config shared state updates
-        setExpectationEvent(type: EventType.hub, source: EventSource.sharedState, expectedCount: 3)
+        // hub shared state update for 1 extension versions Edge, Identity, Configuration, EventHub shared state updates
+        setExpectationEvent(type: EventType.hub, source: EventSource.sharedState, expectedCount: 4)
 
         // expectations for update config request&response events
         setExpectationEvent(type: EventType.configuration, source: EventSource.requestContent, expectedCount: 1)
