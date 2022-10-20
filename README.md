@@ -41,7 +41,7 @@ To add the AEPEdgeBridge Package to your application, from the Xcode 13.x menu s
 `File > Add Packages...`
 
 > **Note** 
-> the menu options may vary depending on the version of Xcode being used.
+> The menu options may vary depending on the version of Xcode being used.
 
 Enter the URL for the AEPEdgeBridge package repository: `https://github.com/adobe/aepsdk-edgebridge-ios.git`.
 
