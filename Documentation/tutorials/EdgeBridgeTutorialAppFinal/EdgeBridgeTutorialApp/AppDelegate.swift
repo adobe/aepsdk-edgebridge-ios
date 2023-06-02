@@ -13,12 +13,12 @@
 import AEPAssurance
 import AEPCore
 import AEPEdge
-import AEPEdgeBridge
 import AEPEdgeConsent
 import AEPEdgeIdentity
 import AEPLifecycle
 
 // * EdgeBridge Tutorial - code section (1/2)
+import AEPEdgeBridge
 // EdgeBridge Tutorial - code section (1/2) */
 
 /* EdgeBridge Tutorial - remove section (1/2)
