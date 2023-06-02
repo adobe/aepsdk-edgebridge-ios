@@ -41,7 +41,7 @@ $ pod install
 
 #### [Swift Package Manager](https://github.com/apple/swift-package-manager)
 
-To add the AEPEdge Package to your application, from the Xcode menu select:
+To add the AEPEdgeBridge Package to your application, from the Xcode menu select:
 
 `File > Add Packages...`
 
