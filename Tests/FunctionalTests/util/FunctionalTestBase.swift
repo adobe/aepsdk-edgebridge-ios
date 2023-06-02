@@ -125,8 +125,10 @@ class FunctionalTestBase: XCTestCase {
             let waitResult = expectedEvent.value.await(timeout: FunctionalTestConst.Defaults.WAIT_EVENT_TIMEOUT)
             let expectedCount: Int32 = expectedEvent.value.getInitialCount()
             let receivedCount: Int32 = expectedEvent.value.getInitialCount() - expectedEvent.value.getCurrentCount()
-            XCTAssertFalse(waitResult == DispatchTimeoutResult.timedOut, "Timed out waiting for event type \(expectedEvent.key.type) and source \(expectedEvent.key.source), expected \(expectedCount), but received \(receivedCount)", file: (file), line: line)
-            XCTAssertEqual(expectedCount, receivedCount, "Expected \(expectedCount) event(s) of type \(expectedEvent.key.type) and source \(expectedEvent.key.source), but received \(receivedCount)", file: (file), line: line)
+            let result: String = "Waiting for event type \(expectedEvent.key.type) and source \(expectedEvent.key.source), expected \(expectedCount), but received \(receivedCount)"
+            let countResult: String = "Expected \(expectedCount) event(s) of type \(expectedEvent.key.type) and source \(expectedEvent.key.source), but received \(receivedCount)"
+            XCTAssertFalse(waitResult == DispatchTimeoutResult.timedOut, result, file: (file), line: line)
+            XCTAssertEqual(expectedCount, receivedCount, countResult, file: (file), line: line)
         }
 
         guard ignoreUnexpectedEvents == false else { return }
@@ -148,7 +150,8 @@ class FunctionalTestBase: XCTestCase {
                 _ = expectedEvent.await(timeout: FunctionalTestConst.Defaults.WAIT_EVENT_TIMEOUT)
                 let expectedCount: Int32 = expectedEvent.getInitialCount()
                 let receivedCount: Int32 = expectedEvent.getInitialCount() - expectedEvent.getCurrentCount()
-                XCTAssertEqual(expectedCount, receivedCount, "Expected \(expectedCount) events of type \(receivedEvent.key.type) and source \(receivedEvent.key.source), but received \(receivedCount)", file: (file), line: line)
+                let countResult: String = "Expected \(expectedCount) events of type \(receivedEvent.key.type) and source \(receivedEvent.key.source), but received \(receivedCount)"
+                XCTAssertEqual(expectedCount, receivedCount, countResult, file: (file), line: line)
             }
             // check for events that don't have expectations set
             else {
@@ -267,8 +270,10 @@ class FunctionalTestBase: XCTestCase {
             let waitResult = expectedRequest.value.await(timeout: 10)
             let expectedCount: Int32 = expectedRequest.value.getInitialCount()
             let receivedCount: Int32 = expectedRequest.value.getInitialCount() - expectedRequest.value.getCurrentCount()
-            XCTAssertFalse(waitResult == DispatchTimeoutResult.timedOut, "Timed out waiting for network request(s) with URL \(expectedRequest.key.url.absoluteString) and HTTPMethod \(expectedRequest.key.httpMethod.toString()), expected \(expectedCount) but received \(receivedCount)", file: file, line: line)
-            XCTAssertEqual(expectedCount, receivedCount, "Expected \(expectedCount) network request(s) for URL \(expectedRequest.key.url.absoluteString) and HTTPMethod \(expectedRequest.key.httpMethod.toString()), but received \(receivedCount)", file: file, line: line)
+            let result: String = "Timedout at \(expectedRequest.key.url.absoluteString) and HTTPMethod \(expectedRequest.key.httpMethod.toString()), expected \(expectedCount) but got \(receivedCount)"
+            let countResult = "Expected \(expectedCount) request for \(expectedRequest.key.url.absoluteString) and HTTPMethod \(expectedRequest.key.httpMethod.toString()), but got \(receivedCount)"
+            XCTAssertFalse(waitResult == DispatchTimeoutResult.timedOut, result, file: file, line: line)
+            XCTAssertEqual(expectedCount, receivedCount, countResult, file: file, line: line)
         }
     }
 

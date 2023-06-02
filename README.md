@@ -1,11 +1,17 @@
 # Adobe Experience Platform Edge Bridge
 
+[![Cocoapods](https://img.shields.io/cocoapods/v/AEPEdgeIdentity.svg?color=orange&label=AEPEdgeBridge&logo=apple&logoColor=white)](https://cocoapods.org/pods/AEPEdgeBridge)
+
+[![SPM](https://img.shields.io/badge/SPM-Supported-orange.svg?logo=apple&logoColor=white)](https://swift.org/package-manager/)
+[![CircleCI](https://img.shields.io/circleci/project/github/adobe/aepsdk-edgebridge-ios/main.svg?logo=circleci)](https://circleci.com/gh/adobe/workflows/aepsdk-edgebridge-ios)
+[![Code Coverage](https://img.shields.io/codecov/c/github/adobe/aepsdk-edgebridge-ios/main.svg?logo=codecov)](https://codecov.io/gh/adobe/aepsdk-edgebridge-ios/branch/main)
+
 ## About this project
 
 The AEP Edge Bridge mobile extension enables forwarding of Analytics track events to Adobe Edge Network when using the [Adobe Experience Platform SDK](https://aep-sdks.gitbook.io/docs/) and the Edge Network extension. The configured Data Collection datastream for the mobile application can define a mapping of the track event's contextdata to an XDM schema using [Data Prep for Data Collection](https://experienceleague.adobe.com/docs/platform-learn/data-collection/edge-network/data-prep.html).
 
 ## Requirements
-- Xcode 11.0 (or newer)
+- Xcode 14.1 (or newer)
 - Swift 5.1 (or newer)
 
 ## Add Edge Bridge extension to an application
@@ -36,7 +42,7 @@ $ pod install
 
 #### [Swift Package Manager](https://github.com/apple/swift-package-manager)
 
-To add the AEPEdgeBridge Package to your application, from the Xcode 13.x menu select:
+To add the AEPEdge Package to your application, from the Xcode menu select:
 
 `File > Add Packages...`
 
@@ -51,7 +57,7 @@ Alternatively, if your project has a `Package.swift` file, you can add AEPEdgeBr
 
 ```
 dependencies: [
-    .package(url: "https://github.com/adobe/aepsdk-edgebridge-ios.git", .upToNextMajor(from: "1.0.0"))
+    .package(url: "https://github.com/adobe/aepsdk-edgebridge-ios.git", .upToNextMajor(from: "4.0.0"))
 ]
 ```
 
@@ -164,3 +170,7 @@ Contributions are welcomed! Read the [Contributing Guide](./.github/CONTRIBUTING
 ## Licensing
 
 This project is licensed under the Apache V2 License. See [LICENSE](LICENSE) for more information.
+
+## Security policy
+
+See the [SECURITY POLICY](SECURITY.md) for more details.

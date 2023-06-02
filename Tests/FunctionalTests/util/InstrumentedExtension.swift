@@ -19,7 +19,7 @@ class InstrumentedExtension: NSObject, Extension {
     private static let logTag = "InstrumentedExtension"
     var name = "com.adobe.InstrumentedExtension"
     var friendlyName = "InstrumentedExtension"
-    static var extensionVersion = "1.0.0"
+    static var extensionVersion = "4.0.0"
     var metadata: [String: String]?
     var runtime: ExtensionRuntime
 
