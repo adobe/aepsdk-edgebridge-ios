@@ -5,6 +5,7 @@ version: 2.1
 
 orbs: 
   codecov: codecov/codecov@3.2.5
+  macos: circleci/macos@2
 
 # Workflows orchestrate a set of jobs to be run
 workflows:
@@ -79,10 +80,17 @@ jobs:
           xtra_args: -c -v --xc --xp results.xcresult
 
       # verify XCFramework archive builds
-      # ci-archive updates Pods so run this step last
       - run:
           name: Build XCFramework
           command: |
-            if [[ "${CIRCLE_BRANCH}" == "main" || "${CIRCLE_BRANCH}" == "staging" ]]; then
-              make ci-archive
+            if [ "${CIRCLE_BRANCH}" == "main" ]; then
+              make archive
             fi
+
+      # verify test app builds
+      - run:
+          name: Build Test App
+          command: |
+             if [ "${CIRCLE_BRANCH}" == "main" ]; then
+               make build-app
+             fi      
