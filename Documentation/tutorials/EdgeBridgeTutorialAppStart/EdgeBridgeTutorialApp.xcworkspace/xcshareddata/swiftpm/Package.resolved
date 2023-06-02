@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "aepsdk-analytics-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adobe/aepsdk-analytics-ios.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "c6866d8989686e532a528c508bf74eca8b5efe57"
+      }
+    },
+    {
       "identity" : "aepsdk-assurance-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/adobe/aepsdk-assurance-ios.git",
@@ -25,15 +34,6 @@
       "state" : {
         "branch" : "main",
         "revision" : "07bb9647416be3f6207a13189472e2445e90724c"
-      }
-    },
-    {
-      "identity" : "aepsdk-edgebridge-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/adobe/aepsdk-edgebridge-ios.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "bb420c8a566fb64c862441c81006d47321bd8b0b"
       }
     },
     {
