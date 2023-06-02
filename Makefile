@@ -11,9 +11,6 @@ SIMULATOR_ARCHIVE_DSYM_PATH = $(CURR_DIR)/build/ios_simulator.xcarchive/dSYMs/
 IOS_ARCHIVE_PATH = $(CURR_DIR)/build/ios.xcarchive/Products/Library/Frameworks/
 IOS_ARCHIVE_DSYM_PATH = $(CURR_DIR)/build/ios.xcarchive/dSYMs/
 
-setup:
-	pod install
-
 setup-tools: install-githook
 
 clean:
@@ -53,7 +50,7 @@ zip:
 	cd build && zip -r $(EXTENSION_NAME)_xcframework.zip $(EXTENSION_NAME).xcframework/
 	swift package compute-checksum build/$(EXTENSION_NAME)_xcframework.zip
 
-build-app: setup
+build-app: ci-pod-install
 	@echo "######################################################################"
 	@echo "### Building $(TEST_APP_IOS_SCHEME)"
 	@echo "######################################################################"
