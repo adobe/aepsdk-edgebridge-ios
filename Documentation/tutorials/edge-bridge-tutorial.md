@@ -175,7 +175,7 @@ The next task is to add the necessary dependencies that will enable the Edge Bri
 
 > **Warning**  
 > After this step, there are no Adobe Experience Cloud Solution extensions in the app. At this point, the import and registration for the AEPIdentity extension can also be removed since AEPEdgeIdentity takes care of the identity functionality for the Edge extensions.
-> If your application still uses Adobe Experience Cloud Solution extensions, such as Adobe Target, Adobe Campaign, etc. (find the full list [here](https://aep-sdks.gitbook.io/docs/)) you should ignore the steps below for removing AEPIdentity and continue to use the extension.
+> If your application still uses Adobe Experience Cloud Solution extensions, such as Adobe Target, Adobe Campaign, etc. (find the full list [here](https://developer.adobe.com/client-sdks/documentation/experience-cloud-extensions/)) you should ignore the steps below for removing AEPIdentity and continue to use the extension.
 
 <details>
   <summary> Using CocoaPods instead? </summary><p>

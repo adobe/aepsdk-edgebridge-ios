@@ -20,7 +20,7 @@ let package = Package(
     name: \"TestProject\",
     defaultLocalization: \"en-US\",
     platforms: [
-        .iOS(.v10)
+        .iOS(.v11)
     ],
     products: [
         .library(

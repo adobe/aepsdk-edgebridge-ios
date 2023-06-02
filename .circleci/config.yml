@@ -4,7 +4,8 @@
 version: 2.1
 
 orbs: 
-  codecov: codecov/codecov@3.2.3
+  codecov: codecov/codecov@3.2.5
+  macos: circleci/macos@2
 
 # Workflows orchestrate a set of jobs to be run
 workflows:
@@ -17,7 +18,7 @@ jobs:
   
   build-and-test:
     macos:
-      xcode: 13.4.0 # Specify the Xcode version to use
+      xcode: 14.1.0 # Specify the Xcode version to use
 
     steps:
       - checkout
@@ -65,7 +66,7 @@ jobs:
       # pre-start the simulator to prevent timeouts
       - run:
           name: Pre-start Simulator
-          command: xcrun instruments -w "iPhone 8 (13.5) [" || true
+          command: xcrun instruments -w "iPhone 14 (16.1) [" || true
 
       - run:
           name: Run Tests
@@ -74,13 +75,22 @@ jobs:
       # Code coverage upload using Codecov
       # See options explanation here: https://docs.codecov.com/docs/codecov-uploader
       - codecov/upload:
+          flags: ios-tests
+          upload_name: Coverage Report for AEPEdgeBridge iOS Tests
           xtra_args: -c -v --xc --xp results.xcresult
 
       # verify XCFramework archive builds
-      # ci-archive updates Pods so run this step last
       - run:
           name: Build XCFramework
           command: |
             if [[ "${CIRCLE_BRANCH}" == "main" || "${CIRCLE_BRANCH}" == "staging" ]]; then
-              make ci-archive
+               make ci-archive
             fi
+
+      # verify test app builds
+      - run:
+          name: Build Test App
+          command: |
+             if [[ "${CIRCLE_BRANCH}" == "main" || "${CIRCLE_BRANCH}" == "staging" ]]; then
+               make build-app
+             fi
