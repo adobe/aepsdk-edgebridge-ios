@@ -21,7 +21,7 @@ import AEPLifecycle
 import AEPEdgeBridge
 // EdgeBridge Tutorial - code section (1/2) */
 
-//* EdgeBridge Tutorial - remove section (1/2)
+// * EdgeBridge Tutorial - remove section (1/2)
 import AEPAnalytics
 import AEPIdentity
 // EdgeBridge Tutorial - remove section (1/2) */
@@ -43,8 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 /* EdgeBridge Tutorial - code section (2/2)
             EdgeBridge.self,
 // EdgeBridge Tutorial - code section (2/2) */
-            
-//* EdgeBridge Tutorial - remove section (2/2)
+
+// * EdgeBridge Tutorial - remove section (2/2)
             Analytics.self,
             AEPIdentity.Identity.self,
 // EdgeBridge Tutorial - remove section (2/2) */
