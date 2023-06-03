@@ -45,7 +45,7 @@ graph LR;
 Before any app changes we need to set up some configuration items on the Adobe Experience Platform (AEP) side. The end goal of this section is to create a mobile property that controls the configuration settings for the various AEP extensions used in this tutorial.
 
 ### 1. Set up mobile property  
-If you don't have an existing mobile property, see the [instructions on how to set up a new property](https://github.com/adobe/aepsdk-edge-ios/blob/tutorial-send-event/Documentation/Tutorials/edge-send-event-tutorial.md#1-create-a-schema).
+If you don't have an existing mobile property, see the [instructions on how to set up a new property](https://github.com/adobe/aepsdk-edge-ios/blob/main/Documentation/Tutorials/edge-send-event-tutorial.md#1-create-a-schema).
 
 The following AEP extension configurations should be installed:  
 
@@ -164,7 +164,7 @@ The next task is to add the necessary dependencies that will enable the Edge Bri
 2. Install the AEPEdgeBridge extension.
   - In the "Search or Enter URL" box, type https://github.com/adobe/aepsdk-edgebridge-ios.git and click Enter.
   - Select the aepsdk-edgebridge-ios package
-  - For Dependency Rule select **Branch** and type `dev`
+  - For Dependency Rule select **Branch** and type `main`
   - Select Add Package.
 
 3. Remove the AEPAnalytics extension.
@@ -175,7 +175,7 @@ The next task is to add the necessary dependencies that will enable the Edge Bri
 
 > **Warning**  
 > After this step, there are no Adobe Experience Cloud Solution extensions in the app. At this point, the import and registration for the AEPIdentity extension can also be removed since AEPEdgeIdentity takes care of the identity functionality for the Edge extensions.
-> If your application still uses Adobe Experience Cloud Solution extensions, such as Adobe Target, Adobe Campaign, etc. (find the full list [here](https://aep-sdks.gitbook.io/docs/)) you should ignore the steps below for removing AEPIdentity and continue to use the extension.
+> If your application still uses Adobe Experience Cloud Solution extensions, such as Adobe Target, Adobe Campaign, etc. (find the full list [here](https://developer.adobe.com/client-sdks/documentation/experience-cloud-extensions/)) you should ignore the steps below for removing AEPIdentity and continue to use the extension.
 
 <details>
   <summary> Using CocoaPods instead? </summary><p>
@@ -208,7 +208,7 @@ To remove the Analytics and AEPIdentity extensions:
 2. Click the dropdown chevron next to the `EdgeBridgeTutorialApp` folder.
 3. Click the `AppDelegate.swift` file.
 4. First update the `ENVIRONMENT_FILE_ID` value to the mobile property ID published in the first section.
-   - See how to get your mobile property ID in the instructions for [getting the mobile property ID](https://github.com/adobe/aepsdk-edge-ios/blob/dev/Documentation/Tutorials/edge-send-event-tutorial.md#getting-the-mobile-property-id-).
+   - See how to get your mobile property ID in the instructions for [getting the mobile property ID](https://github.com/adobe/aepsdk-edge-ios/blob/main/Documentation/Tutorials/edge-send-event-tutorial.md#getting-the-mobile-property-id-).
 
 Inside you will see code blocks for this tutorial marked by a header and footer `EdgeBridge Tutorial - remove section (n/m)` (where `n` is the current section and `m` is the total number of sections in the file).
 
@@ -234,13 +234,13 @@ Check `ContentView.swift` for implementation examples of both APIs. You can see 
 Assurance is the AEP tool for inspecting all events that Adobe extensions send out, in real time. It will allow us to see the flow of events, including the EdgeBridge conversion of `trackAction`/`trackState`.
 
 ### 1. Set up the Assurance session 
-To create a new Assurance session and connect to it, see the instructions on [setting up an Assurance session](https://github.com/adobe/aepsdk-edge-ios/blob/dev/Documentation/Tutorials/edge-send-event-tutorial.md#1-set-up-the-assurance-session), using the base URL value:
+To create a new Assurance session and connect to it, see the instructions on [setting up an Assurance session](https://github.com/adobe/aepsdk-edge-ios/blob/main/Documentation/Tutorials/edge-send-event-tutorial.md#1-set-up-the-assurance-session), using the base URL value:
 ```
 edgebridgetutorialapp://
 ```
 
 ### 2. Connect the app to the Assurance session  
-To connect the tutorial app to the Assurance session, see the instructions on [connecting the app to the Assurance session](https://github.com/adobe/aepsdk-edge-ios/blob/dev/Documentation/Tutorials/edge-send-event-tutorial.md#2-connect-to-the-app).
+To connect the tutorial app to the Assurance session, see the instructions on [connecting the app to the Assurance session](https://github.com/adobe/aepsdk-edge-ios/blob/main/Documentation/Tutorials/edge-send-event-tutorial.md#2-connect-to-the-app).
 
 ### 3. Event transactions view - check for EdgeBridge events  
 #### `trackAction`/`trackState` events <!-- omit in toc -->

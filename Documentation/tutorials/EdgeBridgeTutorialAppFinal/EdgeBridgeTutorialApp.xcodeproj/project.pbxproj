@@ -452,7 +452,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/adobe/aepsdk-edgebridge-ios.git";
 			requirement = {
-				branch = dev;
+				branch = main;
 				kind = branch;
 			};
 		};
