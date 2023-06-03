@@ -50,8 +50,8 @@ _archive: clean pod-update
 	xcodebuild -create-xcframework -framework $(SIMULATOR_ARCHIVE_PATH)$(EXTENSION_NAME).framework -debug-symbols $(SIMULATOR_ARCHIVE_DSYM_PATH)$(EXTENSION_NAME).framework.dSYM -framework $(IOS_ARCHIVE_PATH)$(EXTENSION_NAME).framework -debug-symbols $(IOS_ARCHIVE_DSYM_PATH)$(EXTENSION_NAME).framework.dSYM -output ./build/$(TARGET_NAME_XCFRAMEWORK)
 
 zip:
-	cd build && zip -r $(EXTENSION_NAME)_xcframework.zip $(EXTENSION_NAME).xcframework/
-	swift package compute-checksum build/$(EXTENSION_NAME)_xcframework.zip
+	cd build && zip -r $(EXTENSION_NAME).xcframework.zip $(EXTENSION_NAME).xcframework/
+	swift package compute-checksum build/$(EXTENSION_NAME).xcframework.zip
 
 build-app: ci-pod-install
 	@echo "######################################################################"
