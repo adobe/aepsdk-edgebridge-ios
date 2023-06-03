@@ -31,6 +31,9 @@ pod-repo-update:
 pod-update: pod-repo-update
 	pod update
 
+ci-pod-repo-update:
+	bundle exec pod repo update
+
 ci-pod-update: ci-pod-repo-update
 	bundle exec pod update
 
