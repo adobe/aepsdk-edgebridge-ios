@@ -99,7 +99,7 @@ public class EdgeBridge: NSObject, Extension {
                 "eventType": EdgeBridgeConstants.JsonValues.EVENT_TYPE
             ]
         ]
-        
+
         let xdmEvent = event.createChainedEvent(name: EdgeBridgeConstants.EventNames.EDGE_BRIDGE_REQUEST,
                                                 type: EventType.edge,
                                                 source: EventSource.requestContent,
