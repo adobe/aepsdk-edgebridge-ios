@@ -19,7 +19,7 @@ on:
         default: 'yes'
 
 jobs:
-  release_extension:
+  release_edgebridge:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
@@ -41,6 +41,10 @@ jobs:
         echo Target version: ${{ github.event.inputs.tag }}
         make check-version VERSION=${{ github.event.inputs.tag }}
 
+    - name: Pod repo update
+      run: | 
+        pod repo update
+        
     - name: SPM integration test
       if: ${{ github.event.inputs.action_tag == 'yes' }}
       run: |
