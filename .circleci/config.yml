@@ -44,9 +44,9 @@ commands:
       - restore_cache:
           name: Restoring CocoaPods Cache
           keys:
-            - cocoapods-cache-v6-{{ arch }}-{{ .Branch }}-{{ checksum "Podfile.lock" }}
-            - cocoapods-cache-v6-{{ arch }}-{{ .Branch }}
-            - cocoapods-cache-v6
+            - cocoapods-cache-v2-{{ arch }}-{{ .Branch }}-{{ checksum "Podfile.lock" }}
+            - cocoapods-cache-v2-{{ arch }}-{{ .Branch }}
+            - cocoapods-cache-v2
 
       # install CocoaPods - using default CocoaPods version, not the bundle
       - run:
