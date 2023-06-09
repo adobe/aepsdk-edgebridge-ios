@@ -56,7 +56,7 @@ commands:
       # save pods related files
       - save_cache:
           name: Saving CocoaPods Cache
-          key: cocoapods-cache-v6-{{ arch }}-{{ .Branch }}-{{ checksum "Podfile.lock" }}
+          key: cocoapods-cache-v2-{{ arch }}-{{ .Branch }}-{{ checksum "Podfile.lock" }}
           paths:
             - ./Pods
             - ./SampleApps/TestApp/Pods
