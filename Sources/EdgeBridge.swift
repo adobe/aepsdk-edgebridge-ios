@@ -89,7 +89,7 @@ public class EdgeBridge: NSObject, Extension {
     /// Helper to create and dispatch an experience event.
     /// - Parameters:
     ///   - data: dictionary containing free-form data to send to Edge Network
-    ///   - parentEvent: the triggering parent event
+    ///   - parentEvent: the triggering parent event used for event chaining; its timestamp is set as xdm.timestamp
     private func dispatchTrackRequest(data: [String: Any], parentEvent: Event) {
         let xdmEventData: [String: Any] = [
             "data": data,
