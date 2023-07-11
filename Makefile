@@ -92,3 +92,6 @@ test-SPM-integration:
 
 test-podspec:
 	sh ./Script/test-podspec.sh
+
+test-version-update:
+	sh ./Script/update-versions.sh -n EdgeBridge -v 9.9.9
