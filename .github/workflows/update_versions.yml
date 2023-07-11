@@ -33,7 +33,7 @@ jobs:
       with:
         ref: ${{ github.event.inputs.branch }}
     
-    - name: Update AEPEdge (with core dependency update)
+    - name: Update extension version (with core dependency update)
       run: (sh ./Script/update-versions.sh -n EdgeBridge -v ${{ github.event.inputs.version }} -d "AEPCore ${{ github.event.inputs.core-dependency }}")
       
     - name: Create Pull Request
