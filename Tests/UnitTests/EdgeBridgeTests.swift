@@ -84,6 +84,7 @@ class EdgeBridgeTests: XCTestCase {
         ]
 
         assertEqual(expectedData, dispatchedData)
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
     }
 
     func testHandleTrackEvent_withNilEventData_doesNotDispatchEvent() {
@@ -151,6 +152,7 @@ class EdgeBridgeTests: XCTestCase {
         ]
 
         assertEqual(expectedData, dispatchedData)
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
     }
 
     func testHandleRulesEngineResponse_withNilEventData_doesNotDispatchEvent() {
