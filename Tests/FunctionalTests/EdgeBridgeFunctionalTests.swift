@@ -22,7 +22,7 @@ import AEPTestUtils
 
 class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
     private let edgeInteractEndpoint = "https://edge.adobedc.net/ee/v1/interact?"
-    
+
     private let mockNetworkService: MockNetworkService = MockNetworkService()
 
     public class override func setUp() {
@@ -57,7 +57,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         resetTestExpectations()
         mockNetworkService.reset()
     }
-    
+
     // Runs after each test case
     override func tearDown() {
         super.tearDown()
@@ -74,7 +74,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         mockNetworkService.assertAllNetworkRequestExpectations()
         let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
         XCTAssertEqual(1, networkRequests.count)
-        
+
         let expectedJSON = #"""
         {
           "events": [
@@ -94,7 +94,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
           ]
         }
         """#
-        
+
         assertExactMatch(
             expected: getAnyCodable(expectedJSON)!,
             actual: getAnyCodable(networkRequests[0]),
@@ -110,7 +110,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         mockNetworkService.assertAllNetworkRequestExpectations()
         let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
         XCTAssertEqual(1, networkRequests.count)
-        
+
         let expectedJSON = #"""
         {
           "events": [
@@ -130,7 +130,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
           ]
         }
         """#
-        
+
         assertExactMatch(
             expected: getAnyCodable(expectedJSON)!,
             actual: getAnyCodable(networkRequests[0]),
@@ -149,7 +149,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         mockNetworkService.assertAllNetworkRequestExpectations()
         let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
         XCTAssertEqual(1, networkRequests.count)
-        
+
         // Data is defined in the rule, not from the dispatched PII event
         let expectedJSON = #"""
         {
@@ -171,7 +171,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
           ]
         }
         """#
-        
+
         assertExactMatch(
             expected: getAnyCodable(expectedJSON)!,
             actual: getAnyCodable(networkRequests[0]),
@@ -186,7 +186,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
 
         let response = HTTPURLResponse(url: URL(string: "https://adobe.com")!, statusCode: 200, httpVersion: nil, headerFields: [:])
         let responseConnection = HttpConnection(data: data, response: response, error: nil)
-        
+
         mockNetworkService.setMockResponse(url: "https://rules.com/\(localRulesName).zip", httpMethod: .get, responseConnection: responseConnection)
         mockNetworkService.setExpectationForNetworkRequest(url: "https://rules.com/\(localRulesName).zip", httpMethod: .get, expectedCount: 1)
 

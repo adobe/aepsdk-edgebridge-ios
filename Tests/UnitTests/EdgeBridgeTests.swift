@@ -81,7 +81,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
           }
         }
         """#
-        
+
         assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
     }
 
@@ -131,7 +131,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         XCTAssertEqual(event.id, dispatchedEvent.parentID)
         XCTAssertEqual(EventType.edge, dispatchedEvent.type)
         XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
-        
+
         let expectedJSON = #"""
         {
           "data": {
