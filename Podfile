@@ -15,12 +15,14 @@ end
 
 target 'UnitTests' do
   pod 'AEPCore'
+  pod 'AEPTestUtils', :git => 'https://github.com/adobe/aepsdk-testutils-ios.git', :branch => 'path-options-refactor2'
 end
 
 target 'FunctionalTests' do
   pod 'AEPCore'
   pod 'AEPEdge'
   pod 'AEPEdgeIdentity'
+  pod 'AEPTestUtils', :git => 'https://github.com/adobe/aepsdk-testutils-ios.git', :branch => 'path-options-refactor2'
 end
 
 target 'TestAppSwiftUI' do
