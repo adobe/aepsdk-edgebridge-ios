@@ -12,9 +12,10 @@
 
 import AEPCore
 @testable import AEPEdgeBridge
+import AEPTestUtils
 import XCTest
 
-class EdgeBridgeTests: XCTestCase {
+class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
     var mockRuntime: TestableExtensionRuntime!
     var edgeBridge: EdgeBridge!
 
@@ -62,29 +63,26 @@ class EdgeBridgeTests: XCTestCase {
 
         XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
         let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
         XCTAssertEqual(EventType.edge, dispatchedEvent.type)
         XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
 
-        guard let dispatchedData = dispatchedEvent.data else {
-            XCTFail("Dispatched event expected to have data but was nil.")
-            return
+        let expectedJSON = #"""
+        {
+          "data": {
+            "action": "Test Action",
+            "contextdata": {
+              "testKey": "testValue"
+            }
+          },
+          "xdm": {
+            "timestamp": "\#(event.timestamp.getISO8601UTCDateWithMilliseconds())",
+            "eventType": "analytics.track"
+          }
         }
+        """#
 
-        let expectedData: [String: Any] = [
-            "data": [
-                "action": "Test Action",
-                "contextdata": [
-                    "testKey": "testValue"
-                ]
-            ],
-            "xdm": [
-                "timestamp": event.timestamp.getISO8601UTCDateWithMilliseconds(),
-                "eventType": "analytics.track"
-            ]
-        ]
-
-        assertEqual(expectedData, dispatchedData)
-        XCTAssertEqual(event.id, dispatchedEvent.parentID)
+        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
     }
 
     func testHandleTrackEvent_withNilEventData_doesNotDispatchEvent() {
@@ -130,29 +128,26 @@ class EdgeBridgeTests: XCTestCase {
 
         XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
         let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
         XCTAssertEqual(EventType.edge, dispatchedEvent.type)
         XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
 
-        guard let dispatchedData = dispatchedEvent.data else {
-            XCTFail("Dispatched event expected to have data but was nil.")
-            return
+        let expectedJSON = #"""
+        {
+          "data": {
+            "action": "Test Action",
+            "contextdata": {
+              "testKey": "testValue"
+            }
+          },
+          "xdm": {
+            "timestamp": "\#(event.timestamp.getISO8601UTCDateWithMilliseconds())",
+            "eventType": "analytics.track"
+          }
         }
+        """#
 
-        let expectedData: [String: Any] = [
-            "data": [
-                "action": "Test Action",
-                "contextdata": [
-                    "testKey": "testValue"
-                ]
-            ],
-            "xdm": [
-                "timestamp": event.timestamp.getISO8601UTCDateWithMilliseconds(),
-                "eventType": "analytics.track"
-            ]
-        ]
-
-        assertEqual(expectedData, dispatchedData)
-        XCTAssertEqual(event.id, dispatchedEvent.parentID)
+        assertEqual(expected: getAnyCodable(expectedJSON), actual: getAnyCodable(dispatchedEvent))
     }
 
     func testHandleRulesEngineResponse_withNilEventData_doesNotDispatchEvent() {

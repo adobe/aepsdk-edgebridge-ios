@@ -18,19 +18,24 @@ import AEPEdge
 import AEPEdgeBridge
 import AEPEdgeIdentity
 import AEPServices
+import AEPTestUtils
 
-class EdgeBridgeFunctionalTests: FunctionalTestBase {
+class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
     private let edgeInteractEndpoint = "https://edge.adobedc.net/ee/v1/interact?"
+
+    private let mockNetworkService: MockNetworkService = MockNetworkService()
 
     public class override func setUp() {
         super.setUp()
-        FunctionalTestBase.debugEnabled = true
+        TestBase.debugEnabled = true
     }
 
     override func setUp() {
         super.setUp()
+        ServiceProvider.shared.networkService = mockNetworkService
         continueAfterFailure = false
         FileManager.default.clearCache()
+        FileManager.default.removeAdobeCacheDirectory()
 
         // hub shared state update for 1 extension versions Edge, Identity, Configuration, EventHub shared state updates
         setExpectationEvent(type: EventType.hub, source: EventSource.sharedState, expectedCount: 4)
@@ -50,62 +55,127 @@ class EdgeBridgeFunctionalTests: FunctionalTestBase {
 
         assertExpectedEvents(ignoreUnexpectedEvents: false)
         resetTestExpectations()
+        mockNetworkService.reset()
+    }
+
+    // Runs after each test case
+    override func tearDown() {
+        super.tearDown()
+
+        mockNetworkService.reset()
     }
 
     func testTrackState_sendsEdgeExperienceEvent() {
-        setExpectationNetworkRequest(url: edgeInteractEndpoint, httpMethod: .post, expectedCount: 1)
+        mockNetworkService.setExpectationForNetworkRequest(url: edgeInteractEndpoint, httpMethod: .post, expectedCount: 1)
 
         MobileCore.track(state: "Test State", data: ["testKey": "testValue"])
 
         // verify
-        assertNetworkRequestsCount()
-        let networkRequests = getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
+        mockNetworkService.assertAllNetworkRequestExpectations()
+        let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
         XCTAssertEqual(1, networkRequests.count)
-        let requestData = getFlattenNetworkRequestBody(networkRequests[0])
-        XCTAssertEqual("analytics.track", requestData["events[0].xdm.eventType"] as? String)
-        XCTAssertNotNil(requestData["events[0].xdm.timestamp"] as? String)
-        XCTAssertNotNil(requestData["events[0].xdm._id"] as? String)
-        XCTAssertEqual("Test State", requestData["events[0].data.state"] as? String)
-        XCTAssertEqual("testValue", requestData["events[0].data.contextdata.testKey"] as? String)
+
+        let expectedJSON = #"""
+        {
+          "events": [
+            {
+              "data": {
+                "contextdata": {
+                  "testKey": "testValue"
+                },
+                "state": "Test State"
+              },
+              "xdm": {
+                "_id": "STRING_TYPE",
+                "eventType": "analytics.track",
+                "timestamp": "STRING_TYPE"
+              }
+            }
+          ]
+        }
+        """#
+
+        assertExactMatch(
+            expected: getAnyCodable(expectedJSON)!,
+            actual: getAnyCodable(networkRequests[0]),
+            typeMatchPaths: ["events[0].xdm._id", "events[0].xdm.timestamp"])
     }
 
     func testTrackAction_sendsCorrectRequestEvent() {
-        setExpectationNetworkRequest(url: edgeInteractEndpoint, httpMethod: .post, expectedCount: 1)
+        mockNetworkService.setExpectationForNetworkRequest(url: edgeInteractEndpoint, httpMethod: .post, expectedCount: 1)
 
         MobileCore.track(action: "Test Action", data: ["testKey": "testValue"])
 
         // verify
-        assertNetworkRequestsCount()
-        let networkRequests = getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
+        mockNetworkService.assertAllNetworkRequestExpectations()
+        let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
         XCTAssertEqual(1, networkRequests.count)
-        let requestData = getFlattenNetworkRequestBody(networkRequests[0])
-        XCTAssertEqual("analytics.track", requestData["events[0].xdm.eventType"] as? String)
-        XCTAssertNotNil(requestData["events[0].xdm.timestamp"] as? String)
-        XCTAssertNotNil(requestData["events[0].xdm._id"] as? String)
-        XCTAssertEqual("Test Action", requestData["events[0].data.action"] as? String)
-        XCTAssertEqual("testValue", requestData["events[0].data.contextdata.testKey"] as? String)
+
+        let expectedJSON = #"""
+        {
+          "events": [
+            {
+              "data": {
+                "action": "Test Action",
+                "contextdata": {
+                  "testKey": "testValue"
+                }
+              },
+              "xdm": {
+                "_id": "STRING_TYPE",
+                "eventType": "analytics.track",
+                "timestamp": "STRING_TYPE"
+              }
+            }
+          ]
+        }
+        """#
+
+        assertExactMatch(
+            expected: getAnyCodable(expectedJSON)!,
+            actual: getAnyCodable(networkRequests[0]),
+            typeMatchPaths: ["events[0].xdm._id", "events[0].xdm.timestamp"])
     }
 
     func testRulesEngineResponse_sendsCorrectRequestEvent() {
         updateConfigurationWithRules(localRulesName: "rules_analytics")
         resetTestExpectations()
 
-        setExpectationNetworkRequest(url: edgeInteractEndpoint, httpMethod: .post, expectedCount: 1)
+        mockNetworkService.setExpectationForNetworkRequest(url: edgeInteractEndpoint, httpMethod: .post, expectedCount: 1)
 
         MobileCore.collectPii(["key": "value"]) // triggers Analytics rule
 
         // verify
-        assertNetworkRequestsCount()
-        let networkRequests = getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
+        mockNetworkService.assertAllNetworkRequestExpectations()
+        let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
         XCTAssertEqual(1, networkRequests.count)
-        let requestData = getFlattenNetworkRequestBody(networkRequests[0])
-        XCTAssertEqual("analytics.track", requestData["events[0].xdm.eventType"] as? String)
-        XCTAssertNotNil(requestData["events[0].xdm.timestamp"] as? String)
-        XCTAssertNotNil(requestData["events[0].xdm._id"] as? String)
-        // data is defined in the rule, not from the dispatched PII event
-        XCTAssertEqual("Rule Action", requestData["events[0].data.action"] as? String)
-        XCTAssertEqual("Rule State", requestData["events[0].data.state"] as? String)
-        XCTAssertEqual("testValue", requestData["events[0].data.contextdata.testKey"] as? String)
+
+        // Data is defined in the rule, not from the dispatched PII event
+        let expectedJSON = #"""
+        {
+          "events": [
+            {
+              "data": {
+                "action": "Rule Action",
+                "contextdata": {
+                  "testKey": "testValue"
+                },
+                "state": "Rule State"
+              },
+              "xdm": {
+                "_id": "STRING_TYPE",
+                "eventType": "analytics.track",
+                "timestamp": "STRING_TYPE"
+              }
+            }
+          ]
+        }
+        """#
+
+        assertExactMatch(
+            expected: getAnyCodable(expectedJSON)!,
+            actual: getAnyCodable(networkRequests[0]),
+            typeMatchPaths: ["events[0].xdm._id", "events[0].xdm.timestamp"])
     }
 
     /// Helper function to update configuration with rules URL and mock response with a local zip file.
@@ -116,12 +186,13 @@ class EdgeBridgeFunctionalTests: FunctionalTestBase {
 
         let response = HTTPURLResponse(url: URL(string: "https://adobe.com")!, statusCode: 200, httpVersion: nil, headerFields: [:])
         let responseConnection = HttpConnection(data: data, response: response, error: nil)
-        setNetworkResponseFor(url: "https://rules.com/\(localRulesName).zip", httpMethod: .get, responseHttpConnection: responseConnection)
-        setExpectationNetworkRequest(url: "https://rules.com/\(localRulesName).zip", httpMethod: .get, expectedCount: 1)
+
+        mockNetworkService.setMockResponse(url: "https://rules.com/\(localRulesName).zip", httpMethod: .get, responseConnection: responseConnection)
+        mockNetworkService.setExpectationForNetworkRequest(url: "https://rules.com/\(localRulesName).zip", httpMethod: .get, expectedCount: 1)
 
         MobileCore.updateConfigurationWith(configDict: ["rules.url": "https://rules.com/\(localRulesName).zip"])
 
-        assertNetworkRequestsCount()
+        mockNetworkService.assertAllNetworkRequestExpectations()
     }
 
 }
