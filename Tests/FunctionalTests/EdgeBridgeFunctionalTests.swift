@@ -68,32 +68,37 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
     func testTrackState_sendsEdgeExperienceEvent() {
         mockNetworkService.setExpectationForNetworkRequest(url: edgeInteractEndpoint, httpMethod: .post, expectedCount: 1)
 
-        MobileCore.track(state: "Test State", data: ["testKey": "testValue"])
+        MobileCore.track(state: "state name", data: ["key1": "value1", "&&c1": "propValue1"])
 
         // verify
         mockNetworkService.assertAllNetworkRequestExpectations()
         let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
         XCTAssertEqual(1, networkRequests.count)
 
-        let expectedJSON = #"""
-        {
-          "events": [
+        let expectedJSON = """
             {
-              "data": {
-                "contextdata": {
-                  "testKey": "testValue"
+              "events": [
+              {
+                "data": {
+                  "__adobe": {
+                    "analytics": {
+                      "pageName": "state name",
+                      "c1": "propValue1",
+                      "contextdata": {
+                        "key1": "value1"
+                      }
+                    }
+                  }
                 },
-                "state": "Test State"
-              },
-              "xdm": {
-                "_id": "STRING_TYPE",
-                "eventType": "analytics.track",
-                "timestamp": "STRING_TYPE"
+                "xdm": {
+                  "_id": "STRING_TYPE",
+                  "eventType": "analytics.track",
+                  "timestamp": "STRING_TYPE"
+                }
               }
+              ]
             }
-          ]
-        }
-        """#
+        """
 
         assertExactMatch(
             expected: getAnyCodable(expectedJSON)!,
@@ -104,32 +109,38 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
     func testTrackAction_sendsCorrectRequestEvent() {
         mockNetworkService.setExpectationForNetworkRequest(url: edgeInteractEndpoint, httpMethod: .post, expectedCount: 1)
 
-        MobileCore.track(action: "Test Action", data: ["testKey": "testValue"])
+        MobileCore.track(action: "action name", data: ["key1": "value1", "&&c1": "propValue1"])
 
         // verify
         mockNetworkService.assertAllNetworkRequestExpectations()
         let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
         XCTAssertEqual(1, networkRequests.count)
 
-        let expectedJSON = #"""
-        {
-          "events": [
+        let expectedJSON = """
             {
-              "data": {
-                "action": "Test Action",
-                "contextdata": {
-                  "testKey": "testValue"
+              "events": [
+              {
+                "data": {
+                  "__adobe": {
+                    "analytics": {
+                      "linkName": "action name",
+                      "linkType": "other",
+                      "c1": "propValue1",
+                      "contextdata": {
+                        "key1": "value1"
+                      }
+                    }
+                  }
+                },
+                "xdm": {
+                  "_id": "STRING_TYPE",
+                  "eventType": "analytics.track",
+                  "timestamp": "STRING_TYPE"
                 }
-              },
-              "xdm": {
-                "_id": "STRING_TYPE",
-                "eventType": "analytics.track",
-                "timestamp": "STRING_TYPE"
               }
+              ]
             }
-          ]
-        }
-        """#
+        """
 
         assertExactMatch(
             expected: getAnyCodable(expectedJSON)!,
@@ -151,26 +162,31 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         XCTAssertEqual(1, networkRequests.count)
 
         // Data is defined in the rule, not from the dispatched PII event
-        let expectedJSON = #"""
-        {
-          "events": [
+        let expectedJSON = """
             {
-              "data": {
-                "action": "Rule Action",
-                "contextdata": {
-                  "testKey": "testValue"
+              "events": [
+              {
+                "data": {
+                  "__adobe": {
+                    "analytics": {
+                      "linkName": "Rule Action",
+                      "linkType": "other",
+                      "pageName": "Rule State",
+                      "contextdata": {
+                        "testKey": "testValue"
+                      }
+                    }
+                  }
                 },
-                "state": "Rule State"
-              },
-              "xdm": {
-                "_id": "STRING_TYPE",
-                "eventType": "analytics.track",
-                "timestamp": "STRING_TYPE"
+                "xdm": {
+                  "_id": "STRING_TYPE",
+                  "eventType": "analytics.track",
+                  "timestamp": "STRING_TYPE"
+                }
               }
+              ]
             }
-          ]
-        }
-        """#
+        """
 
         assertExactMatch(
             expected: getAnyCodable(expectedJSON)!,

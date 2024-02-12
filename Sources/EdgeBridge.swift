@@ -92,7 +92,7 @@ public class EdgeBridge: NSObject, Extension {
     ///   - parentEvent: the triggering parent event used for event chaining; its timestamp is set as xdm.timestamp
     private func dispatchTrackRequest(data: [String: Any], parentEvent: Event) {
         let xdmEventData: [String: Any] = [
-            "data": data,
+            "data": formatData(data),
             "xdm": [
                 "timestamp": parentEvent.timestamp.getISO8601UTCDateWithMilliseconds(),
                 "eventType": EdgeBridgeConstants.JsonValues.EVENT_TYPE
@@ -105,6 +105,77 @@ public class EdgeBridge: NSObject, Extension {
                                                    data: xdmEventData)
 
         runtime.dispatch(event: event)
+    }
+
+    /// Formats track event data to the required Analytics Edge translator format under the `data.__adobe.analytics` object.
+    ///
+    /// The following is the mapping logic:
+    /// - The "action" field is mapped to "data.__adobe.analytics.linkName", plus "data.__adobe.analytics.linkType" is set to "other".
+    /// - The "state" field is mapped to "data.__adobe.analytics.pageName".
+    /// - Any "contextData" keys which use the "&&" prefix are mapped to "data.__adobe.analytics" with the prefix removed.
+    /// - Any "contextData" keys which do not use the "&&" prefix are mapped to "data.__adobe.analytics.contextdata".
+    /// - Any additional fields are passed through and left directly under the "data" object.
+    ///
+    /// As an example, the following track event data:
+    /// ```json
+    ///  {
+    ///     "action": "action name",
+    ///     "contextdata": {
+    ///        "&&c1": "propValue1",
+    ///        "key1": "value1"
+    ///     }
+    ///     "key2": "value2"
+    ///  }
+    ///  ```
+    ///  Is mapped to:
+    ///  ```json
+    ///  {
+    ///    "data": {
+    ///      "__adobe": {
+    ///        "analytics": {
+    ///          "linkName": "action name",
+    ///          "linkType": "other",
+    ///          "c1": "propValue1"
+    ///          "contextdata": {
+    ///            "key1": "value1"
+    ///          }
+    ///        }
+    ///      }
+    ///      "key2": "value2"
+    ///    }
+    ///  }
+    ///  ```
+    ///
+    /// - Parameter data: track event data
+    /// - Returns: data formatted for the Analytics Edge translator.
+    private func formatData(_ data: [String: Any]) -> [String: Any] {
+        var mutableData = data // mutable copy of data
+        var analyticsData: [String: Any] = [:] // __adobe.analytics data
+
+        if let contextData = mutableData.removeValue(forKey: "contextdata") as? [String: Any], !contextData.isEmpty {
+            let prefixedDataArray = contextData.filter { $0.key.hasPrefix("&&") }.map { (String($0.dropFirst("&&".count)), $1) }
+            analyticsData = Dictionary(uniqueKeysWithValues: prefixedDataArray) as? [String: Any] ?? [:]
+
+            let nonprefixedData = contextData.filter { !$0.key.hasPrefix("&&") }
+            if !nonprefixedData.isEmpty {
+                analyticsData["contextdata"] = nonprefixedData
+            }
+        }
+
+        if let action = mutableData.removeValue(forKey: "action") as? String {
+            analyticsData["linkName"] = action
+            analyticsData["linkType"] = "other"
+        }
+
+        if let state = mutableData.removeValue(forKey: "state") as? String {
+            analyticsData["pageName"] = state
+        }
+
+        if !analyticsData.isEmpty {
+            mutableData["__adobe"] = ["analytics": analyticsData]
+        }
+
+        return mutableData
     }
 
 }
