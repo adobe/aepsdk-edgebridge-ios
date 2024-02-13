@@ -152,27 +152,28 @@ public class EdgeBridge: NSObject, Extension {
         var mutableData = data // mutable copy of data
         var analyticsData: [String: Any] = [:] // __adobe.analytics data
 
-        if let contextData = mutableData.removeValue(forKey: "contextdata") as? [String: Any], !contextData.isEmpty {
-            let prefixedDataArray = contextData.filter { $0.key.hasPrefix("&&") }.map { (String($0.dropFirst("&&".count)), $1) }
+        if let contextData = mutableData.removeValue(forKey: EdgeBridgeConstants.AnalyticsKeys.CONTEXT_DATA) as? [String: Any], !contextData.isEmpty {
+            let prefixedDataArray = contextData.filter { $0.key.hasPrefix(EdgeBridgeConstants.EdgeValues.PREFIX) }
+                .map { (String($0.dropFirst(EdgeBridgeConstants.EdgeValues.PREFIX.count)), $1) }
             analyticsData = Dictionary(uniqueKeysWithValues: prefixedDataArray) as? [String: Any] ?? [:]
 
-            let nonprefixedData = contextData.filter { !$0.key.hasPrefix("&&") }
+            let nonprefixedData = contextData.filter { !$0.key.hasPrefix(EdgeBridgeConstants.EdgeValues.PREFIX) }
             if !nonprefixedData.isEmpty {
-                analyticsData["contextdata"] = nonprefixedData
+                analyticsData[EdgeBridgeConstants.EdgeKeys.CONTEXT_DATA] = nonprefixedData
             }
         }
 
-        if let action = mutableData.removeValue(forKey: "action") as? String {
-            analyticsData["linkName"] = action
-            analyticsData["linkType"] = "other"
+        if let action = mutableData.removeValue(forKey: EdgeBridgeConstants.AnalyticsKeys.ACTION) as? String {
+            analyticsData[EdgeBridgeConstants.EdgeKeys.LINK_NAME] = action
+            analyticsData[EdgeBridgeConstants.EdgeKeys.LINK_TYPE] = EdgeBridgeConstants.EdgeValues.OTHER
         }
 
-        if let state = mutableData.removeValue(forKey: "state") as? String {
-            analyticsData["pageName"] = state
+        if let state = mutableData.removeValue(forKey: EdgeBridgeConstants.AnalyticsKeys.STATE) as? String {
+            analyticsData[EdgeBridgeConstants.EdgeKeys.PAGE_NAME] = state
         }
 
         if !analyticsData.isEmpty {
-            mutableData["__adobe"] = ["analytics": analyticsData]
+            mutableData[EdgeBridgeConstants.EdgeKeys.ADOBE] = [EdgeBridgeConstants.EdgeKeys.ANALYTICS: analyticsData]
         }
 
         return mutableData

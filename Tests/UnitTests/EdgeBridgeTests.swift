@@ -179,7 +179,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
-                    "contextdata": {
+                    "contextData": {
                       "key1": "value1"
                     }
                   }
@@ -261,7 +261,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                     "products": ";product1;1;5.99;event12=5.99;evar5=merchEvar5,;product2;2;10.99;event13=6;eVar6=mercheVar6",
                     "c1": "propValue1",
                     "cc": "USD",
-                    "contextdata": {
+                    "contextData": {
                       "key1": "value1"
                     }
                   }
@@ -310,7 +310,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                     "events": "event1,event2,event3,event4,event12,event13",
                     "c1": "propValue1",
                     "v1": "evarValue1",
-                    "contextdata": {
+                    "contextData": {
                       "key1": "value1"
                     }
                   }
@@ -381,7 +381,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                   "analytics": {
                     "linkName": "Test Action",
                     "linkType": "other",
-                    "contextdata": {
+                    "contextData": {
                       "testKey": "testValue"
                     }
                   }

@@ -84,7 +84,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
                     "analytics": {
                       "pageName": "state name",
                       "c1": "propValue1",
-                      "contextdata": {
+                      "contextData": {
                         "key1": "value1"
                       }
                     }
@@ -126,7 +126,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
                       "linkName": "action name",
                       "linkType": "other",
                       "c1": "propValue1",
-                      "contextdata": {
+                      "contextData": {
                         "key1": "value1"
                       }
                     }
@@ -172,7 +172,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
                       "linkName": "Rule Action",
                       "linkType": "other",
                       "pageName": "Rule State",
-                      "contextdata": {
+                      "contextData": {
                         "testKey": "testValue"
                       }
                     }
