@@ -147,7 +147,7 @@ public class EdgeBridge: NSObject, Extension {
     ///          "linkName": "action name",
     ///          "linkType": "other",
     ///          "c1": "propValue1"
-    ///          "contextdata": {
+    ///          "contextData": {
     ///            "key1": "value1"
     ///          }
     ///        }
