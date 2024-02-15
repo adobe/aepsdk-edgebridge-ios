@@ -136,7 +136,7 @@ public class EdgeBridge: NSObject, Extension {
     ///          "linkName": "action name",
     ///          "linkType": "other",
     ///          "c1": "propValue1"
-    ///          "contextdata": {
+    ///          "contextData": {
     ///            "key1": "value1"
     ///          }
     ///        }
@@ -153,11 +153,22 @@ public class EdgeBridge: NSObject, Extension {
         var analyticsData: [String: Any] = [:] // __adobe.analytics data
 
         if let contextData = mutableData.removeValue(forKey: EdgeBridgeConstants.MobileCoreKeys.CONTEXT_DATA) as? [String: Any], !contextData.isEmpty {
-            let prefixedDataArray = contextData.filter { $0.key.hasPrefix(EdgeBridgeConstants.AnalyticsValues.PREFIX) }
-                .map { (String($0.dropFirst(EdgeBridgeConstants.AnalyticsValues.PREFIX.count)), $1) }
-            analyticsData = Dictionary(uniqueKeysWithValues: prefixedDataArray) as? [String: Any] ?? [:]
+            var prefixedData: [String: Any] = [:]
+            var nonprefixedData: [String: Any] = [:]
 
-            let nonprefixedData = contextData.filter { !$0.key.hasPrefix(EdgeBridgeConstants.AnalyticsValues.PREFIX) }
+            for (key, value) in contextData {
+                if key.hasPrefix(EdgeBridgeConstants.AnalyticsValues.PREFIX) {
+                    let newKey = String(key.dropFirst(EdgeBridgeConstants.AnalyticsValues.PREFIX.count))
+                    prefixedData[newKey] = value
+                } else {
+                    nonprefixedData[key] = value
+                }
+            }
+
+            if !prefixedData.isEmpty {
+                analyticsData = prefixedData
+            }
+
             if !nonprefixedData.isEmpty {
                 analyticsData[EdgeBridgeConstants.AnalyticsKeys.CONTEXT_DATA] = nonprefixedData
             }
