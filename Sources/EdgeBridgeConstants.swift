@@ -26,13 +26,13 @@ enum EdgeBridgeConstants {
         static let EVENT_TYPE = "analytics.track"
     }
 
-    enum AnalyticsKeys {
+    enum MobileCoreKeys {
         static let ACTION = "action"
         static let STATE = "state"
         static let CONTEXT_DATA = "contextdata"
     }
 
-    enum EdgeKeys {
+    enum AnalyticsKeys {
         static let ADOBE = "__adobe"
         static let ANALYTICS = "analytics"
         static let LINK_NAME = "linkName"
@@ -41,7 +41,7 @@ enum EdgeBridgeConstants {
         static let CONTEXT_DATA = "contextData"
     }
 
-    enum EdgeValues {
+    enum AnalyticsValues {
         static let OTHER = "other"
         static let PREFIX = "&&"
     }

@@ -152,28 +152,28 @@ public class EdgeBridge: NSObject, Extension {
         var mutableData = data // mutable copy of data
         var analyticsData: [String: Any] = [:] // __adobe.analytics data
 
-        if let contextData = mutableData.removeValue(forKey: EdgeBridgeConstants.AnalyticsKeys.CONTEXT_DATA) as? [String: Any], !contextData.isEmpty {
-            let prefixedDataArray = contextData.filter { $0.key.hasPrefix(EdgeBridgeConstants.EdgeValues.PREFIX) }
-                .map { (String($0.dropFirst(EdgeBridgeConstants.EdgeValues.PREFIX.count)), $1) }
+        if let contextData = mutableData.removeValue(forKey: EdgeBridgeConstants.MobileCoreKeys.CONTEXT_DATA) as? [String: Any], !contextData.isEmpty {
+            let prefixedDataArray = contextData.filter { $0.key.hasPrefix(EdgeBridgeConstants.AnalyticsValues.PREFIX) }
+                .map { (String($0.dropFirst(EdgeBridgeConstants.AnalyticsValues.PREFIX.count)), $1) }
             analyticsData = Dictionary(uniqueKeysWithValues: prefixedDataArray) as? [String: Any] ?? [:]
 
-            let nonprefixedData = contextData.filter { !$0.key.hasPrefix(EdgeBridgeConstants.EdgeValues.PREFIX) }
+            let nonprefixedData = contextData.filter { !$0.key.hasPrefix(EdgeBridgeConstants.AnalyticsValues.PREFIX) }
             if !nonprefixedData.isEmpty {
-                analyticsData[EdgeBridgeConstants.EdgeKeys.CONTEXT_DATA] = nonprefixedData
+                analyticsData[EdgeBridgeConstants.AnalyticsKeys.CONTEXT_DATA] = nonprefixedData
             }
         }
 
-        if let action = mutableData.removeValue(forKey: EdgeBridgeConstants.AnalyticsKeys.ACTION) as? String {
-            analyticsData[EdgeBridgeConstants.EdgeKeys.LINK_NAME] = action
-            analyticsData[EdgeBridgeConstants.EdgeKeys.LINK_TYPE] = EdgeBridgeConstants.EdgeValues.OTHER
+        if let action = mutableData.removeValue(forKey: EdgeBridgeConstants.MobileCoreKeys.ACTION) as? String {
+            analyticsData[EdgeBridgeConstants.AnalyticsKeys.LINK_NAME] = action
+            analyticsData[EdgeBridgeConstants.AnalyticsKeys.LINK_TYPE] = EdgeBridgeConstants.AnalyticsValues.OTHER
         }
 
-        if let state = mutableData.removeValue(forKey: EdgeBridgeConstants.AnalyticsKeys.STATE) as? String {
-            analyticsData[EdgeBridgeConstants.EdgeKeys.PAGE_NAME] = state
+        if let state = mutableData.removeValue(forKey: EdgeBridgeConstants.MobileCoreKeys.STATE) as? String {
+            analyticsData[EdgeBridgeConstants.AnalyticsKeys.PAGE_NAME] = state
         }
 
         if !analyticsData.isEmpty {
-            mutableData[EdgeBridgeConstants.EdgeKeys.ADOBE] = [EdgeBridgeConstants.EdgeKeys.ANALYTICS: analyticsData]
+            mutableData[EdgeBridgeConstants.AnalyticsKeys.ADOBE] = [EdgeBridgeConstants.AnalyticsKeys.ANALYTICS: analyticsData]
         }
 
         return mutableData
