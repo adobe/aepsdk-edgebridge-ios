@@ -84,6 +84,78 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
     }
 
+    func testHandleTrackEvent_withActionFieldWithEmptyValue_dispatchesEdgeRequestEvent() {
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "action": ""
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
+        let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
+        XCTAssertEqual(EventType.edge, dispatchedEvent.type)
+        XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
+
+        let expectedJSON = """
+            {
+              "data": {
+                "__adobe": {
+                  "analytics": {
+                    "linkName": "",
+                    "linkType": "other"
+                  }
+                }
+              },
+              "xdm": {
+                "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
+                "eventType": "analytics.track"
+              }
+            }
+        """
+
+        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+    }
+
+    func testHandleTrackEvent_withActionFieldWithNilValue_dispatchesEdgeRequestEvent() {
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "action": nil
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
+        let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
+        XCTAssertEqual(EventType.edge, dispatchedEvent.type)
+        XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
+
+        let expectedJSON = """
+            {
+              "data": {
+                "__adobe": {
+                  "analytics": {
+                    "linkName": "",
+                    "linkType": "other"
+                  }
+                }
+              },
+              "xdm": {
+                "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
+                "eventType": "analytics.track"
+              }
+            }
+        """
+
+        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+    }
+
     func testHandleTrackEvent_withStateField_dispatchesEdgeRequestEvent() {
         let event = Event(name: "Test Track Event",
                           type: EventType.genericTrack,
@@ -106,6 +178,76 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "pageName": "state name"
+                  }
+                }
+              },
+              "xdm": {
+                "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
+                "eventType": "analytics.track"
+              }
+            }
+        """
+
+        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+    }
+
+    func testHandleTrackEvent_withStateFieldWithNilValue_dispatchesEdgeRequestEvent() {
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "state": nil
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
+        let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
+        XCTAssertEqual(EventType.edge, dispatchedEvent.type)
+        XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
+
+        let expectedJSON = """
+            {
+              "data": {
+                "__adobe": {
+                  "analytics": {
+                    "pageName": ""
+                  }
+                }
+              },
+              "xdm": {
+                "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
+                "eventType": "analytics.track"
+              }
+            }
+        """
+
+        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+    }
+
+    func testHandleTrackEvent_withStateFieldWithEmptyValue_dispatchesEdgeRequestEvent() {
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "state": ""
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
+        let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
+        XCTAssertEqual(EventType.edge, dispatchedEvent.type)
+        XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
+
+        let expectedJSON = """
+            {
+              "data": {
+                "__adobe": {
+                  "analytics": {
+                    "pageName": ""
                   }
                 }
               },
@@ -316,6 +458,289 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                   }
                 },
                 "key2": "value2"
+              },
+              "xdm": {
+                "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
+                "eventType": "analytics.track"
+              }
+            }
+        """
+
+        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+    }
+
+    func testHandleTrackEvent_withContextDataFieldUsingReservedPrefix_emptyKeyName_dispatchesEdgeRequestEvent() {
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "contextdata": [
+                                "&&": "emptyKey"
+                            ]
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
+        let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
+        XCTAssertEqual(EventType.edge, dispatchedEvent.type)
+        XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
+
+        let expectedJSON = """
+            {
+              "data": {
+                "__adobe": {
+                  "analytics": {
+                    "": "emptyKey"
+                  }
+                }
+              },
+              "xdm": {
+                "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
+                "eventType": "analytics.track"
+              }
+            }
+        """
+
+        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+    }
+
+    func testHandleTrackEvent_withContextDataField_emptyValue_dispatchesEdgeRequestEvent() {
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "contextdata": [
+                                "emptyValue": ""
+                            ]
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
+        let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
+        XCTAssertEqual(EventType.edge, dispatchedEvent.type)
+        XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
+
+        let expectedJSON = """
+            {
+              "data": {
+                "__adobe": {
+                  "analytics": {
+                    "contextData": {
+                      "emptyValue": ""
+                    }
+                  }
+                }
+              },
+              "xdm": {
+                "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
+                "eventType": "analytics.track"
+              }
+            }
+        """
+
+        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+    }
+
+    func testHandleTrackEvent_withContextDataField_nilValue_dispatchesEdgeRequestEvent() {
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "contextdata": [
+                                "nilValue": nil
+                            ]
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
+        let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
+        XCTAssertEqual(EventType.edge, dispatchedEvent.type)
+        XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
+
+        let expectedJSON = """
+            {
+              "data": {
+                "__adobe": {
+                  "analytics": {
+                    "contextData": {
+                      "nilValue": ""
+                    }
+                  }
+                }
+              },
+              "xdm": {
+                "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
+                "eventType": "analytics.track"
+              }
+            }
+        """
+
+        let codableExpected = getAnyCodable(expectedJSON)
+        let codableDispatched = getAnyCodable(dispatchedEvent)
+
+        assertEqual(expected: codableExpected, actual: codableDispatched)
+        // assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+    }
+
+    func testHandleTrackEvent_withReservedPrefix_onlyRemovesPrefix_dispatchesEdgeRequestEvent() {
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "contextdata": [
+                                "&&": "value1",
+                                "&&&": "value2",
+                                "&&&&": "value3",
+                                "&&1": "value4",
+                                "&&a": "value5",
+                                "&& ": "value6",
+                                "&&-": "value7",
+                                "&&=": "value8",
+                                "&&\\": "value9",
+                                "&&.": "value10",
+                                "&&?": "value11",
+                                "&&\n": "value12"
+                            ]
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
+        let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
+        XCTAssertEqual(EventType.edge, dispatchedEvent.type)
+        XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
+
+        let expectedJSON = """
+            {
+              "data": {
+                "__adobe": {
+                  "analytics": {
+                    "": "value1",
+                    "&": "value2",
+                    "&&": "value3",
+                    "1": "value4",
+                    "a": "value5",
+                    " ": "value6",
+                    "-": "value7",
+                    "=": "value8",
+                    "\\\\": "value9",
+                    ".": "value10",
+                    "?": "value11",
+                    "\\n": "value12"
+                  }
+                }
+              },
+              "xdm": {
+                "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
+                "eventType": "analytics.track"
+              }
+            }
+        """
+
+        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+    }
+
+    func testHandleTrackEvent_withCharacterBeforeReservedCharacters_dispatchesEdgeRequestEvent() {
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "contextdata": [
+                                "1&&": "value1",
+                                "a&&": "value2",
+                                " &&": "value3",
+                                "-&&": "value4",
+                                "=&&": "value5",
+                                "\\&&": "value6",
+                                ".&&": "value7",
+                                "?&&": "value8",
+                                "\n&&": "value9"
+                            ]
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
+        let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
+        XCTAssertEqual(EventType.edge, dispatchedEvent.type)
+        XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
+
+        let expectedJSON = """
+            {
+              "data": {
+                "__adobe": {
+                  "analytics": {
+                    "contextData": {
+                      "1&&": "value1",
+                      "a&&": "value2",
+                      " &&": "value3",
+                      "-&&": "value4",
+                      "=&&": "value5",
+                      "\\\\&&": "value6",
+                      ".&&": "value7",
+                      "?&&": "value8",
+                      "\\n&&": "value9"
+                    }
+                  }
+                }
+              },
+              "xdm": {
+                "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
+                "eventType": "analytics.track"
+              }
+            }
+        """
+
+        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+    }
+
+    func testHandleTrackEvent_mapsNullAndEmptyValues_dispatchesEdgeRequestEvent() {
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "key3": "",
+                            "key4": nil,
+                            "contextdata": [
+                                "&&key1": "",
+                                "&&key2": nil,
+                                "key5": "",
+                                "key6": nil,
+                                nil: "nilKey"
+                            ]
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
+        let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
+        XCTAssertEqual(EventType.edge, dispatchedEvent.type)
+        XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
+
+        let expectedJSON = """
+            {
+              "data": {
+                "key3": "",
+                "key4": "",
+                "__adobe": {
+                  "analytics": {
+                    "key1": "",
+                    "key2": "",
+                    "contextData": {
+                      "key5": "",
+                      "key6": ""
+                    }
+                  }
+                }
               },
               "xdm": {
                 "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
