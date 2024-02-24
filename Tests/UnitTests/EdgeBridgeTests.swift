@@ -200,12 +200,6 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         let expectedJSON = """
             {
               "data": {
-                "__adobe": {
-                  "analytics": {
-                    "linkName": "",
-                    "linkType": "other"
-                  }
-                }
               },
               "xdm": {
                 "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
@@ -236,12 +230,6 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         let expectedJSON = """
             {
               "data": {
-                "__adobe": {
-                  "analytics": {
-                    "linkName": "",
-                    "linkType": "other"
-                  }
-                }
               },
               "xdm": {
                 "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
@@ -392,11 +380,6 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         let expectedJSON = """
             {
               "data": {
-                "__adobe": {
-                  "analytics": {
-                    "pageName": ""
-                  }
-                }
               },
               "xdm": {
                 "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
@@ -427,11 +410,6 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         let expectedJSON = """
             {
               "data": {
-                "__adobe": {
-                  "analytics": {
-                    "pageName": ""
-                  }
-                }
               },
               "xdm": {
                 "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
