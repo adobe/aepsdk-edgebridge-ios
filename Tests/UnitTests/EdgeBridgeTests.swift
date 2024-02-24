@@ -84,12 +84,15 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
     }
 
-    func testHandleTrackEvent_withActionFieldWithEmptyValue_dispatchesEdgeRequestEvent() {
+    func testHandleTrackEvent_withActionFieldWithEmptyValue_dispatchesEdgeRequestEvent_withoutAction() {
         let event = Event(name: "Test Track Event",
                           type: EventType.genericTrack,
                           source: EventSource.requestContent,
                           data: [
-                            "action": ""
+                            "action": "",
+                            "contextdata": [
+                                "&&c1": "propValue1"
+                            ]
                           ])
 
         mockRuntime.simulateComingEvents(event)
@@ -103,6 +106,11 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         let expectedJSON = """
             {
               "data": {
+                "__adobe": {
+                  "analytics": {
+                    "c1": "propValue1"
+                  }
+                }
               },
               "xdm": {
                 "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
@@ -114,12 +122,15 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
     }
 
-    func testHandleTrackEvent_withActionFieldWithNilValue_dispatchesEdgeRequestEvent() {
+    func testHandleTrackEvent_withActionFieldWithNilValue_dispatchesEdgeRequestEvent_withoutAction() {
         let event = Event(name: "Test Track Event",
                           type: EventType.genericTrack,
                           source: EventSource.requestContent,
                           data: [
-                            "action": nil
+                            "action": nil,
+                            "contextdata": [
+                                "&&c1": "propValue1"
+                            ]
                           ])
 
         mockRuntime.simulateComingEvents(event)
@@ -133,6 +144,11 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         let expectedJSON = """
             {
               "data": {
+                "__adobe": {
+                  "analytics": {
+                    "c1": "propValue1"
+                  }
+                }
               },
               "xdm": {
                 "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
@@ -179,12 +195,15 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
     }
 
-    func testHandleTrackEvent_withStateFieldWithNilValue_dispatchesEdgeRequestEvent() {
+    func testHandleTrackEvent_withStateFieldWithNilValue_dispatchesEdgeRequestEvent_withoutState() {
         let event = Event(name: "Test Track Event",
                           type: EventType.genericTrack,
                           source: EventSource.requestContent,
                           data: [
-                            "state": nil
+                            "state": nil,
+                            "contextdata": [
+                                "&&c1": "propValue1"
+                            ]
                           ])
 
         mockRuntime.simulateComingEvents(event)
@@ -198,6 +217,11 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         let expectedJSON = """
             {
               "data": {
+                "__adobe": {
+                  "analytics": {
+                    "c1": "propValue1"
+                  }
+                }
               },
               "xdm": {
                 "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
@@ -209,12 +233,15 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
     }
 
-    func testHandleTrackEvent_withStateFieldWithEmptyValue_dispatchesEdgeRequestEvent() {
+    func testHandleTrackEvent_withStateFieldWithEmptyValue_dispatchesEdgeRequestEvent_withoutState() {
         let event = Event(name: "Test Track Event",
                           type: EventType.genericTrack,
                           source: EventSource.requestContent,
                           data: [
-                            "state": ""
+                            "state": "",
+                            "contextdata": [
+                                "&&c1": "propValue1"
+                            ]
                           ])
 
         mockRuntime.simulateComingEvents(event)
@@ -228,6 +255,11 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         let expectedJSON = """
             {
               "data": {
+                "__adobe": {
+                  "analytics": {
+                    "c1": "propValue1"
+                  }
+                }
               },
               "xdm": {
                 "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
@@ -445,6 +477,21 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         """
 
         assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+    }
+
+    // Tests event is not dispatched is no track data is available
+    func testHandleTrackEvent_withNoMappedData_doesNotDispatchEvent() {
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "state": "",
+                            "action": ""
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(0, mockRuntime.dispatchedEvents.count)
     }
 
     func testHandleTrackEvent_withContextDataFieldUsingReservedPrefix_emptyKeyName_dispatchesEdgeRequestEvent() {
