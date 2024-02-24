@@ -174,12 +174,12 @@ public class EdgeBridge: NSObject, Extension {
             }
         }
 
-        if let action = mutableData.removeValue(forKey: EdgeBridgeConstants.MobileCoreKeys.ACTION) as? String {
+        if let action = mutableData.removeValue(forKey: EdgeBridgeConstants.MobileCoreKeys.ACTION) as? String, !action.isEmpty {
             analyticsData[EdgeBridgeConstants.AnalyticsKeys.LINK_NAME] = action
             analyticsData[EdgeBridgeConstants.AnalyticsKeys.LINK_TYPE] = EdgeBridgeConstants.AnalyticsValues.OTHER
         }
 
-        if let state = mutableData.removeValue(forKey: EdgeBridgeConstants.MobileCoreKeys.STATE) as? String {
+        if let state = mutableData.removeValue(forKey: EdgeBridgeConstants.MobileCoreKeys.STATE) as? String, !state.isEmpty {
             analyticsData[EdgeBridgeConstants.AnalyticsKeys.PAGE_NAME] = state
         }
 
