@@ -1174,3 +1174,4 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         XCTAssertEqual(0, mockRuntime.dispatchedEvents.count)
     }
 }
+// swiftlint:enable type_body_length
