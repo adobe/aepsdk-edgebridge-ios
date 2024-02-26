@@ -11,7 +11,23 @@ mkdir -p $PROJECT_NAME && cd $PROJECT_NAME
 
 # Create a new Xcode project.
 swift package init
-swift package generate-xcodeproj
+
+# Use Xcodegen to generate the project.
+echo "
+name: $PROJECT_NAME
+options:
+  bundleIdPrefix: $PROJECT_NAME
+targets:
+  $PROJECT_NAME:
+    type: framework
+    sources: Sources
+    platform: iOS
+    deploymentTarget: "12.0"
+    settings:
+      GENERATE_INFOPLIST_FILE: YES
+" >>project.yml
+
+xcodegen generate
 
 # Create a Podfile with our pod as dependency.
 echo "
