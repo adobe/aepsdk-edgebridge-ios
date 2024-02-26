@@ -151,6 +151,8 @@ public class EdgeBridge: NSObject, Extension {
     ///  }
     ///  ```
     ///
+    ///  Note, empty keys are not allowed and ignored.
+    ///
     /// - Parameter data: track event data
     /// - Returns: data formatted for the Analytics Edge translator.
     private func formatData(_ data: [String: Any]) -> [String: Any] {
@@ -161,10 +163,17 @@ public class EdgeBridge: NSObject, Extension {
             var prefixedData: [String: Any] = [:]
             var nonprefixedData: [String: Any] = [:]
 
-            for (key, value) in contextData {
+            let cleanedContextData = cleanContextData(contextData)
+            for (key, value) in cleanedContextData {
+                if key.isEmpty {
+                    continue
+                }
+
                 if key.hasPrefix(EdgeBridgeConstants.AnalyticsValues.PREFIX) {
                     let newKey = String(key.dropFirst(EdgeBridgeConstants.AnalyticsValues.PREFIX.count))
-                    prefixedData[newKey] = value
+                    if !newKey.isEmpty {
+                        prefixedData[newKey] = value
+                    }
                 } else {
                     nonprefixedData[key] = value
                 }
@@ -193,6 +202,27 @@ public class EdgeBridge: NSObject, Extension {
         }
 
         return mutableData
+    }
+
+    /// Clean context data values.
+    /// Context data values may only be of type Number, String, or Character. Other values are filered out.
+    ///
+    /// - Parameter data: context data to be cleaned
+    /// - Returns: dictionary where values are only of type String, Number, or Character
+    private func cleanContextData(_ data: [String: Any?]) -> [String: Any] {
+
+        let cleanedData = data.filter {
+            switch $0.value {
+            case is NSNumber, is String, is Character:
+                return true
+            default:
+                Log.warning(label: EdgeBridgeConstants.LOG_TAG,
+                            "cleanContextData - Dropping Key(\($0.key)) with Value(\(String(describing: $0.value))). Value should be String, Number, Bool or Character")
+                return false
+            }
+        } as [String: Any]
+
+        return cleanedData
     }
 
 }
