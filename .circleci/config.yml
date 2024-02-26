@@ -66,13 +66,13 @@ commands:
     steps:
       - macos/preboot-simulator:
           platform: "iOS"
-          version: "16.1"
-          device: "iPhone 14"
+          version: "17.0"
+          device: "iPhone 15"
 
 jobs:
   validate-code:
     macos:
-      xcode: 14.1.0 # Specify the Xcode version to use
+      xcode: 15.0.0 # Specify the Xcode version to use
 
     steps:
       - checkout
@@ -85,7 +85,7 @@ jobs:
 
   test-ios:
     macos:
-      xcode: 14.1.0 # Specify the Xcode version to use
+      xcode: 15.0.0 # Specify the Xcode version to use
 
     steps:
       - checkout
@@ -107,7 +107,7 @@ jobs:
           
   build_xcframework_and_app:  
     macos:
-      xcode: 14.1.0 # Specify the Xcode version to use
+      xcode: 15.0.0 # Specify the Xcode version to use
     
     steps:
       - checkout
