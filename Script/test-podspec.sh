@@ -43,19 +43,19 @@ pod install
 
 # Archive for generic iOS device
 echo '############# Archive for generic iOS device ###############'
-xcodebuild archive -scheme TestProject-Package -workspace TestProject.xcworkspace -destination 'generic/platform=iOS'
+xcodebuild archive -scheme TestProject -workspace TestProject.xcworkspace -destination 'generic/platform=iOS'
 
 # Build for generic iOS device
 echo '############# Build for generic iOS device ###############'
-xcodebuild clean build -scheme TestProject-Package -workspace TestProject.xcworkspace -destination 'generic/platform=iOS'
+xcodebuild clean build -scheme TestProject -workspace TestProject.xcworkspace -destination 'generic/platform=iOS'
 
 # Archive for x86_64 simulator
 echo '############# Archive for simulator ###############'
-xcodebuild archive -scheme TestProject-Package -workspace TestProject.xcworkspace -destination 'generic/platform=iOS Simulator'
+xcodebuild archive -scheme TestProject -workspace TestProject.xcworkspace -destination 'generic/platform=iOS Simulator'
 
 # Build for x86_64 simulator
 echo '############# Build for simulator ###############'
-xcodebuild clean build -scheme TestProject-Package -workspace TestProject.xcworkspace -destination 'generic/platform=iOS Simulator'
+xcodebuild clean build -scheme TestProject -workspace TestProject.xcworkspace -destination 'generic/platform=iOS Simulator'
 
 # Clean up.
 cd ../
