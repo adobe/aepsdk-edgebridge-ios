@@ -92,24 +92,25 @@ public class EdgeBridge: NSObject, Extension {
     ///   - parentEvent: the triggering parent event used for event chaining; its timestamp is set as xdm.timestamp
     private func dispatchTrackRequest(data: [String: Any], parentEvent: Event) {
         let mappedData = formatData(data)
-        if !mappedData.isEmpty {
-            let xdmEventData: [String: Any] = [
-                "data": mappedData,
-                "xdm": [
-                    "timestamp": parentEvent.timestamp.getISO8601UTCDateWithMilliseconds(),
-                    "eventType": EdgeBridgeConstants.JsonValues.EVENT_TYPE
-                ]
-            ]
 
-            let event = parentEvent.createChainedEvent(name: EdgeBridgeConstants.EventNames.EDGE_BRIDGE_REQUEST,
-                                                       type: EventType.edge,
-                                                       source: EventSource.requestContent,
-                                                       data: xdmEventData)
-
-            runtime.dispatch(event: event)
-        } else {
+        if mappedData.isEmpty {
             Log.warning(label: EdgeBridgeConstants.LOG_TAG, "Event '\(parentEvent.id.uuidString)' did not contain any mappable data. Experience event not dispatched.")
         }
+
+        let xdmEventData: [String: Any] = [
+            "data": mappedData,
+            "xdm": [
+                "timestamp": parentEvent.timestamp.getISO8601UTCDateWithMilliseconds(),
+                "eventType": EdgeBridgeConstants.JsonValues.EVENT_TYPE
+            ]
+        ]
+
+        let event = parentEvent.createChainedEvent(name: EdgeBridgeConstants.EventNames.EDGE_BRIDGE_REQUEST,
+                                                   type: EventType.edge,
+                                                   source: EventSource.requestContent,
+                                                   data: xdmEventData)
+
+        runtime.dispatch(event: event)
     }
 
     /// Formats track event data to the required Analytics Edge translator format under the `data.__adobe.analytics` object.
