@@ -529,6 +529,22 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         XCTAssertEqual(0, mockRuntime.dispatchedEvents.count)
     }
 
+    // Tests event is not dispatched if no track data is available
+    func testHandleTrackEvent_withNoMappedData_nilValues_doesNotDispatchEvent() {
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "state": nil,
+                            "action": nil,
+                            "contextdata": nil
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(0, mockRuntime.dispatchedEvents.count)
+    }
+
     // Test using prefixed key of '&&' is not included in request as it produces an empty string key
     func testHandleTrackEvent_withContextDataFieldUsingReservedPrefix_emptyKeyName_dispatchesEdgeRequestEvent_emptyKeysIgnored() {
         let event = Event(name: "Test Track Event",
@@ -538,6 +554,83 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                             "contextdata": [
                                 "&&c1": "propValue",
                                 "&&": "emptyKey"
+                            ]
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
+        let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
+        XCTAssertEqual(EventType.edge, dispatchedEvent.type)
+        XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
+
+        let expectedJSON = """
+            {
+              "data": {
+                "__adobe": {
+                  "analytics": {
+                    "c1": "propValue"
+                  }
+                }
+              },
+              "xdm": {
+                "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
+                "eventType": "analytics.track"
+              }
+            }
+        """
+
+        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+    }
+
+    func testHandleTrackEvent_withContextDataFieldUsingReservedPrefix_emptyValue_dispatchesEdgeRequestEvent_emptyValuesAllowed() {
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "contextdata": [
+                                "&&c1": "propValue",
+                                "&&v1": ""
+                            ]
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
+        let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
+        XCTAssertEqual(EventType.edge, dispatchedEvent.type)
+        XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
+
+        let expectedJSON = """
+            {
+              "data": {
+                "__adobe": {
+                  "analytics": {
+                    "c1": "propValue",
+                    "v1": ""
+                  }
+                }
+              },
+              "xdm": {
+                "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
+                "eventType": "analytics.track"
+              }
+            }
+        """
+
+        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+    }
+
+    func testHandleTrackEvent_withContextDataFieldUsingReservedPrefix_nilValue_dispatchesEdgeRequestEvent_nilValuesIgnored() {
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "contextdata": [
+                                "&&c1": "propValue",
+                                "&&v1": nil
                             ]
                           ])
 
@@ -611,7 +704,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
 
     // Public track APIs define context data as [String: Any] which do not allow null keys.
     // However, an Event may still have nil keys if set inside a dictionary.
-    func testHandleTrackEvent_withContextDataField_nilKeyName_dispatchesEdgeRequestEvent_contextDataDropped() {
+    func testHandleTrackEvent_withContextDataField_nilKeyName_dispatchesEdgeRequestEvent_nilKeysIgnored() {
         let event = Event(name: "Test Track Event",
                           type: EventType.genericTrack,
                           source: EventSource.requestContent,
@@ -654,7 +747,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
     }
 
     // Test empty string values are allowed
-    func testHandleTrackEvent_withContextDataField_emptyValue_dispatchesEdgeRequestEvent() {
+    func testHandleTrackEvent_withContextDataField_emptyValue_dispatchesEdgeRequestEvent_emptyValuesAllowed() {
         let event = Event(name: "Test Track Event",
                           type: EventType.genericTrack,
                           source: EventSource.requestContent,
