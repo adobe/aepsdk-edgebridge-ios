@@ -95,6 +95,7 @@ public class EdgeBridge: NSObject, Extension {
 
         if mappedData.isEmpty {
             Log.warning(label: EdgeBridgeConstants.LOG_TAG, "Event '\(parentEvent.id.uuidString)' did not contain any mappable data. Experience event not dispatched.")
+            return
         }
 
         let xdmEventData: [String: Any] = [
