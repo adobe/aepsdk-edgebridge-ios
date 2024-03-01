@@ -226,9 +226,15 @@ public class EdgeBridge: NSObject, Extension {
     ///
     /// - Parameter data: context data to be cleaned
     /// - Returns: dictionary where values are only of type String, Number, or Character
-    private func cleanContextData(_ data: [String: Any?]) -> [String: Any] {
+    private func cleanContextData(_ data: [String?: Any?]) -> [String: Any] {
 
         let cleanedData = data.filter {
+            if $0.key == nil {
+                Log.debug(label: EdgeBridgeConstants.LOG_TAG,
+                          "cleanContextData - Dropping key '\(String(describing: $0.key))' with value '\(String(describing: $0.value))'. Key must be non-nil String.")
+                return false
+            }
+
             switch $0.value {
             case is NSNumber, is String, is Character:
                 return true
