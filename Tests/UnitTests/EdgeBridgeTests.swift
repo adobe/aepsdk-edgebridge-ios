@@ -576,7 +576,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
     }
 
     // Public track APIs define context data as [String: Any] which do not allow null keys.
-    // However, if a null key is injected, extension will drop context data as it cannot be parsed
+    // However, an Event may still have nil keys if set inside a dictionary.
     func testHandleTrackEvent_withContextDataField_nilKeyName_dispatchesEdgeRequestEvent_contextDataDropped() {
         let event = Event(name: "Test Track Event",
                           type: EventType.genericTrack,
@@ -602,7 +602,10 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
-                    "pageName": "test state"
+                    "pageName": "test state",
+                    "contextData": {
+                      "key": "value"
+                    }
                   }
                 }
               },

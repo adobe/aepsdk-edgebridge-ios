@@ -160,11 +160,11 @@ public class EdgeBridge: NSObject, Extension {
         var mutableData = data // mutable copy of data
         var analyticsData: [String: Any] = [:] // __adobe.analytics data
 
-        if let contextData = mutableData.removeValue(forKey: EdgeBridgeConstants.MobileCoreKeys.CONTEXT_DATA) as? [String: Any], !contextData.isEmpty {
+        if let contextData = mutableData.removeValue(forKey: EdgeBridgeConstants.MobileCoreKeys.CONTEXT_DATA) as? [String?: Any?], !contextData.isEmpty {
             var prefixedData: [String: Any] = [:]
             var nonprefixedData: [String: Any] = [:]
 
-            let cleanedContextData = cleanContextData(contextData)
+            let cleanedContextData: [String: Any] = cleanContextData(contextData)
             for (key, value) in cleanedContextData {
                 if key.isEmpty {
                     Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Dropping key '\(key)' with value '\(value)'. Key must be non-empty String.")
@@ -176,7 +176,8 @@ public class EdgeBridge: NSObject, Extension {
                     if !newKey.isEmpty {
                         prefixedData[newKey] = value
                     } else {
-                        Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Dropping key '\(key)' with value '\(value)'. Key minus prefix '\(EdgeBridgeConstants.AnalyticsValues.PREFIX)' must be non-empty String.")
+                        Log.debug(label: EdgeBridgeConstants.LOG_TAG,
+                                  "Dropping key '\(key)' with value '\(value)'. Key minus prefix '\(EdgeBridgeConstants.AnalyticsValues.PREFIX)' must be non-empty String.")
                     }
                 } else {
                     nonprefixedData[key] = value
@@ -213,18 +214,30 @@ public class EdgeBridge: NSObject, Extension {
     ///
     /// - Parameter data: context data to be cleaned
     /// - Returns: dictionary where values are only of type String, Number, or Character
-    private func cleanContextData(_ data: [String: Any?]) -> [String: Any] {
+    private func cleanContextData(_ data: [String?: Any?]) -> [String: Any] {
 
         let cleanedData = data.filter {
+            if $0.key == nil {
+                Log.debug(label: EdgeBridgeConstants.LOG_TAG,
+                          "cleanContextData - Dropping key '\(String(describing: $0.key))' with value '\(String(describing: $0.value))'. Key must be non-nil String.")
+                return false
+            }
+
             switch $0.value {
             case is NSNumber, is String, is Character:
                 return true
             default:
-                Log.warning(label: EdgeBridgeConstants.LOG_TAG,
-                            "cleanContextData - Dropping Key(\($0.key)) with Value(\(String(describing: $0.value))). Value should be String, Number, Bool or Character")
+                Log.debug(label: EdgeBridgeConstants.LOG_TAG,
+                          "cleanContextData - Dropping key '\(String(describing: $0.key))' with value '\(String(describing: $0.value))'. Value must be String, Number, Bool or Character")
                 return false
             }
-        } as [String: Any]
+        }
+
+        guard let cleanedData = cleanedData as? [String: Any] else {
+            Log.debug(label: EdgeBridgeConstants.LOG_TAG,
+                      "cleanContextData - Failed to convert data to required format. Filtering out contextdata.")
+            return [:]
+        }
 
         return cleanedData
     }
