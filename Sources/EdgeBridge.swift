@@ -167,6 +167,7 @@ public class EdgeBridge: NSObject, Extension {
             let cleanedContextData = cleanContextData(contextData)
             for (key, value) in cleanedContextData {
                 if key.isEmpty {
+                    Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Dropping key '\(key)' with value '\(value)'. Key must be non-empty String.")
                     continue
                 }
 
@@ -174,6 +175,8 @@ public class EdgeBridge: NSObject, Extension {
                     let newKey = String(key.dropFirst(EdgeBridgeConstants.AnalyticsValues.PREFIX.count))
                     if !newKey.isEmpty {
                         prefixedData[newKey] = value
+                    } else {
+                        Log.debug(label: EdgeBridgeConstants.LOG_TAG, "Dropping key '\(key)' with value '\(value)'. Key minus prefix '\(EdgeBridgeConstants.AnalyticsValues.PREFIX)' must be non-empty String.")
                     }
                 } else {
                     nonprefixedData[key] = value
