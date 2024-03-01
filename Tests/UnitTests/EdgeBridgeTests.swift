@@ -480,14 +480,48 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
     }
 
-    // Tests event is not dispatched is no track data is available
+    // Test event still dispatched if request contains data but no 'track' data.
+    // Additional data may be added through Rules.
+    func testHandleTrackEvent_hasDataButNoTrackData_dispatchesEdgeRequestEvent() {
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "key": "value"
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
+        let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
+        XCTAssertEqual(EventType.edge, dispatchedEvent.type)
+        XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
+
+        let expectedJSON = """
+            {
+              "data": {
+                "key": "value"
+              },
+              "xdm": {
+                "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
+                "eventType": "analytics.track"
+              }
+            }
+        """
+
+        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+    }
+
+    // Tests event is not dispatched if no track data is available
     func testHandleTrackEvent_withNoMappedData_doesNotDispatchEvent() {
         let event = Event(name: "Test Track Event",
                           type: EventType.genericTrack,
                           source: EventSource.requestContent,
                           data: [
                             "state": "",
-                            "action": ""
+                            "action": "",
+                            "contextdata": []
                           ])
 
         mockRuntime.simulateComingEvents(event)
@@ -864,6 +898,59 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                             "keyCharacter": char
                         ]
                     ]
+                ]
+            ],
+            "xdm": [
+                "timestamp": event.timestamp.getISO8601UTCDateWithMilliseconds(),
+                "eventType": "analytics.track"
+            ]
+        ]
+
+        XCTAssertEqual(expectedData as NSObject, dispatchedData as NSObject)
+    }
+
+    // Test event still dispatched if request contains data but no 'track' data. Data is not modified.
+    // Additional data may be added through Rules.
+    func testHandleTrackEvent_hasDataButNoTrackData_dataIsNotModified_andDispatchesEdgeRequestEvent() {
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "key": "value",
+                            "&&c1": "prop1",
+                            "keyEmptyValue": "",
+                            "keyNilValue": nil,
+                            "": "valueEmptyKey",
+                            "additionalData": [
+                                "key": "value",
+                                nil: "valueNilKey"
+                            ]
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
+        let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
+        XCTAssertEqual(EventType.edge, dispatchedEvent.type)
+        XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
+
+        // Test data directly instead of using Test Utils / AnyCodable libs as nil keys/values are not supported
+        guard let dispatchedData = dispatchedEvent.data else {
+            XCTFail("Dispatched event expected to have data but was nil.")
+            return
+        }
+
+        let expectedData: [String: Any] = [
+            "data": [
+                "key": "value",
+                "&&c1": "prop1",
+                "keyEmptyValue": "",
+                "keyNilValue": nil,
+                "": "valueEmptyKey",
+                "additionalData": [
+                    "key": "value",
+                    nil: "valueNilKey"
                 ]
             ],
             "xdm": [
