@@ -39,6 +39,7 @@ enum EdgeBridgeConstants {
         static let LINK_TYPE = "linkType"
         static let PAGE_NAME = "pageName"
         static let CONTEXT_DATA = "contextData"
+        static let APPLICATION_ID = "a.AppID"
     }
 
     enum AnalyticsValues {
