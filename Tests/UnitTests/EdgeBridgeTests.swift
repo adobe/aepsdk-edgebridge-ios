@@ -12,6 +12,7 @@
 
 import AEPCore
 @testable import AEPEdgeBridge
+import AEPServices
 import AEPTestUtils
 import XCTest
 
@@ -20,7 +21,19 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
     var mockRuntime: TestableExtensionRuntime!
     var edgeBridge: EdgeBridge!
 
+    var fakeSystemInfoService = FakeSystemInfoService()
+
+    var applicationIdentifier: String {
+        return "\(fakeSystemInfoService.applicationName ?? "") \(fakeSystemInfoService.applicationVersionNumber ?? "") (\(fakeSystemInfoService.applicationBuildNumber ?? ""))"
+    }
+
     override func setUp() {
+        fakeSystemInfoService.applicationName = "appName"
+        fakeSystemInfoService.applicationVersionNumber = "1"
+        fakeSystemInfoService.applicationBuildNumber = "0"
+
+        ServiceProvider.shared.systemInfoService = fakeSystemInfoService
+
         mockRuntime = TestableExtensionRuntime()
 
         edgeBridge = EdgeBridge(runtime: mockRuntime)
@@ -71,7 +84,10 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "linkName": "action name",
-                    "linkType": "other"
+                    "linkType": "other",
+                    "contextData": {
+                      "a.AppID": "\(applicationIdentifier)"
+                    }
                   }
                 }
               },
@@ -109,7 +125,10 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
-                    "c1": "propValue1"
+                    "c1": "propValue1",
+                    "contextData": {
+                      "a.AppID": "\(applicationIdentifier)"
+                    }
                   }
                 }
               },
@@ -147,7 +166,10 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
-                    "c1": "propValue1"
+                    "c1": "propValue1",
+                    "contextData": {
+                      "a.AppID": "\(applicationIdentifier)"
+                    }
                   }
                 }
               },
@@ -182,7 +204,10 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
-                    "pageName": "state name"
+                    "pageName": "state name",
+                    "contextData": {
+                      "a.AppID": "\(applicationIdentifier)"
+                    }
                   }
                 }
               },
@@ -220,7 +245,10 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
-                    "c1": "propValue1"
+                    "c1": "propValue1",
+                    "contextData": {
+                      "a.AppID": "\(applicationIdentifier)"
+                    }
                   }
                 }
               },
@@ -258,7 +286,10 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
-                    "c1": "propValue1"
+                    "c1": "propValue1",
+                    "contextData": {
+                      "a.AppID": "\(applicationIdentifier)"
+                    }
                   }
                 }
               },
@@ -295,7 +326,10 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
-                    "c1": "propValue1"
+                    "c1": "propValue1",
+                    "contextData": {
+                      "a.AppID": "\(applicationIdentifier)"
+                    }
                   }
                 }
               },
@@ -333,7 +367,8 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "contextData": {
-                      "key1": "value1"
+                      "key1": "value1",
+                      "a.AppID": "\(applicationIdentifier)"
                     }
                   }
                 }
@@ -415,7 +450,8 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                     "c1": "propValue1",
                     "cc": "USD",
                     "contextData": {
-                      "key1": "value1"
+                      "key1": "value1",
+                      "a.AppID": "\(applicationIdentifier)"
                     }
                   }
                 },
@@ -464,7 +500,8 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                     "c1": "propValue1",
                     "v1": "evarValue1",
                     "contextData": {
-                      "key1": "value1"
+                      "key1": "value1",
+                      "a.AppID": "\(applicationIdentifier)"
                     }
                   }
                 },
@@ -570,7 +607,10 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
-                    "c1": "propValue"
+                    "c1": "propValue",
+                    "contextData": {
+                      "a.AppID": "\(applicationIdentifier)"
+                    }
                   }
                 }
               },
@@ -609,7 +649,10 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "c1": "propValue",
-                    "v1": ""
+                    "v1": "",
+                    "contextData": {
+                      "a.AppID": "\(applicationIdentifier)"
+                    }
                   }
                 }
               },
@@ -647,7 +690,10 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
-                    "c1": "propValue"
+                    "c1": "propValue",
+                    "contextData": {
+                      "a.AppID": "\(applicationIdentifier)"
+                    }
                   }
                 }
               },
@@ -687,7 +733,8 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "contextData": {
-                      "key": "value"
+                      "key": "value",
+                      "a.AppID": "\(applicationIdentifier)"
                     }
                   }
                 }
@@ -729,7 +776,10 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
-                    "pageName": "test state"
+                    "pageName": "test state",
+                    "contextData": {
+                      "a.AppID": "\(applicationIdentifier)"
+                    }
                   }
                 }
               },
@@ -768,7 +818,8 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "contextData": {
-                      "emptyValue": ""
+                      "emptyValue": "",
+                      "a.AppID": "\(applicationIdentifier)"
                     }
                   }
                 }
@@ -808,7 +859,8 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "contextData": {
-                      "key": "value"
+                      "key": "value",
+                      "a.AppID": "\(applicationIdentifier)"
                     }
                   }
                 }
@@ -870,7 +922,10 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                     "\\\\": "value9",
                     ".": "value10",
                     "?": "value11",
-                    "\\n": "value12"
+                    "\\n": "value12",
+                    "contextData": {
+                      "a.AppID": "\(applicationIdentifier)"
+                    }
                   }
                 }
               },
@@ -924,7 +979,8 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                       "\\\\&&": "value6",
                       ".&&": "value7",
                       "?&&": "value8",
-                      "\\n&&": "value9"
+                      "\\n&&": "value9",
+                      "a.AppID": "\(applicationIdentifier)"
                     }
                   }
                 }
@@ -985,7 +1041,8 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                         "contextData": [
                             "keyString": "valueString",
                             "keyNumber": 5,
-                            "keyCharacter": char
+                            "keyCharacter": char,
+                            "a.AppID": "\(applicationIdentifier)"
                         ]
                     ]
                 ]
@@ -1100,7 +1157,8 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                     "linkName": "Test Action",
                     "linkType": "other",
                     "contextData": {
-                      "testKey": "testValue"
+                      "testKey": "testValue",
+                      "a.AppID": "\(applicationIdentifier)"
                     }
                   }
                 }
@@ -1346,5 +1404,86 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
 
         XCTAssertEqual(0, mockRuntime.dispatchedEvents.count)
     }
+
+    func testHandleTrackEvent_withApplicationIdentifier_dispatchesEdgeRequestEvent_withAppID() {
+        fakeSystemInfoService.applicationName = "myApp"
+        fakeSystemInfoService.applicationVersionNumber = "1.0"
+        fakeSystemInfoService.applicationBuildNumber = "2"
+
+        assertAppIDInDispatchedEvent("myApp 1.0 (2)")
+    }
+
+    func testHandleTrackEvent_withNilApplicationName_dispatchesEdgeRequestEvent_withAppID() {
+        fakeSystemInfoService.applicationName = nil
+        fakeSystemInfoService.applicationVersionNumber = "1.0"
+        fakeSystemInfoService.applicationBuildNumber = "2"
+
+        assertAppIDInDispatchedEvent("1.0 (2)")
+    }
+
+    func testHandleTrackEvent_withNilApplicationVersionNumber_dispatchesEdgeRequestEvent_withAppID() {
+        fakeSystemInfoService.applicationName = "myApp"
+        fakeSystemInfoService.applicationVersionNumber = nil
+        fakeSystemInfoService.applicationBuildNumber = "2"
+
+        assertAppIDInDispatchedEvent("myApp (2)")
+    }
+
+    func testHandleTrackEvent_withNilApplicationBuildNumber_dispatchesEdgeRequestEvent_withAppID() {
+        fakeSystemInfoService.applicationName = "myApp"
+        fakeSystemInfoService.applicationVersionNumber = "1.0"
+        fakeSystemInfoService.applicationBuildNumber = nil
+
+        assertAppIDInDispatchedEvent("myApp 1.0")
+    }
+
+    func testHandleTrackEvent_withNilApplicationIdentifier_dispatchesEdgeRequestEvent_withEmptyAppID() {
+        fakeSystemInfoService.applicationName = nil
+        fakeSystemInfoService.applicationVersionNumber = nil
+        fakeSystemInfoService.applicationBuildNumber = nil
+
+        assertAppIDInDispatchedEvent("")
+    }
+
+    /// Asserts `appId` is the same as the `a.AppID` in the dispatched Edge event.
+    /// - Parameter appId: the full `a.AppID` as appears in the Edge event
+    private func assertAppIDInDispatchedEvent(_ appId: String) {
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "state": "state name"
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
+        let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+        XCTAssertEqual(event.id, dispatchedEvent.parentID)
+        XCTAssertEqual(EventType.edge, dispatchedEvent.type)
+        XCTAssertEqual(EventSource.requestContent, dispatchedEvent.source)
+
+        let expectedJSON = """
+            {
+              "data": {
+                "__adobe": {
+                  "analytics": {
+                    "pageName": "state name",
+                    "contextData": {
+                      "a.AppID": "\(appId)"
+                    }
+                  }
+                }
+              },
+              "xdm": {
+                "timestamp": "\(event.timestamp.getISO8601UTCDateWithMilliseconds())",
+                "eventType": "analytics.track"
+              }
+            }
+        """
+
+        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+    }
+
 }
 // swiftlint:enable type_body_length
