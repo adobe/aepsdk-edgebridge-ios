@@ -1005,20 +1005,23 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
     // Test event still dispatched if request contains data but no 'track' data. Data is not modified.
     // Additional data may be added through Rules.
     func testHandleTrackEvent_hasDataButNoTrackData_dataIsNotModified_andDispatchesEdgeRequestEvent() {
+        let dataDictionary: [String: Any?] = [
+            "key": "value",
+            "&&c1": "prop1",
+            "keyEmptyValue": "",
+            "keyNilValue": nil,
+            "": "valueEmptyKey",
+            "additionalData": [
+                "key": "value",
+                nil: "valueNilKey"
+            ]
+        ]
+
         let event = Event(name: "Test Track Event",
                           type: EventType.genericTrack,
                           source: EventSource.requestContent,
-                          data: [
-                            "key": "value",
-                            "&&c1": "prop1",
-                            "keyEmptyValue": "",
-                            "keyNilValue": nil,
-                            "": "valueEmptyKey",
-                            "additionalData": [
-                                "key": "value",
-                                nil: "valueNilKey"
-                            ]
-                          ])
+                          data: dataDictionary as [String: Any]
+        )
 
         mockRuntime.simulateComingEvents(event)
 
@@ -1035,17 +1038,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         }
 
         let expectedData: [String: Any] = [
-            "data": [
-                "key": "value",
-                "&&c1": "prop1",
-                "keyEmptyValue": "",
-                "keyNilValue": nil,
-                "": "valueEmptyKey",
-                "additionalData": [
-                    "key": "value",
-                    nil: "valueNilKey"
-                ]
-            ],
+            "data": dataDictionary,
             "xdm": [
                 "timestamp": event.timestamp.getISO8601UTCDateWithMilliseconds(),
                 "eventType": "analytics.track"
