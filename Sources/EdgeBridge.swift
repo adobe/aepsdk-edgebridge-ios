@@ -215,6 +215,8 @@ public class EdgeBridge: NSObject, Extension {
                 analyticsData[EdgeBridgeConstants.AnalyticsKeys.CONTEXT_DATA] = [EdgeBridgeConstants.AnalyticsKeys.APPLICATION_ID: applicationIdentifier]
             }
 
+            analyticsData[EdgeBridgeConstants.AnalyticsKeys.CUSTOMER_PERSPECTIVE] = getApplicationState()
+
             mutableData[EdgeBridgeConstants.AnalyticsKeys.ADOBE] = [EdgeBridgeConstants.AnalyticsKeys.ANALYTICS: analyticsData]
         }
 
@@ -258,20 +260,11 @@ public class EdgeBridge: NSObject, Extension {
             .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
-    /// Combines the application name, version, and version code into a formatted application identifier
-    /// Returns the application identifier formatted as "appName appVersion (appBuildNumber)".
+    /// Get the application state variable.
     ///
-    /// - Return: `String` formatted Application identifier
-    private func getApplicationIdentifier() -> String {
-        let systemInfoService = ServiceProvider.shared.systemInfoService
-        let applicationName = systemInfoService.getApplicationName() ?? ""
-        let applicationVersion = systemInfoService.getApplicationVersionNumber() ?? ""
-        let applicationBuildNumber = systemInfoService.getApplicationBuildNumber() ?? ""
-        // Make sure that the formatted identifier removes white space if any of the values are empty, and remove the () version wrapper if version is empty as well
-        return "\(applicationName) \(applicationVersion) (\(applicationBuildNumber))"
-            .replacingOccurrences(of: "  ", with: " ")
-            .replacingOccurrences(of: "()", with: "")
-            .trimmingCharacters(in: .whitespacesAndNewlines)
+    /// - Returns: "background" if the application state is `.background`, "foreground" for all other cases
+    private func getApplicationState() -> String {
+        return EdgeBridgeHelper.getApplicationState() == .background ?
+            EdgeBridgeConstants.AnalyticsValues.APP_STATE_BACKGROUND : EdgeBridgeConstants.AnalyticsValues.APP_STATE_FOREGROUND
     }
-
 }
