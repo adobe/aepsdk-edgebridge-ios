@@ -13,12 +13,16 @@
 import AEPServices
 import UIKit
 
-enum EdgeBridgeHelper {
+protocol EdgeBridgeHelper {
+    func getApplicationState() -> UIApplication.State?
+}
+
+struct EdgeBridgeHelperImpl: EdgeBridgeHelper {
     /// The app’s current state, or that of its most active scene.
     /// - Returns: The app's current state
     @available(iOSApplicationExtension, unavailable)
     @available(tvOSApplicationExtension, unavailable)
-    static func getApplicationState() -> UIApplication.State? {
+    func getApplicationState() -> UIApplication.State? {
         var ret: UIApplication.State?
         if Thread.isMainThread {
             ret = UIApplication.shared.applicationState

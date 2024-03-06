@@ -1424,6 +1424,8 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         XCTAssertEqual(0, mockRuntime.dispatchedEvents.count)
     }
 
+    // MARK: AppID tests
+
     func testHandleTrackEvent_withApplicationIdentifier_dispatchesEdgeRequestEvent_withAppID() {
         fakeSystemInfoService.applicationName = "myApp"
         fakeSystemInfoService.applicationVersionNumber = "1.0"
@@ -1464,9 +1466,55 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         assertAppIDInDispatchedEvent("")
     }
 
+    // MARK: Customer Perspective tests
+
+    func testHandleTrackEvent_withActiveApplicationState_dispatchesEdgeRequestEvent_withCustomerPerspectiveForeground() {
+        var fakeHelper = FakeEdgeBridgeHelper()
+        fakeHelper.applicationState = .active
+        edgeBridge.bridgeHelper = fakeHelper
+
+        assertCPInDispatchedEvent("foreground")
+    }
+
+    func testHandleTrackEvent_withBackgroundApplicationState_dispatchesEdgeRequestEvent_withCustomerPerspectiveBackground() {
+        var fakeHelper = FakeEdgeBridgeHelper()
+        fakeHelper.applicationState = .background
+        edgeBridge.bridgeHelper = fakeHelper
+
+        assertCPInDispatchedEvent("background")
+    }
+
+    func testHandleTrackEvent_withInactiveApplicationState_dispatchesEdgeRequestEvent_withCustomerPerspectiveForeground() {
+        var fakeHelper = FakeEdgeBridgeHelper()
+        fakeHelper.applicationState = .inactive
+        edgeBridge.bridgeHelper = fakeHelper
+
+        assertCPInDispatchedEvent("foreground")
+    }
+
+    func testHandleTrackEvent_withNilApplicationState_dispatchesEdgeRequestEvent_withCustomerPerspectiveForeground() {
+        var fakeHelper = FakeEdgeBridgeHelper()
+        fakeHelper.applicationState = nil
+        edgeBridge.bridgeHelper = fakeHelper
+
+        assertCPInDispatchedEvent("foreground")
+    }
+
+    // MARK: Helpers
+
     /// Asserts `appId` is the same as the `a.AppID` in the dispatched Edge event.
     /// - Parameter appId: the full `a.AppID` as appears in the Edge event
     private func assertAppIDInDispatchedEvent(_ appId: String) {
+        assertInDispatchedEvent(appId: appId, customerPerspective: "foreground")
+    }
+
+    /// Asserts `customerPerspective` is the same as the `cp` in the dispatched Edge event.
+    /// - Parameter customerPerspective: the full customer perspective as appears in the Edge event
+    private func assertCPInDispatchedEvent(_ customerPerspective: String) {
+        assertInDispatchedEvent(appId: applicationIdentifier, customerPerspective: customerPerspective)
+    }
+
+    private func assertInDispatchedEvent(appId: String, customerPerspective: String) {
         let event = Event(name: "Test Track Event",
                           type: EventType.genericTrack,
                           source: EventSource.requestContent,
@@ -1488,7 +1536,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "pageName": "state name",
-                    "cp": "foreground",
+                    "cp": "\(customerPerspective)",
                     "contextData": {
                       "a.AppID": "\(appId)"
                     }
@@ -1505,5 +1553,12 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
     }
 
+}
+
+struct FakeEdgeBridgeHelper: EdgeBridgeHelper {
+    public var applicationState: UIApplication.State?
+    func getApplicationState() -> UIApplication.State? {
+        applicationState
+    }
 }
 // swiftlint:enable type_body_length
