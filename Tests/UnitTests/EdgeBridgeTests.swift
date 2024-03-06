@@ -23,14 +23,12 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
 
     var fakeSystemInfoService = FakeSystemInfoService()
 
-    var applicationIdentifier: String {
-        return "\(fakeSystemInfoService.applicationName ?? "") \(fakeSystemInfoService.applicationVersionNumber ?? "") (\(fakeSystemInfoService.applicationBuildNumber ?? ""))"
-    }
+    var applicationIdentifier = "appName 1.0 (2)"
 
     override func setUp() {
         fakeSystemInfoService.applicationName = "appName"
-        fakeSystemInfoService.applicationVersionNumber = "1"
-        fakeSystemInfoService.applicationBuildNumber = "0"
+        fakeSystemInfoService.applicationVersionNumber = "1.0"
+        fakeSystemInfoService.applicationBuildNumber = "2"
 
         ServiceProvider.shared.systemInfoService = fakeSystemInfoService
 
