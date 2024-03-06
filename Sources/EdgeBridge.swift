@@ -161,7 +161,7 @@ public class EdgeBridge: NSObject, Extension {
         var mutableData = data // mutable copy of data
         var analyticsData: [String: Any] = [:] // __adobe.analytics data
 
-        if let contextData = mutableData.removeValue(forKey: EdgeBridgeConstants.MobileCoreKeys.CONTEXT_DATA) as? [String?: Any?], !contextData.isEmpty {
+        if let contextData = mutableData.removeValue(forKey: EdgeBridgeConstants.MobileCoreKeys.CONTEXT_DATA) as? [String: Any?], !contextData.isEmpty {
             var prefixedData: [String: Any] = [:]
             var nonprefixedData: [String: Any] = [:]
 
@@ -215,15 +215,9 @@ public class EdgeBridge: NSObject, Extension {
     ///
     /// - Parameter data: context data to be cleaned
     /// - Returns: dictionary where values are only of type String, Number, or Character
-    private func cleanContextData(_ data: [String?: Any?]) -> [String: Any] {
+    private func cleanContextData(_ data: [String: Any?]) -> [String: Any] {
 
         let cleanedData = data.filter {
-            if $0.key == nil {
-                Log.debug(label: EdgeBridgeConstants.LOG_TAG,
-                          "cleanContextData - Dropping key '\(String(describing: $0.key))' with value '\(String(describing: $0.value))'. Key must be non-nil String.")
-                return false
-            }
-
             switch $0.value {
             case is NSNumber, is String, is Character:
                 return true
@@ -234,13 +228,7 @@ public class EdgeBridge: NSObject, Extension {
             }
         }
 
-        guard let cleanedData = cleanedData as? [String: Any] else {
-            Log.debug(label: EdgeBridgeConstants.LOG_TAG,
-                      "cleanContextData - Failed to convert data to required format. Filtering out contextdata.")
-            return [:]
-        }
-
-        return cleanedData
+        return cleanedData as [String: Any]
     }
 
 }
