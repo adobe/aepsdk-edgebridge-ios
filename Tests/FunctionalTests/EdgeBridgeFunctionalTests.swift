@@ -85,7 +85,8 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
                       "pageName": "state name",
                       "c1": "propValue1",
                       "contextData": {
-                        "key1": "value1"
+                        "key1": "value1",
+                        "a.AppID": "STRING_TYPE"
                       }
                     }
                   }
@@ -103,7 +104,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         assertExactMatch(
             expected: getAnyCodable(expectedJSON)!,
             actual: getAnyCodable(networkRequests[0]),
-            typeMatchPaths: ["events[0].xdm._id", "events[0].xdm.timestamp"])
+            typeMatchPaths: ["events[0].xdm._id", "events[0].xdm.timestamp", "events[0].data.__adobe.analytics.contextData.a\\.AppID"])
     }
 
     func testTrackAction_sendsCorrectRequestEvent() {
@@ -127,7 +128,8 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
                       "linkType": "other",
                       "c1": "propValue1",
                       "contextData": {
-                        "key1": "value1"
+                        "key1": "value1",
+                        "a.AppID": "STRING_TYPE"
                       }
                     }
                   }
@@ -145,7 +147,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         assertExactMatch(
             expected: getAnyCodable(expectedJSON)!,
             actual: getAnyCodable(networkRequests[0]),
-            typeMatchPaths: ["events[0].xdm._id", "events[0].xdm.timestamp"])
+            typeMatchPaths: ["events[0].xdm._id", "events[0].xdm.timestamp", "events[0].data.__adobe.analytics.contextData.a\\.AppID"])
     }
 
     func testRulesEngineResponse_sendsCorrectRequestEvent() {
@@ -173,7 +175,8 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
                       "linkType": "other",
                       "pageName": "Rule State",
                       "contextData": {
-                        "testKey": "testValue"
+                        "testKey": "testValue",
+                        "a.AppID": "STRING_TYPE"
                       }
                     }
                   }
@@ -191,7 +194,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         assertExactMatch(
             expected: getAnyCodable(expectedJSON)!,
             actual: getAnyCodable(networkRequests[0]),
-            typeMatchPaths: ["events[0].xdm._id", "events[0].xdm.timestamp"])
+            typeMatchPaths: ["events[0].xdm._id", "events[0].xdm.timestamp", "events[0].data.__adobe.analytics.contextData.a\\.AppID"])
     }
 
     /// Helper function to update configuration with rules URL and mock response with a local zip file.

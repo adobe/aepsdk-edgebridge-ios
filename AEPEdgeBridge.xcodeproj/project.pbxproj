@@ -30,6 +30,8 @@
 		BF5DCF3A2817AE200057D7D3 /* EdgeBridgeFunctionalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DCF392817AE200057D7D3 /* EdgeBridgeFunctionalTests.swift */; };
 		BF5DCF402818A6520057D7D3 /* rules_analytics.zip in Resources */ = {isa = PBXBuildFile; fileRef = BF5DCF3F2818A6520057D7D3 /* rules_analytics.zip */; };
 		BF5DCF412818A6520057D7D3 /* rules_analytics.zip in Resources */ = {isa = PBXBuildFile; fileRef = BF5DCF3F2818A6520057D7D3 /* rules_analytics.zip */; };
+		BF7699A42B968E70005F4150 /* FakeSystemInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7699A32B968E70005F4150 /* FakeSystemInfoService.swift */; };
+		BF7699A72B984485005F4150 /* FakeSystemInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7699A32B968E70005F4150 /* FakeSystemInfoService.swift */; };
 		BF7E5B372788080500D5E0FF /* EdgeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7E5B362788080500D5E0FF /* EdgeBridge.swift */; };
 		BF7E5B392788B16800D5E0FF /* EdgeBridgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7E5B382788B16800D5E0FF /* EdgeBridgeTests.swift */; };
 		D42F36BA251C185000490C0D /* AEPEdgeBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = D4D66AA2251910FB00B4866D /* AEPEdgeBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -122,6 +124,7 @@
 		BF5DCF37280653E70057D7D3 /* EdgeBridgeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeBridgeConstants.swift; sourceTree = "<group>"; };
 		BF5DCF392817AE200057D7D3 /* EdgeBridgeFunctionalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeBridgeFunctionalTests.swift; sourceTree = "<group>"; };
 		BF5DCF3F2818A6520057D7D3 /* rules_analytics.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = rules_analytics.zip; sourceTree = "<group>"; };
+		BF7699A32B968E70005F4150 /* FakeSystemInfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeSystemInfoService.swift; sourceTree = "<group>"; };
 		BF7E5B362788080500D5E0FF /* EdgeBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeBridge.swift; sourceTree = "<group>"; };
 		BF7E5B382788B16800D5E0FF /* EdgeBridgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeBridgeTests.swift; sourceTree = "<group>"; };
 		BF947FA1244587520057A6CC /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
@@ -213,9 +216,10 @@
 			isa = PBXGroup;
 			children = (
 				BF5DCF3B2818A5680057D7D3 /* resources */,
+				D49A628E250AE4F500B7C4A3 /* EventHub+Test.swift */,
+				BF7699A32B968E70005F4150 /* FakeSystemInfoService.swift */,
 				D45F2E6B25ED8EB1000AC350 /* TestableExtensionRuntime.swift */,
 				BF947FA1244587520057A6CC /* TestUtils.swift */,
-				D49A628E250AE4F500B7C4A3 /* EventHub+Test.swift */,
 				D49A6293250AEEF000B7C4A3 /* UserDefaults+Test.swift */,
 			);
 			name = TestUtils;
@@ -734,6 +738,7 @@
 				D49A6294250AEEF000B7C4A3 /* UserDefaults+Test.swift in Sources */,
 				D45F2E8E25EE2166000AC350 /* TestableExtensionRuntime.swift in Sources */,
 				D49A628F250AE4F500B7C4A3 /* EventHub+Test.swift in Sources */,
+				BF7699A42B968E70005F4150 /* FakeSystemInfoService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -746,6 +751,7 @@
 				D45F2E6C25ED8EB1000AC350 /* TestableExtensionRuntime.swift in Sources */,
 				D49A6295250AEEF000B7C4A3 /* UserDefaults+Test.swift in Sources */,
 				D49A6290250AE4F500B7C4A3 /* EventHub+Test.swift in Sources */,
+				BF7699A72B984485005F4150 /* FakeSystemInfoService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

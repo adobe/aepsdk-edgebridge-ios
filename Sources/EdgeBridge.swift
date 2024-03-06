@@ -23,6 +23,10 @@ public class EdgeBridge: NSObject, Extension {
     public let metadata: [String: String]? = nil
     public let runtime: ExtensionRuntime
 
+    private lazy var applicationIdentifier: String = {
+        getApplicationIdentifier()
+    }()
+
     public required init?(runtime: ExtensionRuntime) {
         self.runtime = runtime
         super.init()
@@ -204,6 +208,13 @@ public class EdgeBridge: NSObject, Extension {
         }
 
         if !analyticsData.isEmpty {
+            if var contextData = analyticsData[EdgeBridgeConstants.AnalyticsKeys.CONTEXT_DATA] as? [String: Any] {
+                contextData[EdgeBridgeConstants.AnalyticsKeys.APPLICATION_ID] = applicationIdentifier
+                analyticsData[EdgeBridgeConstants.AnalyticsKeys.CONTEXT_DATA] = contextData
+            } else {
+                analyticsData[EdgeBridgeConstants.AnalyticsKeys.CONTEXT_DATA] = [EdgeBridgeConstants.AnalyticsKeys.APPLICATION_ID: applicationIdentifier]
+            }
+
             mutableData[EdgeBridgeConstants.AnalyticsKeys.ADOBE] = [EdgeBridgeConstants.AnalyticsKeys.ANALYTICS: analyticsData]
         }
 
@@ -229,6 +240,22 @@ public class EdgeBridge: NSObject, Extension {
         }
 
         return cleanedData as [String: Any]
+    }
+
+    /// Combines the application name, version, and version code into a formatted application identifier
+    /// Returns the application identifier formatted as "appName appVersion (appBuildNumber)".
+    ///
+    /// - Return: `String` formatted Application identifier
+    private func getApplicationIdentifier() -> String {
+        let systemInfoService = ServiceProvider.shared.systemInfoService
+        let applicationName = systemInfoService.getApplicationName() ?? ""
+        let applicationVersion = systemInfoService.getApplicationVersionNumber() ?? ""
+        let applicationBuildNumber = systemInfoService.getApplicationBuildNumber() ?? ""
+        // Make sure that the formatted identifier removes white space if any of the values are empty, and remove the () version wrapper if version is empty as well
+        return "\(applicationName) \(applicationVersion) (\(applicationBuildNumber))"
+            .replacingOccurrences(of: "  ", with: " ")
+            .replacingOccurrences(of: "()", with: "")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
 }
