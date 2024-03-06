@@ -70,6 +70,9 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
 
         MobileCore.track(state: "state name", data: ["key1": "value1", "&&c1": "propValue1"])
 
+        // Wait until track call is processed to allow customer perspective to be retrieved from main thread
+        waitForProcessing()
+
         // verify
         mockNetworkService.assertAllNetworkRequestExpectations()
         let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
@@ -112,6 +115,9 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         mockNetworkService.setExpectationForNetworkRequest(url: edgeInteractEndpoint, httpMethod: .post, expectedCount: 1)
 
         MobileCore.track(action: "action name", data: ["key1": "value1", "&&c1": "propValue1"])
+
+        // Wait until track call is processed to allow customer perspective to be retrieved from main thread
+        waitForProcessing()
 
         // verify
         mockNetworkService.assertAllNetworkRequestExpectations()
@@ -159,6 +165,9 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         mockNetworkService.setExpectationForNetworkRequest(url: edgeInteractEndpoint, httpMethod: .post, expectedCount: 1)
 
         MobileCore.collectPii(["key": "value"]) // triggers Analytics rule
+
+        // Wait until track call is processed to allow customer perspective to be retrieved from main thread
+        waitForProcessing()
 
         // verify
         mockNetworkService.assertAllNetworkRequestExpectations()
@@ -215,6 +224,16 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         MobileCore.updateConfigurationWith(configDict: ["rules.url": "https://rules.com/\(localRulesName).zip"])
 
         mockNetworkService.assertAllNetworkRequestExpectations()
+    }
+
+    /// Waits for a specified interval without blocking main thread.
+    /// - Parameter interval: the time interval to wait in seconds. Default is 0.5 seconds
+    private func waitForProcessing(interval: TimeInterval = 0.5) {
+        let expectation = XCTestExpectation()
+        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + interval - 0.1) {
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: interval)
     }
 
 }
