@@ -83,6 +83,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                   "analytics": {
                     "linkName": "action name",
                     "linkType": "other",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -124,6 +125,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "c1": "propValue1",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -165,6 +167,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "c1": "propValue1",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -203,6 +206,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "pageName": "state name",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -244,6 +248,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "c1": "propValue1",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -285,6 +290,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "c1": "propValue1",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -325,6 +331,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "c1": "propValue1",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -364,6 +371,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
+                    "cp": "foreground",
                     "contextData": {
                       "key1": "value1",
                       "a.AppID": "\(applicationIdentifier)"
@@ -447,6 +455,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                     "products": ";product1;1;5.99;event12=5.99;evar5=merchEvar5,;product2;2;10.99;event13=6;eVar6=mercheVar6",
                     "c1": "propValue1",
                     "cc": "USD",
+                    "cp": "foreground",
                     "contextData": {
                       "key1": "value1",
                       "a.AppID": "\(applicationIdentifier)"
@@ -497,6 +506,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                     "events": "event1,event2,event3,event4,event12,event13",
                     "c1": "propValue1",
                     "v1": "evarValue1",
+                    "cp": "foreground",
                     "contextData": {
                       "key1": "value1",
                       "a.AppID": "\(applicationIdentifier)"
@@ -606,6 +616,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "c1": "propValue",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -648,6 +659,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                   "analytics": {
                     "c1": "propValue",
                     "v1": "",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -689,6 +701,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "c1": "propValue",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -730,6 +743,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
+                    "cp": "foreground",
                     "contextData": {
                       "key": "value",
                       "a.AppID": "\(applicationIdentifier)"
@@ -775,6 +789,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "pageName": "test state",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -815,6 +830,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
+                    "cp": "foreground",
                     "contextData": {
                       "emptyValue": "",
                       "a.AppID": "\(applicationIdentifier)"
@@ -856,6 +872,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
+                    "cp": "foreground",
                     "contextData": {
                       "key": "value",
                       "a.AppID": "\(applicationIdentifier)"
@@ -921,6 +938,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                     ".": "value10",
                     "?": "value11",
                     "\\n": "value12",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -968,6 +986,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
+                    "cp": "foreground",
                     "contextData": {
                       "1&&": "value1",
                       "a&&": "value2",
@@ -1036,6 +1055,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                         "v1": "evar1",
                         "v2": 10,
                         "v3": char,
+                        "cp": "foreground",
                         "contextData": [
                             "keyString": "valueString",
                             "keyNumber": 5,
@@ -1154,6 +1174,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                   "analytics": {
                     "linkName": "Test Action",
                     "linkType": "other",
+                    "cp": "foreground",
                     "contextData": {
                       "testKey": "testValue",
                       "a.AppID": "\(applicationIdentifier)"
@@ -1467,6 +1488,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "pageName": "state name",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(appId)"
                     }

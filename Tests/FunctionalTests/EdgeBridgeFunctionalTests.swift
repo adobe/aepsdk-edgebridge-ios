@@ -84,6 +84,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
                     "analytics": {
                       "pageName": "state name",
                       "c1": "propValue1",
+                      "cp": "foreground",
                       "contextData": {
                         "key1": "value1",
                         "a.AppID": "STRING_TYPE"
@@ -127,6 +128,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
                       "linkName": "action name",
                       "linkType": "other",
                       "c1": "propValue1",
+                      "cp": "foreground",
                       "contextData": {
                         "key1": "value1",
                         "a.AppID": "STRING_TYPE"
@@ -174,6 +176,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
                       "linkName": "Rule Action",
                       "linkType": "other",
                       "pageName": "Rule State",
+                      "cp": "foreground",
                       "contextData": {
                         "testKey": "testValue",
                         "a.AppID": "STRING_TYPE"
