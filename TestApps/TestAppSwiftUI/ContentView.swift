@@ -65,6 +65,49 @@ struct TrackView: View {
                 // Without the rule, this button will not forward a track call to the Edge Network.
                 MobileCore.collectPii(["key": "trigger"])
             }).padding()
+
+            Button("Track State contextData mapping", action: {
+                // Dispatch an Analytics track state event which is handled by the
+                // Edge Bridge extension which forwards it to the Edge Network.
+                // This track state represents a product view
+                let data: [String: Any] = [
+                    "&&products": ";Running Socks;10;29.99;event2=10.95;eVar1=54321",
+                    "&&events": "event6=2,prodView",
+                    "&&c1": "prop1_shortName",
+                    "&&prop2": "prop2_longName",
+                    "&&v5": "evar5_shortName",
+                    "&&evar10": "evar10_longName"
+                ]
+                MobileCore.track(state: "track state contextData mapping", data: data)
+            }).padding()
+
+            Button("Track State contextData mixed case", action: {
+                // Dispatch an Analytics track state event which is handled by the
+                // Edge Bridge extension which forwards it to the Edge Network.
+                // This track state represents a product view
+                let data: [String: Any] = [
+                    "&&PRODUCTS": ";sunglasses;10;29.99;event2=10.95;eVar1=54321",
+                    "&&EvEnTs": "event60=5,scCheckout",
+                    "&&C1": "C1_shortName",
+                    "&&PROP20": "PROP20_longName",
+                    "&&V15": "V15_shortName",
+                    "&&eVar11": "eVar11_longName",
+                    "myAppName": "awesome app",
+                    "myappname": "super duper"
+                ]
+                MobileCore.track(state: "track state contextData mixed case", data: data)
+            }).padding()
+
+            Button("Track State trigger attach data", action: {
+                // Dispatch an Analytics track state event which is handled by the
+                // Edge Bridge extension which forwards it to the Edge Network.
+                // This track state represents a product view
+                let data: [String: Any] = [
+                    "attachData": true,
+                    "&&c5": "attach data"
+                ]
+                MobileCore.track(state: "track state trigger attach data", data: data)
+            }).padding()
         }
     }
 }

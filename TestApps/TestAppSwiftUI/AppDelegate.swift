@@ -22,13 +22,14 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
-    private let ENVIRONMENT_FILE_ID = ""
+    private let ENVIRONMENT_FILE_ID = "staging/b42a0d18ad1d/ef813c6ab94a/launch-cb87aaee963a-development"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let appState = application.applicationState
         MobileCore.setLogLevel(.trace)
         MobileCore.configureWith(appId: ENVIRONMENT_FILE_ID)
+        MobileCore.updateConfigurationWith(configDict: ["edge.environment": "int"]) // point to Konductor integration environment
         MobileCore.registerExtensions([
             Identity.self,
             Edge.self,
