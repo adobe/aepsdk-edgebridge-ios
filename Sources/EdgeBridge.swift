@@ -108,7 +108,7 @@ public class EdgeBridge: NSObject, Extension {
         }
 
         let xdmEventData: [String: Any] = [
-            "data": formatData(data),
+            "data": mappedData,
             "xdm": [
                 "timestamp": parentEvent.timestamp.getISO8601UTCDateWithMilliseconds(),
                 "eventType": EdgeBridgeConstants.JsonValues.EVENT_TYPE
