@@ -35,12 +35,13 @@ struct TrackView: View {
 
     var body: some View {
         VStack {
-            Button("Track Action", action: {
+            Button("Track Action with products and events", action: {
                 // Dispatch an Analytics track action event which is handled by the
                 // Edge Bridge extension which forwards it to the Edge Network.
                 // This track action represents a purchase event of two products
                 let data: [String: Any] = [
-                    "&&products": "Washing Machines;1234;1;1600;event1|event2|event3=200;eVar1=LG Washing Machine 2000|eVar2=LG 2000 standard|eVar3=abc123|eVar4=full coverage|eVar5=2 year,Dryers;4567;1;500;event1;eVar1=LG Dryer 2000,Kitchen Appliances;8910;1;1000;event1|event2|event3=300;eVar1=LG Dishwasher 4000|eVar2=LG 2000 extended|eVar4=labor coverage|eVar5=3 year"
+                    "&&products": "Washing Machines;1234;1;1600;event1|event2|event3=200;eVar1=LG Washing Machine 2000|eVar2=LG 2000 standard|eVar3=abc123|eVar4=full coverage|eVar5=2 year,Dryers;4567;1;500;event1;eVar1=LG Dryer 2000,Kitchen Appliances;8910;1;1000;event1|event2|event3=300;eVar1=LG Dishwasher 4000|eVar2=LG 2000 extended|eVar4=labor coverage|eVar5=3 year",
+                    "&&events": "event1,event2=3,event3=5.99,event10,event11,event100:123456,event101=5:123456,scOpen,scAdd"
                 ]
                 MobileCore.track(action: "purchase", data: data)
             }).padding()
