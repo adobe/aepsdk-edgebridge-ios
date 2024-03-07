@@ -31,7 +31,7 @@
 		BF5DCF402818A6520057D7D3 /* rules_analytics.zip in Resources */ = {isa = PBXBuildFile; fileRef = BF5DCF3F2818A6520057D7D3 /* rules_analytics.zip */; };
 		BF5DCF412818A6520057D7D3 /* rules_analytics.zip in Resources */ = {isa = PBXBuildFile; fileRef = BF5DCF3F2818A6520057D7D3 /* rules_analytics.zip */; };
 		BF7699A42B968E70005F4150 /* FakeSystemInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7699A32B968E70005F4150 /* FakeSystemInfoService.swift */; };
-		BF7699A72B984485005F4150 /* FakeSystemInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7699A32B968E70005F4150 /* FakeSystemInfoService.swift */; };
+		BF7699A62B969FC6005F4150 /* EdgeBridgeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7699A52B969FC6005F4150 /* EdgeBridgeHelper.swift */; };
 		BF7E5B372788080500D5E0FF /* EdgeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7E5B362788080500D5E0FF /* EdgeBridge.swift */; };
 		BF7E5B392788B16800D5E0FF /* EdgeBridgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7E5B382788B16800D5E0FF /* EdgeBridgeTests.swift */; };
 		D42F36BA251C185000490C0D /* AEPEdgeBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = D4D66AA2251910FB00B4866D /* AEPEdgeBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -125,6 +125,7 @@
 		BF5DCF392817AE200057D7D3 /* EdgeBridgeFunctionalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeBridgeFunctionalTests.swift; sourceTree = "<group>"; };
 		BF5DCF3F2818A6520057D7D3 /* rules_analytics.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = rules_analytics.zip; sourceTree = "<group>"; };
 		BF7699A32B968E70005F4150 /* FakeSystemInfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeSystemInfoService.swift; sourceTree = "<group>"; };
+		BF7699A52B969FC6005F4150 /* EdgeBridgeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeBridgeHelper.swift; sourceTree = "<group>"; };
 		BF7E5B362788080500D5E0FF /* EdgeBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeBridge.swift; sourceTree = "<group>"; };
 		BF7E5B382788B16800D5E0FF /* EdgeBridgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeBridgeTests.swift; sourceTree = "<group>"; };
 		BF947FA1244587520057A6CC /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
@@ -258,6 +259,7 @@
 				D4D66AA2251910FB00B4866D /* AEPEdgeBridge.h */,
 				BF7E5B362788080500D5E0FF /* EdgeBridge.swift */,
 				BF5DCF37280653E70057D7D3 /* EdgeBridgeConstants.swift */,
+				BF7699A52B969FC6005F4150 /* EdgeBridgeHelper.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -726,6 +728,7 @@
 			files = (
 				BF7E5B372788080500D5E0FF /* EdgeBridge.swift in Sources */,
 				BF5DCF38280653E70057D7D3 /* EdgeBridgeConstants.swift in Sources */,
+				BF7699A62B969FC6005F4150 /* EdgeBridgeHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

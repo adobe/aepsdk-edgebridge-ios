@@ -70,6 +70,9 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
 
         MobileCore.track(state: "state name", data: ["key1": "value1", "&&c1": "propValue1"])
 
+        // Wait until track call is processed to allow customer perspective to be retrieved from main thread
+        waitForProcessing()
+
         // verify
         mockNetworkService.assertAllNetworkRequestExpectations()
         let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
@@ -84,6 +87,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
                     "analytics": {
                       "pageName": "state name",
                       "c1": "propValue1",
+                      "cp": "foreground",
                       "contextData": {
                         "key1": "value1",
                         "a.AppID": "STRING_TYPE"
@@ -112,6 +116,9 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
 
         MobileCore.track(action: "action name", data: ["key1": "value1", "&&c1": "propValue1"])
 
+        // Wait until track call is processed to allow customer perspective to be retrieved from main thread
+        waitForProcessing()
+
         // verify
         mockNetworkService.assertAllNetworkRequestExpectations()
         let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
@@ -127,6 +134,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
                       "linkName": "action name",
                       "linkType": "other",
                       "c1": "propValue1",
+                      "cp": "foreground",
                       "contextData": {
                         "key1": "value1",
                         "a.AppID": "STRING_TYPE"
@@ -158,6 +166,9 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
 
         MobileCore.collectPii(["key": "value"]) // triggers Analytics rule
 
+        // Wait until track call is processed to allow customer perspective to be retrieved from main thread
+        waitForProcessing()
+
         // verify
         mockNetworkService.assertAllNetworkRequestExpectations()
         let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
@@ -174,6 +185,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
                       "linkName": "Rule Action",
                       "linkType": "other",
                       "pageName": "Rule State",
+                      "cp": "foreground",
                       "contextData": {
                         "testKey": "testValue",
                         "a.AppID": "STRING_TYPE"
@@ -212,6 +224,16 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         MobileCore.updateConfigurationWith(configDict: ["rules.url": "https://rules.com/\(localRulesName).zip"])
 
         mockNetworkService.assertAllNetworkRequestExpectations()
+    }
+
+    /// Waits for a specified interval without blocking main thread.
+    /// - Parameter interval: the time interval to wait in seconds. Default is 0.5 seconds
+    private func waitForProcessing(interval: TimeInterval = 0.5) {
+        let expectation = XCTestExpectation()
+        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + interval - 0.1) {
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: interval)
     }
 
 }

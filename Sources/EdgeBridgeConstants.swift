@@ -40,10 +40,13 @@ enum EdgeBridgeConstants {
         static let PAGE_NAME = "pageName"
         static let CONTEXT_DATA = "contextData"
         static let APPLICATION_ID = "a.AppID"
+        static let CUSTOMER_PERSPECTIVE = "cp"
     }
 
     enum AnalyticsValues {
         static let OTHER = "other"
         static let PREFIX = "&&"
+        static let APP_STATE_FOREGROUND = "foreground"
+        static let APP_STATE_BACKGROUND = "background"
     }
 }

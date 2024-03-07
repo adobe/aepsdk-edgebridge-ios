@@ -83,6 +83,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                   "analytics": {
                     "linkName": "action name",
                     "linkType": "other",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -124,6 +125,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "c1": "propValue1",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -165,6 +167,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "c1": "propValue1",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -203,6 +206,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "pageName": "state name",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -244,6 +248,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "c1": "propValue1",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -285,6 +290,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "c1": "propValue1",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -325,6 +331,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "c1": "propValue1",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -364,6 +371,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
+                    "cp": "foreground",
                     "contextData": {
                       "key1": "value1",
                       "a.AppID": "\(applicationIdentifier)"
@@ -447,6 +455,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                     "products": ";product1;1;5.99;event12=5.99;evar5=merchEvar5,;product2;2;10.99;event13=6;eVar6=mercheVar6",
                     "c1": "propValue1",
                     "cc": "USD",
+                    "cp": "foreground",
                     "contextData": {
                       "key1": "value1",
                       "a.AppID": "\(applicationIdentifier)"
@@ -497,6 +506,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                     "events": "event1,event2,event3,event4,event12,event13",
                     "c1": "propValue1",
                     "v1": "evarValue1",
+                    "cp": "foreground",
                     "contextData": {
                       "key1": "value1",
                       "a.AppID": "\(applicationIdentifier)"
@@ -606,6 +616,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "c1": "propValue",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -648,6 +659,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                   "analytics": {
                     "c1": "propValue",
                     "v1": "",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -689,6 +701,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "c1": "propValue",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -730,6 +743,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
+                    "cp": "foreground",
                     "contextData": {
                       "key": "value",
                       "a.AppID": "\(applicationIdentifier)"
@@ -775,6 +789,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "pageName": "test state",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -815,6 +830,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
+                    "cp": "foreground",
                     "contextData": {
                       "emptyValue": "",
                       "a.AppID": "\(applicationIdentifier)"
@@ -856,6 +872,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
+                    "cp": "foreground",
                     "contextData": {
                       "key": "value",
                       "a.AppID": "\(applicationIdentifier)"
@@ -921,6 +938,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                     ".": "value10",
                     "?": "value11",
                     "\\n": "value12",
+                    "cp": "foreground",
                     "contextData": {
                       "a.AppID": "\(applicationIdentifier)"
                     }
@@ -968,6 +986,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
               "data": {
                 "__adobe": {
                   "analytics": {
+                    "cp": "foreground",
                     "contextData": {
                       "1&&": "value1",
                       "a&&": "value2",
@@ -1036,6 +1055,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                         "v1": "evar1",
                         "v2": 10,
                         "v3": char,
+                        "cp": "foreground",
                         "contextData": [
                             "keyString": "valueString",
                             "keyNumber": 5,
@@ -1154,6 +1174,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                   "analytics": {
                     "linkName": "Test Action",
                     "linkType": "other",
+                    "cp": "foreground",
                     "contextData": {
                       "testKey": "testValue",
                       "a.AppID": "\(applicationIdentifier)"
@@ -1403,12 +1424,14 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         XCTAssertEqual(0, mockRuntime.dispatchedEvents.count)
     }
 
+    // MARK: AppID tests
+
     func testHandleTrackEvent_withApplicationIdentifier_dispatchesEdgeRequestEvent_withAppID() {
         fakeSystemInfoService.applicationName = "myApp"
         fakeSystemInfoService.applicationVersionNumber = "1.0"
         fakeSystemInfoService.applicationBuildNumber = "2"
 
-        assertAppIDInDispatchedEvent("myApp 1.0 (2)")
+        assertInDispatchedEvent(appId: "myApp 1.0 (2)", customerPerspective: "foreground")
     }
 
     func testHandleTrackEvent_withNilApplicationName_dispatchesEdgeRequestEvent_withAppID() {
@@ -1416,7 +1439,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         fakeSystemInfoService.applicationVersionNumber = "1.0"
         fakeSystemInfoService.applicationBuildNumber = "2"
 
-        assertAppIDInDispatchedEvent("1.0 (2)")
+        assertInDispatchedEvent(appId: "1.0 (2)", customerPerspective: "foreground")
     }
 
     func testHandleTrackEvent_withNilApplicationVersionNumber_dispatchesEdgeRequestEvent_withAppID() {
@@ -1424,7 +1447,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         fakeSystemInfoService.applicationVersionNumber = nil
         fakeSystemInfoService.applicationBuildNumber = "2"
 
-        assertAppIDInDispatchedEvent("myApp (2)")
+        assertInDispatchedEvent(appId: "myApp (2)", customerPerspective: "foreground")
     }
 
     func testHandleTrackEvent_withNilApplicationBuildNumber_dispatchesEdgeRequestEvent_withAppID() {
@@ -1432,7 +1455,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         fakeSystemInfoService.applicationVersionNumber = "1.0"
         fakeSystemInfoService.applicationBuildNumber = nil
 
-        assertAppIDInDispatchedEvent("myApp 1.0")
+        assertInDispatchedEvent(appId: "myApp 1.0", customerPerspective: "foreground")
     }
 
     func testHandleTrackEvent_withNilApplicationIdentifier_dispatchesEdgeRequestEvent_withEmptyAppID() {
@@ -1440,12 +1463,50 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         fakeSystemInfoService.applicationVersionNumber = nil
         fakeSystemInfoService.applicationBuildNumber = nil
 
-        assertAppIDInDispatchedEvent("")
+        assertInDispatchedEvent(appId: "", customerPerspective: "foreground")
     }
 
-    /// Asserts `appId` is the same as the `a.AppID` in the dispatched Edge event.
-    /// - Parameter appId: the full `a.AppID` as appears in the Edge event
-    private func assertAppIDInDispatchedEvent(_ appId: String) {
+    // MARK: Customer Perspective tests
+
+    func testHandleTrackEvent_withActiveApplicationState_dispatchesEdgeRequestEvent_withCustomerPerspectiveForeground() {
+        var fakeHelper = FakeEdgeBridgeHelper()
+        fakeHelper.applicationState = .active
+        edgeBridge.bridgeHelper = fakeHelper
+
+        assertInDispatchedEvent(appId: applicationIdentifier, customerPerspective: "foreground")
+    }
+
+    func testHandleTrackEvent_withBackgroundApplicationState_dispatchesEdgeRequestEvent_withCustomerPerspectiveBackground() {
+        var fakeHelper = FakeEdgeBridgeHelper()
+        fakeHelper.applicationState = .background
+        edgeBridge.bridgeHelper = fakeHelper
+
+        assertInDispatchedEvent(appId: applicationIdentifier, customerPerspective: "background")
+    }
+
+    func testHandleTrackEvent_withInactiveApplicationState_dispatchesEdgeRequestEvent_withCustomerPerspectiveForeground() {
+        var fakeHelper = FakeEdgeBridgeHelper()
+        fakeHelper.applicationState = .inactive
+        edgeBridge.bridgeHelper = fakeHelper
+
+        assertInDispatchedEvent(appId: applicationIdentifier, customerPerspective: "foreground")
+    }
+
+    func testHandleTrackEvent_withNilApplicationState_dispatchesEdgeRequestEvent_withCustomerPerspectiveForeground() {
+        var fakeHelper = FakeEdgeBridgeHelper()
+        fakeHelper.applicationState = nil
+        edgeBridge.bridgeHelper = fakeHelper
+
+        assertInDispatchedEvent(appId: applicationIdentifier, customerPerspective: "foreground")
+    }
+
+    // MARK: Helpers
+
+    /// Asserts `appId` is the same as the `a.AppID` and `customerPerspective` is the same as the `cp` in the dispatched Edge event.
+    /// - Parameters:
+    ///  - appId: the full `a.AppID` as appears in the Edge event
+    ///  - customerPerspective: the full customer perspective as appears in the Edge event
+    private func assertInDispatchedEvent(appId: String, customerPerspective: String) {
         let event = Event(name: "Test Track Event",
                           type: EventType.genericTrack,
                           source: EventSource.requestContent,
@@ -1467,6 +1528,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                 "__adobe": {
                   "analytics": {
                     "pageName": "state name",
+                    "cp": "\(customerPerspective)",
                     "contextData": {
                       "a.AppID": "\(appId)"
                     }
@@ -1483,5 +1545,12 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
     }
 
+}
+
+struct FakeEdgeBridgeHelper: EdgeBridgeHelper {
+    public var applicationState: UIApplication.State?
+    func getApplicationState() -> UIApplication.State? {
+        applicationState
+    }
 }
 // swiftlint:enable type_body_length

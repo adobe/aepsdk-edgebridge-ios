@@ -15,6 +15,8 @@ import AEPServices
 import Foundation
 
 @objc(AEPMobileEdgeBridge)
+@available(iOSApplicationExtension, unavailable)
+@available(tvOSApplicationExtension, unavailable)
 public class EdgeBridge: NSObject, Extension {
 
     public let name = EdgeBridgeConstants.EXTENSION_NAME
@@ -22,6 +24,9 @@ public class EdgeBridge: NSObject, Extension {
     public static let extensionVersion = EdgeBridgeConstants.EXTENSION_VERSION
     public let metadata: [String: String]? = nil
     public let runtime: ExtensionRuntime
+
+    // Helper with internal access for testing
+    var bridgeHelper: EdgeBridgeHelper = EdgeBridgeHelperImpl()
 
     private lazy var applicationIdentifier: String = {
         getApplicationIdentifier()
@@ -215,6 +220,8 @@ public class EdgeBridge: NSObject, Extension {
                 analyticsData[EdgeBridgeConstants.AnalyticsKeys.CONTEXT_DATA] = [EdgeBridgeConstants.AnalyticsKeys.APPLICATION_ID: applicationIdentifier]
             }
 
+            analyticsData[EdgeBridgeConstants.AnalyticsKeys.CUSTOMER_PERSPECTIVE] = getApplicationState()
+
             mutableData[EdgeBridgeConstants.AnalyticsKeys.ADOBE] = [EdgeBridgeConstants.AnalyticsKeys.ANALYTICS: analyticsData]
         }
 
@@ -258,4 +265,11 @@ public class EdgeBridge: NSObject, Extension {
             .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
+    /// Get the application state variable.
+    ///
+    /// - Returns: "background" if the application state is `.background`, "foreground" for all other cases
+    private func getApplicationState() -> String {
+        return bridgeHelper.getApplicationState() == .background ?
+            EdgeBridgeConstants.AnalyticsValues.APP_STATE_BACKGROUND : EdgeBridgeConstants.AnalyticsValues.APP_STATE_FOREGROUND
+    }
 }
