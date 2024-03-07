@@ -40,9 +40,7 @@ struct TrackView: View {
                 // Edge Bridge extension which forwards it to the Edge Network.
                 // This track action represents a purchase event of two products
                 let data: [String: Any] = [
-                    "&&products": ";Running Shoes;1;69.95;event1|event2=55.99;eVar1=12345,;Running Socks;10;29.99;event2=10.95;eVar1=54321",
-                    "&&events": "event5,purchase",
-                    "myapp.promotion": "a0138"
+                    "&&products": "Washing Machines;1234;1;1600;event1|event2|event3=200;eVar1=LG Washing Machine 2000|eVar2=LG 2000 standard|eVar3=abc123|eVar4=full coverage|eVar5=2 year,Dryers;4567;1;500;event1;eVar1=LG Dryer 2000,Kitchen Appliances;8910;1;1000;event1|event2|event3=300;eVar1=LG Dishwasher 4000|eVar2=LG 2000 extended|eVar4=labor coverage|eVar5=3 year"
                 ]
                 MobileCore.track(action: "purchase", data: data)
             }).padding()
