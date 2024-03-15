@@ -9,6 +9,7 @@ As of version 5.0.0 of AEP Edge Bridge for iOS, the following table lists the ma
 
 
 | Data | Key in dispatched request | Comments |
+| --- | --- | ---
 | action | `data.__adobe.analytics.linkName` | Additionally, the field `data.__adobe.analytics.linkType` with value `lnk_o` is automatically included. |
 | state | `data.__adobe.analytics.pageName` | |
 | contextdata | `data.__adobe.analytics.contextData` | Context data is a map which includes the custom keys and values specified in the `trackAction` and `trackState` API calls. |
