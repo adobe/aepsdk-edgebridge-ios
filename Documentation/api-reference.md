@@ -38,8 +38,8 @@ NSString *extensionVersion = [AEPMobileEdgeBridge extensionVersion];
 
 ------
 
-### registerExtension
-In iOS, the registration occurs by passing the Edge Bridge extension to the `MobileCore.registerExtension` API.
+### registerExtensions
+In iOS, the registration occurs by passing the Edge Bridge extension to the `MobileCore.registerExtensions` API.
 
 #### Swift
 
