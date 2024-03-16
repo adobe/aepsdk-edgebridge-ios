@@ -3,7 +3,7 @@
 The AEP Edge Bridge extension maps the data sent in `trackAction` and `trackState` API calls to a specific format known to Analytics which requires no additional server-side mapping. This document outlines the data format applied to the tracking data.
 
 
-As of version 5.0.0 of AEP Edge Bridge for iOS, the following table lists the mapping of the `trackAction` and `trackState` parameters to the "data" node of the Experience Event sent to the Edge Network.
+As of version 5.0.0 of AEP Edge Bridge for iOS, the following table lists the mapping of the `trackAction` and `trackState` parameters to the "data" node of the Experience Event sent to the Edge Network. Adobe Experience Platform Edge Network automatically maps these data variables into Adobe Analytics without additional server-side configuration.
 
 
 | Data | Key path in the network request | Description |
