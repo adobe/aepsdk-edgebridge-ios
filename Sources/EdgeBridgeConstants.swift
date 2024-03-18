@@ -15,7 +15,7 @@ import Foundation
 enum EdgeBridgeConstants {
     static let EXTENSION_NAME = "com.adobe.edge.bridge"
     static let FRIENDLY_NAME = "Edge Bridge"
-    static let EXTENSION_VERSION = "4.1.1"
+    static let EXTENSION_VERSION = "5.0.0"
     static let LOG_TAG = FRIENDLY_NAME
 
     enum EventNames {
@@ -24,5 +24,29 @@ enum EdgeBridgeConstants {
 
     enum JsonValues {
         static let EVENT_TYPE = "analytics.track"
+    }
+
+    enum MobileCoreKeys {
+        static let ACTION = "action"
+        static let STATE = "state"
+        static let CONTEXT_DATA = "contextdata"
+    }
+
+    enum AnalyticsKeys {
+        static let ADOBE = "__adobe"
+        static let ANALYTICS = "analytics"
+        static let LINK_NAME = "linkName"
+        static let LINK_TYPE = "linkType"
+        static let PAGE_NAME = "pageName"
+        static let CONTEXT_DATA = "contextData"
+        static let APPLICATION_ID = "a.AppID"
+        static let CUSTOMER_PERSPECTIVE = "cp"
+    }
+
+    enum AnalyticsValues {
+        static let OTHER = "other"
+        static let PREFIX = "&&"
+        static let APP_STATE_FOREGROUND = "foreground"
+        static let APP_STATE_BACKGROUND = "background"
     }
 }
