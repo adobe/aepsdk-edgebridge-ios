@@ -26,13 +26,13 @@ end
 
 target 'UnitTests' do
   core_pods
-  pod 'AEPTestUtils', :git => 'https://github.com/adobe/aepsdk-testutils-ios.git', :branch => 'path-options-refactor2'
+  pod 'AEPTestUtils', :git => 'https://github.com/adobe/aepsdk-testutils-ios.git', :tag => 'v5.0.0'
 end
 
 target 'FunctionalTests' do
   core_pods
   edge_pods
-  pod 'AEPTestUtils', :git => 'https://github.com/adobe/aepsdk-testutils-ios.git', :branch => 'path-options-refactor2'
+  pod 'AEPTestUtils', :git => 'https://github.com/adobe/aepsdk-testutils-ios.git', :tag => 'v5.0.0'
 end
 
 target 'TestAppSwiftUI' do
