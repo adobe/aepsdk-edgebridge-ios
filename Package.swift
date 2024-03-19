@@ -24,7 +24,7 @@ let package = Package(
     ],
     targets: [
         .target(name: "AEPEdgeBridge",
-                dependencies: ["AEPCore"],
+                dependencies: [.product(name: "AEPCore", package: "aepsdk-core-ios")],
                 path: "Sources")
     ]
 )
