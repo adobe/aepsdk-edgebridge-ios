@@ -21,7 +21,7 @@
 - [Final validation using Assurance](#final-validation-using-assurance)
 
 ## Overview
-This hands-on tutorial provides end-to-end instructions on how to migrate from sending data to Analytics to sending data to the Edge Network using the Edge Bridge mobile extension.
+This tutorial covers how to use the Edge Bridge extension as a drop-in solution to migrate from an existing Analytics implementation to sending data through the Edge Network to Analytics.
 
 ```mermaid
 graph LR;
@@ -37,26 +37,30 @@ graph LR;
 - macOS machine with a recent version of Xcode installed.
 
 ### Prerequisites
-- The tutorial app for this exercise already includes the Edge extensions. If you want to learn more about this, check out the [Edge tutorial](https://github.com/adobe/aepsdk-edge-ios/tree/main/Documentation/Tutorials).
-- A timestamp enabled report suite is configured for mobile data collection.
-- A tag (also known as mobile property) is configured in Data Collection UI which has Adobe Analytics extension installed and configured.
+> [!NOTE] 
+> The tutorial app for this exercise already includes the Edge extensions. To learn more about these extensions, see the [Edge tutorial](https://github.com/adobe/aepsdk-edge-ios/tree/main/Documentation/Tutorials).
+1. A timestamp enabled report suite configured for mobile data collection.
+2. A tag (also known as mobile property) configured in Data Collection UI which has Adobe Analytics extension installed and configured.
+
+<details>
+  <summary> Adobe Experience Platform setup - Skip this section if prerequisite item 1 is already set up. </summary>
 
 ## Adobe Experience Platform setup
-Before any app changes we need to set up some configuration items on the Adobe Experience Platform (AEP) side. The end goal of this section is to create a mobile property that controls the configuration settings for the various AEP extensions used in this tutorial.
+This section demonstrates how to create and configure a mobile property in Experience Platform which controls the configuration settings for the Mobile SDK extensions used in this tutorial.
 
 ### 1. Set up mobile property  
-If you don't have an existing mobile property, see the [instructions on how to set up a new property](https://github.com/adobe/aepsdk-edge-ios/blob/main/Documentation/Tutorials/edge-send-event-tutorial.md#1-create-a-schema).
+To create a new mobile property, see the [instructions on how to set up a new property](https://github.com/adobe/aepsdk-edge-ios/blob/main/Documentation/Tutorials/edge-send-event-tutorial.md#1-create-a-schema).
 
-The following AEP extension configurations should be installed:  
+The following Experience Platform extension configurations should be installed:  
 
 <details>
   <summary> Adobe Analytics </summary><p>
 
-Open the **Catalog** and install the `Adobe Analytics` extension configuration.
+Open the **Catalog** and install the **Adobe Analytics** extension configuration.
 
 <img src="../assets/edge-bridge-tutorial/aep-setup/mobile-property-analytics-catalog.png" alt="Catalog search for Adobe Experience Platform Edge Network" width="1100"/>  
 
-In the extension configuration settings window, set the report suite ID (**1**) for each environment to the one for this tutorial. Then click `Save` (**2**)
+In the extension configuration settings window, set the report suite ID (**1**) for each environment to the one to be used for this tutorial. Then click `Save` (**2**)
 
 <img src="../assets/edge-bridge-tutorial/aep-setup/mobile-property-analytics-settings.png" alt="Edge extension settings" width="1100"/>  
 
@@ -65,7 +69,7 @@ In the extension configuration settings window, set the report suite ID (**1**) 
 <details>
   <summary> AEP Assurance </summary><p>
 
-Open the **Catalog** and install the `AEP Assurance` extension configuration.
+Open the **Catalog** and install the **AEP Assurance** extension configuration.
 
 <img src="../assets/edge-bridge-tutorial/aep-setup/mobile-property-assurance-catalog.png" alt="Catalog search for Adobe Experience Platform Edge Network" width="1100"/>  
 
@@ -74,11 +78,11 @@ Open the **Catalog** and install the `AEP Assurance` extension configuration.
 <details>
   <summary> Adobe Experience Platform Edge Network </summary><p>
 
-Go back to the `Catalog` and install the `Adobe Experience Platform Edge Network` extension configuration.
+Open the **Catalog** and install the **Adobe Experience Platform Edge Network** extension configuration.
 
 <img src="../assets/edge-bridge-tutorial/aep-setup/mobile-property-edge-catalog.png" alt="Catalog search for Adobe Experience Platform Edge Network" width="1100"/>  
 
-In the extension configuration settings window, set the datastream for each environment (**1**) to the one created for this tutorial. Then click `Save` (**2**)
+In the extension configuration settings window, set the datastream for each environment (**1**) to the one to be used for this tutorial. Then click `Save` (**2**)
 
 <img src="../assets/edge-bridge-tutorial/aep-setup/mobile-property-edge-settings.png" alt="Edge extension settings" width="1100"/>  
 
@@ -87,7 +91,7 @@ In the extension configuration settings window, set the datastream for each envi
 <details>
   <summary> Identity </summary><p>
 
-Open the `Catalog` and install the `Identity` extension configuration. There are no settings for this extension.
+Open the **Catalog** and install the **Identity** extension configuration. There are no settings to configure for this extension.
 
 <img src="../assets/edge-bridge-tutorial/aep-setup/mobile-property-identity-catalog.png" alt="Catalog search for Identity" width="1100"/>  
 
@@ -96,11 +100,14 @@ Open the `Catalog` and install the `Identity` extension configuration. There are
 <details>
   <summary> Consent </summary><p>
 
-Open the `Catalog` and install the `Consent` extension configuration.
+Open the **Catalog** and install the **Consent** extension configuration.
 
 <img src="../assets/edge-bridge-tutorial/aep-setup/mobile-property-consent-catalog.png" alt="Catalog search for Consent" width="1100"/>  
 
-In the extension configuration settings window, the `Default Consent Level` should be set to `Yes` by default (**1**); for the tutorial app this setting is fine as-is, however when using this configuration in production apps, it should reflect the requirements of the company's actual data collection policy for the app.
+In the extension configuration settings window, the **Default Consent Level** should be set to **Yes** by default (**1**). 
+
+> [!IMPORTANT]
+> For the tutorial app this setting is fine as-is, however when setting this configuration in production apps, it should reflect the requirements of the organization's data collection and privacy policy for the app.
 
 <img src="../assets/edge-bridge-tutorial/aep-setup/mobile-property-consent-settings.png" alt="Consent extension settings" width="1100"/>  
 
@@ -145,6 +152,8 @@ The collectPII API for Analytics does not send events to the Edge Network by def
 2. Select **Save** (**1**).
 
 <img src="../assets/edge-bridge-tutorial/aep-setup/analytics-rule-4.png" alt="Analytics rule 4" width="1100"/>  
+</details>
+
 
 ## Client-side implementation
 ### 1. Get a copy of the files (code and tutorial app)
@@ -216,7 +225,7 @@ Simply delete everything between the header and footer, and make sure to do this
 
 For details on the various Edge extensions used, see the [table of related projects](../../README.md#related-projects).
 
-### 4. Run app   
+### 4. Run app
 In Xcode, select the app target you want to run, and the destination device to run it on (either simulator or physical device). Then press the play button.
 
 You should see your application running on the device you selected, with logs being displayed in the console in Xcode.
@@ -225,7 +234,7 @@ You should see your application running on the device you selected, with logs be
 > If the debug console area is not shown by default, activate it by selecting:  
 > View -> Debug Area -> Show Debug Area
 
-### 5. `trackAction`/`trackState` implementation examples   
+### 5. `trackAction`/`trackState` implementation examples
 With Edge Bridge extension successfully installed and registered, you can make the regular Analytics `trackAction` and `trackState` calls, which will be captured by Edge Bridge extension and sent to the Edge Network.
 
 Check `ContentView.swift` for implementation examples of both APIs. You can see the data payloads that are to be sent with the calls.
@@ -233,7 +242,7 @@ Check `ContentView.swift` for implementation examples of both APIs. You can see 
 ## Initial validation with Assurance
 Assurance is the AEP tool for inspecting all events that Adobe extensions send out, in real time. It will allow us to see the flow of events, including the EdgeBridge conversion of `trackAction`/`trackState`.
 
-### 1. Set up the Assurance session 
+### 1. Set up the Assurance session
 To create a new Assurance session and connect to it, see the instructions on [setting up an Assurance session](https://github.com/adobe/aepsdk-edge-ios/blob/main/Documentation/Tutorials/edge-send-event-tutorial.md#1-set-up-the-assurance-session), using the base URL value:
 ```
 edgebridgetutorialapp://
