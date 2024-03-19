@@ -158,50 +158,47 @@ The `collectPII` API for Analytics does not send events to Edge Network by defau
 ## Client-side implementation
 ### 1. Get a copy of the files (code and tutorial app)
 1. Open the code repository: https://github.com/adobe/aepsdk-edgebridge-ios
-2. Click **Code** in the top right
-3. In the window that opens, click **Download ZIP**; by default it should land in your **Downloads** folder.
-   - Optionally, move the ZIP to your **Documents** folder
-4. Unzip the archived file by double clicking it.
-5. Navigate inside the unarchived file, then to Documentation -> tutorials -> EdgeBridgeTutorialAppStart.
-6. Double click on EdgeBridgeTutorialApp.xcworkspace. This should automatically open the Xcode IDE.
+2. Click **Code** in the top right.
+3. In the window that opens, click **Download ZIP**; by default, it should land in your **Downloads** folder.
+   - Optionally, move the ZIP to your **Documents** folder.
+4. Unzip the archived file by double-clicking it.
+5. Navigate to the unarchived file, then go to **Documentation** -> **Tutorials** -> **EdgeBridgeTutorialAppStart**.
+6. Double-click on **EdgeBridgeTutorialApp.xcworkspace**; this should automatically open the Xcode IDE.
 
 ### 2. Install Edge Bridge using dependency manager (Swift Package Manager)
-The next task is to add the necessary dependencies that will enable the Edge Bridge extension to function.
+The next task is to add the necessary dependencies to enable the Edge Bridge extension to function.
 
-1. In Xcode, from the top bar select File -> Add Packages...
+1. Install the `AEPEdgeBridge` extension.
+  - In Xcode, from the top bar, select **File** -> **Add Package Dependencies...**
+  - In the **Search or Enter Package URL** search box in the top right, input `https://github.com/adobe/aepsdk-edgebridge-ios.git`
+  - Select the **aepsdk-edgebridge-ios** package.
+  - For **Dependency Rule**, select **Branch** and input `main`.
+  - Select **Add Package**.
 
-2. Install the AEPEdgeBridge extension.
-  - In the "Search or Enter URL" box, type https://github.com/adobe/aepsdk-edgebridge-ios.git and click Enter.
-  - Select the aepsdk-edgebridge-ios package
-  - For Dependency Rule select **Branch** and type `main`
-  - Select Add Package.
-
-3. Remove the AEPAnalytics extension.
+2. Remove the `AEPAnalytics` extension.
   - In Xcode, from the left side file navigator, select **EdgeBridgeTutorialApp**.
-  - Select PROJECT -> EdgeBridgeTutorialApp
-  - Select **Package dependencies**
-  - Select **AEPAnalytics** and then the minus (-) button under the table, then select **Remove**.
+  - Under **PROJECT**, select **EdgeBridgeTutorialApp**.
+  - Select **Package Dependencies**.
+  - Select **AEPAnalytics** and then the minus (**-**) button under the table, then select **Remove**.
 
-> **Warning**  
-> After this step, there are no Adobe Experience Cloud Solution extensions in the app. At this point, the import and registration for the AEPIdentity extension can also be removed since AEPEdgeIdentity takes care of the identity functionality for the Edge extensions.
-> If your application still uses Adobe Experience Cloud Solution extensions, such as Adobe Target, Adobe Campaign, etc. (find the full list [here](https://developer.adobe.com/client-sdks/documentation/experience-cloud-extensions/)) you should ignore the steps below for removing AEPIdentity and continue to use the extension.
+> [!WARNING]
+> Before proceeding, verify if your application uses any Adobe Experience Cloud Solution extensions, such as Adobe Target or Adobe Campaign (find the full list [here](https://developer.adobe.com/client-sdks/solution/)). Only remove `AEPIdentity` if no other solution extensions are in use.
 
 <details>
   <summary> Using CocoaPods instead? </summary><p>
 
 **CocoaPods**
-This tutorial assumes a project using Swift Package Manager (SPM) for package dependency management, but if following along with a project that uses CocoaPods, refer to the [README for instructions on how to add the EdgeBridge extension](../../README.md#cocoapods).
+This tutorial assumes a project using Swift Package Manager (SPM) for package dependency management. However, if you are following along with a project that uses **CocoaPods**, refer to the [README for instructions on how to add the EdgeBridge extension](../../README.md#cocoapods).
 
 </p></details>
 
 ### 3. Update tutorial app code to enable Edge Bridge functionality
 #### Add the Edge Bridge extension <!-- omit in toc -->
-There is one file that needs to be updated to enable the Edge Bridge extension:  
-1. `AppDelegate.swift`
+The file `AppDelegate.swift` needs to be updated to enable the **Edge Bridge** extension.
    
-Inside you will see code blocks for this tutorial that are greyed out, because they are commented out. They are marked by the header and footer `EdgeBridge Tutorial - code section n/m` (where `n` is the current section and `m` is the total number of sections in the file).
+Inside, you will see code blocks for this tutorial that are greyed out because they are commented out. They are marked by the header and footer `EdgeBridge Tutorial - code section n/m` (where `n` is the current comment section number and `m` is the total number of sections in the file).
 
-To uncomment the section and activate the code, simply add a forward slash at the front of the header:
+To uncomment the section and activate the code, simply add a forward slash at the beginning of the header:
 ```swift
 /* EdgeBridge Tutorial - code section (1/2)
 ```
@@ -209,7 +206,7 @@ To:
 ```swift
 //* EdgeBridge Tutorial - code section (1/2)
 ```
-Make sure to uncomment all sections within the file (the total will tell you how many sections there are).
+Make sure that all sections within the file are uncommented (the total number of sections is indicated).
 
 #### Remove Analytics and AEPIdentity <!-- omit in toc -->
 To remove the Analytics and AEPIdentity extensions:
