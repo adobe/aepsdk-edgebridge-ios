@@ -34,8 +34,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         super.setUp()
         ServiceProvider.shared.networkService = mockNetworkService
         continueAfterFailure = false
-        FileManager.default.clearCache()
-        FileManager.default.removeAdobeCacheDirectory()
+        NamedCollectionDataStore.clear()
 
         // hub shared state update for 1 extension versions Edge, Identity, Configuration, EventHub shared state updates
         setExpectationEvent(type: EventType.hub, source: EventSource.sharedState, expectedCount: 4)
@@ -106,8 +105,8 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         """
 
         assertExactMatch(
-            expected: getAnyCodable(expectedJSON)!,
-            actual: getAnyCodable(networkRequests[0]),
+            expected: expectedJSON,
+            actual: networkRequests[0],
             typeMatchPaths: ["events[0].xdm._id", "events[0].xdm.timestamp", "events[0].data.__adobe.analytics.contextData.a\\.AppID"])
     }
 
@@ -153,8 +152,8 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         """
 
         assertExactMatch(
-            expected: getAnyCodable(expectedJSON)!,
-            actual: getAnyCodable(networkRequests[0]),
+            expected: expectedJSON,
+            actual: networkRequests[0],
             typeMatchPaths: ["events[0].xdm._id", "events[0].xdm.timestamp", "events[0].data.__adobe.analytics.contextData.a\\.AppID"])
     }
 
@@ -204,8 +203,8 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         """
 
         assertExactMatch(
-            expected: getAnyCodable(expectedJSON)!,
-            actual: getAnyCodable(networkRequests[0]),
+            expected: expectedJSON,
+            actual: networkRequests[0],
             typeMatchPaths: ["events[0].xdm._id", "events[0].xdm.timestamp", "events[0].data.__adobe.analytics.contextData.a\\.AppID"])
     }
 

@@ -97,7 +97,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     func testHandleTrackEvent_withActionFieldWithEmptyValue_dispatchesEdgeRequestEvent_withoutAction() {
@@ -139,7 +139,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     func testHandleTrackEvent_withActionFieldWithNilValue_dispatchesEdgeRequestEvent_withoutAction() {
@@ -181,7 +181,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     func testHandleTrackEvent_withStateField_dispatchesEdgeRequestEvent() {
@@ -220,7 +220,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     func testHandleTrackEvent_withStateFieldWithNilValue_dispatchesEdgeRequestEvent_withoutState() {
@@ -262,7 +262,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     func testHandleTrackEvent_withStateFieldWithEmptyValue_dispatchesEdgeRequestEvent_withoutState() {
@@ -304,7 +304,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     func testHandleTrackEvent_withContextDataFieldUsingReservedPrefix_dispatchesEdgeRequestEvent() {
@@ -345,7 +345,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     func testHandleTrackEvent_withContextDataNotUsingReservedPrefix_dispatchesEdgeRequestEvent() {
@@ -386,7 +386,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     func testHandleTrackEvent_withDataField_dispatchesEdgeRequestEvent() {
@@ -417,7 +417,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     func testHandleTrackEvent_trackAction_dispatchesEdgeRequestEvent() {
@@ -471,7 +471,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     func testHandleTrackEvent_trackState_dispatchesEdgeRequestEvent() {
@@ -522,7 +522,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     // Test event still dispatched if request contains data but no 'track' data.
@@ -555,7 +555,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     // Tests event is not dispatched if no track data is available
@@ -630,7 +630,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     func testHandleTrackEvent_withContextDataFieldUsingReservedPrefix_emptyValue_dispatchesEdgeRequestEvent_emptyValuesAllowed() {
@@ -673,7 +673,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     func testHandleTrackEvent_withContextDataFieldUsingReservedPrefix_nilValue_dispatchesEdgeRequestEvent_nilValuesIgnored() {
@@ -715,7 +715,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     // Test empty string keys are not allowed
@@ -758,7 +758,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     // Public track APIs define context data as [String: Any] which do not allow null keys.
@@ -803,7 +803,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     // Test empty string values are allowed
@@ -845,7 +845,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     func testHandleTrackEvent_withContextDataField_nilValue_dispatchesEdgeRequestEvent_nilValuesIgnored() {
@@ -887,10 +887,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        let codableExpected = getAnyCodable(expectedJSON)
-        let codableDispatched = getAnyCodable(dispatchedEvent)
-
-        assertEqual(expected: codableExpected, actual: codableDispatched)
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     func testHandleTrackEvent_withReservedPrefix_onlyRemovesPrefix_dispatchesEdgeRequestEvent() {
@@ -952,7 +949,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     func testHandleTrackEvent_withCharacterBeforeReservedCharacters_dispatchesEdgeRequestEvent() {
@@ -1009,7 +1006,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     // Test context data values are cleaned such that only String, Number, and Character types are allowed
@@ -1189,7 +1186,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON), actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
     func testHandleRulesEngineResponse_withNilEventData_doesNotDispatchEvent() {
@@ -1542,7 +1539,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
             }
         """
 
-        assertEqual(expected: getAnyCodable(expectedJSON)!, actual: getAnyCodable(dispatchedEvent))
+        assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
 }
