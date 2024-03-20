@@ -37,5 +37,5 @@ target 'TestAppSwiftUI' do
   core_pods
   edge_pods
   pod 'AEPLifecycle'
-  pod 'AEPAssurance', :git => 'https://github.com/adobe/aepsdk-assurance-ios.git', :branch => 'staging'
+  pod 'AEPAssurance'
 end
