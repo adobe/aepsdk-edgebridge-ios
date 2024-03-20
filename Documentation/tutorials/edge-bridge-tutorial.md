@@ -232,21 +232,21 @@ Delete everything between the header and footer, and do this for all "remove sec
 For details on the various Edge extensions used, see the [table of related projects](../../README.md#related-projects).
 
 ### 4. Run app
-In Xcode, select the app target you want to run, and the destination device to run it on (either simulator or physical device). Then press the play button.
+In Xcode, select the app target you want to run, and the destination device to run it on (either a simulator or a physical device). Then press the **Play** button in the top left.
 
-You should see your application running on the device you selected, with logs being displayed in the console in Xcode.
+You should see your application running on the selected device, with logs displayed in the Xcode console.
 
-> **Note**
+> [!TIP]
 > If the debug console area is not shown by default, activate it by selecting:  
-> View -> Debug Area -> Show Debug Area
+> **View** -> **Debug Area** -> **Activate Console**
 
 ### 5. `trackAction`/`trackState` implementation examples
-With Edge Bridge extension successfully installed and registered, you can make the regular Analytics `trackAction` and `trackState` calls, which will be captured by Edge Bridge extension and sent to the Edge Network.
+With the Edge Bridge extension successfully installed and registered, you can continue to make the regular Analytics `trackAction` and `trackState` calls. These will be captured by the Edge Bridge extension and sent to the Edge Network.
 
-Check `ContentView.swift` for implementation examples of both APIs. You can see the data payloads that are to be sent with the calls.
+Check `ContentView.swift` for implementation examples of both APIs. You will see the data payloads that are sent with the calls.
 
 ## Initial validation with Assurance
-Assurance is the AEP tool for inspecting all events that Adobe extensions send out, in real time. It will allow us to see the flow of events, including the EdgeBridge conversion of `trackAction`/`trackState`.
+Assurance is the Experience Platform tool for inspecting all events that Adobe extensions send out in real time. It allows observing the flow of events, including the Edge Bridge conversion of `trackAction`/`trackState`.
 
 ### 1. Set up the Assurance session
 To create a new Assurance session and connect to it, see the instructions on [setting up an Assurance session](https://github.com/adobe/aepsdk-edge-ios/blob/main/Documentation/Tutorials/edge-send-event-tutorial.md#1-set-up-the-assurance-session), using the base URL value:
@@ -259,19 +259,19 @@ To connect the tutorial app to the Assurance session, see the instructions on [c
 
 ### 3. Event transactions view - check for EdgeBridge events  
 #### `trackAction`/`trackState` events <!-- omit in toc -->
-In order to see EdgeBridge events, in the connected app instance:
-1. Trigger a `trackAction` and/or `trackState` within the app which the Edge Bridge extension will convert into Edge events. This event will be captured by the Assurance extension and shown in the web session viewer.
+To view Edge Bridge events in the connected app instance:
+1. Trigger a `trackAction` and/or `trackState` within the app, which the Edge Bridge extension will convert into Edge events. These events will be captured by the Assurance extension and displayed in the web session viewer.
 
 <img src="../assets/edge-bridge-tutorial/assurance-validation/ios-app-track-buttons.png" alt="Simulator tracking buttons" width="400"/>
 
-2. Click the `AnalyticsTrack` event (**1**) in the events table to see the event details in the right side window
-3. Click the `RAW EVENT` dropdown (**2**) in the event details window to see the event data payload.
-4. Verify that the `contextdata` matches what was sent by the Analytics `trackAction`/`trackState` API.
+1. Select the **Analytics Track** event (**1**) in the events table to view the event details in the right side window.
+2. Select the **RAW EVENT** dropdown (**2**) in the event details window to view the event data payload.
+3. Verify that the `contextData` matches what was sent by the Analytics `trackAction`/`trackState` API.
 
 <img src="../assets/edge-bridge-tutorial/assurance-validation/assurance-analytics-track-event.png" alt="Assurance Analytics track event" width="800"/>
 
-5. Now click the `Edge Bridge Request` event (**1**) in the events table
-6. Click the `RAW EVENT` dropdown (**2**) in the event details window; notice the slight differences in the payload structure as a result of the `Edge Bridge Request` event conforming to the format of an Edge event.
+1. Now click the `Edge Bridge Request` event (**1**) in the events table
+2. Click the `RAW EVENT` dropdown (**2**) in the event details window; notice the slight differences in the payload structure as a result of the `Edge Bridge Request` event conforming to the format of an Edge event.
 
 <img src="../assets/edge-bridge-tutorial/assurance-validation/assurance-edge-bridge-track-event.jpg" alt="Assurance Edge Bridge track event" width="800"/>
 
