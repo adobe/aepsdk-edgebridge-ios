@@ -6,22 +6,22 @@
   - [Prerequisites](#prerequisites)
 - [Adobe Experience Platform setup](#adobe-experience-platform-setup)
   - [1. Set up mobile property](#1-set-up-mobile-property)
-  - [2. Configure a rule to forward PII events to Edge Network](#2-configure-a-rule-to-forward-pii-events-to-edge-network)
+  - [2. Configure a rule to forward personally identifiable information (PII) events to Edge Network](#2-configure-a-rule-to-forward-personally-identifiable-information-pii-events-to-edge-network)
 - [Client-side implementation](#client-side-implementation)
   - [1. Get a copy of the files (code and tutorial app)](#1-get-a-copy-of-the-files-code-and-tutorial-app)
   - [2. Install Edge Bridge using dependency manager (Swift Package Manager)](#2-install-edge-bridge-using-dependency-manager-swift-package-manager)
-  - [3. Update tutorial app code to enable Edge Bridge functionality](#3-update-tutorial-app-code-to-enable-edge-bridge-functionality)
+  - [3. Update tutorial app to enable Edge Bridge functionality](#3-update-tutorial-app-to-enable-edge-bridge-functionality)
   - [4. Run app](#4-run-app)
   - [5. `trackAction`/`trackState` implementation examples](#5-trackactiontrackstate-implementation-examples)
-- [Initial validation with Assurance](#initial-validation-with-assurance)
+- [Validation with Assurance](#validation-with-assurance)
   - [1. Set up the Assurance session](#1-set-up-the-assurance-session)
   - [2. Connect the app to the Assurance session](#2-connect-the-app-to-the-assurance-session)
-  - [3. Event transactions view - check for EdgeBridge events](#3-event-transactions-view---check-for-edgebridge-events)
+  - [3. Event transactions view - check for Edge Bridge events](#3-event-transactions-view---check-for-edge-bridge-events)
 - [Data Prep mapping](#data-prep-mapping)
 - [Final validation using Assurance](#final-validation-using-assurance)
 
 ## Overview
-This tutorial explains how to use the Edge Bridge extension as a drop-in solution for migrating from an existing Analytics implementation to sending data via the Edge Network to Analytics.
+This tutorial covers how to use Edge Bridge as a drop-in solution for migrating from an existing Analytics implementation to sending data via the Edge Network to Analytics.
 
 ```mermaid
 graph LR;
@@ -43,7 +43,7 @@ graph LR;
 2. A tag (also known as a mobile property) configured in the Data Collection UI, which has the Adobe Analytics extension installed and configured.
 
 <details>
-  <summary> Adobe Experience Platform setup - Skip this section if prerequisite item 1 has already been set up </summary>
+  <summary> <h3>Adobe Experience Platform setup - Skip this section if prerequisite item 1 has already been set up</h3> </summary>
 
 ## Adobe Experience Platform setup
 This section demonstrates how to create and configure a mobile property in Experience Platform, which controls the configuration settings for the Mobile SDK extensions used in this tutorial.
@@ -117,8 +117,8 @@ The following cards should be visible once all the extensions have been installe
 
 <img src="../assets/edge-bridge-tutorial/aep-setup/mobile-property-all-extensions.png" alt="All installed extensions" width="1100"/>  
 
-### 2. Configure a rule to forward PII events to Edge Network 
-The `collectPII` API for Analytics does not send events to Edge Network by default; it requires a rule to be configured to forward these events.
+### 2. Configure a rule to forward personally identifiable information (PII) events to Edge Network
+The [`collectPII`](https://developer.adobe.com/client-sdks/home/base/mobile-core/api-reference/#collectpii) API for Analytics does not send events to Edge Network by default; it requires a rule to be configured to forward these events. This section provides an example of how to create such a rule.
 
 #### Create a rule <!-- omit in toc -->
 1. In the Rules tab, select **Create New Rule**.
@@ -158,24 +158,23 @@ The `collectPII` API for Analytics does not send events to Edge Network by defau
 ## Client-side implementation
 ### 1. Get a copy of the files (code and tutorial app)
 1. Open the code repository: https://github.com/adobe/aepsdk-edgebridge-ios
-2. Click **Code** in the top right.
-3. In the window that opens, click **Download ZIP**; by default, it should land in your **Downloads** folder.
-   - Optionally, move the ZIP to your **Documents** folder.
-4. Unzip the archived file by double-clicking it.
-5. Navigate to the unarchived file, then go to **Documentation** -> **Tutorials** -> **EdgeBridgeTutorialAppStart**.
-6. Double-click on **EdgeBridgeTutorialApp.xcworkspace**; this should automatically open the Xcode IDE.
+2. Select the green **Code** button in the top right.
+3. In the window that opens, select **Download ZIP**; by default, it should download to your **Downloads** folder.
+4. Unzip the archived file by opening it.
+5. Navigate to the unarchived folder, then navigate to **Documentation** -> **Tutorials** -> **EdgeBridgeTutorialAppStart**.
+6. Open the file **EdgeBridgeTutorialApp.xcworkspace**; this should automatically open the Xcode IDE.
 
 ### 2. Install Edge Bridge using dependency manager (Swift Package Manager)
-The next task is to add the necessary dependencies to enable the Edge Bridge extension to function.
+The next task is to update the necessary dependencies to enable the Edge Bridge extension to function.
 
-1. Install the `AEPEdgeBridge` extension.
+1. Install the Edge Bridge (`AEPEdgeBridge`) extension.
   - In Xcode, from the top bar, select **File** -> **Add Package Dependencies...**
   - In the **Search or Enter Package URL** search box in the top right, input `https://github.com/adobe/aepsdk-edgebridge-ios.git`
   - Select the **aepsdk-edgebridge-ios** package.
   - For **Dependency Rule**, select **Branch** and input `main`.
   - Select **Add Package**.
 
-2. Remove the `AEPAnalytics` extension.
+2. Remove the Analytics (`AEPAnalytics`) extension.
   - In Xcode, from the left side file navigator, select **EdgeBridgeTutorialApp**.
   - Under **PROJECT**, select **EdgeBridgeTutorialApp**.
   - Select **Package Dependencies**.
@@ -185,47 +184,43 @@ The next task is to add the necessary dependencies to enable the Edge Bridge ext
   <summary> Using CocoaPods instead? </summary><p>
 
 **CocoaPods**
-This tutorial assumes a project using Swift Package Manager (SPM) for package dependency management. However, if you are following along with a project that uses **CocoaPods**, refer to the [README for instructions on how to add the EdgeBridge extension](../../README.md#cocoapods).
+This tutorial assumes a project using Swift Package Manager (SPM) for package dependency management. However, if you are following along with a project that uses **CocoaPods**, refer to the [README for instructions on how to add the Edge Bridge extension](../../README.md#cocoapods).
 
 </p></details>
 
-### 3. Update tutorial app code to enable Edge Bridge functionality
+### 3. Update tutorial app to enable Edge Bridge functionality
 #### Add the Edge Bridge extension <!-- omit in toc -->
 The file `AppDelegate.swift` needs to be updated to enable the **Edge Bridge** extension.
    
-Inside, you will see code blocks for this tutorial that are greyed out because they are commented out. They are marked by the header and footer `EdgeBridge Tutorial - code section n/m` (where `n` is the current comment section number and `m` is the total number of sections in the file).
+Inside, you will see code blocks for this tutorial that are greyed out because they are commented out. They are marked by the header and footer `Edge Bridge tutorial - code section n/m` (where `n` is the current comment section number and `m` is the total number of sections in the file).
 
 To uncomment the section and activate the code, simply add a forward slash at the beginning of the header:
 ```swift
-/* EdgeBridge Tutorial - code section (1/2)
+/* Edge Bridge tutorial - code section (1/2)
 ```
 To:
 ```swift
-//* EdgeBridge Tutorial - code section (1/2)
+//* Edge Bridge tutorial - code section (1/2)
 ```
 Make sure that all sections within the file are uncommented (the total number of sections is indicated).
 
 #### Update AppDelegate <!-- omit in toc -->
 Open `AppDelegate.swift`:
-1. Select the dropdown chevron next to **EdgeBridgeTutorialApp** in the left-side navigation panel.
+1. In Xcode, in the left-side **Project Navigator** panel, select the dropdown chevron next to **EdgeBridgeTutorialApp**.
+   - If the **Project Navigator** panel is not visible, from the top menu, select **View** -> **Navigators** -> **Show Project Navigator**.
 2. Select the dropdown chevron next to the **EdgeBridgeTutorialApp** folder.
 3. Select the `AppDelegate.swift` file.
 
-Set the tutorial app to use the mobile property ID:
+**Set the tutorial app to use the mobile property ID:**
 1. Update the `ENVIRONMENT_FILE_ID` value to the mobile property ID published in the first section.
    - See how to find your mobile property ID in the instructions for [getting the mobile property ID](https://github.com/adobe/aepsdk-edge-ios/blob/main/Documentation/Tutorials/edge-send-event-tutorial.md#getting-the-mobile-property-id-).
 
-Remove Analytics and AEPIdentity extensions:
-Inside you will see code blocks for this tutorial marked by a header and footer `EdgeBridge Tutorial - remove section (n/m)` (where `n` is the current section and `m` is the total number of sections in the file).
-
-Simply delete everything between the header and footer, and make sure to do this for all "remove section" blocks within the file.
-
-For details on the various Edge extensions used, see the [table of related projects](../../README.md#related-projects).
-
-Inside `AppDelegate.swift`, you will see code blocks for this tutorial marked by a header and footer `EdgeBridge Tutorial - remove section (n/m)` (where `n` is the current comment section number and `m` is the total number of sections in the file).
+**Remove Analytics and AEPIdentity extensions:**  
 
 > [!WARNING]
 > Before proceeding, verify if your application uses any Adobe Experience Cloud Solution extensions, such as Adobe Target or Adobe Campaign (find the full list [here](https://developer.adobe.com/client-sdks/solution/)). Only remove `AEPIdentity` if no other solution extensions are in use.
+
+Inside `AppDelegate.swift`, you will see code blocks for this tutorial marked by a header and footer `Edge Bridge tutorial - remove section (n/m)` (where `n` is the current comment section number and `m` is the total number of sections in the file).
 
 Delete everything between the header and footer, and do this for all "remove section" blocks within the file.
 
@@ -241,12 +236,12 @@ You should see your application running on the selected device, with logs displa
 > **View** -> **Debug Area** -> **Activate Console**
 
 ### 5. `trackAction`/`trackState` implementation examples
-With the Edge Bridge extension successfully installed and registered, you can continue to make the regular Analytics `trackAction` and `trackState` calls. These will be captured by the Edge Bridge extension and sent to the Edge Network.
+With the Edge Bridge extension successfully installed and registered, you can continue to make existing Analytics `trackAction` and `trackState` calls. These will be captured by the Edge Bridge extension and sent to the Edge Network.
 
-Check `ContentView.swift` for implementation examples of both APIs. You will see the data payloads that are sent with the calls.
+Check `ContentView.swift` for implementation examples of both APIs. You will see the data payloads that are sent with each call.
 
-## Initial validation with Assurance
-Assurance is the Experience Platform tool for inspecting all events that Adobe extensions send out in real time. It allows observing the flow of events, including the Edge Bridge conversion of `trackAction`/`trackState`.
+## Validation with Assurance
+Assurance is the Experience Platform tool for inspecting all events that Adobe extensions send out in real time. It allows observing the flow of events, including the Edge Bridge conversion of `trackAction`/`trackState` events.
 
 ### 1. Set up the Assurance session
 To create a new Assurance session and connect to it, see the instructions on [setting up an Assurance session](https://github.com/adobe/aepsdk-edge-ios/blob/main/Documentation/Tutorials/edge-send-event-tutorial.md#1-set-up-the-assurance-session), using the base URL value:
@@ -257,7 +252,7 @@ edgebridgetutorialapp://
 ### 2. Connect the app to the Assurance session  
 To connect the tutorial app to the Assurance session, see the instructions on [connecting the app to the Assurance session](https://github.com/adobe/aepsdk-edge-ios/blob/main/Documentation/Tutorials/edge-send-event-tutorial.md#2-connect-to-the-app).
 
-### 3. Event transactions view - check for EdgeBridge events  
+### 3. Event transactions view - check for Edge Bridge events  
 #### `trackAction`/`trackState` events <!-- omit in toc -->
 To view Edge Bridge events in the connected app instance:
 1. Trigger a `trackAction` and/or `trackState` within the app, which the Edge Bridge extension will convert into Edge events. These events will be captured by the Assurance extension and displayed in the web session viewer.
@@ -270,11 +265,8 @@ To view Edge Bridge events in the connected app instance:
 
 <img src="../assets/edge-bridge-tutorial/assurance-validation/assurance-analytics-track-event.png" alt="Assurance Analytics track event" width="800"/>
 
-1. Now click the `Edge Bridge Request` event (**1**) in the events table
-2. Click the `RAW EVENT` dropdown (**2**) in the event details window; notice the slight differences in the payload structure as a result of the `Edge Bridge Request` event conforming to the format of an Edge event.
-
 1. Now select the `Edge Bridge Request` event (**1**) in the events table.
-2. Select the `RAW EVENT` dropdown (**2**) in the event details window; observe the transformation of the payload structure with the help of the Edge Bridge extension. The `Edge Bridge Request` event conforms to the format of an Edge event.
+2. Select the `RAW EVENT` dropdown (**2**) in the event details window; observe the transformation of the payload structure with the help of the Edge Bridge extension. The `Edge Bridge Request` event conforms to the format of an Edge Network event.
 
 <img src="../assets/edge-bridge-tutorial/assurance-validation/assurance-edge-bridge-track-event.png" alt="Assurance Edge Bridge track event" width="800"/>
 
@@ -290,19 +282,26 @@ The following table and diagram highlight the differences in event data structur
 <img src="../assets/edge-bridge-tutorial/assurance-validation/analytics-edge-bridge-conversion.png" alt="Comparison of event data between analytics and edge bridge events" width="1100"/>
 
 > [!NOTE]
-> The two new top-level properties `xdm` and `data` are standard Edge event properties, integral to the Experience Platform's XDM schema-based system for event data organization. This system allows for powerful, customizable data processing.
+> The two new top-level properties `xdm` and `data` are standard Edge Network event properties, integral to Experience Platform's [Experience Data Model (XDM)](https://experienceleague.adobe.com/en/docs/experience-platform/xdm/home) schema-based system for event data organization. This system allows for powerful, customizable data processing.
+
+To learn more about the final data format created by Edge Bridge, please refer to the [data format documentation](../data-format.md).
 
 #### Trigger rule-based `trackAction` events <!-- omit in toc -->
 Rule-based `trackAction`/`trackState` events are also converted to Edge events by the Edge Bridge extension. Select the **Trigger Consequence** button (**1**) to initiate a rule that generates a `trackAction` event.
 
 <img src="../assets/edge-bridge-tutorial/assurance-validation/ios-app-trigger-rule-button.png" alt="Simulator tracking buttons" width="400"/>
 
-Just like the `trackAction`/`trackState` events above, the Edge Bridge extension converts the PII `trackAction` event into an Edge event.
+> [!TIP]
+> If no `trackAction` event is dispatched upon selecting the **Trigger Consequence** button, verify that your mobile property is [set up with the correct rule](#2-configure-a-rule-to-forward-personal-identifiable-information-pii-events-to-edge-network).
+
+Just like the `trackAction`/`trackState` events above, the Edge Bridge extension converts the personal PII `trackAction` event into an Edge event.
+
+With this, the Edge Bridge powered migration from an existing Analytics implementation to sending data via Edge Network to Analytics is complete!
 
 ## Data Prep mapping
 
 <details>
-  <summary> Data Prep background</summary><p>
+  <summary> Data Prep background </summary><p>
 
 Data Prep is an Adobe Experience Platform service which maps and transforms data to the [Experience Data Model (XDM)](https://experienceleague.adobe.com/docs/experience-platform/xdm/home.html).  Data Prep is configured from a Platform enabled [datastream](https://experienceleague.adobe.com/docs/experience-platform/edge/datastreams/overview.html) to map source data from the Edge Bridge mobile extension to the Platform Edge Network.
 
