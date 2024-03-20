@@ -39,9 +39,9 @@ ci-pod-update: ci-pod-repo-update
 ci-pod-install:
 	bundle exec pod install --repo-update
 
-archive: pod-update archive
+archive: pod-install archive
 
-ci-archive: ci-pod-update archive
+ci-archive: ci-pod-install archive
 
 archive: clean pod-update build-ios
 	@echo "######################################################################"
@@ -65,7 +65,7 @@ test-ios: clean-ios-test-files
 	@echo "######################################################################"
 	@echo "### Testing iOS"
 	@echo "######################################################################"
-	xcodebuild test -workspace $(PROJECT_NAME).xcworkspace -scheme $(PROJECT_NAME) -destination 'platform=iOS Simulator,name=iPhone 14' -derivedDataPath build/out -resultBundlePath iosresults.xcresult -enableCodeCoverage YES
+	xcodebuild test -workspace $(PROJECT_NAME).xcworkspace -scheme $(PROJECT_NAME) -destination 'platform=iOS Simulator,name=iPhone 15' -derivedDataPath build/out -resultBundlePath iosresults.xcresult -enableCodeCoverage YES
 
 build-ios:
 	@echo "######################################################################"
@@ -83,7 +83,7 @@ lint-autocorrect:
 lint:
 	./Pods/SwiftLint/swiftlint lint Sources TestApps/
 
-# make check-version VERSION=4.0.0
+# make check-version VERSION=5.0.0
 check-version:
 	sh ./Script/version.sh $(VERSION)
 

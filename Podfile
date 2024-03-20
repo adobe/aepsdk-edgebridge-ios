@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '11.0'
+platform :ios, '12.0'
 
 # Comment the next line if you don't want to use dynamic frameworks
 use_frameworks!
@@ -9,24 +9,33 @@ project 'AEPEdgeBridge.xcodeproj'
 
 pod 'SwiftLint', '0.52.0'
 
-target 'AEPEdgeBridge' do
+def core_pods
   pod 'AEPCore'
+end
+
+def edge_pods
+  pod 'AEPEdge'
+  pod 'AEPEdgeIdentity'
+end
+
+target 'AEPEdgeBridge' do
+  core_pods
 end
 
 target 'UnitTests' do
-  pod 'AEPCore'
+  core_pods
+  pod 'AEPTestUtils', :git => 'https://github.com/adobe/aepsdk-testutils-ios.git', :tag => '5.0.0'
 end
 
 target 'FunctionalTests' do
-  pod 'AEPCore'
-  pod 'AEPEdge'
-  pod 'AEPEdgeIdentity'
+  core_pods
+  edge_pods
+  pod 'AEPTestUtils', :git => 'https://github.com/adobe/aepsdk-testutils-ios.git', :tag => '5.0.0'
 end
 
 target 'TestAppSwiftUI' do
-  pod 'AEPCore'
+  core_pods
+  edge_pods
   pod 'AEPLifecycle'
-  pod 'AEPEdge'
-  pod 'AEPEdgeIdentity'
-  pod 'AEPAssurance'
+  pod 'AEPAssurance', :git => 'https://github.com/adobe/aepsdk-assurance-ios.git', :branch => 'staging'
 end
