@@ -181,9 +181,6 @@ The next task is to add the necessary dependencies to enable the Edge Bridge ext
   - Select **Package Dependencies**.
   - Select **AEPAnalytics** and then the minus (**-**) button under the table, then select **Remove**.
 
-> [!WARNING]
-> Before proceeding, verify if your application uses any Adobe Experience Cloud Solution extensions, such as Adobe Target or Adobe Campaign (find the full list [here](https://developer.adobe.com/client-sdks/solution/)). Only remove `AEPIdentity` if no other solution extensions are in use.
-
 <details>
   <summary> Using CocoaPods instead? </summary><p>
 
@@ -208,17 +205,29 @@ To:
 ```
 Make sure that all sections within the file are uncommented (the total number of sections is indicated).
 
-#### Remove Analytics and AEPIdentity <!-- omit in toc -->
-To remove the Analytics and AEPIdentity extensions:
-1. Click the dropdown chevron next to `EdgeBridgeTutorialApp` in the left-side navigation panel.
-2. Click the dropdown chevron next to the `EdgeBridgeTutorialApp` folder.
-3. Click the `AppDelegate.swift` file.
-4. First update the `ENVIRONMENT_FILE_ID` value to the mobile property ID published in the first section.
-   - See how to get your mobile property ID in the instructions for [getting the mobile property ID](https://github.com/adobe/aepsdk-edge-ios/blob/main/Documentation/Tutorials/edge-send-event-tutorial.md#getting-the-mobile-property-id-).
+#### Update AppDelegate <!-- omit in toc -->
+Open `AppDelegate.swift`:
+1. Select the dropdown chevron next to **EdgeBridgeTutorialApp** in the left-side navigation panel.
+2. Select the dropdown chevron next to the **EdgeBridgeTutorialApp** folder.
+3. Select the `AppDelegate.swift` file.
 
+Set the tutorial app to use the mobile property ID:
+1. Update the `ENVIRONMENT_FILE_ID` value to the mobile property ID published in the first section.
+   - See how to find your mobile property ID in the instructions for [getting the mobile property ID](https://github.com/adobe/aepsdk-edge-ios/blob/main/Documentation/Tutorials/edge-send-event-tutorial.md#getting-the-mobile-property-id-).
+
+Remove Analytics and AEPIdentity extensions:
 Inside you will see code blocks for this tutorial marked by a header and footer `EdgeBridge Tutorial - remove section (n/m)` (where `n` is the current section and `m` is the total number of sections in the file).
 
 Simply delete everything between the header and footer, and make sure to do this for all "remove section" blocks within the file.
+
+For details on the various Edge extensions used, see the [table of related projects](../../README.md#related-projects).
+
+Inside `AppDelegate.swift`, you will see code blocks for this tutorial marked by a header and footer `EdgeBridge Tutorial - remove section (n/m)` (where `n` is the current comment section number and `m` is the total number of sections in the file).
+
+> [!WARNING]
+> Before proceeding, verify if your application uses any Adobe Experience Cloud Solution extensions, such as Adobe Target or Adobe Campaign (find the full list [here](https://developer.adobe.com/client-sdks/solution/)). Only remove `AEPIdentity` if no other solution extensions are in use.
+
+Delete everything between the header and footer, and do this for all "remove section" blocks within the file.
 
 For details on the various Edge extensions used, see the [table of related projects](../../README.md#related-projects).
 
