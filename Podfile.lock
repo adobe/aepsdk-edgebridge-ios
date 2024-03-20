@@ -1,7 +1,7 @@
 PODS:
-  - AEPAssurance (4.1.1):
-    - AEPCore (>= 4.0.0)
-    - AEPServices (>= 4.0.0)
+  - AEPAssurance (5.0.0):
+    - AEPCore (< 6.0.0, >= 5.0.0)
+    - AEPServices (< 6.0.0, >= 5.0.0)
   - AEPCore (5.0.0):
     - AEPRulesEngine (< 6.0.0, >= 5.0.0)
     - AEPServices (< 6.0.0, >= 5.0.0)
@@ -20,47 +20,42 @@ PODS:
   - SwiftLint (0.52.0)
 
 DEPENDENCIES:
-  - AEPAssurance
+  - AEPAssurance (from `https://github.com/adobe/aepsdk-assurance-ios.git`, branch `staging`)
   - AEPCore
-  - AEPEdge (from `https://github.com/adobe/aepsdk-edge-ios.git`, branch `staging`)
-  - AEPEdgeIdentity (from `https://github.com/adobe/aepsdk-edgeidentity-ios.git`, branch `staging`)
+  - AEPEdge
+  - AEPEdgeIdentity
   - AEPLifecycle
   - AEPTestUtils (from `https://github.com/adobe/aepsdk-testutils-ios.git`, tag `5.0.0`)
   - SwiftLint (= 0.52.0)
 
 SPEC REPOS:
   trunk:
-    - AEPAssurance
     - AEPCore
+    - AEPEdge
+    - AEPEdgeIdentity
     - AEPLifecycle
     - AEPRulesEngine
     - AEPServices
     - SwiftLint
 
 EXTERNAL SOURCES:
-  AEPEdge:
+  AEPAssurance:
     :branch: staging
-    :git: https://github.com/adobe/aepsdk-edge-ios.git
-  AEPEdgeIdentity:
-    :branch: staging
-    :git: https://github.com/adobe/aepsdk-edgeidentity-ios.git
+    :git: https://github.com/adobe/aepsdk-assurance-ios.git
   AEPTestUtils:
     :git: https://github.com/adobe/aepsdk-testutils-ios.git
     :tag: 5.0.0
 
 CHECKOUT OPTIONS:
-  AEPEdge:
-    :commit: 9c1920a1e6e66090f7edfb6239d701a9bb95a230
-    :git: https://github.com/adobe/aepsdk-edge-ios.git
-  AEPEdgeIdentity:
-    :commit: d2ca4379681ddea2a9251bd85e1bd1db565565b5
-    :git: https://github.com/adobe/aepsdk-edgeidentity-ios.git
+  AEPAssurance:
+    :commit: 6098c48a067daf4c70cb630b0000564552ad3bc7
+    :git: https://github.com/adobe/aepsdk-assurance-ios.git
   AEPTestUtils:
     :git: https://github.com/adobe/aepsdk-testutils-ios.git
     :tag: 5.0.0
 
 SPEC CHECKSUMS:
-  AEPAssurance: 765587ef65481bab544aa25efcfa294e14161d49
+  AEPAssurance: 7f260ded4df38a70a06efebade8c33a3e3221984
   AEPCore: f1c3e9238bb12e7e1103f4407c341ebc65aeab5b
   AEPEdge: 6bc7c3f6573fdf0a12fb3ddfd32420112a89c80b
   AEPEdgeIdentity: 3161ff33434586962946912d6b8e9e8fca1c4d23
@@ -70,6 +65,6 @@ SPEC CHECKSUMS:
   AEPTestUtils: 20495b368da57904ca2e9f241d1d8b114f9887b5
   SwiftLint: 13280e21cdda6786ad908dc6e416afe5acd1fcb7
 
-PODFILE CHECKSUM: ab2fa3237e906caa798f8587942da170d04ae837
+PODFILE CHECKSUM: 00d298ea71937f1b9eba141a48cc3953aa8d9a2b
 
 COCOAPODS: 1.14.3
