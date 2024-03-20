@@ -10,9 +10,7 @@ project 'AEPEdgeBridge.xcodeproj'
 pod 'SwiftLint', '0.52.0'
 
 def core_pods
-  pod 'AEPCore', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'staging'
-  pod 'AEPServices', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'staging'
-  pod 'AEPRulesEngine', :git => 'https://github.com/adobe/aepsdk-rulesengine-ios.git', :branch => 'staging'
+  pod 'AEPCore'
 end
 
 def edge_pods
@@ -38,6 +36,6 @@ end
 target 'TestAppSwiftUI' do
   core_pods
   edge_pods
-  pod 'AEPLifecycle', :git => 'https://github.com/adobe/aepsdk-core-ios.git', :branch => 'staging'
+  pod 'AEPLifecycle'
   pod 'AEPAssurance'
 end

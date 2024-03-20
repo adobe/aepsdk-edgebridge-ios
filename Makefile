@@ -39,9 +39,9 @@ ci-pod-update: ci-pod-repo-update
 ci-pod-install:
 	bundle exec pod install --repo-update
 
-archive: pod-update archive
+archive: pod-install archive
 
-ci-archive: ci-pod-update archive
+ci-archive: ci-pod-install archive
 
 archive: clean pod-update build-ios
 	@echo "######################################################################"
