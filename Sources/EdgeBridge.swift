@@ -241,9 +241,7 @@ public class EdgeBridge: NSObject, Extension {
                 return true
             default:
                 Log.debug(label: EdgeBridgeConstants.LOG_TAG,
-                          "cleanContextData - Dropping key '\(String(describing: $0.key))' " +
-                          "with value '\(String(describing: $0.value))'. " +
-                          "Value must be String, Number, Bool or Character.")
+                          "cleanContextData - Dropping key '\(String(describing: $0.key))' with value '\(String(describing: $0.value))'. Value must be String, Number, Bool or Character")
                 return false
             }
         }
