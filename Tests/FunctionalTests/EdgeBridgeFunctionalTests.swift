@@ -107,7 +107,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         assertExactMatch(
             expected: expectedJSON,
             actual: networkRequests[0],
-            typeMatchPaths: ["events[0].xdm._id", "events[0].xdm.timestamp", "events[0].data.__adobe.analytics.contextData.a\\.AppID"])
+            pathOptions: ValueTypeMatch(paths: "events[0].xdm._id", "events[0].xdm.timestamp", "events[0].data.__adobe.analytics.contextData.a\\.AppID"))
     }
 
     func testTrackAction_sendsCorrectRequestEvent() {
@@ -154,7 +154,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         assertExactMatch(
             expected: expectedJSON,
             actual: networkRequests[0],
-            typeMatchPaths: ["events[0].xdm._id", "events[0].xdm.timestamp", "events[0].data.__adobe.analytics.contextData.a\\.AppID"])
+            pathOptions: ValueTypeMatch(paths: "events[0].xdm._id", "events[0].xdm.timestamp", "events[0].data.__adobe.analytics.contextData.a\\.AppID"))
     }
 
     func testRulesEngineResponse_sendsCorrectRequestEvent() {
@@ -205,7 +205,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         assertExactMatch(
             expected: expectedJSON,
             actual: networkRequests[0],
-            typeMatchPaths: ["events[0].xdm._id", "events[0].xdm.timestamp", "events[0].data.__adobe.analytics.contextData.a\\.AppID"])
+            pathOptions: ValueTypeMatch(paths: "events[0].xdm._id", "events[0].xdm.timestamp", "events[0].data.__adobe.analytics.contextData.a\\.AppID"))
     }
 
     /// Helper function to update configuration with rules URL and mock response with a local zip file.
