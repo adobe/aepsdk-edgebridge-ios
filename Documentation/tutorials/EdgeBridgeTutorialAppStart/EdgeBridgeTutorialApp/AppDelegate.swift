@@ -21,10 +21,13 @@ import AEPLifecycle
 import AEPEdgeBridge
 // EdgeBridge Tutorial - code section (1/2) */
 
-// * EdgeBridge Tutorial - remove section (1/2)
+// EdgeBridge Tutorial - remove section (1/2)
 import AEPAnalytics
+// EdgeBridge Tutorial - remove section (1/2)
+
+// EdgeBridge Tutorial - remove section depending on use of Solution extensions (1/2)
 import AEPIdentity
-// EdgeBridge Tutorial - remove section (1/2) */
+// EdgeBridge Tutorial - remove section depending on use of Solution extensions (1/2)
 
 import Compression
 import UIKit
@@ -44,10 +47,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             EdgeBridge.self,
 // EdgeBridge Tutorial - code section (2/2) */
 
-// * EdgeBridge Tutorial - remove section (2/2)
+// EdgeBridge Tutorial - remove section (2/2)
             Analytics.self,
+// EdgeBridge Tutorial - remove section (2/2)
+
+// EdgeBridge Tutorial - remove section depending on use of Solution extensions (2/2)
             AEPIdentity.Identity.self,
-// EdgeBridge Tutorial - remove section (2/2) */
+// EdgeBridge Tutorial - remove section depending on use of Solution extensions (2/2)
             Assurance.self,
             Consent.self,
             Edge.self,

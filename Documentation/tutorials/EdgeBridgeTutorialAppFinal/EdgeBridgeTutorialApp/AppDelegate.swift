@@ -17,14 +17,9 @@ import AEPEdgeConsent
 import AEPEdgeIdentity
 import AEPLifecycle
 
-// * EdgeBridge Tutorial - code section (1/2)
+//* EdgeBridge Tutorial - code section (1/2)
 import AEPEdgeBridge
 // EdgeBridge Tutorial - code section (1/2) */
-
-/* EdgeBridge Tutorial - remove section (1/2)
-import AEPAnalytics
-import AEPIdentity
-// EdgeBridge Tutorial - remove section (1/2) */
 
 import Compression
 import UIKit
@@ -40,14 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MobileCore.setLogLevel(.trace)
         MobileCore.configureWith(appId: ENVIRONMENT_FILE_ID)
         MobileCore.registerExtensions([
-// * EdgeBridge Tutorial - code section (2/2)
+//* EdgeBridge Tutorial - code section (2/2)
             EdgeBridge.self,
 // EdgeBridge Tutorial - code section (2/2) */
-
-/* EdgeBridge Tutorial - remove section (2/2)
-            Analytics.self,
-            AEPIdentity.Identity.self,
-// EdgeBridge Tutorial - remove section (2/2) */
             Assurance.self,
             Consent.self,
             Edge.self,
