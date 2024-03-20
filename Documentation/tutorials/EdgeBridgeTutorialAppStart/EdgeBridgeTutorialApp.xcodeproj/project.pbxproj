@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C2ED6772BAA867800057E97 /* AssuranceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2ED6762BAA867800057E97 /* AssuranceView.swift */; };
 		4C4AFBC028EE7A54002C6426 /* AEPEdgeConsent in Frameworks */ = {isa = PBXBuildFile; productRef = 4C4AFBBF28EE7A54002C6426 /* AEPEdgeConsent */; };
 		4C8C2E9428ECDA5000DA94D2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8C2E9328ECDA5000DA94D2 /* ContentView.swift */; };
 		4C8C2E9928ECDA5200DA94D2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C8C2E9828ECDA5200DA94D2 /* Preview Assets.xcassets */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C2ED6762BAA867800057E97 /* AssuranceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssuranceView.swift; sourceTree = "<group>"; };
 		4C8C2E8E28ECDA5000DA94D2 /* EdgeBridgeTutorialApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EdgeBridgeTutorialApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C8C2E9328ECDA5000DA94D2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4C8C2E9828ECDA5200DA94D2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -77,8 +79,9 @@
 			isa = PBXGroup;
 			children = (
 				4C8C2EA928ECDB1900DA94D2 /* AppDelegate.swift */,
-				4C8C2EA328ECDB0E00DA94D2 /* SceneDelegate.swift */,
+				4C2ED6762BAA867800057E97 /* AssuranceView.swift */,
 				4C8C2E9328ECDA5000DA94D2 /* ContentView.swift */,
+				4C8C2EA328ECDB0E00DA94D2 /* SceneDelegate.swift */,
 				4C8C2EAA28ECDB1900DA94D2 /* Assets.xcassets */,
 				4C8C2EA228ECDB0E00DA94D2 /* Info.plist */,
 				4C8C2E9F28ECDAF900DA94D2 /* LaunchScreen.storyboard */,
@@ -188,6 +191,7 @@
 			files = (
 				4C8C2E9428ECDA5000DA94D2 /* ContentView.swift in Sources */,
 				4C8C2EAC28ECDB1900DA94D2 /* AppDelegate.swift in Sources */,
+				4C2ED6772BAA867800057E97 /* AssuranceView.swift in Sources */,
 				4C8C2EA628ECDB0E00DA94D2 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

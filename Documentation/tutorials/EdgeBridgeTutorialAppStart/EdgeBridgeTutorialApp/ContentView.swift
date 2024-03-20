@@ -15,7 +15,18 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        TrackView()
+        NavigationView {
+            VStack(alignment: .center, spacing: 20, content: {
+                NavigationLink(
+                    destination: AssuranceView(),
+                    label: {
+                        Text("Assurance")
+                    })
+                Divider()
+                TrackView()
+                Divider()
+            })
+        }
     }
 }
 
