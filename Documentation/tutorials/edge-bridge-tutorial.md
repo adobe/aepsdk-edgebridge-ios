@@ -264,31 +264,40 @@ To view Edge Bridge events in the connected app instance:
 
 <img src="../assets/edge-bridge-tutorial/assurance-validation/ios-app-track-buttons.png" alt="Simulator tracking buttons" width="400"/>
 
-1. Select the **Analytics Track** event (**1**) in the events table to view the event details in the right side window.
+1. Select the **AnalyticsTrack** event (**1**) in the events table to view the event details in the right side window.
 2. Select the **RAW EVENT** dropdown (**2**) in the event details window to view the event data payload.
-3. Verify that the `contextData` matches what was sent by the Analytics `trackAction`/`trackState` API.
+3. Verify that the `contextdata` matches what was sent by the Analytics `trackAction`/`trackState` API.
 
 <img src="../assets/edge-bridge-tutorial/assurance-validation/assurance-analytics-track-event.png" alt="Assurance Analytics track event" width="800"/>
 
 1. Now click the `Edge Bridge Request` event (**1**) in the events table
 2. Click the `RAW EVENT` dropdown (**2**) in the event details window; notice the slight differences in the payload structure as a result of the `Edge Bridge Request` event conforming to the format of an Edge event.
 
+1. Now select the `Edge Bridge Request` event (**1**) in the events table.
+2. Select the `RAW EVENT` dropdown (**2**) in the event details window; observe the transformation of the payload structure with the help of the Edge Bridge extension. The `Edge Bridge Request` event conforms to the format of an Edge event.
+
 <img src="../assets/edge-bridge-tutorial/assurance-validation/assurance-edge-bridge-track-event.png" alt="Assurance Edge Bridge track event" width="800"/>
 
-Notice the differences in event data structure and format between the two types of events: Analytics (left) vs Edge (right) via Edge Bridge extension
-The top level EventType is converted from a `generic.track` to `edge` (that is, Analytics generic track event -> Edge event) (**1**). The Edge Bridge extension also populates the standard XDM field for event type (`eventType`) in the event data payload. Also notice that the `contextdata` has moved from directly under `EventData` to under the generic Edge XDM `data` property (**2**).
+The following table and diagram highlight the differences in event data structure and format between the two types of events: Analytics (left) vs Edge (right) when using the Edge Bridge extension:
+
+| Item | Before (Analytics) | After (Edge Bridge) |
+| --- | --- | --- |
+| 1 | Top level `ACPExtensionEventType`: `generic.track` | Top level `ACPExtensionEventType`: `edge`<br>`ACPExtensionEventData.xdm.eventType`: `analytics.track` |
+| 2 | `contextdata` key under `ACPExtensionEventData` | `contextData` transformed and moved under `data.__adobe.analytics` |
+| 3 | Keys with reserved prefix `&&` directly under `contextdata` | Keys with prefix `&&` transformed and moved under `data.__adobe.analytics` |
+| 4 | No Analytics metrics | Analytics metrics added under `data.__adobe.analytics` (varying locations) |
 
 <img src="../assets/edge-bridge-tutorial/assurance-validation/analytics-edge-bridge-conversion.png" alt="Comparison of event data between analytics and edge bridge events" width="1100"/>
 
-> **Note**
-> The two new top level properties `xdm` and `data` are standard Edge event properties that are part of the Edge platform's XDM schema-based system for event data organization that enables powerful, customizable data processing. However, because the `contextdata` is not yet mapped to an XDM schema, it is not in a usable form for the Edge platform. We will solve this issue by mapping the event data to an XDM schema in the next section.
+> [!NOTE]
+> The two new top-level properties `xdm` and `data` are standard Edge event properties, integral to the Experience Platform's XDM schema-based system for event data organization. This system allows for powerful, customizable data processing.
 
 #### Trigger rule-based `trackAction` events <!-- omit in toc -->
-Rules-based trackAction/trackState events are also converted to Edge events by the Edge Bridge extension. Select the **Trigger Rule** button (**1**) to trigger a rule that creates a trackAction event.
+Rule-based `trackAction`/`trackState` events are also converted to Edge events by the Edge Bridge extension. Select the **Trigger Consequence** button (**1**) to initiate a rule that generates a `trackAction` event.
 
 <img src="../assets/edge-bridge-tutorial/assurance-validation/ios-app-trigger-rule-button.png" alt="Simulator tracking buttons" width="400"/>
 
-Just like the `trackAction`/`trackState` events above, the Edge Bridge extension will convert the PII trackAction event into an Edge event.
+Just like the `trackAction`/`trackState` events above, the Edge Bridge extension converts the PII `trackAction` event into an Edge event.
 
 ## Data Prep mapping
 
