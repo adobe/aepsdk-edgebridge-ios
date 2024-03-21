@@ -20,19 +20,19 @@
 - [Optional - Data Prep for Data Collection mapping](#optional---data-prep-for-data-collection-mapping)
   - [Mapping custom `contextData` keys](#mapping-custom-contextdata-keys)
   - [Mapping calculated fields using Analytics functions](#mapping-calculated-fields-using-analytics-functions)
-- [Validation using Assurance](#validation-using-assurance)
+- [Validating Data Prep mapping using Assurance](#validating-data-prep-mapping-using-assurance)
 
 ## Overview
 This tutorial covers how to use Edge Bridge as a drop-in solution for migrating from an existing Analytics implementation to sending data via the Edge Network to Analytics.
 
 ```mermaid
-graph LR;
-    step1(1<br/>Existing Adobe Analytics app) -->
+graph TD;
+    step1(1<br/>Existing app using Adobe Analytics) -->
     step2(2<br/>Adobe Experience Platform<br/>Update server-side configuration) --> 
-    step3(3<br/>Edge Bridge<br/>Send event data to the Edge Network & Analytics) --> 
-    step4(4<br/>Assurance<br/>Verify event data formats) -->
-    step5(5<br/>Data mapper<br/>Map data to XDM - Edge network data format) -->
-    step6(6<br/>Assurance<br/>Verify trackAction/trackState to XDM conversion)
+    step3(3<br/>Edge Bridge<br/>Update app to send event data via Edge Network to Analytics) --> 
+    step4(4<br/>Assurance<br/>Verify implementation) -. "Optionally" .-> 
+    step5("5<br/>Data mapper<br/>Map event data to Experience Data Model (XDM) format") -->
+    step6(6<br/>Assurance<br/>Verify event data to XDM conversion);
 ```
 
 ### Environment
@@ -45,7 +45,7 @@ graph LR;
 2. A tag (also known as a mobile property) configured in the Data Collection UI, which has the Adobe Analytics extension installed and configured.
 
 <details>
-  <summary> <h3>Adobe Experience Platform setup - Skip this section if prerequisite item 1 has already been set up</h3> </summary>
+  <summary> <h3>Adobe Experience Platform setup - Skip this section if prerequisite item 2 has already been set up</h3> </summary>
 
 ## Adobe Experience Platform setup
 This section demonstrates how to create and configure a mobile property in Experience Platform, which controls the configuration settings for the Mobile SDK extensions used in this tutorial.
@@ -457,17 +457,17 @@ After creating the desired mappings, select **Save** in the top right.
 
 After creating the desired mappings, select **Save** in the top right.
 
-## Validation using Assurance
+## Validating Data Prep mapping using Assurance
 Now that the mapping is set up in the datastream, we have the full pathway of data:
 
 ```mermaid
 graph LR;
-    step1(App<br/>Analytics trackAction/trackState) --> step2(App<br/>Edge Bridge conversion to Edge event) --> step3(Edge Network<br/>Datastream translation of payload from contextdata to Edge XDM) --> step4(Edge Network<br/>Routing XDM data using datastream to Analytics);
+    step1(App<br/>Analytics track events) --> step2(App<br/>Edge Bridge conversion to Edge event) --> step3(Edge Network<br/>Datastream mapping of event data to XDM) --> step4(Edge Network<br/>Upstream applications);
 ```
 
-By using the Event Transactions view in the left-side navigation panel, the logical flow of events from `trackAction` event -> data mapping -> Analytics can be seen.
+By using the **Event Transactions** view in the left-side navigation panel, the logical flow of events from the event dispatched by the `trackAction` API -> data mapping can be seen.
 <img src="../assets/edge-bridge-tutorial/assurance-validation/assurance-event-transactions.png" alt="Assurance Event Transactions" width="1100"/>  
 
-Back in the Events view, the **mapper:xdm-event** (**1**) shows the result of the mapping from the Edge Bridge event's generic **data** -> **contextdata** structure into the XDM schema format (**2**).
+Back in the Events view, the **mapper:xdm-event** (**1**) shows the result of the mapping from the Edge Bridge event's data to the XDM schema format (**2**).
 <img src="../assets/edge-bridge-tutorial/assurance-validation/assurance-mapper-event.png" alt="Assurance mapper event" width="1100"/>  
 
