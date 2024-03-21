@@ -17,8 +17,9 @@
   - [1. Set up the Assurance session](#1-set-up-the-assurance-session)
   - [2. Connect the app to the Assurance session](#2-connect-the-app-to-the-assurance-session)
   - [3. Event transactions view - check for Edge Bridge events](#3-event-transactions-view---check-for-edge-bridge-events)
-- [Data Prep mapping](#data-prep-mapping)
-- [Final validation using Assurance](#final-validation-using-assurance)
+- [Optional - Data Prep for Data Collection mapping](#optional---data-prep-for-data-collection-mapping)
+  - [Mapping custom `contextData` keys](#mapping-custom-contextdata-keys)
+- [Validation using Assurance](#validation-using-assurance)
 
 ## Overview
 This tutorial covers how to use Edge Bridge as a drop-in solution for migrating from an existing Analytics implementation to sending data via the Edge Network to Analytics.
@@ -255,7 +256,7 @@ To connect the tutorial app to the Assurance session, see the instructions on [c
 ### 3. Event transactions view - check for Edge Bridge events  
 #### `trackAction`/`trackState` events <!-- omit in toc -->
 To view Edge Bridge events in the connected app instance:
-1. Trigger a `trackAction` and/or `trackState` within the app, which the Edge Bridge extension will convert into Edge events. These events will be captured by the Assurance extension and displayed in the web session viewer.
+1. Trigger a `trackAction` or `trackState` within the app, which the Edge Bridge extension will convert into Edge events. These events will be captured by the Assurance extension and displayed in the web session viewer.
 
 <img src="../assets/edge-bridge-tutorial/assurance-validation/ios-app-track-buttons.png" alt="Simulator tracking buttons" width="400"/>
 
@@ -265,8 +266,8 @@ To view Edge Bridge events in the connected app instance:
 
 <img src="../assets/edge-bridge-tutorial/assurance-validation/assurance-analytics-track-event.png" alt="Assurance Analytics track event" width="800"/>
 
-1. Now select the `Edge Bridge Request` event (**1**) in the events table.
-2. Select the `RAW EVENT` dropdown (**2**) in the event details window; observe the transformation of the payload structure with the help of the Edge Bridge extension. The `Edge Bridge Request` event conforms to the format of an Edge Network event.
+1. Now select the **Edge Bridge Request** event (**1**) in the events table.
+2. Select the **RAW EVENT** dropdown (**2**) in the event details window; observe the transformation of the payload structure with the help of the Edge Bridge extension. The **Edge Bridge Request** event conforms to the format of an Edge Network event.
 
 <img src="../assets/edge-bridge-tutorial/assurance-validation/assurance-edge-bridge-track-event.png" alt="Assurance Edge Bridge track event" width="800"/>
 
@@ -296,131 +297,123 @@ Rule-based `trackAction`/`trackState` events are also converted to Edge events b
 
 Just like the `trackAction`/`trackState` events above, the Edge Bridge extension converts the personal PII `trackAction` event into an Edge event.
 
-With this, the Edge Bridge powered migration from an existing Analytics implementation to sending data via Edge Network to Analytics is complete!
+With this, the migration from an existing Analytics implementation to sending data via Edge Network to Analytics, powered by Edge Bridge, is complete!
 
-## Data Prep mapping
+## Optional - Data Prep for Data Collection mapping
+Edge Bridge transforms Analytics track events into an Edge Network event format suitable for Analytics. To use this same event data in other Experience Platform applications, it must first be mapped to the [Experience Data Model (XDM)](https://experienceleague.adobe.com/docs/experience-platform/xdm/home.html) specification using [Data Prep for Data Collection](https://experienceleague.adobe.com/en/docs/experience-platform/datastreams/data-prep).
 
-<details>
-  <summary> Data Prep background </summary><p>
+This section covers how to map event data sent from Edge Bridge in the Data Collection UI.
 
-Data Prep is an Adobe Experience Platform service which maps and transforms data to the [Experience Data Model (XDM)](https://experienceleague.adobe.com/docs/experience-platform/xdm/home.html).  Data Prep is configured from a Platform enabled [datastream](https://experienceleague.adobe.com/docs/experience-platform/edge/datastreams/overview.html) to map source data from the Edge Bridge mobile extension to the Platform Edge Network.
-
-This guide covers how to map data sent from the Edge Bridge within the Data Collection UI.
-
-For a quick overview of the capabilities of Data Prep, watch the following [video](https://experienceleague.adobe.com/docs/platform-learn/data-collection/edge-network/data-prep.html).
-
-> **Note**
-> The following documentation provides a comprehensive overview of the Data Prep capabilities:
-> - [Data Prep overview](https://experienceleague.adobe.com/docs/experience-platform/data-prep/home.html)
-> - [Data Prep mapping functions](https://experienceleague.adobe.com/docs/experience-platform/data-prep/functions.html)
-> - [Handling data formats with Data Prep](https://experienceleague.adobe.com/docs/experience-platform/data-prep/data-handling.html)
->
-
-</p></details>
-
-To open the data prep mapper: 
-1. Select **Datastreams** (**1**) in the left-side navigation panel.
-2. Select your datastream (**2**).
+To open the Data Prep mapper:
+1. Log in to the [Adobe Experience Platfom](https://experience.adobe.com/#/platform).
+2. In the left-side navigation panel under **DATA COLLECTION**, select **Datastreams** (**1**).
+3. Select your datastream (**2**).
 
 <img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapper-nav-1.png" alt="Datastream mapper navigation" width="1100"/>  
 
-3. Select **Edit Mapping** (**1**) in the right-side navigation panel.  
+4. In the right-side navigation panel, select **Edit Mapping** (**1**).  
 
 <img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapper-nav-2.png" alt="Datastream mapper navigation 2" width="1100"/>
 
-Currently, the data mapper UI only allows for one JSON payload to be mapped per datastream. This means for a given datastream, all of the potential event payloads need to be merged so that they can be mapped at once. Note that Data Prep requires that the **data** and **xdm** objects are top-level objects in the provided JSON source.
+> [!IMPORTANT]
+> Data Prep allows only one consolidated mapping configuration per datastream, meaning all potential event payloads sent through a specific datastream must be merged for simultaneous mapping. Note that Data Prep requires `data` and `xdm` to be top-level objects in the source JSON.
 
-The properties from both `trackAction` and `trackState` events from the tutorial app need to be combined into a single JSON. For simplicity, the merged data structure has been provided below:
+We will cover 3 mapping use cases:
+1. Analytics-formatted product strings
+2. Analytics-formatted events strings
+3. Custom `contextData` keys
+
+The properties from `trackAction` and `trackState` events in the tutorial app must be combined into a single JSON. For simplicity, the merged data structure is provided below:
 
 ```json
 {
+  "data": {
+    "__adobe": {
+      "analytics": {
+        "products": ";Running Shoes;1;69.95;event1|event2=55.99;eVar1=12345,;Running Socks;10;29.99;event2=10.95;eVar1=54321",
+        "cp": "foreground",
+        "linkType": "other",
+        "linkName": "purchase",
+        "events": "event5,purchase",
+        "contextData": {
+          "myapp.promotion": "a0138",
+          "myapp.category": "189025",
+          "a.AppID": "EdgeBridgeTutorialApp 1.0 (1)"
+        }
+      }
+    }
+  },
   "xdm": {
     "eventType": "analytics.track",
-    "timestamp": "2022-08-19T20:55:12.320Z"
-  },
-  "data": {
-    "contextdata": {
-      "product.add.event": "1",
-      "product.view.event": "1",
-      "product.id": "12345",
-      "product.name": "wide_brim_sunhat",
-      "product.units": "1"
-    },
-    "action": "add_to_cart",
-    "state": "hats/sunhat/wide_brim_sunhat_id12345"
+    "timestamp": "2024-03-21T00:56:44.052Z"
   }
 }
-
 ```
-
-1. Copy and paste the JSON data into the datastreams JSON input box (**1**).
-2. Verify the uploaded JSON matches what is displayed in the `Preview sample data` section (**2**) and click `Next` (**3**).
 
 <details>
   <summary> Getting the JSON data from Assurance </summary><p>
-
-1. Navigate back to your Assurance session for the Edge Bridge app and select the `Edge Bridge Request` event (**1**)
-2. Open the `RAW EVENT` dropdown and click and drag to select the `ACPExtensionEventData` value as shown, then copy the selected value (right click the highlighted selection and choose `Copy`, or use the copy keyboard shortcut `CMD + C`)  
+  
+1. Navigate back to your Assurance session for the Edge Bridge app and select the **Edge Bridge Request** event (**1**).
+2. Open the **RAW EVENT** dropdown, then click and drag to highlight the **ACPExtensionEventData** value as shown, and copy the selected value.
 
 <img src="../assets/edge-bridge-tutorial/data-prep/assurance-edgebridge-mapping-data.png" alt="Assurance Edge Bridge mapping data" width="1100"/>  
 
-> **Note**
-> To merge events, you would look for properties under `data` and `contextdata` that are unique between events and include them in the final data payload.
+> [!TIP]
+> To merge event data, look for properties under the `data.__adobe.analytics` hierarchy that are unique among the different types of events sent from your app, and include them in the final data payload.
 
 </p></details>
 
-<img src="../assets/edge-bridge-tutorial/data-prep/datastreams-json-paste.png" alt="Datastream JSON paste" width="1100"/>  
+1. Copy and paste the JSON data into the input box under **Define Incoming Data** (**1**).
+2. Check that the uploaded JSON matches what is displayed in the `Preview Sample Data` section (**2**) and select `Next` (**3**).
 
-> **Note**
-> XDM source fields are automatically mapped if the same field appears in the target schema. For example, the fields _xdm.\_id_ and _xdm.timestamp_ are required fields in a time-series XDM schema so you will notice they are automatically mapped from the source data to the target schema and do not require a mapping entry.
+<img src="../assets/edge-bridge-tutorial/data-prep/datastreams-json-paste.png" alt="Datastream JSON paste" width="850"/>  
 
-> **Note**
-> The Edge Bridge extension automatically sets an _xdm.eventType_ value of _analytics.track_. However, the value may be changed by adding a new mapping row in Data Prep by setting the **Target Field** to "eventType".
+> [!NOTE]
+> XDM source fields automatically map to the target schema when the same field exists in both. For example, `xdm._id` and `xdm.timestamp` are required fields in a time-series XDM schema, thus they automatically map from source data to the target schema without needing a manual mapping entry.
 
-3. Click the `Add new mapping` button (**1**).
+> [!TIP]
+> Edge Bridge automatically assigns an `xdm.eventType` value of `analytics.track`. However, you can override this value by adding a new mapping row in Data Prep and setting the **Target Field** to `eventType`.
 
-<img src="../assets/edge-bridge-tutorial/data-prep/datastreams-start-mapping.png" alt="Datastream start mapping" width="1100"/>  
+### Mapping custom `contextData` keys
 
-4. A new entry for mapping will appear in the window; click the arrow button (**1**) next to the field `Select source field`.
+1. Select the **Add new mapping** button (**1**).
+
+<img src="../assets/edge-bridge-tutorial/data-prep/datastreams-start-mapping.png" alt="Datastream start mapping" width="850"/>  
+
+2. A new entry for mapping will appear in the window; select the arrow button (**1**) to the right of the **Select source field** input box.
 
 <img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapping-json.png" alt="Datastream mapping" width="1100"/>  
 
-5. In the JSON property viewer window, click the dropdown arrows next to `data` (**1**) and `contextdata` (**2**).
-6. Then select the first property to map, `product.add.event` (**3**) and click `Select` (**4**).
+3. In the JSON property selector window, select the dropdown chevrons next to **data** -> **__adobe** -> **analytics** -> **contextData** (**1**).
+4. Then choose the property to map, **myapp.category** (**2**), and select **Select** (**3**).
 
-<img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapping-json-property.png" alt="Datastream select property" width="1100"/>  
+<img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapping-json-property.png" alt="Datastream select property" width="750"/>  
 
-Notice that in the property viewer, you can see the data hierarchy, where `data` is at the top, `contextdata` is one level down, and `product.add.event` is one level below that. This is nested data, which is a way to organize data in the JSON format.
+> [!IMPORTANT]
+> When interacting with hierarchies, if a child attribute contains a period (`.`), use a backslash (`\`) to escape special characters. For more details, refer to the guide on [escaping special characters](https://experienceleague.adobe.com/en/docs/experience-platform/data-prep/home#escape-special-characters).
 
-> **Info**
-> The data mapper interprets the `.` character as nesting, which means if there are `.` characters in a property name that are not meant to be nesting, namely the ones in our current example: `product.add.event`, we need to escape this behavior by adding backslashes `\` before the `.` (**1**).
+5. Add a backslash `\` before the `.` character in `myapp.category` as shown below (**1**).
+    - Example: `myapp.category` -> `myapp\.category`
 
-7. Add backslashes `\` before the `.` characters as shown below (**1**).
+Now that the source field setup is complete, the next step is to map this property to its corresponding target property in the XDM schema.
 
-Now, we need to map this JSON property from the Edge Bridge event to its matching property in the XDM schema.
-
-8. Click the schema icon (**2**) to open the XDM property viewer window.
+6. Select the schema icon (**2**) to open the XDM property viewer window.
 
 <img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapping-xdm.png" alt="Datastream mapping XDM" width="1100"/>  
 
-9. In the XDM property viewer window, click the dropdown arrows next to `commerce` (**1**) and `productListAdds` (**2**).
-10. Then select the `value` property (**3**) and click `Select` (**4**).
+7. In the XDM property viewer window, select the dropdown chevron next to **application** (**1**).
+8. Then choose the **closeType** property (**2**) and select **Select** (**3**).
 
 <img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapping-xdm-property.png" alt="Datastream mapping XDM property" width="1100"/>  
 
-11. Repeat this process, adding new mappings for all of the other properties on the JSON data side (except for the `timestamp` property which is handled automatically by Edge), finalizing the mappings like this:
+The final result is a mapping from the custom `contextData` key `myapp.context` to `application.closeType`
 
-| JSON Property                           | XDM Property                       | trackAction        | trackState         |
-| --------------------------------------- | ---------------------------------- | ------------------ | ------------------ |
-| data.contextdata.product\\.add\\.event  | commerce.productListAdds.value     | :white_check_mark: |                    |
-| data.contextdata.product\\.view\\.event | commerce.productListViews.value    |                    | :white_check_mark: |
-| data.contextdata.product\\.id           | productListItems.SKU               | :white_check_mark: | :white_check_mark: |
-| data.contextdata.product\\.name         | productListItems.name              | :white_check_mark: | :white_check_mark: |
-| data.contextdata.product\\.units        | productListItems.quantity          | :white_check_mark: |                    |
+<img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapping-xdm-property-result.png" alt="Datastream mapping XDM property result" width="1100"/>  
 
-12. After completing all the mappings, click **Save**.
 
-## Final validation using Assurance
+After completing all the mappings, select **Save**.
+
+## Validation using Assurance
 Now that the mapping is set up in the datastream, we have the full pathway of data:
 
 ```mermaid
