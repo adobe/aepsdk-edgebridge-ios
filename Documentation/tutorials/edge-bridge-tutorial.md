@@ -19,6 +19,7 @@
   - [3. Event transactions view - check for Edge Bridge events](#3-event-transactions-view---check-for-edge-bridge-events)
 - [Optional - Data Prep for Data Collection mapping](#optional---data-prep-for-data-collection-mapping)
   - [Mapping custom `contextData` keys](#mapping-custom-contextdata-keys)
+  - [Mapping calculated fields using Analytics functions](#mapping-calculated-fields-using-analytics-functions)
 - [Validation using Assurance](#validation-using-assurance)
 
 ## Overview
@@ -410,8 +411,51 @@ The final result is a mapping from the custom `contextData` key `myapp.context` 
 
 <img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapping-xdm-property-result.png" alt="Datastream mapping XDM property result" width="1100"/>  
 
+After creating the desired mappings, select **Save** in the top right.
 
-After completing all the mappings, select **Save**.
+### Mapping calculated fields using Analytics functions
+
+1. Select the **Add calculated field** button (**1**).
+
+<img src="../assets/edge-bridge-tutorial/data-prep/datastreams-start-mapping-calculated.png" alt="Datastream start mapping calculated field" width="1100"/>  
+
+1. In the **Create Calculated Field** window, check that the **Function** tab (**1**) is selected, then narrow down to the Analytics functions by inputting `aa` into the search box (**2**).
+
+<img src="../assets/edge-bridge-tutorial/data-prep/datastreams-create-calculated-field.png" alt="Datastream create calculated field" width="1100"/>  
+
+1. Select the plus button next to **aa_get_product_names** (**1**) and notice that the function is populated in the main editor window.
+2. Next, select the **Field** tab (**2**).
+
+> [!TIP]
+> Selecting the function name itself will display help text in the right-side help panel, which will give you more context on how to use the function.
+
+<img src="../assets/edge-bridge-tutorial/data-prep/datastreams-calculated-field-set-function.png" alt="Datastream create calculated field" width="1100"/>  
+
+1. Set the editor cursor between the parentheses of the `aa_get_product_names()` function in the editor area (**1**).
+
+<img src="../assets/edge-bridge-tutorial/data-prep/datastreams-calculated-field-pre-set-field.png" alt="Datastream create calculated field" width="1100"/>  
+
+1. Select the plus button (**+**) next to **data.__adobe.analytics.products** (**1**) - it may appear truncated like: `data.__adobe.a...products`
+   1. Notice the green checkmark (**2**) in the top right of the editor area indicating correct syntax.
+   2. Select **Preview** (**3**) to see what the output of the function will be, based on what is currently in the editor and the original source JSON.
+
+<img src="../assets/edge-bridge-tutorial/data-prep/datastreams-calculated-field-set-field.png" alt="Datastream create calculated field" width="1100"/>  
+
+7. Select the schema icon (**1**) to open the XDM property viewer window.
+
+<img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapping-schema-button.png" alt="Datastream create calculated field" width="1100"/>  
+
+7. In the XDM property viewer window, select the dropdown chevron next to **productListItems** (**1**).
+8. Then choose the **name** property (**2**) and select **Select** (**3**).
+
+<img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapping-calculated-xdm-property.png" alt="Datastream create calculated field" width="1100"/>  
+
+> [!TIP] 
+> If you want to map an array of objects in the source field to an array of different objects in the target field, add `[*]` after the array name in the destination field paths.
+
+<img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapping-target-property-array.png" alt="Datastream create calculated field" width="1100"/>  
+
+After creating the desired mappings, select **Save** in the top right.
 
 ## Validation using Assurance
 Now that the mapping is set up in the datastream, we have the full pathway of data:
