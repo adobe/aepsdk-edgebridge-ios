@@ -462,7 +462,7 @@ Now that the mapping is set up in the datastream, we have the full pathway of da
 
 ```mermaid
 graph LR;
-    step1(App<br/>Analytics track events) --> step2(App<br/>Edge Bridge conversion to Edge event) --> step3(Edge Network<br/>Datastream mapping of event data to XDM) --> step4(Edge Network<br/>Upstream applications);
+    step1(App<br/>Analytics track events) --> step2(App<br/>Edge Bridge conversion to Edge event) --> step3(Edge Network<br/>Datastream mapping of event data to XDM) --> step4(Edge Network<br/>Upstream solutions);
 ```
 
 By using the **Event Transactions** view in the left-side navigation panel, the logical flow of events from the event dispatched by the `trackAction` API -> data mapping can be seen.
