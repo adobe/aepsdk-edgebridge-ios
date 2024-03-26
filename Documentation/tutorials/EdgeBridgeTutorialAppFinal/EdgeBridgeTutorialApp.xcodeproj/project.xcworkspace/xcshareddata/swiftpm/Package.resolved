@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/adobe/aepsdk-edgebridge-ios.git",
       "state" : {
-        "branch" : "staging",
-        "revision" : "ad1954810ac7262e0daab0f8f11de810aa419211"
+        "branch" : "main",
+        "revision" : "25bab8aea0ce02c427746ec4ea0546b92e25f86e"
       }
     },
     {
