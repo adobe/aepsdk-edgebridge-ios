@@ -53,7 +53,7 @@ This section demonstrates how to create and configure a mobile property in Exper
 ### 1. Set up mobile property  
 To create a new mobile property, refer to the [instructions on how to set up a new property](https://github.com/adobe/aepsdk-edge-ios/blob/main/Documentation/Tutorials/edge-send-event-tutorial.md#1-create-a-schema).
 
-The following Experience Platform extension configurations should be installed:  
+Install the following Experience Platform extensions:  
 
 <details>
   <summary> Adobe Analytics </summary><p>
@@ -62,7 +62,7 @@ Open the **Catalog** and install the **Adobe Analytics** extension.
 
 <img src="../assets/edge-bridge-tutorial/aep-setup/mobile-property-analytics-catalog.png" alt="Catalog search for Adobe Experience Platform Edge Network" width="1100"/>  
 
-In the extension configuration settings window, set the report suite ID (**1**) for each environment to the one designated for this tutorial. Then, click **Save** (**2**).
+In the extension configuration settings window, set the report suite ID (**1**) for each environment (**2**) to the one designated for this tutorial. Then, select **Save** (**3**).
 
 <img src="../assets/edge-bridge-tutorial/aep-setup/mobile-property-analytics-settings.png" alt="Edge extension settings" width="1100"/>  
 
