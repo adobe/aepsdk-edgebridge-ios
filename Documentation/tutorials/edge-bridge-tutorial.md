@@ -44,11 +44,11 @@ graph TD;
 1. A timestamp enabled report suite configured for mobile data collection.
 2. A tag (also known as a mobile property) configured in the Data Collection UI, which has the Adobe Analytics extension installed and configured.
 
-<details>
-  <summary> <h3>Adobe Experience Platform setup - Skip this section if prerequisite item 2 has already been set up</h3> </summary>
-
 ## Adobe Experience Platform setup
 This section demonstrates how to create and configure a mobile property in Experience Platform, which controls the configuration settings for the Mobile SDK extensions used in this tutorial.
+
+<details>
+  <summary> <b>Setup instructions - Skip this section if prerequisite item 2 has already been set up.</b> </summary>
 
 ### 1. Set up mobile property  
 To create a new mobile property, refer to the [instructions on how to set up a new property](https://github.com/adobe/aepsdk-edge-ios/blob/main/Documentation/Tutorials/edge-send-event-tutorial.md#1-create-a-schema).
@@ -418,25 +418,24 @@ After creating the desired mappings, select **Save** in the top right.
 
 <img src="../assets/edge-bridge-tutorial/data-prep/datastreams-start-mapping-calculated.png" alt="Datastream start mapping calculated field" width="1100"/>  
 
-1. In the **Create Calculated Field** window, check that the **Function** tab (**1**) is selected, then narrow down to the Analytics functions by inputting `aa` into the search box (**2**).
+2. In the **Create Calculated Field** window, check that the **Function** tab (**1**) is selected, then narrow down to the Analytics functions by inputting `aa` into the search box (**2**).
 
 <img src="../assets/edge-bridge-tutorial/data-prep/datastreams-create-calculated-field.png" alt="Datastream create calculated field" width="1100"/>  
 
-1. Select the plus button next to **aa_get_product_names** (**1**) and notice that the function is populated in the main editor window.
-2. Next, select the **Field** tab (**2**).
+3. Select the plus button next to **aa_get_product_names** (**1**) and notice that the function is populated in the main editor window.
+4. Next, select the **Field** tab (**2**).
 
 > [!TIP]
 > Selecting the function name itself will display help text in the right-side help panel, which will give you more context on how to use the function.
 
 <img src="../assets/edge-bridge-tutorial/data-prep/datastreams-calculated-field-set-function.png" alt="Datastream create calculated field" width="1100"/>  
 
-1. Set the editor cursor between the parentheses of the `aa_get_product_names()` function in the editor area (**1**).
+5. Set the editor cursor between the parentheses of the `aa_get_product_names()` function in the editor area (**1**).
 
 <img src="../assets/edge-bridge-tutorial/data-prep/datastreams-calculated-field-pre-set-field.png" alt="Datastream create calculated field" width="1100"/>  
 
-1. Select the plus button (**+**) next to **data.__adobe.analytics.products** (**1**) - it may appear truncated like: `data.__adobe.a...products`
-   1. Notice the green checkmark (**2**) in the top right of the editor area indicating correct syntax.
-   2. Select **Preview** (**3**) to see what the output of the function will be, based on what is currently in the editor and the original source JSON.
+6. Select the plus button (**+**) next to **data.__adobe.analytics.products** (**1**)
+   1. You may select **Preview** (**2**) to see what the output of the function will be.
 
 <img src="../assets/edge-bridge-tutorial/data-prep/datastreams-calculated-field-set-field.png" alt="Datastream create calculated field" width="1100"/>  
 
@@ -444,8 +443,8 @@ After creating the desired mappings, select **Save** in the top right.
 
 <img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapping-schema-button.png" alt="Datastream create calculated field" width="1100"/>  
 
-7. In the XDM property viewer window, select the dropdown chevron next to **productListItems** (**1**).
-8. Then choose the **name** property (**2**) and select **Select** (**3**).
+8. In the XDM property viewer window, select the dropdown chevron next to **productListItems** (**1**).
+9. Then choose the **name** property (**2**) and select **Select** (**3**).
 
 <img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapping-calculated-xdm-property.png" alt="Datastream create calculated field" width="1100"/>  
 
