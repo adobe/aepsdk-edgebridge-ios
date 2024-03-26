@@ -132,12 +132,15 @@ Now that the source field setup is complete, the next step is to map this proper
 
 <img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapping-xdm.png" alt="Datastream mapping XDM" width="1100"/>  
 
-7. In the XDM property viewer window, select the dropdown chevron next to **application** (**1**).
-8. Then choose the **closeType** property (**2**) and select **Select** (**3**).
+> [!NOTE]
+> The next steps rely on a custom property defined in the XDM schema. See how to create one in the documentation [Define XDM fields in the UI](https://experienceleague.adobe.com/en/docs/experience-platform/xdm/ui/fields/overview).
+
+1. In the XDM property viewer window, select the dropdown chevron next to **_obumobile5** (**1**) (this value will reflect your actual `_tenantId`).
+2. Then choose the **appCategory** property (**2**) (a custom property) and select **Select** (**3**).
 
 <img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapping-xdm-property.png" alt="Datastream mapping XDM property" width="1100"/>  
 
-The final result is a mapping from the custom `contextData` key `myapp.context` to `application.closeType`
+The final result is a mapping from the custom `contextData` key `myapp.context` to `_obumobile5.appCategory`.
 
 <img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapping-xdm-property-result.png" alt="Datastream mapping XDM property result" width="1100"/>  
 
