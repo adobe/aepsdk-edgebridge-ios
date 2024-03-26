@@ -102,11 +102,7 @@ Open the **Catalog** and install the **Identity** extension. There are no settin
 </p></details>
 
 <details>
-
-  <summary> 
-  
-  Consent 
-  </summary>
+  <summary> Consent </summary><p>
 
 Open the **Catalog** and install the **Consent** extension.
 
@@ -114,12 +110,12 @@ Open the **Catalog** and install the **Consent** extension.
 
 In the extension configuration settings window, the **Default Consent Level** should be set to **Yes** by default (**1**). 
 
-> [!IMPORTANT]  
+> ⚠️ **Important**  
 > For the tutorial app, this setting is acceptable as-is. However, when configuring this setting in production applications, it should align with the organization's data collection and privacy policies.
 
 <img src="../assets/edge-bridge-tutorial/aep-setup/mobile-property-consent-settings.png" alt="Consent extension settings" width="1100"/>  
 
-</details>
+</p></details>
 
 The following cards should be visible once all the extensions have been installed:
 
