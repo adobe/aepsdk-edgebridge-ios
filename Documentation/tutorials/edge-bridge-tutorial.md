@@ -30,6 +30,11 @@ graph TD;
     step4(4<br/>Assurance<br/>Verify implementation) -. "Optionally" .-> 
     step5("5<br/>Data mapper<br/>Map event data to Experience Data Model (XDM) format") -->
     step6(6<br/>Assurance<br/>Verify event data to XDM conversion);
+
+style step1 fill:#EB1000,stroke:#333,stroke-width:2px,color:#fff
+style step2 fill:#EB1000,stroke:#333,stroke-width:2px,color:#fff
+style step3 fill:#EB1000,stroke:#333,stroke-width:2px,color:#fff
+style step4 fill:#EB1000,stroke:#333,stroke-width:2px,color:#fff
 ```
 
 ### Environment

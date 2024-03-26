@@ -22,7 +22,7 @@ graph TD;
     step6(6<br/>Assurance<br/>Verify event data to XDM conversion);
 
 style step5 fill:#EB1000,stroke:#333,stroke-width:2px,color:#fff
-style step6 fill:#EB1000,stroke:#333,stroke-width:2px,color:#fff    
+style step6 fill:#EB1000,stroke:#333,stroke-width:2px,color:#fff
 ```
 
 ### Environment
