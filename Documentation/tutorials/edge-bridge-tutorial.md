@@ -102,7 +102,11 @@ Open the **Catalog** and install the **Identity** extension. There are no settin
 </p></details>
 
 <details>
-  <summary> Consent </summary>
+
+  <summary> 
+  
+  Consent 
+  </summary>
 
 Open the **Catalog** and install the **Consent** extension.
 
