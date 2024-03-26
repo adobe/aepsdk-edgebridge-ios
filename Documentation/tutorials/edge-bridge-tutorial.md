@@ -301,7 +301,7 @@ Just like the `trackAction`/`trackState` events above, the Edge Bridge extension
 With this, the migration from an existing Analytics implementation to sending data via Edge Network to Analytics, powered by Edge Bridge, is complete!
 
 ## Optional - Data Prep for Data Collection mapping
-Edge Bridge transforms Analytics track events into an Edge Network event format suitable for Analytics. To use this same event data in other Experience Platform applications, it must first be mapped to the [Experience Data Model (XDM)](https://experienceleague.adobe.com/docs/experience-platform/xdm/home.html) specification using [Data Prep for Data Collection](https://experienceleague.adobe.com/en/docs/experience-platform/datastreams/data-prep).
+Edge Bridge transforms track events into an Edge Network event format suitable for Adobe Analytics, so that mapping data to [Experience Data Model (XDM)](https://experienceleague.adobe.com/docs/experience-platform/xdm/home.html) is not required for Analytics when migrating. However, to use this same event data in other Experience Platform applications, it must first be mapped to the XDM specification using [Data Prep for Data Collection](https://experienceleague.adobe.com/en/docs/experience-platform/datastreams/data-prep).
 
 This section covers how to map event data sent from Edge Bridge in the Data Collection UI.
 
