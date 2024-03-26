@@ -319,10 +319,9 @@ To open the Data Prep mapper:
 > [!IMPORTANT]
 > Data Prep allows only one consolidated mapping configuration per datastream, meaning all potential event payloads sent through a specific datastream must be merged for simultaneous mapping. Note that Data Prep requires `data` and `xdm` to be top-level objects in the source JSON.
 
-We will cover 3 mapping use cases:
-1. Analytics-formatted product strings
-2. Analytics-formatted events strings
-3. Custom `contextData` keys
+We will cover two mapping use cases:
+1. Custom `contextData` keys.
+2. Using Data Prep Analytics functions to map Analytics-formatted strings, such as `products` and `events`.
 
 The properties from `trackAction` and `trackState` events in the tutorial app must be combined into a single JSON. For simplicity, the merged data structure is provided below:
 
@@ -457,6 +456,8 @@ After creating the desired mappings, select **Save** in the top right.
 
 After creating the desired mappings, select **Save** in the top right.
 
+See the documentation on the [Analytics functions](https://experienceleague.adobe.com/en/docs/experience-platform/data-prep/functions#analytics) for the full list of Data Prep Analytics functions.
+
 ## Validating Data Prep mapping using Assurance
 Now that the mapping is set up in the datastream, we have the full pathway of data:
 
@@ -465,9 +466,12 @@ graph LR;
     step1(App<br/>Analytics track events) --> step2(App<br/>Edge Bridge conversion to Edge event) --> step3(Edge Network<br/>Datastream mapping of event data to XDM) --> step4(Edge Network<br/>Upstream solutions);
 ```
 
-By using the **Event Transactions** view in the left-side navigation panel, the logical flow of events from the event dispatched by the `trackAction` API -> data mapping can be seen.
+By using the **Event Transactions** view (**1**) in the left-side navigation panel, you can follow the logical flow of events from the event dispatched by the `trackAction` API to data mapping.  
+1. Select the Data Prep mapping event **mapper:xdm-event** (**2**) to see the event details in the right-side information panel.
+2. Under the **PAYLOAD** section (**3**), you can explore the event payload data.
+
 <img src="../assets/edge-bridge-tutorial/assurance-validation/assurance-event-transactions.png" alt="Assurance Event Transactions" width="1100"/>  
 
-Back in the Events view, the **mapper:xdm-event** (**1**) shows the result of the mapping from the Edge Bridge event's data to the XDM schema format (**2**).
+To see the data in JSON format, select the **JSON** tab (**1**). You can view the event data in JSON format below (**2**).
 <img src="../assets/edge-bridge-tutorial/assurance-validation/assurance-mapper-event.png" alt="Assurance mapper event" width="1100"/>  
 
