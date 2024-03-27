@@ -1,4 +1,5 @@
 {
+  "originHash" : "a0345d82ba42055feb54e238cace6a6bdbdda8de6497c8d078244a711af76438",
   "pins" : [
     {
       "identity" : "aepsdk-analytics-ios",
@@ -6,7 +7,7 @@
       "location" : "https://github.com/adobe/aepsdk-analytics-ios.git",
       "state" : {
         "branch" : "main",
-        "revision" : "c6866d8989686e532a528c508bf74eca8b5efe57"
+        "revision" : "36f40667499d177af567d659ea75bbbfabc7bd42"
       }
     },
     {
@@ -15,7 +16,7 @@
       "location" : "https://github.com/adobe/aepsdk-assurance-ios.git",
       "state" : {
         "branch" : "main",
-        "revision" : "06ea89a7f155aa2cc95dbdab9cdf0ab78fb38577"
+        "revision" : "f6459ae3e7e39f211ef1163d05d94e2bd97782fc"
       }
     },
     {
@@ -24,7 +25,7 @@
       "location" : "https://github.com/adobe/aepsdk-core-ios.git",
       "state" : {
         "branch" : "main",
-        "revision" : "55d208283eed4f99b5fe8ed75940fcc03b0511a1"
+        "revision" : "40a25aec18cacaa95b5d34a35ec5318feb926871"
       }
     },
     {
@@ -33,7 +34,7 @@
       "location" : "https://github.com/adobe/aepsdk-edge-ios.git",
       "state" : {
         "branch" : "main",
-        "revision" : "11f5431c28052900d0cb688089ad620a283666e3"
+        "revision" : "4817d95ada9617afa7d1957c6da5956be2a6a607"
       }
     },
     {
@@ -42,7 +43,7 @@
       "location" : "https://github.com/adobe/aepsdk-edgeconsent-ios.git",
       "state" : {
         "branch" : "main",
-        "revision" : "7e8498bef54275e440bcaaaa8c57b16c2117fce6"
+        "revision" : "abe461c099044d7d295ca1423ac94d2feea49368"
       }
     },
     {
@@ -51,7 +52,7 @@
       "location" : "https://github.com/adobe/aepsdk-edgeidentity-ios.git",
       "state" : {
         "branch" : "main",
-        "revision" : "d65794fc0559e68efa829014e0c4f1e173fc1fe5"
+        "revision" : "25fab07d344981afc768b99a550c63ed032ae3ad"
       }
     },
     {
@@ -59,10 +60,10 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/adobe/aepsdk-rulesengine-ios.git",
       "state" : {
-        "revision" : "5907e2ed364135448a2a5d77a76c2ff971396397",
-        "version" : "1.2.0"
+        "revision" : "514d2b3787c545bfa6749ffce5dd3e6f560c9319",
+        "version" : "5.0.0"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
