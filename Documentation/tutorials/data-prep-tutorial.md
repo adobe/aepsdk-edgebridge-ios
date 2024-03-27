@@ -10,7 +10,7 @@
 - [Validating Data Prep mapping using Assurance](#validating-data-prep-mapping-using-assurance)
 
 ## Overview
-This tutorial covers how to use Data Prep for Data Collection to enable using Edge Bridge event data in other Experience Platform applications, by mapping event data to the [Experience Data Model (XDM)](https://experienceleague.adobe.com/docs/experience-platform/xdm/home.html) specification.
+This tutorial covers how to use [Data Prep for Data Collection](https://experienceleague.adobe.com/en/docs/experience-platform/datastreams/data-prep) to enable using Edge Bridge event data in other Experience Platform applications, by mapping event data to the [Experience Data Model (XDM)](https://experienceleague.adobe.com/docs/experience-platform/xdm/home.html) specification.
 
 ```mermaid
 graph TD;
@@ -32,7 +32,7 @@ style step6 fill:#3273de,stroke:#333,stroke-width:2px,color:#fff
 1. Completing the tutorial: [Migrating from Analytics mobile extension to the Edge Network using the Edge Bridge extension](edge-bridge-tutorial.md).
 
 ## Data Prep for Data Collection mapping
-Edge Bridge transforms track events into an Edge Network event format suitable for Adobe Analytics, so that mapping data to XDM is not required for Analytics. However, to use this same event data in other Experience Platform applications, it must first be mapped to the XDM specification using [Data Prep for Data Collection](https://experienceleague.adobe.com/en/docs/experience-platform/datastreams/data-prep).
+Edge Bridge transforms track events into an Edge Network event format suitable for Adobe Analytics, so that mapping data to XDM is not required for Analytics. However, to use this same event data in other Experience Platform applications, it must first be mapped to the XDM specification using Data Prep for Data Collection.
 
 This section covers how to map event data sent from Edge Bridge in the Data Collection UI.
 
