@@ -1,4 +1,4 @@
-# Data Prep for Data Collection <!-- omit in toc -->
+# Map track event data with Data Prep for Data Collection <!-- omit in toc -->
 
 ## Table of Contents <!-- omit in toc -->
 - [Overview](#overview)
@@ -17,12 +17,12 @@ graph TD;
     step1(1<br/>Existing app using Adobe Analytics) -->
     step2(2<br/>Adobe Experience Platform<br/>Update server-side configuration) --> 
     step3(3<br/>Edge Bridge<br/>Update app to send event data via Edge Network to Analytics) --> 
-    step4(4<br/>Assurance<br/>Verify implementation) -. "Optionally" .-> 
+    step4(4<br/>Assurance<br/>Verify implementation) --> 
     step5("5<br/>Data mapper<br/>Map event data to Experience Data Model (XDM) format") -->
     step6(6<br/>Assurance<br/>Verify event data to XDM conversion);
 
-style step5 fill:#EB1000,stroke:#333,stroke-width:2px,color:#fff
-style step6 fill:#EB1000,stroke:#333,stroke-width:2px,color:#fff
+style step5 fill:#3273de,stroke:#333,stroke-width:2px,color:#fff
+style step6 fill:#3273de,stroke:#333,stroke-width:2px,color:#fff
 ```
 
 ### Environment
