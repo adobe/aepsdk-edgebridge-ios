@@ -6,7 +6,7 @@ As of version 5.0.0 of Adobe Experience Platform Edge Bridge for iOS, the table 
 
 | Data | Key path in the network request | Description |
 | --- | --- | ---
-| Action | `data.__adobe.analytics.linkName` | The custom link name in the Analytics hit. The field `data.__adobe.analytics.linkType` with value `lnk_o` is also automatically included. |
+| Action | `data.__adobe.analytics.linkName` | The custom link name in the Analytics hit. The field `data.__adobe.analytics.linkType` with value `other` is also automatically included. |
 | State | `data.__adobe.analytics.pageName` | The page name in the Analytics hit.|
 | Context data | `data.__adobe.analytics.contextData` | Context data is a map which includes the custom keys and values specified in the `trackAction` and `trackState` API calls. |
 | Context data prefixed with "&&" | `data.__adobe.analytics` | Context data keys prefixed with "&&" are automatically mapped to Analytics variables and no longer include the "&&" prefix. For example, the key `&&products` is sent as `data.__adobe.analytics.products`. Please note that these keys must be known to Analytics and are case sensitive. Find the full list of supported Analytics variables [here](https://experienceleague.adobe.com/en/docs/analytics/implementation/aep-edge/data-var-mapping).|
@@ -29,11 +29,11 @@ The resulting Experience Event has the following payload:
     "__adobe": {
       "analytics": {
         "linkName": "action name",
-        "linkType": "lnk_o",
+        "linkType": "other",
         "cp": "foreground",
         "products": ";Running Shoes;1;69.95;event1|event2=55.99;eVar1=12345",
         "contextData":{
-          "a.AppID": "myApp 1.0 (1)",
+          "a.AppID": "TestAppSwiftUI 1.0 (1)",
           "key": "value"
         }
       }
@@ -59,7 +59,7 @@ MobileCore.track(state: "view name", data: ["&&events": "event5,event2=2"])
         "cp": "foreground",
         "events": "event5,event2=2",
         "contextData":{
-          "a.AppID": "myApp 1.0 (1)"
+          "a.AppID": "TestAppSwiftUI 1.0 (1)"
         }
       }
     }
