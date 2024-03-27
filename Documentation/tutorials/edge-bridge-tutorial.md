@@ -84,7 +84,7 @@ Open the **Catalog** and install the **Adobe Experience Platform Edge Network** 
 
 <img src="../assets/edge-bridge-tutorial/aep-setup/mobile-property-edge-catalog.png" alt="Catalog search for Adobe Experience Platform Edge Network" width="1100"/>  
 
-In the extension configuration settings window, set the datastream for each environment (**1**) to the one designated for this tutorial. Then, click **Save** (**2**).
+In the extension configuration settings window, set the datastream for each environment (**1**) to the one designated for this tutorial. Then, select **Save** (**2**).
 
 <img src="../assets/edge-bridge-tutorial/aep-setup/mobile-property-edge-settings.png" alt="Edge extension settings" width="1100"/>  
 

@@ -29,7 +29,7 @@ style step6 fill:#3273de,stroke:#333,stroke-width:2px,color:#fff
 - macOS machine with a recent version of Xcode installed.
 
 ### Prerequisites
-1. Completing the tutorial: [Migrating from Analytics mobile extension to the Edge Network using the Edge Bridge extension](edge-bridge-tutorial.md)
+1. Completing the tutorial: [Migrating from Analytics mobile extension to the Edge Network using the Edge Bridge extension](edge-bridge-tutorial.md).
 
 ## Data Prep for Data Collection mapping
 Edge Bridge transforms track events into an Edge Network event format suitable for Adobe Analytics, so that mapping data to XDM is not required for Analytics. However, to use this same event data in other Experience Platform applications, it must first be mapped to the XDM specification using [Data Prep for Data Collection](https://experienceleague.adobe.com/en/docs/experience-platform/datastreams/data-prep).
@@ -85,7 +85,7 @@ The properties from `trackAction` and `trackState` events in the tutorial app mu
   <summary> Getting the JSON data from Assurance </summary><p>
   
 1. Navigate back to your Assurance session for the Edge Bridge app and select the **Edge Bridge Request** event (**1**).
-2. Open the **RAW EVENT** dropdown, then click and drag to highlight the **ACPExtensionEventData** value as shown, and copy the selected value.
+2. Open the **RAW EVENT** dropdown, then select the **ACPExtensionEventData** value as shown, and copy the selected value.
 
 <img src="../assets/edge-bridge-tutorial/data-prep/assurance-edgebridge-mapping-data.png" alt="Assurance Edge Bridge mapping data" width="1100"/>  
 
