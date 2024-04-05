@@ -1,5 +1,10 @@
 # Migrating from Analytics mobile extension to the Edge Network using the Edge Bridge extension <!-- omit in toc -->
 
+> [!IMPORTANT]
+> Version 5.x of the Edge Bridge extension uses a new data format compared to the previous versions. If you are using version 4.x or lower of the Edge Bridge extension, please find the relevant tutorials [here](https://github.com/adobe/aepsdk-edgebridge-ios/tree/4.1.1/Documentation/tutorials). </br>
+> If you want to learn more about the benefits of upgrading to version 5.x, see the [Edge Bridge migration guide](https://developer.adobe.com/client-sdks/resources/migration/ios/migrate-to-5x/).
+
+
 ## Table of Contents <!-- omit in toc -->
 - [Overview](#overview)
   - [Environment](#environment)
