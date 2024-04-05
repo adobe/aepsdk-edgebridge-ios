@@ -294,7 +294,7 @@ Rule-based `trackAction`/`trackState` events are also converted to Edge events b
 <img src="../assets/edge-bridge-tutorial/assurance-validation/ios-app-trigger-consequence-button.png" alt="Simulator tracking buttons" width="400"/>
 
 > [!TIP]
-> If no `trackAction` event is dispatched upon selecting the **Trigger Consequence** button, verify that your mobile property is [set up with the correct rule](#2-configure-a-rule-to-forward-personally-identifiable-information-pii-events-to-edge-network).
+> If no `trackAction` event is dispatched upon selecting the **Trigger Consequence** button, verify that your mobile property is set up with the correct rule - see the section **Configure a rule to forward personally identifiable information (PII) events to Edge Network** under [Adobe Experience Platform setup](#adobe-experience-platform-setup).
 
 Just like the `trackAction`/`trackState` events above, the Edge Bridge extension converts the PII `trackAction` event into an Edge event.
 
