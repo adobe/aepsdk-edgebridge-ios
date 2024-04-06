@@ -45,7 +45,7 @@ style step4 fill:#3273de,stroke:#333,stroke-width:2px,color:#fff
 
 ### Prerequisites
 > [!NOTE]
-> The tutorial app for this exercise already includes the Edge extensions. To learn more about these extensions, please visit the [Edge tutorial](https://github.com/adobe/aepsdk-edge-ios/tree/main/Documentation/Tutorials).
+> The tutorial app for this exercise already includes the Edge extensions. To learn more about these extensions, please see the [Edge extension tutorials](https://github.com/adobe/aepsdk-edge-ios/tree/main/Documentation/Tutorials).
 1. A timestamp enabled report suite configured for mobile data collection.
 2. A tag (also known as a mobile property) configured in the Data Collection UI, which has the Adobe Analytics extension installed and configured.
 
@@ -262,7 +262,7 @@ To connect the tutorial app to the Assurance session, see the instructions on [c
 ### 3. Event transactions view - check for Edge Bridge events  
 #### `trackAction`/`trackState` events <!-- omit in toc -->
 To view Edge Bridge events in the connected app instance:
-1. Trigger a `trackAction` or `trackState` within the app, which the Edge Bridge extension will convert into Edge events. These events will be captured by the Assurance extension and displayed in the web session viewer.
+1. Trigger a `trackAction` or `trackState` (**1**) within the app, which the Edge Bridge extension will convert into Edge events. These events will be captured by the Assurance extension and displayed in the web session viewer.
 
 <img src="../assets/edge-bridge-tutorial/assurance-validation/ios-app-track-buttons.png" alt="Simulator tracking buttons" width="400"/>
 
@@ -273,7 +273,7 @@ To view Edge Bridge events in the connected app instance:
 <img src="../assets/edge-bridge-tutorial/assurance-validation/assurance-analytics-track-event.png" alt="Assurance Analytics track event" width="800"/>
 
 1. Now select the **Edge Bridge Request** event (**1**) in the events table.
-2. Select the **RAW EVENT** dropdown (**2**) in the event details window; observe the transformation of the payload structure with the help of the Edge Bridge extension. The **Edge Bridge Request** event conforms to the format of an Edge Network event.
+2. Select the **RAW EVENT** dropdown (**2**) in the event details window; observe the transformation of the payload structure (**3**) with the help of the Edge Bridge extension. The **Edge Bridge Request** event conforms to the format of an Edge Network event.
 
 <img src="../assets/edge-bridge-tutorial/assurance-validation/assurance-edge-bridge-track-event.png" alt="Assurance Edge Bridge track event" width="800"/>
 
@@ -296,12 +296,12 @@ To learn more about the final data format created by Edge Bridge, please refer t
 #### Trigger rule-based `trackAction` events <!-- omit in toc -->
 Rule-based `trackAction`/`trackState` events are also converted to Edge events by the Edge Bridge extension. Select the **Trigger Consequence** button (**1**) to initiate a rule that generates a `trackAction` event.
 
-<img src="../assets/edge-bridge-tutorial/assurance-validation/ios-app-trigger-rule-button.png" alt="Simulator tracking buttons" width="400"/>
+<img src="../assets/edge-bridge-tutorial/assurance-validation/ios-app-trigger-consequence-button.png" alt="Simulator tracking buttons" width="400"/>
 
 > [!TIP]
-> If no `trackAction` event is dispatched upon selecting the **Trigger Consequence** button, verify that your mobile property is [set up with the correct rule](#2-configure-a-rule-to-forward-personal-identifiable-information-pii-events-to-edge-network).
+> If no `trackAction` event is dispatched upon selecting the **Trigger Consequence** button, verify that your mobile property is set up with the correct rule - see the section **Configure a rule to forward personally identifiable information (PII) events to Edge Network** under [Adobe Experience Platform setup](#adobe-experience-platform-setup).
 
-Just like the `trackAction`/`trackState` events above, the Edge Bridge extension converts the personal PII `trackAction` event into an Edge event.
+Just like the `trackAction`/`trackState` events above, the Edge Bridge extension converts the PII `trackAction` event into an Edge event.
 
 With this, the migration from an existing Analytics implementation to sending data via Edge Network to Analytics, powered by Edge Bridge, is complete!
 

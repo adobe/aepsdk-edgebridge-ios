@@ -121,7 +121,7 @@ The properties from `trackAction` and `trackState` events in the tutorial app mu
 <img src="../assets/edge-bridge-tutorial/data-prep/datastreams-mapping-json-property.png" alt="Datastream select property" width="750"/>  
 
 > [!IMPORTANT]
-> When interacting with hierarchies, if a child attribute contains a period (`.`), use a backslash (`\`) to escape special characters. For more details, refer to the guide on [escaping special characters](https://experienceleague.adobe.com/en/docs/experience-platform/data-prep/home#escape-special-characters).
+> When interacting with hierarchies, if a child attribute contains a period (`.`), use a backslash (`\`) to escape special characters. For more details, refer to the instructions on [escaping special characters](https://experienceleague.adobe.com/en/docs/experience-platform/data-prep/home#escape-special-characters).
 
 5. Add a backslash `\` before the `.` character in `myapp.category` as shown below (**1**).
     - Example: `myapp.category` -> `myapp\.category`
