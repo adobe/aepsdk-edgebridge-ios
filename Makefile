@@ -61,6 +61,8 @@ build-app: pod-install
 	@echo "######################################################################"
 	xcodebuild clean build -workspace $(PROJECT_NAME).xcworkspace -scheme $(TEST_APP_IOS_SCHEME) -destination 'generic/platform=iOS Simulator'
 
+test: test-ios
+
 test-ios: clean-ios-test-files
 	@echo "######################################################################"
 	@echo "### Testing iOS"
