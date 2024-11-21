@@ -11,6 +11,47 @@ SIMULATOR_ARCHIVE_DSYM_PATH = $(CURR_DIR)/build/ios_simulator.xcarchive/dSYMs/
 IOS_ARCHIVE_PATH = $(CURR_DIR)/build/ios.xcarchive/Products/Library/Frameworks/
 IOS_ARCHIVE_DSYM_PATH = $(CURR_DIR)/build/ios.xcarchive/dSYMs/
 
+# Values with defaults
+IOS_DEVICE_NAME ?= iPhone 15
+# If OS version is not specified, uses the first device name match in the list of available simulators
+IOS_VERSION ?= 
+ifeq ($(strip $(IOS_VERSION)),)
+    IOS_DESTINATION = "platform=iOS Simulator,name=$(IOS_DEVICE_NAME)"
+else
+    IOS_DESTINATION = "platform=iOS Simulator,name=$(IOS_DEVICE_NAME),OS=$(IOS_VERSION)"
+endif
+
+TVOS_DEVICE_NAME ?= Apple TV
+# If OS version is not specified, uses the first device name match in the list of available simulators
+TVOS_VERSION ?=
+ifeq ($(strip $(TVOS_VERSION)),)
+	TVOS_DESTINATION = "platform=tvOS Simulator,name=$(TVOS_DEVICE_NAME)"
+else
+	TVOS_DESTINATION = "platform=tvOS Simulator,name=$(TVOS_DEVICE_NAME),OS=$(TVOS_VERSION)"
+endif
+
+clean-derived-data:
+	@if [ -z "$(SCHEME)" ]; then \
+		echo "Error: SCHEME variable is not set."; \
+		exit 1; \
+	fi; \
+	if [ -z "$(DESTINATION)" ]; then \
+		echo "Error: DESTINATION variable is not set."; \
+		exit 1; \
+	fi; \
+	echo "Cleaning derived data for scheme: $(SCHEME) with destination: $(DESTINATION)"; \
+	DERIVED_DATA_PATH=`xcodebuild -workspace $(PROJECT_NAME).xcworkspace -scheme "$(SCHEME)" -destination "$(DESTINATION)" -showBuildSettings | grep -m1 'BUILD_DIR' | awk '{print $$3}' | sed 's|/Build/Products||'`; \
+	echo "DerivedData Path: $$DERIVED_DATA_PATH"; \
+	\
+	LOGS_TEST_DIR=$$DERIVED_DATA_PATH/Logs/Test; \
+	echo "Logs Test Path: $$LOGS_TEST_DIR"; \
+	\
+	if [ -d "$$LOGS_TEST_DIR" ]; then \
+		echo "Removing existing .xcresult files in $$LOGS_TEST_DIR"; \
+		rm -rf "$$LOGS_TEST_DIR"/*.xcresult; \
+	else \
+		echo "Logs/Test directory does not exist. Skipping cleanup."; \
+	fi;
 
 clean:
 	rm -rf build
@@ -61,13 +102,21 @@ build-app: pod-install
 	@echo "######################################################################"
 	xcodebuild clean build -workspace $(PROJECT_NAME).xcworkspace -scheme $(TEST_APP_IOS_SCHEME) -destination 'generic/platform=iOS Simulator'
 
-test: test-ios
+test: unit-test-ios functional-test-ios
 
-test-ios: clean-ios-test-files
+unit-test-ios:
 	@echo "######################################################################"
-	@echo "### Testing iOS"
+	@echo "### Unit Testing iOS"
 	@echo "######################################################################"
-	xcodebuild test -workspace $(PROJECT_NAME).xcworkspace -scheme $(PROJECT_NAME) -destination 'platform=iOS Simulator,name=iPhone 15' -derivedDataPath build/out -resultBundlePath iosresults.xcresult -enableCodeCoverage YES
+	@$(MAKE) clean-derived-data SCHEME=UnitTests DESTINATION=$(IOS_DESTINATION)
+	xcodebuild test -workspace $(PROJECT_NAME).xcworkspace -scheme "UnitTests" -destination $(IOS_DESTINATION) -enableCodeCoverage YES ADB_SKIP_LINT=YES
+
+functional-test-ios:
+	@echo "######################################################################"
+	@echo "### Functional Testing iOS"
+	@echo "######################################################################"
+	@$(MAKE) clean-derived-data SCHEME=FunctionalTests DESTINATION=$(IOS_DESTINATION)
+	xcodebuild test -workspace $(PROJECT_NAME).xcworkspace -scheme "FunctionalTests" -destination $(IOS_DESTINATION) -enableCodeCoverage YES ADB_SKIP_LINT=YES
 
 build-ios:
 	@echo "######################################################################"
@@ -85,15 +134,8 @@ lint-autocorrect:
 lint:
 	./Pods/SwiftLint/swiftlint lint Sources TestApps/
 
-# make check-version VERSION=5.0.0
-check-version:
-	sh ./Script/version.sh $(VERSION)
-
 test-SPM-integration:
 	sh ./Script/test-SPM.sh
 
 test-podspec:
 	sh ./Script/test-podspec.sh
-
-test-version-update:
-	sh ./Script/update-versions.sh -n EdgeBridge -v 9.9.9
