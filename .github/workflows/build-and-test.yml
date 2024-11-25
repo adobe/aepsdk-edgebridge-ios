@@ -27,4 +27,5 @@ jobs:
       run-test-ios-unit: true
       run-test-ios-functional: true
       run-build-xcframework-and-app: true
+      enable-codecov: true
     secrets: inherit
