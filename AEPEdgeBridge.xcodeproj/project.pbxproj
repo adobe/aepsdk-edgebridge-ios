@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -23,6 +23,7 @@
 /* Begin PBXBuildFile section */
 		0334655BE881D0E2693A80C8 /* Pods_FunctionalTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8946EAB205F842FB9989F1 /* Pods_FunctionalTests.framework */; };
 		49FD17161BDF671E27C6E44D /* Pods_UnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBE94B923FF16061DAFA46C6 /* Pods_UnitTests.framework */; };
+		4C089BCA2CF54A8A00CB500C /* FunctionalTestConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C089BC92CF54A8A00CB500C /* FunctionalTestConstants.swift */; };
 		54AC083B374F80848671988A /* Pods_TestAppSwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37582C0001AF4867A5B12392 /* Pods_TestAppSwiftUI.framework */; };
 		5B1D20FED82EBE279C912E01 /* Pods_AEPEdgeBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B429386A4136B8FC9E467B /* Pods_AEPEdgeBridge.framework */; };
 		BF4A717926DDAE4C00612434 /* AssuranceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4A717826DDAE4B00612434 /* AssuranceView.swift */; };
@@ -118,6 +119,7 @@
 		2FC88F9B7B3097FE2B546558 /* Pods-TestAppSwiftUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestAppSwiftUI.release.xcconfig"; path = "Target Support Files/Pods-TestAppSwiftUI/Pods-TestAppSwiftUI.release.xcconfig"; sourceTree = "<group>"; };
 		37582C0001AF4867A5B12392 /* Pods_TestAppSwiftUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestAppSwiftUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B8946EAB205F842FB9989F1 /* Pods_FunctionalTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FunctionalTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C089BC92CF54A8A00CB500C /* FunctionalTestConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionalTestConstants.swift; sourceTree = "<group>"; };
 		5477DBC630212B20C449C9E4 /* Pods-UnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.debug.xcconfig"; path = "Target Support Files/Pods-UnitTests/Pods-UnitTests.debug.xcconfig"; sourceTree = "<group>"; };
 		58C935A34A4326E61B9488B1 /* Pods-FunctionalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunctionalTests.release.xcconfig"; path = "Target Support Files/Pods-FunctionalTests/Pods-FunctionalTests.release.xcconfig"; sourceTree = "<group>"; };
 		BF4A717826DDAE4B00612434 /* AssuranceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssuranceView.swift; sourceTree = "<group>"; };
@@ -153,10 +155,6 @@
 		EBB8C07EBA847180C516E23E /* Pods-FunctionalTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunctionalTests.debug.xcconfig"; path = "Target Support Files/Pods-FunctionalTests/Pods-FunctionalTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F47BD89CE76DDAB4B043FD67 /* Pods-AEPEdgeBridge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AEPEdgeBridge.release.xcconfig"; path = "Target Support Files/Pods-AEPEdgeBridge/Pods-AEPEdgeBridge.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		4C089BC62CF54A7400CB500C /* util */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = util; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		D444995C2519506B0093B364 /* Frameworks */ = {
@@ -207,6 +205,14 @@
 				CBE94B923FF16061DAFA46C6 /* Pods_UnitTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4C089BCE2CF54F4100CB500C /* util */ = {
+			isa = PBXGroup;
+			children = (
+				4C089BC92CF54A8A00CB500C /* FunctionalTestConstants.swift */,
+			);
+			path = util;
 			sourceTree = "<group>";
 		};
 		BF5DCF3B2818A5680057D7D3 /* resources */ = {
@@ -281,7 +287,7 @@
 		D4D5B4F2242EBFAE00CAB6E4 /* FunctionalTests */ = {
 			isa = PBXGroup;
 			children = (
-				4C089BC62CF54A7400CB500C /* util */,
+				4C089BCE2CF54F4100CB500C /* util */,
 				D4D5B53724325AB700CAB6E4 /* Info.plist */,
 				BF5DCF392817AE200057D7D3 /* EdgeBridgeFunctionalTests.swift */,
 			);
@@ -400,9 +406,6 @@
 			);
 			dependencies = (
 				D42F36A8251BEA8300490C0D /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				4C089BC62CF54A7400CB500C /* util */,
 			);
 			name = FunctionalTests;
 			productName = functionalTests;
@@ -759,6 +762,7 @@
 			files = (
 				D4A473CB2485A8F300D31710 /* TestUtils.swift in Sources */,
 				BF5DCF3A2817AE200057D7D3 /* EdgeBridgeFunctionalTests.swift in Sources */,
+				4C089BCA2CF54A8A00CB500C /* FunctionalTestConstants.swift in Sources */,
 				D45F2E6C25ED8EB1000AC350 /* TestableExtensionRuntime.swift in Sources */,
 				D49A6295250AEEF000B7C4A3 /* UserDefaults+Test.swift in Sources */,
 				D49A6290250AE4F500B7C4A3 /* EventHub+Test.swift in Sources */,
