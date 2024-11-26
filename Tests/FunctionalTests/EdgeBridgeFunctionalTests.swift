@@ -21,16 +21,17 @@ import AEPServices
 import AEPTestUtils
 
 class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
+    private let TIMEOUT_SEC: TimeInterval = FunctionalTestConstants.Defaults.TIMEOUT_SEC
     private let edgeInteractEndpoint = "https://edge.adobedc.net/ee/v1/interact?"
 
     private let mockNetworkService: MockNetworkService = MockNetworkService()
 
     public class override func setUp() {
         super.setUp()
-        TestBase.debugEnabled = true
     }
 
     override func setUp() {
+        loggingEnabled = true
         super.setUp()
         ServiceProvider.shared.networkService = mockNetworkService
         continueAfterFailure = false
@@ -49,7 +50,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
             print("Extensions registration is complete")
             waitForRegistration.countDown()
         })
-        XCTAssertEqual(DispatchTimeoutResult.success, waitForRegistration.await(timeout: 2))
+        XCTAssertEqual(DispatchTimeoutResult.success, waitForRegistration.await(timeout: TIMEOUT_SEC))
         MobileCore.updateConfigurationWith(configDict: ["edge.configId": "12345-example"])
 
         assertExpectedEvents(ignoreUnexpectedEvents: false)
@@ -73,8 +74,8 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         waitForProcessing()
 
         // verify
-        mockNetworkService.assertAllNetworkRequestExpectations()
-        let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
+        mockNetworkService.assertAllNetworkRequestExpectations(timeout: TIMEOUT_SEC)
+        let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post, timeout: TIMEOUT_SEC)
         XCTAssertEqual(1, networkRequests.count)
 
         let expectedJSON = """
@@ -119,8 +120,8 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         waitForProcessing()
 
         // verify
-        mockNetworkService.assertAllNetworkRequestExpectations()
-        let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
+        mockNetworkService.assertAllNetworkRequestExpectations(timeout: TIMEOUT_SEC)
+        let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post, timeout: TIMEOUT_SEC)
         XCTAssertEqual(1, networkRequests.count)
 
         let expectedJSON = """
@@ -169,8 +170,8 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
         waitForProcessing()
 
         // verify
-        mockNetworkService.assertAllNetworkRequestExpectations()
-        let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post)
+        mockNetworkService.assertAllNetworkRequestExpectations(timeout: TIMEOUT_SEC)
+        let networkRequests = mockNetworkService.getNetworkRequestsWith(url: edgeInteractEndpoint, httpMethod: .post, timeout: TIMEOUT_SEC)
         XCTAssertEqual(1, networkRequests.count)
 
         // Data is defined in the rule, not from the dispatched PII event
@@ -222,7 +223,7 @@ class EdgeBridgeFunctionalTests: TestBase, AnyCodableAsserts {
 
         MobileCore.updateConfigurationWith(configDict: ["rules.url": "https://rules.com/\(localRulesName).zip"])
 
-        mockNetworkService.assertAllNetworkRequestExpectations()
+        mockNetworkService.assertAllNetworkRequestExpectations(timeout: TIMEOUT_SEC)
     }
 
     /// Waits for a specified interval without blocking main thread.

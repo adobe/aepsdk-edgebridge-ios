@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -154,6 +154,10 @@
 		F47BD89CE76DDAB4B043FD67 /* Pods-AEPEdgeBridge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AEPEdgeBridge.release.xcconfig"; path = "Target Support Files/Pods-AEPEdgeBridge/Pods-AEPEdgeBridge.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		4C089BC62CF54A7400CB500C /* util */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = util; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		D444995C2519506B0093B364 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -277,6 +281,7 @@
 		D4D5B4F2242EBFAE00CAB6E4 /* FunctionalTests */ = {
 			isa = PBXGroup;
 			children = (
+				4C089BC62CF54A7400CB500C /* util */,
 				D4D5B53724325AB700CAB6E4 /* Info.plist */,
 				BF5DCF392817AE200057D7D3 /* EdgeBridgeFunctionalTests.swift */,
 			);
@@ -395,6 +400,9 @@
 			);
 			dependencies = (
 				D42F36A8251BEA8300490C0D /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				4C089BC62CF54A7400CB500C /* util */,
 			);
 			name = FunctionalTests;
 			productName = functionalTests;
