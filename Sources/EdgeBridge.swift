@@ -234,6 +234,7 @@ public class EdgeBridge: NSObject, Extension {
     /// - Parameter data: context data to be cleaned
     /// - Returns: dictionary where values are only of type String, Number, or Character
     private func cleanContextData(_ data: [String: Any?]) -> [String: Any] {
+        let invalidTypeError = "Value must be String, Number, Bool or Character"
 
         let cleanedData = data.filter {
             switch $0.value {
@@ -241,7 +242,7 @@ public class EdgeBridge: NSObject, Extension {
                 return true
             default:
                 Log.debug(label: EdgeBridgeConstants.LOG_TAG,
-                          "cleanContextData - Dropping key '\(String(describing: $0.key))' with value '\(String(describing: $0.value))'. Value must be String, Number, Bool or Character")
+                          "cleanContextData - Dropping key '\(String(describing: $0.key))' with value '\(String(describing: $0.value))'. \(invalidTypeError)")
                 return false
             }
         }
