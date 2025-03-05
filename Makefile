@@ -19,7 +19,7 @@ TVOS_ARCHIVE_DSYM_PATH = $(CURR_DIR)/build/tvos.xcarchive/dSYMs/
 # Values with defaults
 IOS_DEVICE_NAME ?= iPhone 15
 # If OS version is not specified, uses the first device name match in the list of available simulators
-IOS_VERSION ?= 17.0
+IOS_VERSION ?=
 ifeq ($(strip $(IOS_VERSION)),)
     IOS_DESTINATION = "platform=iOS Simulator,name=$(IOS_DEVICE_NAME)"
 else
@@ -28,7 +28,7 @@ endif
 
 TVOS_DEVICE_NAME ?= Apple TV
 # If OS version is not specified, uses the first device name match in the list of available simulators
-TVOS_VERSION ?= 17.5
+TVOS_VERSION ?=
 ifeq ($(strip $(TVOS_VERSION)),)
 	TVOS_DESTINATION = "platform=tvOS Simulator,name=$(TVOS_DEVICE_NAME)"
 else
