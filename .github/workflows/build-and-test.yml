@@ -26,6 +26,8 @@ jobs:
       tvos-versions: '["18.1"]'
       run-test-ios-unit: true
       run-test-ios-functional: true
+      run-test-tvos-unit: true
+      run-test-tvos-functional: true
       run-build-xcframework-and-app: true
       enable-codecov: true
     secrets: inherit
