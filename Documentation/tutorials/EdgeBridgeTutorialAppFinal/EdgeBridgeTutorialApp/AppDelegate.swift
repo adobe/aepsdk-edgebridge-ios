@@ -17,7 +17,7 @@ import AEPEdgeConsent
 import AEPEdgeIdentity
 import AEPLifecycle
 
-//* Edge Bridge tutorial - code section (1/2)
+// * Edge Bridge tutorial - code section (1/2)
 import AEPEdgeBridge
 // Edge Bridge tutorial - code section (1/2) */
 
@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MobileCore.setLogLevel(.trace)
         MobileCore.configureWith(appId: ENVIRONMENT_FILE_ID)
         MobileCore.registerExtensions([
-//* Edge Bridge tutorial - code section (2/2)
+// * Edge Bridge tutorial - code section (2/2)
             EdgeBridge.self,
 // Edge Bridge tutorial - code section (2/2) */
             Assurance.self,
