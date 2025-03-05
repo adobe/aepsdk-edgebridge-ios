@@ -15,7 +15,7 @@ import PackageDescription
 
 let package = Package(
     name: "AEPEdgeBridge",
-    platforms: [.iOS(.v12)],
+    platforms: [.iOS(.v12), .tvOS(.v12)],
     products: [
         .library(name: "AEPEdgeBridge", targets: ["AEPEdgeBridge"])
     ],

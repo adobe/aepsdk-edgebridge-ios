@@ -10,7 +10,9 @@
 // governing permissions and limitations under the License.
 //
 
+#if os(iOS)
 import AEPAssurance
+#endif
 import AEPCore
 import AEPEdge
 import AEPEdgeBridge
@@ -29,13 +31,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let appState = application.applicationState
         MobileCore.setLogLevel(.trace)
         MobileCore.configureWith(appId: ENVIRONMENT_FILE_ID)
-        MobileCore.registerExtensions([
-            Identity.self,
-            Edge.self,
-            Assurance.self,
-            EdgeBridge.self,
-            Lifecycle.self
-        ], {
+
+        var extensions: [NSObject.Type] = [Edge.self, Identity.self, EdgeBridge.self, Lifecycle.self]
+
+        // MARK: TODO remove this once Assurance has tvOS support.
+        #if os(iOS)
+        extensions.append(contentsOf: [Assurance.self])
+        #endif
+
+        MobileCore.registerExtensions(extensions, {
             if appState != .background {
                 // only start lifecycle if the application is not in the background
                 MobileCore.lifecycleStart(additionalContextData: nil)
@@ -54,7 +58,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // To handle deeplink on iOS versions 12 and below
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        #if os(iOS)
         Assurance.startSession(url: url)
+        #endif
         return true
     }
 }
