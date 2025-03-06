@@ -14,10 +14,6 @@
 import AEPAssurance
 #endif
 import AEPCore
-import AEPEdge
-import AEPEdgeBridge
-import AEPEdgeIdentity
-import AEPLifecycle
 import Compression
 import UIKit
 
@@ -28,22 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let appState = application.applicationState
+
         MobileCore.setLogLevel(.trace)
-        MobileCore.configureWith(appId: ENVIRONMENT_FILE_ID)
+        MobileCore.initialize(appId: ENVIRONMENT_FILE_ID)
 
-        var extensions: [NSObject.Type] = [Edge.self, Identity.self, EdgeBridge.self, Lifecycle.self]
-
-        #if os(iOS)
-        extensions.append(contentsOf: [Assurance.self])
-        #endif
-
-        MobileCore.registerExtensions(extensions, {
-            if appState != .background {
-                // only start lifecycle if the application is not in the background
-                MobileCore.lifecycleStart(additionalContextData: nil)
-            }
-        })
         return true
     }
 

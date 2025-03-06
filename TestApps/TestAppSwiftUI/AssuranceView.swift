@@ -12,7 +12,6 @@
 
 #if os(iOS)
 import AEPAssurance
-#endif
 import SwiftUI
 
 struct AssuranceView: View {
@@ -25,9 +24,8 @@ struct AssuranceView: View {
                 Button(action: {
                     // replace the url with the valid one generated on Assurance UI
                     if let url = URL(string: self.assuranceSessionUrl) {
-                        #if os(iOS)
+
                         Assurance.startSession(url: url)
-                        #endif
                     }
                 }) {
                     Text("Connect")
@@ -41,3 +39,4 @@ struct AssuranceView: View {
         }.padding()
     }
 }
+#endif

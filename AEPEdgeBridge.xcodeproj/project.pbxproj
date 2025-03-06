@@ -1339,13 +1339,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/ACPCore\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/ACPGriffon\"",
-					"\"${PODS_ROOT}/ACPCore\"/**",
-					"\"${PODS_ROOT}/ACPGriffon\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.edge.bridge.testapp.swiftui;
 				PRODUCT_NAME = "$(TARGET_NAME)";
