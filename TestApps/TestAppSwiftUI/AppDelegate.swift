@@ -10,12 +10,10 @@
 // governing permissions and limitations under the License.
 //
 
+#if os(iOS)
 import AEPAssurance
+#endif
 import AEPCore
-import AEPEdge
-import AEPEdgeBridge
-import AEPEdgeIdentity
-import AEPLifecycle
 import Compression
 import UIKit
 
@@ -26,21 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let appState = application.applicationState
+
         MobileCore.setLogLevel(.trace)
-        MobileCore.configureWith(appId: ENVIRONMENT_FILE_ID)
-        MobileCore.registerExtensions([
-            Identity.self,
-            Edge.self,
-            Assurance.self,
-            EdgeBridge.self,
-            Lifecycle.self
-        ], {
-            if appState != .background {
-                // only start lifecycle if the application is not in the background
-                MobileCore.lifecycleStart(additionalContextData: nil)
-            }
-        })
+        MobileCore.initialize(appId: ENVIRONMENT_FILE_ID)
+
         return true
     }
 
@@ -54,7 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // To handle deeplink on iOS versions 12 and below
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        #if os(iOS)
         Assurance.startSession(url: url)
+        #endif
         return true
     }
 }

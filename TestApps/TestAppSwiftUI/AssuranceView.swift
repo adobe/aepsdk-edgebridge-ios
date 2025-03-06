@@ -10,6 +10,7 @@
 // governing permissions and limitations under the License.
 //
 
+#if os(iOS)
 import AEPAssurance
 import SwiftUI
 
@@ -23,6 +24,7 @@ struct AssuranceView: View {
                 Button(action: {
                     // replace the url with the valid one generated on Assurance UI
                     if let url = URL(string: self.assuranceSessionUrl) {
+
                         Assurance.startSession(url: url)
                     }
                 }) {
@@ -37,3 +39,4 @@ struct AssuranceView: View {
         }.padding()
     }
 }
+#endif

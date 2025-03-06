@@ -10,7 +10,9 @@
 // governing permissions and limitations under the License.
 //
 
+#if os(iOS)
 import AEPAssurance
+#endif
 import AEPCore
 import SwiftUI
 import UIKit
@@ -56,21 +58,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
-        MobileCore.lifecycleStart(additionalContextData: ["start": "lifecycle"])
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-        MobileCore.lifecyclePause()
     }
 
     @available(iOS 13.0, *)
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         // to note : this method is not called when an app not in memory (forceclosed) is opened with deeplink
         if let url = URLContexts.first?.url {
+            #if os(iOS)
             Assurance.startSession(url: url)
+            #endif
         }
     }
 
