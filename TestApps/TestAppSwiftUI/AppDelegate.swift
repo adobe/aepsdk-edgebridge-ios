@@ -34,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         var extensions: [NSObject.Type] = [Edge.self, Identity.self, EdgeBridge.self, Lifecycle.self]
 
-        // MARK: TODO remove this once Assurance has tvOS support.
         #if os(iOS)
         extensions.append(contentsOf: [Assurance.self])
         #endif

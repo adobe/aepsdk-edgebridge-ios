@@ -4,7 +4,7 @@ PROJECT_NAME = $(EXTENSION_NAME)
 TARGET_NAME_XCFRAMEWORK = $(EXTENSION_NAME).xcframework
 SCHEME_NAME_XCFRAMEWORK = $(EXTENSION_NAME)XCF
 TEST_APP_IOS_SCHEME = TestAppiOS
-Test_APP_TVOS_SCHEME = TestApptvOS
+TEST_APP_TVOS_SCHEME = TestApptvOS
 
 CURR_DIR := ${CURDIR}
 IOS_SIMULATOR_ARCHIVE_PATH = $(CURR_DIR)/build/ios_simulator.xcarchive/Products/Library/Frameworks/
@@ -57,6 +57,9 @@ clean-derived-data:
 	else \
 		echo "Logs/Test directory does not exist. Skipping cleanup."; \
 	fi;
+
+setup:
+	pod install
 
 clean:
 	rm -rf build
@@ -118,7 +121,7 @@ zip:
 	cd build && zip -r $(EXTENSION_NAME).xcframework.zip $(EXTENSION_NAME).xcframework/
 	swift package compute-checksum build/$(EXTENSION_NAME).xcframework.zip
 
-build-app: pod-install
+build-app: setup
 	@echo "######################################################################"
 	@echo "### Building $(TEST_APP_IOS_SCHEME)"
 	@echo "######################################################################"
