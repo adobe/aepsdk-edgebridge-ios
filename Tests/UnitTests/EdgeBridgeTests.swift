@@ -147,7 +147,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                           type: EventType.genericTrack,
                           source: EventSource.requestContent,
                           data: [
-                            "action": nil,
+                            "action": NSNull(),
                             "contextdata": [
                                 "&&c1": "propValue1"
                             ]
@@ -228,7 +228,7 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                           type: EventType.genericTrack,
                           source: EventSource.requestContent,
                           data: [
-                            "state": nil,
+                            "state": NSNull(),
                             "contextdata": [
                                 "&&c1": "propValue1"
                             ]
@@ -580,9 +580,9 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
                           type: EventType.genericTrack,
                           source: EventSource.requestContent,
                           data: [
-                            "state": nil,
-                            "action": nil,
-                            "contextdata": nil
+                            "state": NSNull(),
+                            "action": NSNull(),
+                            "contextdata": NSNull()
                           ])
 
         mockRuntime.simulateComingEvents(event)

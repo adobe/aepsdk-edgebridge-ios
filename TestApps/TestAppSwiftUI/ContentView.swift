@@ -17,12 +17,14 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .center, spacing: 20, content: {
+                #if os(iOS)
                 NavigationLink(
                     destination: AssuranceView(),
                     label: {
                         Text("Assurance")
                     })
                 Divider()
+                #endif
                 TrackView()
                 Divider()
             })
