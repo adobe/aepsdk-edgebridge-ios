@@ -170,7 +170,7 @@ public class EdgeBridge: NSObject, Extension {
         var mutableData = data // mutable copy of data
         var analyticsData: [String: Any] = [:] // __adobe.analytics data
 
-        if let contextData = mutableData.removeValue(forKey: EdgeBridgeConstants.MobileCoreKeys.CONTEXT_DATA) as? [String: Any?], !contextData.isEmpty {
+        if let contextData = mutableData.removeValue(forKey: EdgeBridgeConstants.MobileCoreKeys.CONTEXT_DATA) as? [String: Any], !contextData.isEmpty {
             var prefixedData: [String: Any] = [:]
             var nonprefixedData: [String: Any] = [:]
 
@@ -233,7 +233,7 @@ public class EdgeBridge: NSObject, Extension {
     ///
     /// - Parameter data: context data to be cleaned
     /// - Returns: dictionary where values are only of type String, Number, or Character
-    private func cleanContextData(_ data: [String: Any?]) -> [String: Any] {
+    private func cleanContextData(_ data: [String: Any]) -> [String: Any] {
         let invalidTypeError = "Value must be String, Number, Bool or Character"
 
         let cleanedData = data.filter {
