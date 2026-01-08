@@ -15,7 +15,7 @@ import Foundation
 enum EdgeBridgeConstants {
     static let EXTENSION_NAME = "com.adobe.edge.bridge"
     static let FRIENDLY_NAME = "Edge Bridge"
-    static let EXTENSION_VERSION = "5.1.0"
+    static let EXTENSION_VERSION = "5.1.1"
     static let LOG_TAG = FRIENDLY_NAME
 
     enum EventNames {
