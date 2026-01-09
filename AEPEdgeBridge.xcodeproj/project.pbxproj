@@ -45,8 +45,6 @@
 		BF7E5B372788080500D5E0FF /* EdgeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7E5B362788080500D5E0FF /* EdgeBridge.swift */; };
 		BF7E5B392788B16800D5E0FF /* EdgeBridgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7E5B382788B16800D5E0FF /* EdgeBridgeTests.swift */; };
 		D42F36BA251C185000490C0D /* AEPEdgeBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = D4D66AA2251910FB00B4866D /* AEPEdgeBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D45F2E6C25ED8EB1000AC350 /* TestableExtensionRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F2E6B25ED8EB1000AC350 /* TestableExtensionRuntime.swift */; };
-		D45F2E8E25EE2166000AC350 /* TestableExtensionRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45F2E6B25ED8EB1000AC350 /* TestableExtensionRuntime.swift */; };
 		D49A628F250AE4F500B7C4A3 /* EventHub+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49A628E250AE4F500B7C4A3 /* EventHub+Test.swift */; };
 		D49A6290250AE4F500B7C4A3 /* EventHub+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49A628E250AE4F500B7C4A3 /* EventHub+Test.swift */; };
 		D49A6294250AEEF000B7C4A3 /* UserDefaults+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49A6293250AEEF000B7C4A3 /* UserDefaults+Test.swift */; };
@@ -159,7 +157,6 @@
 		C7B429386A4136B8FC9E467B /* Pods_AEPEdgeBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AEPEdgeBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBE94B923FF16061DAFA46C6 /* Pods_UnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D444995F2519506B0093B364 /* AEPEdgeBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AEPEdgeBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D45F2E6B25ED8EB1000AC350 /* TestableExtensionRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestableExtensionRuntime.swift; sourceTree = "<group>"; };
 		D4967534251130D3001F5F95 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D49A628E250AE4F500B7C4A3 /* EventHub+Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventHub+Test.swift"; sourceTree = "<group>"; };
 		D49A6293250AEEF000B7C4A3 /* UserDefaults+Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Test.swift"; sourceTree = "<group>"; };
@@ -263,7 +260,6 @@
 				BF5DCF3B2818A5680057D7D3 /* resources */,
 				D49A628E250AE4F500B7C4A3 /* EventHub+Test.swift */,
 				BF7699A32B968E70005F4150 /* FakeSystemInfoService.swift */,
-				D45F2E6B25ED8EB1000AC350 /* TestableExtensionRuntime.swift */,
 				BF947FA1244587520057A6CC /* TestUtils.swift */,
 				D49A6293250AEEF000B7C4A3 /* UserDefaults+Test.swift */,
 			);
@@ -888,7 +884,6 @@
 				BF7E5B392788B16800D5E0FF /* EdgeBridgeTests.swift in Sources */,
 				D4A473CD2485AA3D00D31710 /* TestUtils.swift in Sources */,
 				D49A6294250AEEF000B7C4A3 /* UserDefaults+Test.swift in Sources */,
-				D45F2E8E25EE2166000AC350 /* TestableExtensionRuntime.swift in Sources */,
 				D49A628F250AE4F500B7C4A3 /* EventHub+Test.swift in Sources */,
 				BF7699A42B968E70005F4150 /* FakeSystemInfoService.swift in Sources */,
 			);
@@ -901,7 +896,6 @@
 				D4A473CB2485A8F300D31710 /* TestUtils.swift in Sources */,
 				BF5DCF3A2817AE200057D7D3 /* EdgeBridgeFunctionalTests.swift in Sources */,
 				4C089BCA2CF54A8A00CB500C /* FunctionalTestConstants.swift in Sources */,
-				D45F2E6C25ED8EB1000AC350 /* TestableExtensionRuntime.swift in Sources */,
 				D49A6295250AEEF000B7C4A3 /* UserDefaults+Test.swift in Sources */,
 				D49A6290250AE4F500B7C4A3 /* EventHub+Test.swift in Sources */,
 			);
@@ -1036,7 +1030,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.1.0;
+				MARKETING_VERSION = 5.1.1;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.aep.edge.bridge;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1072,7 +1066,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.1.0;
+				MARKETING_VERSION = 5.1.1;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.aep.edge.bridge;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";

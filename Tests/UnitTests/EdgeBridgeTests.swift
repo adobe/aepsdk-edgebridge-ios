@@ -1542,6 +1542,61 @@ class EdgeBridgeTests: XCTestCase, AnyCodableAsserts {
         assertEqual(expected: expectedJSON, actual: dispatchedEvent)
     }
 
+    func testHandleTrackEvent_withContextDataField_valueIsConcreteNonOptional() {
+        let optionalString: String? = "stringValue"
+        let optionalStringNil: String? = nil
+        let optionalInt: Int? = 5
+        let optionalIntNil: Int? = nil
+        let optionalChar: Character? = "c"
+        let optionalCharNil: Character? = nil
+
+        let event = Event(name: "Test Track Event",
+                          type: EventType.genericTrack,
+                          source: EventSource.requestContent,
+                          data: [
+                            "contextdata": [
+                                "optionalStringKey": optionalString as Any,
+                                "optionalNilStringKey": optionalStringNil as Any,
+                                "optionalIntKey": optionalInt as Any,
+                                "optionalNilIntKey": optionalIntNil as Any,
+                                "optionalCharKey": optionalChar as Any,
+                                "optionalNilCharKey": optionalCharNil as Any,
+                                "concreteStringKey": "stringValue",
+                                "concreteIntKey": 9,
+                                "concreteCharKey": "h"
+                            ]
+                          ])
+
+        mockRuntime.simulateComingEvents(event)
+
+        XCTAssertEqual(1, mockRuntime.dispatchedEvents.count)
+        let dispatchedEvent = mockRuntime.dispatchedEvents[0]
+
+        guard
+            let dispatchedData = dispatchedEvent.data?["data"] as? [String: Any],
+            let adobeDictionary = dispatchedData[EdgeBridgeConstants.AnalyticsKeys.ADOBE] as? [String: Any],
+            let analyticsDictionary = adobeDictionary[EdgeBridgeConstants.AnalyticsKeys.ANALYTICS] as? [String: Any],
+            let contextData = analyticsDictionary[EdgeBridgeConstants.AnalyticsKeys.CONTEXT_DATA] as? [String: Any]
+        else {
+            XCTFail("Expected context data to be populated for dispatched event.")
+            return
+        }
+
+        // Verify expected key count, minus nil values
+        // Six keys in test + a.AppID added by Bridge.
+        XCTAssertEqual(7, contextData.count, "Expected 7 non-optional keys for context data: \(contextData.keys)")
+
+        contextData.forEach { key, value in
+            let mirror = Mirror(reflecting: value)
+            XCTAssertNotEqual(mirror.displayStyle, .optional, "Expected concrete String for \(key), but value is optional: \(value)")
+        }
+
+        // Verify Optional nil value is filted out and not set in Event Data
+        XCTAssertFalse(contextData.keys.contains("optionalNilStringKey"))
+        XCTAssertFalse(contextData.keys.contains("optionalNilIntKey"))
+        XCTAssertFalse(contextData.keys.contains("optionalNilCharKey"))
+    }
+
 }
 
 struct FakeEdgeBridgeHelper: EdgeBridgeHelper {

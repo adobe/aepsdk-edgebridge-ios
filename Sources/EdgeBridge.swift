@@ -170,7 +170,7 @@ public class EdgeBridge: NSObject, Extension {
         var mutableData = data // mutable copy of data
         var analyticsData: [String: Any] = [:] // __adobe.analytics data
 
-        if let contextData = mutableData.removeValue(forKey: EdgeBridgeConstants.MobileCoreKeys.CONTEXT_DATA) as? [String: Any?], !contextData.isEmpty {
+        if let contextData = mutableData.removeValue(forKey: EdgeBridgeConstants.MobileCoreKeys.CONTEXT_DATA) as? [String: Any], !contextData.isEmpty {
             var prefixedData: [String: Any] = [:]
             var nonprefixedData: [String: Any] = [:]
 
@@ -233,21 +233,30 @@ public class EdgeBridge: NSObject, Extension {
     ///
     /// - Parameter data: context data to be cleaned
     /// - Returns: dictionary where values are only of type String, Number, or Character
-    private func cleanContextData(_ data: [String: Any?]) -> [String: Any] {
+    private func cleanContextData(_ data: [String: Any]) -> [String: Any] {
         let invalidTypeError = "Value must be String, Number, Bool or Character"
 
-        let cleanedData = data.filter {
-            switch $0.value {
-            case is NSNumber, is String, is Character:
-                return true
+        // Filter unsupported types and nils while unwrapping any Optionals
+        let cleanedData: [String: Any] = data.compactMapValues {
+            switch $0 {
+            case is String:
+                return $0 as? String
+            case is Character:
+                return $0 as? Character
+            case is NSNumber:
+                return $0 as? NSNumber
             default:
-                Log.debug(label: EdgeBridgeConstants.LOG_TAG,
-                          "cleanContextData - Dropping key '\(String(describing: $0.key))' with value '\(String(describing: $0.value))'. \(invalidTypeError)")
-                return false
+                return nil
             }
         }
 
-        return cleanedData as [String: Any]
+        let droppedKeys = Set(data.keys).subtracting(Set(cleanedData.keys))
+        if !droppedKeys.isEmpty {
+            Log.debug(label: EdgeBridgeConstants.LOG_TAG,
+                      "cleanContextData - Dropping keys '\(String(describing: droppedKeys))'. \(invalidTypeError)")
+        }
+
+        return cleanedData
     }
 
     /// Combines the application name, version, and version code into a formatted application identifier

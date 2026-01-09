@@ -35,29 +35,6 @@ else
 	TVOS_DESTINATION = "platform=tvOS Simulator,name=$(TVOS_DEVICE_NAME),OS=$(TVOS_VERSION)"
 endif
 
-clean-derived-data:
-	@if [ -z "$(SCHEME)" ]; then \
-		echo "Error: SCHEME variable is not set."; \
-		exit 1; \
-	fi; \
-	if [ -z "$(DESTINATION)" ]; then \
-		echo "Error: DESTINATION variable is not set."; \
-		exit 1; \
-	fi; \
-	echo "Cleaning derived data for scheme: $(SCHEME) with destination: $(DESTINATION)"; \
-	DERIVED_DATA_PATH=`xcodebuild -workspace $(PROJECT_NAME).xcworkspace -scheme "$(SCHEME)" -destination "$(DESTINATION)" -showBuildSettings | grep -m1 'BUILD_DIR' | awk '{print $$3}' | sed 's|/Build/Products||'`; \
-	echo "DerivedData Path: $$DERIVED_DATA_PATH"; \
-	\
-	LOGS_TEST_DIR=$$DERIVED_DATA_PATH/Logs/Test; \
-	echo "Logs Test Path: $$LOGS_TEST_DIR"; \
-	\
-	if [ -d "$$LOGS_TEST_DIR" ]; then \
-		echo "Removing existing .xcresult files in $$LOGS_TEST_DIR"; \
-		rm -rf "$$LOGS_TEST_DIR"/*.xcresult; \
-	else \
-		echo "Logs/Test directory does not exist. Skipping cleanup."; \
-	fi;
-
 setup:
 	pod install
 
