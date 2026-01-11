@@ -105,17 +105,6 @@ jobs:
           name: SwiftLint
           command: make lint
 
-  build:
-    resource_class: m4pro.medium
-    macos:
-      xcode: 16.4.0
-    steps:
-      - checkout
-      - install_dependencies
-      - run:
-          name: Build XCFramework archives
-          command: make ci-archive
-
   build_xcframework_and_app:
     resource_class: m4pro.medium
     macos:
