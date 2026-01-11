@@ -1,0 +1,199 @@
+version: 2.1
+
+orbs:
+  codecov: codecov/codecov@5.4.3
+  macos: circleci/macos@2
+
+commands:
+  install_dependencies:
+    steps:
+      # restore gems related caches
+      - restore_cache:
+          keys:
+            - 1-gems-{{ checksum "Gemfile.lock" }}
+
+      # make sure we're on the right version of cocoapods
+      - run:
+          name: Verify Cocoapods Version
+          command: bundle check || bundle install --path vendor/bundle
+
+      # save cocoapods version gem data
+      - save_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Pod install
+          command: make ci-pod-install
+
+      - run:
+          name: Install xcodegen
+          command: brew list xcodegen || brew install xcodegen
+
+  prestart_ios_simulator:
+    steps:
+      - macos/preboot-simulator:
+          platform: "iOS"
+          device: "iPhone 16"
+          version: "18.5"
+
+  prestart_tvos_simulator:
+    steps:
+      - macos/preboot-simulator:
+          platform: "tvOS"
+          device: "Apple TV"
+          version: "18.5"
+
+  parse_and_upload_coverage:
+    description: "Convert .xcresult -> Cobertura XML and upload to Codecov"
+    parameters:
+      # Directory or file created by -resultBundlePath (ex: build/AEPCore-ios.xcresult)
+      path: { type: string }
+      # Codecov flag (ex: aepcore-ios-tests)
+      flag: { type: string }
+    steps:
+      - run:
+          name: Install xcresultparser
+          command: brew list xcresultparser || brew install xcresultparser
+
+      - run:
+          name: Parse .xcresult bundle(s)
+          command: |
+            set -eo pipefail
+            mkdir -p ./build/coverage
+
+            BUNDLE="<< parameters.path >>"
+
+            if [ -d "$BUNDLE" ]; then
+              echo "Directory given; searching for .xcresult…"
+              RESULT_FILES=$(find "$BUNDLE" -name "*.xcresult")
+              [ -z "$RESULT_FILES" ] && { echo "No .xcresult found"; exit 0; }
+
+              # Merge if there is more than one bundle
+              COUNT=$(echo "$RESULT_FILES" | wc -w)
+              if [ "$COUNT" -gt 1 ]; then
+                echo "Merging $COUNT result bundles"
+                MERGE_CMD="xcrun xccov merge --output ./build/Merged.xcresult"
+                for f in $RESULT_FILES; do MERGE_CMD="$MERGE_CMD $f"; done
+                eval "$MERGE_CMD"
+                xcresultparser --output-format cobertura ./build/Merged.xcresult > ./build/coverage/coverage.xml
+              else
+                echo "Single bundle found"
+                xcresultparser --output-format cobertura $RESULT_FILES > ./build/coverage/coverage.xml
+              fi
+            else
+              echo "File given; parsing $BUNDLE"
+              xcresultparser --output-format cobertura "$BUNDLE" > ./build/coverage/coverage.xml
+            fi
+
+      - codecov/upload:
+          files: ./build/coverage/coverage.xml
+          flags: << parameters.flag >>
+          upload_name: << parameters.flag >>
+          disable_search: true
+
+jobs:
+  lint:
+    resource_class: m4pro.medium
+    macos:
+      xcode: 16.4.0
+    steps:
+      - checkout
+      - install_dependencies
+      - run:
+          name: SwiftLint
+          command: make lint
+
+  build:
+    resource_class: m4pro.medium
+    macos:
+      xcode: 16.4.0
+    steps:
+      - checkout
+      - install_dependencies
+      - run:
+          name: Build XCFramework archives
+          command: make ci-archive
+
+  ios_unit_tests:
+    resource_class: m4pro.medium
+    macos:
+      xcode: 16.4.0
+    steps:
+      - checkout
+      - install_dependencies
+      - prestart_ios_simulator
+      - run:
+          name: Run iOS Unit Tests
+          command: make unit-test-ios
+      - parse_and_upload_coverage:
+          path: build/reports/ios-unit.xcresult
+          flag: ios-unit-tests
+
+  ios_functional_tests:
+    resource_class: m4pro.medium
+    macos:
+      xcode: 16.4.0
+    steps:
+      - checkout
+      - install_dependencies
+      - prestart_ios_simulator
+      - run:
+          name: Run iOS Functional Tests
+          command: make functional-test-ios
+      - parse_and_upload_coverage:
+          path: build/reports/ios-functional.xcresult
+          flag: ios-functional-tests
+
+  tvos_unit_tests:
+    resource_class: m4pro.medium
+    macos:
+      xcode: 16.4.0
+    steps:
+      - checkout
+      - install_dependencies
+      - prestart_tvos_simulator
+      - run:
+          name: Run tvOS Unit Tests
+          command: make unit-test-tvos
+      - parse_and_upload_coverage:
+          path: build/reports/tvos-unit.xcresult
+          flag: tvos-unit-tests
+
+  tvos_functional_tests:
+    resource_class: m4pro.medium
+    macos:
+      xcode: 16.4.0
+    steps:
+      - checkout
+      - install_dependencies
+      - prestart_tvos_simulator
+      - run:
+          name: Run tvOS Functional Tests
+          command: make functional-test-tvos
+      - parse_and_upload_coverage:
+          path: build/reports/tvos-functional.xcresult
+          flag: tvos-functional-tests
+
+workflows:
+  version: 2
+  build_test:
+    jobs:
+      - lint
+      - build:
+          requires:
+            - lint
+      - ios_unit_tests:
+          requires:
+            - lint
+      - ios_functional_tests:
+          requires:
+            - lint
+      - tvos_unit_tests:
+          requires:
+            - lint
+      - tvos_functional_tests:
+          requires:
+            - lint
+
