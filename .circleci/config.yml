@@ -116,6 +116,20 @@ jobs:
           name: Build XCFramework archives
           command: make ci-archive
 
+  build_xcframework_and_app:
+    resource_class: m4pro.medium
+    macos:
+      xcode: 16.4.0
+    steps:
+      - checkout
+      - install_dependencies
+      - run:
+          name: Build XCFramework
+          command: make ci-archive
+      - run:
+          name: Build Test App
+          command: make ci-build-app
+
   ios_unit_tests:
     resource_class: m4pro.medium
     macos:
@@ -181,7 +195,7 @@ workflows:
   build_test:
     jobs:
       - lint
-      - build:
+      - build_xcframework_and_app:
           requires:
             - lint
       - ios_unit_tests:

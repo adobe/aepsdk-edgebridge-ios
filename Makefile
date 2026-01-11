@@ -95,7 +95,11 @@ zip:
 	cd build && zip -r $(EXTENSION_NAME).xcframework.zip $(EXTENSION_NAME).xcframework/
 	swift package compute-checksum build/$(EXTENSION_NAME).xcframework.zip
 
-build-app: setup
+build-app: setup _build-app
+
+ci-build-app: ci-pod-install _build-app
+
+_build-app:
 	@echo "######################################################################"
 	@echo "### Building $(TEST_APP_IOS_SCHEME)"
 	@echo "######################################################################"
