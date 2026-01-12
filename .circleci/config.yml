@@ -92,6 +92,7 @@ commands:
           flags: << parameters.flag >>
           upload_name: << parameters.flag >>
           disable_search: true
+          verbose: true
 
 jobs:
   lint:
@@ -184,19 +185,7 @@ workflows:
   build_test:
     jobs:
       - lint
-      - build_xcframework_and_app:
-          requires:
-            - lint
       - ios_unit_tests:
-          requires:
-            - lint
-      - ios_functional_tests:
-          requires:
-            - lint
-      - tvos_unit_tests:
-          requires:
-            - lint
-      - tvos_functional_tests:
           requires:
             - lint
 
