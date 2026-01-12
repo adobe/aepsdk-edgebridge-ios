@@ -87,6 +87,27 @@ commands:
               xcresultparser --output-format cobertura "$BUNDLE" > ./build/coverage/coverage.xml
             fi
 
+      - run:
+          name: Set Codecov branch (tokenless fork PR uploads)
+          command: |
+            # Codecov treats branch names containing ":" as "unprotected branches", which can
+            # allow tokenless uploads for fork PRs (depending on Codecov settings).
+            #
+            # NOTE: Git branch names cannot contain ":", so we only override the value reported
+            # to Codecov via env var.
+            if [ -n "${CIRCLE_PULL_REQUEST:-}" ] || [ -n "${CIRCLE_PULL_REQUESTS:-}" ]; then
+              PR_URL="${CIRCLE_PULL_REQUEST:-}"
+              if [ -z "$PR_URL" ]; then
+                PR_URL="$(echo "$CIRCLE_PULL_REQUESTS" | cut -d',' -f1)"
+              fi
+
+              PR_NUM="${PR_URL##*/}"
+              if [ -n "$PR_NUM" ]; then
+                echo "export CODECOV_BRANCH=pr${PR_NUM}:${CIRCLE_BRANCH}" >> "$BASH_ENV"
+                echo "Codecov branch override: pr${PR_NUM}:${CIRCLE_BRANCH}"
+              fi
+            fi
+
       - codecov/upload:
           files: ./build/coverage/coverage.xml
           flags: << parameters.flag >>
