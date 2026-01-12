@@ -95,7 +95,9 @@ commands:
             #
             # NOTE: Git branch names cannot contain ":", so we only override the value reported
             # to Codecov via env var.
-            if [ -n "${CIRCLE_PULL_REQUEST:-}" ] || [ -n "${CIRCLE_PULL_REQUESTS:-}" ]; then
+            # Only do this when CODECOV_TOKEN is NOT present (e.g., fork PRs where CircleCI secrets
+            # are not exposed). If CODECOV_TOKEN exists, keep the normal branch name.
+            if [ -z "${CODECOV_TOKEN:-}" ] && { [ -n "${CIRCLE_PULL_REQUEST:-}" ] || [ -n "${CIRCLE_PULL_REQUESTS:-}" ]; }; then
               PR_URL="${CIRCLE_PULL_REQUEST:-}"
               if [ -z "$PR_URL" ]; then
                 PR_URL="$(echo "$CIRCLE_PULL_REQUESTS" | cut -d',' -f1)"
@@ -206,7 +208,19 @@ workflows:
   build_test:
     jobs:
       - lint
+      - build_xcframework_and_app:
+          requires:
+            - lint
       - ios_unit_tests:
+          requires:
+            - lint
+      - ios_functional_tests:
+          requires:
+            - lint
+      - tvos_unit_tests:
+          requires:
+            - lint
+      - tvos_functional_tests:
           requires:
             - lint
 
