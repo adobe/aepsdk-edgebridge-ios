@@ -17,7 +17,7 @@ TVOS_ARCHIVE_PATH = $(CURR_DIR)/build/tvos.xcarchive/Products/Library/Frameworks
 TVOS_ARCHIVE_DSYM_PATH = $(CURR_DIR)/build/tvos.xcarchive/dSYMs/
 
 # Values with defaults
-IOS_DEVICE_NAME ?= iPhone 15
+IOS_DEVICE_NAME ?= iPhone 16
 # If OS version is not specified, uses the first device name match in the list of available simulators
 IOS_VERSION ?=
 ifeq ($(strip $(IOS_VERSION)),)
@@ -40,9 +40,6 @@ setup:
 
 clean:
 	rm -rf build
-
-clean-ios-test-files:
-	rm -rf iosresults.xcresult
 
 pod-install:
 	pod install --repo-update
@@ -98,7 +95,11 @@ zip:
 	cd build && zip -r $(EXTENSION_NAME).xcframework.zip $(EXTENSION_NAME).xcframework/
 	swift package compute-checksum build/$(EXTENSION_NAME).xcframework.zip
 
-build-app: setup
+build-app: setup _build-app
+
+ci-build-app: ci-pod-install _build-app
+
+_build-app:
 	@echo "######################################################################"
 	@echo "### Building $(TEST_APP_IOS_SCHEME)"
 	@echo "######################################################################"
@@ -115,29 +116,29 @@ unit-test-ios:
 	@echo "######################################################################"
 	@echo "### Unit Testing iOS"
 	@echo "######################################################################"
-	rm -rf build/reports/iosUnitResults.xcresult
-	xcodebuild test -workspace $(PROJECT_NAME).xcworkspace -scheme "UnitTests" -destination $(IOS_DESTINATION) -derivedDataPath build/out -resultBundlePath build/reports/iosUnitResults.xcresult -enableCodeCoverage YES ADB_SKIP_LINT=YES
+	rm -rf build/reports/ios-unit.xcresult
+	xcodebuild test -workspace $(PROJECT_NAME).xcworkspace -scheme "UnitTests" -destination $(IOS_DESTINATION) -derivedDataPath build/out -resultBundlePath build/reports/ios-unit.xcresult -enableCodeCoverage YES ADB_SKIP_LINT=YES
 
 functional-test-ios:
 	@echo "######################################################################"
 	@echo "### Functional Testing iOS"
 	@echo "######################################################################"
-	rm -rf build/reports/iosFunctionalResults.xcresult
-	xcodebuild test -workspace $(PROJECT_NAME).xcworkspace -scheme "FunctionalTests" -destination $(IOS_DESTINATION) -derivedDataPath build/out -resultBundlePath build/reports/iosFunctionalResults.xcresult -enableCodeCoverage YES ADB_SKIP_LINT=YES
+	rm -rf build/reports/ios-functional.xcresult
+	xcodebuild test -workspace $(PROJECT_NAME).xcworkspace -scheme "FunctionalTests" -destination $(IOS_DESTINATION) -derivedDataPath build/out -resultBundlePath build/reports/ios-functional.xcresult -enableCodeCoverage YES ADB_SKIP_LINT=YES
 
 unit-test-tvos:
 	@echo "######################################################################"
 	@echo "### Unit Testing tvOS"
 	@echo "######################################################################"
-	rm -rf build/reports/tvosUnitResults.xcresult
-	xcodebuild test -workspace $(PROJECT_NAME).xcworkspace -scheme "UnitTests" -destination $(TVOS_DESTINATION) -derivedDataPath build/out -resultBundlePath build/reports/tvosUnitResults.xcresult -enableCodeCoverage YES ADB_SKIP_LINT=YES
+	rm -rf build/reports/tvos-unit.xcresult
+	xcodebuild test -workspace $(PROJECT_NAME).xcworkspace -scheme "UnitTests" -destination $(TVOS_DESTINATION) -derivedDataPath build/out -resultBundlePath build/reports/tvos-unit.xcresult -enableCodeCoverage YES ADB_SKIP_LINT=YES
 
 functional-test-tvos:
 	@echo "######################################################################"
 	@echo "### Functional Testing tvOS"
 	@echo "######################################################################"
-	rm -rf build/reports/tvosFunctionalResults.xcresult
-	xcodebuild test -workspace $(PROJECT_NAME).xcworkspace -scheme "FunctionalTests" -destination $(TVOS_DESTINATION) -derivedDataPath build/out -resultBundlePath build/reports/tvosFunctionalResults.xcresult -enableCodeCoverage YES ADB_SKIP_LINT=YES
+	rm -rf build/reports/tvos-functional.xcresult
+	xcodebuild test -workspace $(PROJECT_NAME).xcworkspace -scheme "FunctionalTests" -destination $(TVOS_DESTINATION) -derivedDataPath build/out -resultBundlePath build/reports/tvos-functional.xcresult -enableCodeCoverage YES ADB_SKIP_LINT=YES
 
 install-githook:
 	git config core.hooksPath .githooks
