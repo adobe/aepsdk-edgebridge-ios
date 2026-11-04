@@ -1,0 +1,95 @@
+#
+# Copyright 2026 Adobe. All rights reserved.
+# This file is licensed to you under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License. You may obtain a copy
+# of the License at http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed under
+# the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+# OF ANY KIND, either express or implied. See the License for the specific language
+# governing permissions and limitations under the License.
+#
+
+version: 2.1
+
+# GitHub Actions (.github/workflows/build-and-test.yml) runs lint, unit, functional and
+# xcframework jobs. CircleCI runs the two compile only lanes below.
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - build-swift6
+      - build-min-toolchain
+
+commands:
+  install_dependencies:
+    steps:
+      - restore_cache:
+          name: Restore Gemfile cache
+          keys:
+            - gems-v1-{{ checksum "Gemfile.lock" }}
+            - gems-v1-
+
+      - run:
+          name: Configure Bundler
+          command: |
+            bundle config set path 'vendor/bundle'
+            bundle check || bundle install
+
+      - save_cache:
+          name: Save Gemfile cache
+          key: gems-v1-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - restore_cache:
+          name: Restore CocoaPods cache
+          keys:
+            - pods-v1-{{ checksum "Podfile.lock" }}
+            - pods-v1-
+
+      - run:
+          name: Install CocoaPods
+          command: make ci-pod-install
+
+      - save_cache:
+          name: Save CocoaPods cache
+          key: pods-v1-{{ checksum "Podfile.lock" }}
+          paths:
+            - Pods
+            - ~/.cocoapods
+
+jobs:
+  # Swift 6 language mode coverage. Xcode 27 alone does not select Swift 6 because the
+  # checked in targets stay on SWIFT_VERSION 5.0, so this lane builds the AEPEdgeBridge
+  # target in Swift 6 through AEPEDGEBRIDGE_SWIFT_VERSION (read only by that target) and
+  # then compiles a Swift 6 consumer package. Dependencies keep their own language modes.
+  build-swift6:
+    resource_class: m4pro.medium
+    macos:
+      xcode: 27.0.0
+
+    steps:
+      - checkout
+      - install_dependencies
+      - run:
+          name: Build AEPEdgeBridge in Swift 6 language mode (dependencies keep their modes)
+          command: make build-swift6
+      - run:
+          name: Build Swift 6 consumer (plain closures from @MainActor)
+          command: make test-swift6-consumer
+
+  # Minimum supported toolchain coverage. README advertises Xcode 15.3+ / Swift 5.10;
+  # 15.4 is the oldest 15.x image CircleCI still hosts and ships the same Swift 5.10
+  # compiler. Compile only, to catch use of features newer than the advertised minimum.
+  build-min-toolchain:
+    resource_class: m4pro.medium
+    macos:
+      xcode: 15.4.0
+
+    steps:
+      - checkout
+      - install_dependencies
+      - run:
+          name: Build SDK on minimum supported toolchain (Xcode 15.4 / Swift 5.10)
+          command: make build-min-toolchain

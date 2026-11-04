@@ -176,3 +176,18 @@ test-SPM-integration:
 
 test-podspec:
 	sh ./Script/test-podspec.sh
+
+# Builds the AEPEdgeBridge target in Swift 6 language mode. Only that target reads
+# AEPEDGEBRIDGE_SWIFT_VERSION, so dependency pods keep their own language modes.
+build-swift6:
+	xcodebuild build -workspace $(PROJECT_NAME).xcworkspace -scheme $(PROJECT_NAME) -destination 'generic/platform=iOS Simulator' AEPEDGEBRIDGE_SWIFT_VERSION=6.0 ADB_SKIP_LINT=YES
+	xcodebuild build -workspace $(PROJECT_NAME).xcworkspace -scheme $(PROJECT_NAME) -destination 'generic/platform=tvOS Simulator' AEPEDGEBRIDGE_SWIFT_VERSION=6.0 ADB_SKIP_LINT=YES
+
+# Compiles a Swift 6 consumer that registers and uses AEPEdgeBridge from @MainActor code.
+test-swift6-consumer:
+	sh ./Script/test-swift6-consumer.sh
+
+# Compile-only build on the minimum supported toolchain (Xcode 15.3+/Swift 5.10).
+build-min-toolchain:
+	xcodebuild build -workspace $(PROJECT_NAME).xcworkspace -scheme $(PROJECT_NAME) -destination 'generic/platform=iOS Simulator' ADB_SKIP_LINT=YES
+	xcodebuild build -workspace $(PROJECT_NAME).xcworkspace -scheme $(PROJECT_NAME) -destination 'generic/platform=tvOS Simulator' ADB_SKIP_LINT=YES
