@@ -25,7 +25,8 @@ struct EdgeBridgeHelperImpl: EdgeBridgeHelper {
     func getApplicationState() -> UIApplication.State? {
         var ret: UIApplication.State?
         if Thread.isMainThread {
-            ret = UIApplication.shared.applicationState
+            // UIApplication is main actor only in Swift 6. We already checked we are on the main thread, so assumeIsolated reads the state without changing behavior.
+            ret = MainActor.assumeIsolated { UIApplication.shared.applicationState }
         } else {
             DispatchQueue.main.sync {
                 ret = UIApplication.shared.applicationState
