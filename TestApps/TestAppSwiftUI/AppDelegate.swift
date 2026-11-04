@@ -17,7 +17,7 @@ import AEPCore
 import Compression
 import UIKit
 
-@UIApplicationMain
+@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
     private let ENVIRONMENT_FILE_ID = ""
