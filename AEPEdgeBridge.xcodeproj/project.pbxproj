@@ -626,7 +626,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    ./Pods/SwiftLint/swiftlint lint --config ${SRCROOT}/.swiftlint.yml TestApps/TestAppSwiftUI\nelse\n    echo \"SwiftLint is not installed, please run the pod install command from the project root directory.\"\nfi\n\n";
+			shellScript = "if which swiftlint >/dev/null; then\n    ./Pods/SwiftLint/swiftlint lint --config \"${SRCROOT}\"/.swiftlint.yml TestApps/TestAppSwiftUI\nelse\n    echo \"SwiftLint is not installed, please run the pod install command from the project root directory.\"\nfi\n\n";
 		};
 		2EB8E0402D77730F003ABDA2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -739,7 +739,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    ./Pods/SwiftLint/swiftlint lint --config ${SRCROOT}/.swiftlint.yml TestApps/TestAppSwiftUI\nelse\n    echo \"SwiftLint is not installed, please run the pod install command from the project root directory.\"\nfi\n\n";
+			shellScript = "if which swiftlint >/dev/null; then\n    ./Pods/SwiftLint/swiftlint lint --config \"${SRCROOT}\"/.swiftlint.yml TestApps/TestAppSwiftUI\nelse\n    echo \"SwiftLint is not installed, please run the pod install command from the project root directory.\"\nfi\n\n";
 		};
 		BF024B7524C01AB2002131E9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -757,7 +757,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ -z ${ADB_SKIP_LINT} || ${ADB_SKIP_LINT} -ne \"YES\" ]]; then\n    if which ${PODS_ROOT}/SwiftLint/swiftlint >/dev/null; then\n        ${PODS_ROOT}/SwiftLint/swiftlint lint --config ${SRCROOT}/Tests/TestUtils/.swiftlint.yml Tests/UnitTests\n    else\n        echo \"warning: SwiftLint is not installed, please run the pod install command from the project root directory.\"\n    fi\nelse\n    echo \"Skipping linting build phase as ADB_SKIP_LINT flag is YES.\"\nfi\n\n\n";
+			shellScript = "if [[ -z ${ADB_SKIP_LINT} || ${ADB_SKIP_LINT} -ne \"YES\" ]]; then\n    if which ${PODS_ROOT}/SwiftLint/swiftlint >/dev/null; then\n        ${PODS_ROOT}/SwiftLint/swiftlint lint --config \"${SRCROOT}\"/Tests/TestUtils/.swiftlint.yml Tests/UnitTests\n    else\n        echo \"warning: SwiftLint is not installed, please run the pod install command from the project root directory.\"\n    fi\nelse\n    echo \"Skipping linting build phase as ADB_SKIP_LINT flag is YES.\"\nfi\n\n\n";
 		};
 		BF024B7624C01D02002131E9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -775,7 +775,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ -z ${ADB_SKIP_LINT} || ${ADB_SKIP_LINT} -ne \"YES\" ]]; then\n    if which ${PODS_ROOT}/SwiftLint/swiftlint >/dev/null; then\n        ${PODS_ROOT}/SwiftLint/swiftlint lint --config ${SRCROOT}/Tests/TestUtils/.swiftlint.yml Tests/FunctionalTests\n    else\n        echo \"warning: SwiftLint is not installed, please run the pod install command from the project root directory.\"\n    fi\nelse\n    echo \"Skipping linting build phase as ADB_SKIP_LINT flag is YES.\"\nfi\n\n\n";
+			shellScript = "if [[ -z ${ADB_SKIP_LINT} || ${ADB_SKIP_LINT} -ne \"YES\" ]]; then\n    if which ${PODS_ROOT}/SwiftLint/swiftlint >/dev/null; then\n        ${PODS_ROOT}/SwiftLint/swiftlint lint --config \"${SRCROOT}\"/Tests/TestUtils/.swiftlint.yml Tests/FunctionalTests\n    else\n        echo \"warning: SwiftLint is not installed, please run the pod install command from the project root directory.\"\n    fi\nelse\n    echo \"Skipping linting build phase as ADB_SKIP_LINT flag is YES.\"\nfi\n\n\n";
 		};
 		CA761D23BF0CBB881AE7E1B1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -833,7 +833,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ -z ${ADB_SKIP_LINT} || ${ADB_SKIP_LINT} -ne \"YES\" ]]; then\n    if which ${PODS_ROOT}/SwiftLint/swiftlint >/dev/null; then\n        ${PODS_ROOT}/SwiftLint/swiftlint lint --config ${SRCROOT}/.swiftlint.yml Sources\n    else\n        echo \"warning: SwiftLint is not installed, please run the pod install command from the project root directory.\"\n    fi\nelse\n    echo \"Skipping linting build phase as ADB_SKIP_LINT flag is YES.\"\nfi\n\n";
+			shellScript = "if [[ -z ${ADB_SKIP_LINT} || ${ADB_SKIP_LINT} -ne \"YES\" ]]; then\n    if which ${PODS_ROOT}/SwiftLint/swiftlint >/dev/null; then\n        ${PODS_ROOT}/SwiftLint/swiftlint lint --config \"${SRCROOT}\"/.swiftlint.yml Sources\n    else\n        echo \"warning: SwiftLint is not installed, please run the pod install command from the project root directory.\"\n    fi\nelse\n    echo \"Skipping linting build phase as ADB_SKIP_LINT flag is YES.\"\nfi\n\n";
 		};
 		E3A064EA739C4B24D152C7BC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -965,7 +965,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/TestApps/TestAppSwiftUI/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -978,7 +978,7 @@
 				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 13.0;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = Debug;
 		};
@@ -997,7 +997,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/TestApps/TestAppSwiftUI/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1009,7 +1009,7 @@
 				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 13.0;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = Release;
 		};
@@ -1030,7 +1030,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1042,9 +1042,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = "$(AEPEDGEBRIDGE_SWIFT_VERSION:default=5.0)";
 				TARGETED_DEVICE_FAMILY = "1,2,3";
-				TVOS_DEPLOYMENT_TARGET = 12.0;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1066,7 +1066,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1078,9 +1078,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = "$(AEPEDGEBRIDGE_SWIFT_VERSION:default=5.0)";
 				TARGETED_DEVICE_FAMILY = "1,2,3";
-				TVOS_DEPLOYMENT_TARGET = 12.0;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1161,7 +1161,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1170,7 +1170,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2,3";
-				TVOS_DEPLOYMENT_TARGET = 12.0;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = Debug;
 		};
@@ -1219,7 +1219,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1227,7 +1227,7 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2,3";
-				TVOS_DEPLOYMENT_TARGET = 12.0;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1239,7 +1239,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FKGEE875K4;
 				INFOPLIST_FILE = Tests/UnitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1249,7 +1249,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3";
-				TVOS_DEPLOYMENT_TARGET = 12.0;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = Debug;
 		};
@@ -1260,7 +1260,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FKGEE875K4;
 				INFOPLIST_FILE = Tests/UnitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1270,7 +1270,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3";
-				TVOS_DEPLOYMENT_TARGET = 12.0;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = Release;
 		};
@@ -1281,7 +1281,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FKGEE875K4;
 				INFOPLIST_FILE = Tests/FunctionalTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1292,7 +1292,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3";
-				TVOS_DEPLOYMENT_TARGET = 12.0;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Debug;
@@ -1304,7 +1304,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FKGEE875K4;
 				INFOPLIST_FILE = Tests/FunctionalTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1315,7 +1315,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,3";
-				TVOS_DEPLOYMENT_TARGET = 12.0;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Release;
@@ -1334,7 +1334,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/TestApps/TestAppSwiftUI/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1349,7 +1349,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TVOS_DEPLOYMENT_TARGET = 13.0;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = Debug;
 		};
@@ -1367,7 +1367,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/TestApps/TestAppSwiftUI/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1381,7 +1381,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TVOS_DEPLOYMENT_TARGET = 13.0;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = Release;
 		};

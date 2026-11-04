@@ -176,6 +176,10 @@ public class TestableExtensionRuntime: ExtensionRuntime {
         receivedEnforceOrder = enforceOrder
         handler(mockEventHistoryResults)
     }
+
+    public func recordHistoricalEvent(_ event: Event, handler: ((Bool) -> Void)?) {
+        handler?(true)
+    }
 }
 
 extension TestableExtensionRuntime {
